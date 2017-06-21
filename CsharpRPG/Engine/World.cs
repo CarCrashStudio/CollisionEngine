@@ -62,7 +62,7 @@ namespace RPG_Engine
         public int ICON_SIZE { get { return 32; } }
         public int WIDTH { get { return (MAX_MAP_SIZE + 1) * ICON_SIZE; } }
         public int HEIGHT { get { return (MAX_MAP_SIZE + 1) * ICON_SIZE; } }
-        public Point CENTER { get { return new Point(WIDTH / 2, HEIGHT / 2); } }
+        public Point CENTER { get { return new Point((WIDTH / 2) / 32, (HEIGHT / 2) / 32); } }
 
         public World(PictureBox _charForm)
         {
@@ -118,12 +118,10 @@ namespace RPG_Engine
             Location field = new RPG_Engine.Location(LOCATION_ID_FIELD, "Fields", "This place is swarmed with spiders");
             field.MonsterLivingHere = MonsterByID(MONSTER_ID_SPIDER);
             field.Transitions = new List<Transition>();
-            field.Transitions.Add(new Transition(new Point(5, 10), "South"));
 
             Location home = new Location(LOCATION_ID_HOUSE, "Your House", "You live here but now you should go adventuring");
             home.MonsterLivingHere = null;
             home.Transitions = new List<Transition>();
-            home.Transitions.Add(new Transition(new Point(5, -1), "North"));
 
 
 
@@ -132,7 +130,9 @@ namespace RPG_Engine
             Locations.Add(field);
 
             field.LocationToSouth = LocationByID(LOCATION_ID_HOUSE);
+            field.Transitions.Add(new Transition(new Point(5, 10), "South", field.LocationToSouth));
             home.LocationToNorth = LocationByID(LOCATION_ID_FIELD);
+            home.Transitions.Add(new Transition(new Point(5, -1), "North", home.LocationToNorth));
         }
         void PopulateNPCs()
         {

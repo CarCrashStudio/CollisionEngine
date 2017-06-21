@@ -137,7 +137,7 @@
             this.pbMap.Image = global::CsharpRPG.Properties.Resources._void;
             this.pbMap.Location = new System.Drawing.Point(5, 5);
             this.pbMap.Name = "pbMap";
-            this.pbMap.Size = new System.Drawing.Size(666, 352);
+            this.pbMap.Size = new System.Drawing.Size(320, 320);
             this.pbMap.TabIndex = 15;
             this.pbMap.TabStop = false;
             this.pbMap.Click += new System.EventHandler(this.pbMap_Click);

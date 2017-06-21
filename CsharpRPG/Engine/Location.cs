@@ -49,11 +49,13 @@ namespace RPG_Engine
     {
         public Point Location { get; set; }
         public string RequiredFacingDirection { get; set; }
+        public Location NextLocation { get; set; }
 
-        public Transition(Point location, string facing)
+        public Transition(Point location, string facing, Location nextLoc)
         {
             Location = location;
             RequiredFacingDirection = facing;
+            NextLocation = nextLoc;
         }
     }
 }

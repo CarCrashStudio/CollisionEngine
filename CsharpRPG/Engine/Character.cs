@@ -363,30 +363,8 @@ namespace RPG_Engine
             {
                 if (CheckNextTile() == transition.Location && Facing == transition.RequiredFacingDirection)
                 {
-                    if (Location.X == 9)
-                    {
-                        MoveTo(CurrentLocation.LocationToEast);
-                        Location = new Point(0, Location.Y);
-                        break;
-                    }
-                    if (Location.X == 0)
-                    {
-                        MoveTo(CurrentLocation.LocationToWest);
-                        Location = new Point(9, Location.Y);
-                        break;
-                    }
-                    if (Location.Y == 9)
-                    {
-                        MoveTo(CurrentLocation.LocationToSouth);
-                        Location = new Point(Location.X, 0);
-                        break;
-                    }
-                    if (Location.Y == 0)
-                    {
-                        MoveTo(CurrentLocation.LocationToNorth);
-                        Location = new Point(Location.X, 9);
-                        break;
-                    }
+                    world.player.Location = transition.NextLocation.Transitions[0].Location;
+                    MoveTo(transition.NextLocation);
                 }
                 //world.HUD.Update();
             }

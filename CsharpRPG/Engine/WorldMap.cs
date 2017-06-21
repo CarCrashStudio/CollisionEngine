@@ -12,6 +12,8 @@ namespace RPG_Engine
         int x = 0;
         int y = 0; // Tile Coords vars
         string name; // World/File name
+        int timesshiftedx; // COunts how many times the map was shifted on the x
+        int timesshiftedy; // COunts how many times the map was shifted on the y
 
         public string Name { get { return name; } set { name = value; } } // Map name
         public List<Tile> TilesOnMap { get; set; } // List of Tiles on map
@@ -103,34 +105,20 @@ namespace RPG_Engine
 
         void CalibrateMap()
         {
-            // Center the screen at 0,0 in relation to the player
-            while (MapLoc.X * 32 != world.WIDTH / 2)
-            {
-                ShiftMap(1, 0);
-            }
-            while (MapLoc.Y * 32 != (world.HEIGHT / 2))
-            {
-                ShiftMap(0, 1);
-            }
+            MapLoc = new Point(
+                    // X Coordinate
+                    world.CENTER.X - world.player.Location.X,
 
-            //Sync the screen with the player
-             while((MapLoc.X - 5) != world.player.Location.X)
-            {
-                if((MapLoc.X - 5) > world.player.Location.X)
-                {
-                    ShiftMap(-1, 0);
-                }
-                else { ShiftMap(1, 0); }
-                
-            }
-            while ((MapLoc.Y - 5) != world.player.Location.Y)
-            {
-                if ((MapLoc.Y - 5) > world.player.Location.Y)
-                {
-                    ShiftMap(0, -1);
-                }
-                else { ShiftMap(0, 1); }
-            }
+                    // Y Coordinate
+                    world.CENTER.Y - world.player.Location.Y
+                );
+            //MapLoc = new Point(
+            //        // X Coordinate
+            //        world.player.Location.X - world.CENTER.X,
+
+            //        // Y Coordinate
+            //        -(world.player.Location.Y - world.CENTER.Y)
+            //    );
         }
 
         public void SetMap()
