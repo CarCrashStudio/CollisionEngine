@@ -15,8 +15,6 @@ namespace CsharpRPG
     {
         // Engine Object Classes
         Character player;
-        Monster monsterLivingHere;
-        NPC npc;
         World world;
         Combat combat;
 
@@ -45,13 +43,9 @@ namespace CsharpRPG
 
             creator.Close();
 
-            combat = new Combat(lblOutput, player, monsterLivingHere);
+            combat = new Combat(lblOutput, player, player.CurrentLocation.MonsterLivingHere);
             world.combat = combat;
 
-            updateScreen();
-
-            // DUMBEST WAY TO FIX THIS PROBLEM BUT ITS THE ONLY WAY I CAN THINK OF RIGHT NOW AND IT WORKS
-            world.map = new WorldMap(world.player.CurrentLocation.Name, pbMap, world);
             updateScreen();
         }
 
@@ -196,8 +190,7 @@ namespace CsharpRPG
             world.Inventory = lstInventory;
             world.Journal = journal.dgvQuests;
         }
-
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        
         #region EventHandlers
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
@@ -208,24 +201,6 @@ namespace CsharpRPG
                 {
                     player.MovePlayer(keyPressed);
                     updateScreen();
-
-                    //if(keyPressed == "Up")
-                    //{
-                    //    world.map.ShiftMap(keyPressed, 0, 1);
-                    //}
-                    //if (keyPressed == "Down")
-                    //{
-                    //    world.map.ShiftMap(keyPressed, 0, -1);
-                    //}
-                    //if (keyPressed == "Left")
-                    //{
-                    //    world.map.ShiftMap(keyPressed, -1, 0);
-                    //}
-                    //if (keyPressed == "Right")
-                    //{
-                    //    world.map.ShiftMap(keyPressed, 1, 0);
-                    //}
-
                 }
             }
             else
@@ -235,40 +210,17 @@ namespace CsharpRPG
                     case "Enter":
                         if (txtInput.Text != string.Empty)
                         {
-                            if (txtInput.Text.Contains("/"))
-                            {
-                                //txtInput.Clear();
-                                //switch (txtInput.Text)
-                                //{
-                                //    case "/up":
-                                //        player.Move(0, -1);
-                                //        ReloadStats();
-                                //        break;
-                                //    case "/down":
-                                //        player.Move(0, 1);
-                                //        ReloadStats();
-                                //        break;
-                                //    case "/left":
-                                //        player.Move(-1, 0);
-                                //        ReloadStats();
-                                //        break;
-                                //    case "/right":
-                                //        player.Move(1, 0);
-                                //        ReloadStats();
-                                //        break;
-                                //}
-                            }
-                            else { lblOutput.Text += player.Name + ": " + txtInput.Text + Environment.NewLine; txtInput.Clear(); }
+                            lblOutput.Text += player.Name + ": " + txtInput.Text + Environment.NewLine; txtInput.Clear();
                         }
                         else
                         {
-                            if (npc.Location == player.CheckNextTile())
-                            {
-                                if (npc.QuestAvailableHere != null)
-                                {
-                                    player.RecieveQuest(npc);
-                                }
-                            }
+                            //if (npc.Location == player.CheckNextTile())
+                            //{
+                            //    if (npc.QuestAvailableHere != null)
+                            //    {
+                            //        player.RecieveQuest(npc);
+                            //    }
+                            //}
                         }
                         break;
                 }

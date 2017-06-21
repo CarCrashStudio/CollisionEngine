@@ -13,7 +13,6 @@ namespace CsharpRPG
 {
     public partial class Journal : Form
     {
-        Character player;
         public Journal()
         {
             InitializeComponent();

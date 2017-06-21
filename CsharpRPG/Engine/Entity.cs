@@ -48,28 +48,6 @@ namespace RPG_Engine
 
         public string Facing { get; set; } // The direction the player is facing (North, South, East, West)
         public Point NextTile { get; set; } //THe coordinate of the tile in front of the player
-
-        public void Move(int x, int y)
-        {
-            location.X += x;
-            location.Y += y;
-            switch (Facing)
-            {
-                case "North":
-                    img = new Bitmap("icons/PlayerStates/PlayerUp.bmp");
-                    break;
-                case "South":
-                    img = new Bitmap("icons/PlayerStates/PlayerDown.bmp");
-                    break;
-                case "East":
-                    img = new Bitmap("icons/PlayerStates/PlayerRight.bmp");
-                    break;
-                case "West":
-                    img = new Bitmap("icons/PlayerStates/PlayerLeft.bmp");
-                    break;
-            }
-            charForm.Image = Draw();
-        }
         
         public Point CheckNextTile()
         {
@@ -90,16 +68,6 @@ namespace RPG_Engine
                     return tempNextTile;
             }
             return new Point(0, 0);
-        }
-        public Bitmap Draw()
-        {
-            var bitmap = new Bitmap(charForm.Image, charForm.Width, charForm.Height);
-            var graphics = Graphics.FromImage(bitmap);
-
-            //graphics.SmoothingMode = SmoothingMode.AntiAlias;
-            graphics.DrawImage(img, new Point(world.WIDTH / 2, world.HEIGHT / 2));
-
-            return bitmap;
         }
 
         public bool isDead()

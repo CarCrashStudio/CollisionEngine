@@ -51,6 +51,38 @@ namespace RPG_Engine
             Quests = new List<PlayerQuest>();
         }
 
+        public Bitmap Draw()
+        {
+            var bitmap = new Bitmap(world.charForm.Image, world.WIDTH, world.HEIGHT);
+            var graphics = Graphics.FromImage(bitmap);
+
+            //graphics.SmoothingMode = SmoothingMode.AntiAlias;
+            graphics.DrawImage(Image, new Point(world.WIDTH / 2, world.HEIGHT / 2));
+
+            return bitmap;
+        }
+
+        public void Move(int x, int y)
+        {
+            Location = new Point(Location.X + x, Location.Y + y);
+            switch (Facing)
+            {
+                case "North":
+                    Image = new Bitmap("icons/PlayerStates/PlayerUp.bmp");
+                    break;
+                case "South":
+                    Image = new Bitmap("icons/PlayerStates/PlayerDown.bmp");
+                    break;
+                case "East":
+                    Image = new Bitmap("icons/PlayerStates/PlayerRight.bmp");
+                    break;
+                case "West":
+                    Image = new Bitmap("icons/PlayerStates/PlayerLeft.bmp");
+                    break;
+            }
+            world.charForm.Image = Draw();
+        }
+
         public bool isColliding()
         {
             WorldMap map = world.map;

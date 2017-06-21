@@ -53,7 +53,6 @@ C:\Users\linki\Desktop\STABLE - MINOR BUGS - Copy\CsharpRPG\CsharpRPG\obj\Debug\
 C:\Users\linki\Source\Repos\RogueRPG\CsharpRPG\bin\Debug\CsharpRPG.exe.config
 C:\Users\linki\Source\Repos\RogueRPG\CsharpRPG\bin\Debug\CsharpRPG.exe
 C:\Users\linki\Source\Repos\RogueRPG\CsharpRPG\bin\Debug\CsharpRPG.pdb
-C:\Users\linki\Source\Repos\RogueRPG\CsharpRPG\obj\Debug\CsharpRPG.csprojResolveAssemblyReference.cache
 C:\Users\linki\Source\Repos\RogueRPG\CsharpRPG\obj\Debug\CsharpRPG.CreatorWindow.resources
 C:\Users\linki\Source\Repos\RogueRPG\CsharpRPG\obj\Debug\CsharpRPG.Journal.resources
 C:\Users\linki\Source\Repos\RogueRPG\CsharpRPG\obj\Debug\CsharpRPG.MainForm.resources

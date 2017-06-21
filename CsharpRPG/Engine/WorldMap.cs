@@ -12,8 +12,6 @@ namespace RPG_Engine
         int x = 0;
         int y = 0; // Tile Coords vars
         string name; // World/File name
-        int timesshiftedx; // COunts how many times the map was shifted on the x
-        int timesshiftedy; // COunts how many times the map was shifted on the y
 
         public string Name { get { return name; } set { name = value; } } // Map name
         public List<Tile> TilesOnMap { get; set; } // List of Tiles on map
@@ -112,13 +110,6 @@ namespace RPG_Engine
                     // Y Coordinate
                     world.CENTER.Y - world.player.Location.Y
                 );
-            //MapLoc = new Point(
-            //        // X Coordinate
-            //        world.player.Location.X - world.CENTER.X,
-
-            //        // Y Coordinate
-            //        -(world.player.Location.Y - world.CENTER.Y)
-            //    );
         }
 
         public void SetMap()
