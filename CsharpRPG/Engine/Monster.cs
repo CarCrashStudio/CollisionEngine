@@ -45,7 +45,7 @@ namespace RPG_Engine
             var graphics = Graphics.FromImage(bitmap);
 
             //graphics.SmoothingMode = SmoothingMode.AntiAlias;
-            graphics.DrawImage(Image, Location);
+            graphics.DrawImage(Image, new Point (Location.X * 32, Location.Y * 32));
 
             return bitmap;
         }
