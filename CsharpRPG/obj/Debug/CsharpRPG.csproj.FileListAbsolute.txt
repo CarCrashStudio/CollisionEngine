@@ -1,0 +1,52 @@
+F:\CsharpRPG\CsharpRPG\bin\Debug\CsharpRPG.exe.config
+F:\CsharpRPG\CsharpRPG\obj\Debug\CsharpRPG.csprojResolveAssemblyReference.cache
+F:\CsharpRPG\CsharpRPG\obj\Debug\CsharpRPG.CreatorWindow.resources
+F:\CsharpRPG\CsharpRPG\obj\Debug\CsharpRPG.Journal.resources
+F:\CsharpRPG\CsharpRPG\obj\Debug\CsharpRPG.Properties.Resources.resources
+F:\CsharpRPG\CsharpRPG\obj\Debug\CsharpRPG.csproj.GenerateResource.Cache
+F:\CsharpRPG\CsharpRPG\bin\Debug\CsharpRPG.exe
+F:\CsharpRPG\CsharpRPG\bin\Debug\CsharpRPG.pdb
+F:\CsharpRPG\CsharpRPG\bin\Debug\RPG Engine.dll
+F:\CsharpRPG\CsharpRPG\bin\Debug\RPG Engine.pdb
+F:\CsharpRPG\CsharpRPG\obj\Debug\CsharpRPG.exe
+F:\CsharpRPG\CsharpRPG\obj\Debug\CsharpRPG.pdb
+E:\CsharpRPG\CsharpRPG\bin\Debug\CsharpRPG.exe.config
+E:\CsharpRPG\CsharpRPG\obj\Debug\CsharpRPG.exe
+E:\CsharpRPG\CsharpRPG\obj\Debug\CsharpRPG.pdb
+E:\CsharpRPG\CsharpRPG\bin\Debug\CsharpRPG.exe
+E:\CsharpRPG\CsharpRPG\bin\Debug\CsharpRPG.pdb
+E:\CsharpRPG\CsharpRPG\bin\Debug\RPG Engine.dll
+E:\CsharpRPG\CsharpRPG\bin\Debug\RPG Engine.pdb
+E:\CsharpRPG\CsharpRPG\obj\Debug\CsharpRPG.csprojResolveAssemblyReference.cache
+E:\CsharpRPG\CsharpRPG\obj\Debug\CsharpRPG.CreatorWindow.resources
+E:\CsharpRPG\CsharpRPG\obj\Debug\CsharpRPG.Journal.resources
+E:\CsharpRPG\CsharpRPG\obj\Debug\CsharpRPG.Properties.Resources.resources
+E:\CsharpRPG\CsharpRPG\obj\Debug\CsharpRPG.csproj.GenerateResource.Cache
+E:\CsharpRPG\CsharpRPG\obj\Debug\CsharpRPG.MainForm.resources
+F:\CsharpRPG\CsharpRPG\obj\Debug\CsharpRPG.MainForm.resources
+C:\Users\linki\Desktop\STABLE - MINOR BUGS\CsharpRPG\CsharpRPG\bin\Debug\CsharpRPG.exe.config
+C:\Users\linki\Desktop\STABLE - MINOR BUGS\CsharpRPG\CsharpRPG\obj\Debug\CsharpRPG.exe
+C:\Users\linki\Desktop\STABLE - MINOR BUGS\CsharpRPG\CsharpRPG\obj\Debug\CsharpRPG.pdb
+C:\Users\linki\Desktop\STABLE - MINOR BUGS\CsharpRPG\CsharpRPG\bin\Debug\CsharpRPG.exe
+C:\Users\linki\Desktop\STABLE - MINOR BUGS\CsharpRPG\CsharpRPG\bin\Debug\CsharpRPG.pdb
+C:\Users\linki\Desktop\STABLE - MINOR BUGS\CsharpRPG\CsharpRPG\bin\Debug\RPG Engine.dll
+C:\Users\linki\Desktop\STABLE - MINOR BUGS\CsharpRPG\CsharpRPG\bin\Debug\RPG Engine.pdb
+C:\Users\linki\Desktop\STABLE - MINOR BUGS\CsharpRPG\CsharpRPG\obj\Debug\CsharpRPG.csprojResolveAssemblyReference.cache
+C:\Users\linki\Desktop\STABLE - MINOR BUGS\CsharpRPG\CsharpRPG\obj\Debug\CsharpRPG.CreatorWindow.resources
+C:\Users\linki\Desktop\STABLE - MINOR BUGS\CsharpRPG\CsharpRPG\obj\Debug\CsharpRPG.Journal.resources
+C:\Users\linki\Desktop\STABLE - MINOR BUGS\CsharpRPG\CsharpRPG\obj\Debug\CsharpRPG.MainForm.resources
+C:\Users\linki\Desktop\STABLE - MINOR BUGS\CsharpRPG\CsharpRPG\obj\Debug\CsharpRPG.Properties.Resources.resources
+C:\Users\linki\Desktop\STABLE - MINOR BUGS\CsharpRPG\CsharpRPG\obj\Debug\CsharpRPG.csproj.GenerateResource.Cache
+C:\Users\linki\Desktop\STABLE - MINOR BUGS - Copy\CsharpRPG\CsharpRPG\bin\Debug\CsharpRPG.exe.config
+C:\Users\linki\Desktop\STABLE - MINOR BUGS - Copy\CsharpRPG\CsharpRPG\obj\Debug\CsharpRPG.exe
+C:\Users\linki\Desktop\STABLE - MINOR BUGS - Copy\CsharpRPG\CsharpRPG\obj\Debug\CsharpRPG.pdb
+C:\Users\linki\Desktop\STABLE - MINOR BUGS - Copy\CsharpRPG\CsharpRPG\bin\Debug\CsharpRPG.exe
+C:\Users\linki\Desktop\STABLE - MINOR BUGS - Copy\CsharpRPG\CsharpRPG\bin\Debug\CsharpRPG.pdb
+C:\Users\linki\Desktop\STABLE - MINOR BUGS - Copy\CsharpRPG\CsharpRPG\bin\Debug\RPG Engine.dll
+C:\Users\linki\Desktop\STABLE - MINOR BUGS - Copy\CsharpRPG\CsharpRPG\bin\Debug\RPG Engine.pdb
+C:\Users\linki\Desktop\STABLE - MINOR BUGS - Copy\CsharpRPG\CsharpRPG\obj\Debug\CsharpRPG.csprojResolveAssemblyReference.cache
+C:\Users\linki\Desktop\STABLE - MINOR BUGS - Copy\CsharpRPG\CsharpRPG\obj\Debug\CsharpRPG.CreatorWindow.resources
+C:\Users\linki\Desktop\STABLE - MINOR BUGS - Copy\CsharpRPG\CsharpRPG\obj\Debug\CsharpRPG.Journal.resources
+C:\Users\linki\Desktop\STABLE - MINOR BUGS - Copy\CsharpRPG\CsharpRPG\obj\Debug\CsharpRPG.MainForm.resources
+C:\Users\linki\Desktop\STABLE - MINOR BUGS - Copy\CsharpRPG\CsharpRPG\obj\Debug\CsharpRPG.Properties.Resources.resources
+C:\Users\linki\Desktop\STABLE - MINOR BUGS - Copy\CsharpRPG\CsharpRPG\obj\Debug\CsharpRPG.csproj.GenerateResource.Cache
