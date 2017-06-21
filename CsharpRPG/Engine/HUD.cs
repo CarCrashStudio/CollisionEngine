@@ -11,71 +11,171 @@ namespace RPG_Engine
     public class Hud
     {
         Bitmap TempImg;
+
+        public List<HUDObject> Clickables { get; set; }
+        public List<HUDObject> InventoryItems { get; set; }
+
+        // HUD STATS
         public HUDObject CharImgBox { get; set; }
+        public HUDObject CharImg { get; set; }
         public HUDObject CharStatBar { get; set; }
-        public HUDObject HealthBar { get; set; }
+        public HUDObject MainHealthBar { get; set; }
+        public HUDObject MainExpBar { get; set; }
+        public HUDObject NameLevelString { get; set; }
+        public HUDObject Class { get; set; }
+        public HUDObject Strength { get; set; }
+        public HUDObject Defense { get; set; }
+        public HUDObject InventoryItem { get; set; }
+        public HUDObject Gold { get; set; }
+
+        // HUD INVENTORIES
+        public HUDObject InventoryBox { get; set; }
+        public HUDObject QuestBox { get; set; }
+
+        // HUD BUTTONS
+        public HUDObject InventoryButton { get; set; }
+        public HUDObject CloseButton { get; set; }
+
+        // COMBAT SCREEN
+        public HUDObject PHealthCombat { get; set; }
+        public HUDObject DHealthCombat { get; set; }
+
+        Bitmap strImg;
+        Bitmap defImg;
 
         World world { get; set; }
-        public Hud(Bitmap _CharStatBar, Bitmap _CharImgBox, World _world)
+        public Hud(Bitmap _CharStatBar, Bitmap _CharImgBox, Bitmap _strImg, Bitmap _defImg, World _world)
         {
+            Clickables = new List<HUDObject>();
+            InventoryItems = new List<HUDObject>();
+
+            strImg = _strImg;
+            defImg = _defImg;
+
             world = _world;
+            List<Point> temp = new List<Point>();
+            temp.Add(new Point(0, 0));
+            temp.Add(new Point(temp[0].X + _CharImgBox.Width, temp[0].Y + _CharImgBox.Height));
 
-            CharImgBox = new RPG_Engine.HUDObject();
-            CharImgBox.Boundries = new List<Point>();
-            CharImgBox.Boundries.Add(new Point(0, 0));
-            CharImgBox.Boundries.Add(new Point(128, 128));
-            CharImgBox.Image = _CharImgBox;
+            CharImgBox = new HUDObject(temp, _CharImgBox);
 
-            CharStatBar = new RPG_Engine.HUDObject();
-            CharStatBar.Boundries = new List<Point>();
-            CharStatBar.Boundries.Add(new Point(128, 0));
-            CharStatBar.Boundries.Add(new Point(384, 128));
-            CharStatBar.Image = _CharStatBar;
+            temp = new List<Point>();
+            temp.Add(new Point(CharImgBox.Boundries[0].X + 10, CharImgBox.Boundries[0].Y + 10));
+            CharImg = new HUDObject(temp, world.player.Image);
+
+            temp = new List<Point>();
+            temp.Add(new Point(CharImgBox.Boundries[1].X, 0));
+            temp.Add(new Point(temp[0].X + _CharStatBar.Width, temp[0].Y + _CharStatBar.Height));
+            CharStatBar = new HUDObject(temp, _CharStatBar);
+
+            temp = new List<Point>();
+            temp.Add(new Point(CharStatBar.FindCenterofBounds().X - 45, CharStatBar.FindCenterofBounds().Y + 25));
+            MainHealthBar = new HUDObject(temp, new Bitmap("icons/HUDBars/HealthBar/HealthBar10.png"));
+
+            temp = new List<Point>();
+            temp.Add(new Point(CharStatBar.FindCenterofBounds().X - 45, CharStatBar.FindCenterofBounds().Y + 40));
+            MainExpBar = new HUDObject(temp, new Bitmap("icons/HUDBars/ExpBar/ExpBar (10).png"));
+
+            temp = new List<Point>();
+            temp.Add(new Point(MainHealthBar.Boundries[0].X, MainHealthBar.Boundries[0].Y - 80));
+            NameLevelString = new HUDObject(temp, null, world.player.Name + " (" + world.player.Level + ")");
+
+            temp = new List<Point>();
+            temp.Add(new Point(MainHealthBar.Boundries[0].X, NameLevelString.Boundries[0].Y + 25));
+            Class = new HUDObject(temp, null, world.player.Class);
+
+            temp = new List<Point>();
+            temp.Add(new Point(MainHealthBar.Boundries[0].X, NameLevelString.Boundries[0].Y + 45));
+            Strength = new HUDObject(temp, strImg, ": " + world.player.MaximumDamage.ToString());
+
+            temp = new List<Point>();
+            temp.Add(new Point(MainHealthBar.Boundries[0].X + 70, NameLevelString.Boundries[0].Y + 45));
+            Defense = new HUDObject(temp, defImg, ": " + world.player.MaximumDefense.ToString());
+
+            temp = new List<Point>();
+            temp.Add(new Point(0, world.HEIGHT - 32));
+            temp.Add(new Point(32, world.HEIGHT));
+            InventoryButton = new HUDObject(temp, new Bitmap("icons/HUDBars/bagbutton.png"));
+            Clickables.Add(InventoryButton);
+
+            temp = new List<Point>();
+            temp.Add(new Point(world.WIDTH - 32, world.HEIGHT - 32));
+            temp.Add(new Point(world.WIDTH, world.HEIGHT));
+            CloseButton = new HUDObject(temp, new Bitmap("icons/HUDBars/exitbutton.png"));
+            Clickables.Add(CloseButton);
+
+            temp = new List<Point>();
+            temp.Add(new Point(InventoryButton.Boundries[0].X, InventoryButton.Boundries[0].Y - 400));
+            temp.Add(new Point(InventoryButton.Boundries[0].X + 300, InventoryButton.Boundries[0].Y));
+            InventoryBox = new HUDObject(temp, new Bitmap("icons/HUDBars/bagbox.png"));
+
+            temp = new List<Point>();
+            temp.Add(new Point(0, 0));
+            PHealthCombat = new HUDObject(temp);
+            DHealthCombat = new HUDObject(temp);
         }
 
+        public void AddCombatHealth()
+        {
+            PHealthCombat.Picture = world.combat.PHealth;
+            DHealthCombat.Picture = world.combat.DHealth;
+        }
         public void Update()
         {
-            UpdateStats();
             UpdateWorld();
             UpdatePlayer();
-            UpdateMonsters();
+            //UpdateMonsters();
+            UpdateCombatScreen();
         }
 
         void UpdateStats()
         {
-            world.Stats.Text = "Name: " + world.player.Name + " (" + world.player.Level + ")" + Environment.NewLine;
-            world.Stats.Text += "Class: " + world.player.Class + Environment.NewLine;
-            world.Stats.Text += "Strength: " + world.player.MaximumDamage + Environment.NewLine;
-            world.Stats.Text += "Defense: " + world.player.MaximumDefense + Environment.NewLine;
-            world.Stats.Text += "Health: " + world.player.Health + "/" + world.player.MaxHealth + Environment.NewLine;
-            world.Stats.Text += "Exp: " + world.player.Exp + "/" + world.player.MaxExp + Environment.NewLine;
-            world.Stats.Text += "Gold: " + world.player.Gold + Environment.NewLine;
-            world.Stats.Text += world.player.Location.ToString();
-            world.Stats.Text += Environment.NewLine;
-            world.Stats.Text += "==================\n";
-            world.Stats.Text += "[    " + world.player.CurrentLocation.Name + "    ]" + Environment.NewLine;
-            world.Stats.Text += world.player.CurrentLocation.Description + Environment.NewLine;
-            world.Stats.Text += "==================\n";
-            world.Stats.Text += world.player.CountDown;
-            world.Stats.Text += Environment.NewLine;
+            NameLevelString.Text = world.player.Name + " (" + world.player.Level + ")";
+            Class.Text = world.player.Class;
+            Strength.Text = ": " + world.player.MaximumDamage.ToString();
+            Defense.Text = ": " + world.player.MaximumDefense.ToString();
 
-            //lblArmor.Text = "Head: " + world.player.HeadEquipped + Environment.NewLine;
-            //lblArmor.Text += "Torso: " + world.player.TorsoEquipped + Environment.NewLine;
-            //lblArmor.Text += "Legs: " + world.player.LegsEquipped + Environment.NewLine;
-            //lblArmor.Text += "Feet: " + world.player.FeetEquipped + Environment.NewLine;
-            //lblArmor.Text += "Main Hand: " + world.player.MainHandEquipped + Environment.NewLine;
-            //lblArmor.Text += "Off Hand: " + world.player.OffHandEquipped + Environment.NewLine;
+            world.charForm.Image = DrawBars(CharImgBox, world.charForm);
+            world.charForm.Image = DrawBars(CharImg, world.charForm);
+            world.charForm.Image = DrawBars(CharStatBar, world.charForm);
+            world.charForm.Image = DrawBars(NameLevelString, world.charForm);
+            world.charForm.Image = DrawBars(Class, world.charForm);
+            world.charForm.Image = DrawBars(Strength, world.charForm);
+            world.charForm.Image = DrawBars(Defense, world.charForm);
+
+            world.charForm.Image = DrawBars(InventoryButton, world.charForm);
+            world.charForm.Image = DrawBars(CloseButton, world.charForm);
+
+            world.charForm.Image = DrawHealth(MainHealthBar, world.charForm, world.player, world.charForm.Width, world.charForm.Height, world.charForm.Image);
+            world.charForm.Image = DrawExp(MainExpBar, world.charForm, world.player, world.charForm.Width, world.charForm.Height, world.charForm.Image);
+        }
+        public void UpdateInventory()
+        {
+            List<Point> temp = new List<Point>();
+            temp.Add(new Point(InventoryBox.Boundries[0].X + 70, InventoryBox.Boundries[0].Y + 15));
+            Gold = new HUDObject(temp, null, "Gold: " + world.player.Gold.ToString());
 
             // Refresh player's inventory list
-            world.Inventory.Items.Clear();
             foreach (InventoryItem inventoryItem in world.player.Inventory)
             {
+                int increment = 1;
+                temp = new List<Point>();
+                temp.Add(new Point(InventoryBox.Boundries[0].X + 50, InventoryBox.Boundries[0].Y + (35 * increment)));
+                InventoryItem = new HUDObject(temp, null, inventoryItem.Details.Name);
                 if (inventoryItem.Quantity > 0)
                 {
-                    world.Inventory.Items.Add(inventoryItem.Details.Name + "(" + inventoryItem.Quantity.ToString() + ") " + inventoryItem.Details.EquipTag);
+                    InventoryItem.Text = inventoryItem.Details.Name + "(" + inventoryItem.Quantity.ToString() + ") " + inventoryItem.Details.EquipTag;
                 }
+                if (InventoryBox.Shown)
+                {
+                    world.charForm.Image = DrawBars(Gold, world.charForm);
+                    world.charForm.Image = DrawBars(InventoryItem, world.charForm);
+                }
+                InventoryItems.Add(InventoryItem);
             }
-
+        }
+        public void UpdateQuestLog()
+        {
             // Refresh player's quest list
             world.Journal.RowHeadersVisible = false;
 
@@ -94,9 +194,8 @@ namespace RPG_Engine
         void UpdatePlayer()
         {
             world.charForm.Image = world.player.Draw();
-
-            world.map.gameForm.Image = DrawBars(CharImgBox);
-            world.map.gameForm.Image = DrawBars(CharStatBar);
+            //UpdateInventory();
+            UpdateStats();
         }
         void UpdateWorld()
         {
@@ -110,38 +209,101 @@ namespace RPG_Engine
                 world.charForm.Image = MonsterLivingHere.Draw();
             }
         }
-
-        public Bitmap DrawBars(HUDObject bar)
+        void UpdateCombatScreen()
         {
-            var bitmap = new Bitmap(world.map.gameForm.Image, world.map.gameForm.Width, world.map.gameForm.Height);
+            world.combat.PHealth.Image = DrawHealth(PHealthCombat, world.combat.PHealth, world.player, 160, 16);
+            world.combat.DHealth.Image = DrawHealth(DHealthCombat, world.combat.DHealth, world.player.CurrentLocation.MonsterLivingHere, 160, 16);
+        }
+        public Bitmap DrawBars(HUDObject bar, PictureBox form)
+        {
+            Font font = new Font("Arial", 16);
+            Brush brush = new SolidBrush(Color.Black);
+
+            var bitmap = new Bitmap(form.Image, form.Width, form.Height);
             var graphics = Graphics.FromImage(bitmap);
 
             //graphics.SmoothingMode = SmoothingMode.AntiAlias;
-            graphics.DrawImage(bar.Image, bar.Boundries[0]);
-
+            if (bar.Text != null)
+            {
+                if (bar.Image != null)
+                {
+                    graphics.DrawString(bar.Text, font, brush, bar.Boundries[0].X + bar.Image.Width, bar.Boundries[0].Y);
+                }
+                else
+                {
+                    graphics.DrawString(bar.Text, font, brush, bar.Boundries[0].X, bar.Boundries[0].Y);
+                    bar.Boundries.Add(new Point(bar.Boundries[0].X + bitmap.Width, bar.Boundries[0].Y + bitmap.Height));
+                }
+            }
+            if (bar.Image != null)
+            {
+                graphics.DrawImage(bar.Image, bar.Boundries[0]);
+            }
             return bitmap;
         }
-        public Bitmap DrawHealth()
+        public Bitmap DrawHealth(HUDObject health, PictureBox form, Entity entity, int Width, int Height, Image Image = null)
         {
-            var bitmap = new Bitmap(world.map.gameForm.Image, world.map.gameForm.Width, world.map.gameForm.Height);
+            var bitmap = health.Image;
+            if (Image == null)
+            {
+                bitmap = new Bitmap(Width, Height);
+            }
+            else
+            {
+                bitmap = new Bitmap(Image, Width, Height);
+            }
             var graphics = Graphics.FromImage(bitmap);
 
             Bitmap img = new Bitmap("icons/HUDBars/HealthBar/HealthBar10.png");
+            if (entity != null)
+            {
+                double temp = entity.Health / entity.MaxHealth;
+                if (temp == 1) { img = new Bitmap("icons/HUDBars/HealthBar/HealthBar10.png"); }
+                else if (temp >= .9 && temp < 1) { img = new Bitmap("icons/HUDBars/HealthBar/HealthBar9.png"); }
+                else if (temp >= .8 && temp < .9) { img = new Bitmap("icons/HUDBars/HealthBar/HealthBar8.png"); }
+                else if (temp >= .7 && temp < .8) { img = new Bitmap("icons/HUDBars/HealthBar/HealthBar7.png"); }
+                else if (temp >= .6 && temp < .7) { img = new Bitmap("icons/HUDBars/HealthBar/HealthBar6.png"); }
+                else if (temp >= .5 && temp < .6) { img = new Bitmap("icons/HUDBars/HealthBar/HealthBar5.png"); }
+                else if (temp >= .4 && temp < .5) { img = new Bitmap("icons/HUDBars/HealthBar/HealthBar4.png"); }
+                else if (temp >= .3 && temp < .4) { img = new Bitmap("icons/HUDBars/HealthBar/HealthBar3.png"); }
+                else if (temp >= .2 && temp < .3) { img = new Bitmap("icons/HUDBars/HealthBar/HealthBar2.png"); }
+                else if (temp >= .1 && temp < .2) { img = new Bitmap("icons/HUDBars/HealthBar/HealthBar1.png"); }
+            }
+            health.Image = img;
+            graphics.DrawImage(health.Image, health.Boundries[0]);
 
-            float temp = world.player.Health / world.player.MaxHealth;
-            if (temp == 10) { img = new Bitmap("icons/HUDBars/HealthBar/HealthBar10.png"); }
-            else if (temp >= .9 && temp < 1) { img = new Bitmap("icons/HUDBars/HealthBar/HealthBar9.png"); }
-            else if (temp >= .8 && temp < .9) { img = new Bitmap("icons/HUDBars/HealthBar/HealthBar8.png"); }
-            else if (temp >= .7 && temp < .8) { img = new Bitmap("icons/HUDBars/HealthBar/HealthBar7.png"); }
-            else if (temp >= .6 && temp < .7) { img = new Bitmap("icons/HUDBars/HealthBar/HealthBar6.png"); }
-            else if (temp >= .5 && temp < .6) { img = new Bitmap("icons/HUDBars/HealthBar/HealthBar5.png"); }
-            else if (temp >= .4 && temp < .5) { img = new Bitmap("icons/HUDBars/HealthBar/HealthBar4.png"); }
-            else if (temp >= .3 && temp < .4) { img = new Bitmap("icons/HUDBars/HealthBar/HealthBar3.png"); }
-            else if (temp >= .2 && temp < .3) { img = new Bitmap("icons/HUDBars/HealthBar/HealthBar2.png"); }
-            else if (temp >= .1 && temp < .2) { img = new Bitmap("icons/HUDBars/HealthBar/HealthBar1.png"); }
+            return bitmap;
+        }
+        public Bitmap DrawExp(HUDObject exp, PictureBox form, Character entity, int Width, int Height, Image Image = null)
+        {
+            var bitmap = exp.Image;
+            if (Image == null)
+            {
+                bitmap = new Bitmap(Width, Height);
+            }
+            else
+            {
+                bitmap = new Bitmap(Image, Width, Height);
+            }
+            var graphics = Graphics.FromImage(bitmap);
 
-            //graphics.SmoothingMode = SmoothingMode.AntiAlias;
-            graphics.DrawImage(img, new Point(CharStatBar.FindCenterofBounds().X - 45, CharStatBar.FindCenterofBounds().Y + 25));
+            Bitmap img = new Bitmap("icons/HUDBars/ExpBar/ExpBar (10).png");
+            if (entity != null)
+            {
+                double temp = entity.Exp / entity.MaxExp;
+                if (temp == 1) { img = new Bitmap("icons/HUDBars/ExpBar/ExpBar (10).png"); }
+                else if (temp >= .9 && temp < 1) { img = new Bitmap("icons/HUDBars/ExpBar/ExpBar (9).png"); }
+                else if (temp >= .8 && temp < .9) { img = new Bitmap("icons/HUDBars/ExpBar/ExpBar (8).png"); }
+                else if (temp >= .7 && temp < .8) { img = new Bitmap("icons/HUDBars/ExpBar/ExpBar (7).png"); }
+                else if (temp >= .6 && temp < .7) { img = new Bitmap("icons/HUDBars/ExpBar/ExpBar (6).png"); }
+                else if (temp >= .5 && temp < .6) { img = new Bitmap("icons/HUDBars/ExpBar/ExpBar (5).png"); }
+                else if (temp >= .4 && temp < .5) { img = new Bitmap("icons/HUDBars/ExpBar/ExpBar (4).png"); }
+                else if (temp >= .3 && temp < .4) { img = new Bitmap("icons/HUDBars/ExpBar/ExpBar (3).png"); }
+                else if (temp >= .2 && temp < .3) { img = new Bitmap("icons/HUDBars/ExpBar/ExpBar (2).png"); }
+                else if (temp >= .1 && temp < .2) { img = new Bitmap("icons/HUDBars/ExpBar/ExpBar (1).png"); }
+            }
+            exp.Image = img;
+            graphics.DrawImage(exp.Image, exp.Boundries[0]);
 
             return bitmap;
         }
@@ -150,10 +312,10 @@ namespace RPG_Engine
         {
             return new Point(e.Location.X, e.Location.Y);
         }
-        
-        public void ShiftMap(string Direction) 
+
+        public void ShiftMap(string Direction)
         {
-            TempImg = (Bitmap)world.map.gameForm.Image;
+            TempImg = (Bitmap)world.charForm.Image;
             switch (Direction)
             {
                 case "Up":
@@ -169,43 +331,31 @@ namespace RPG_Engine
                     TempImg = DrawMap(TempImg, world.player.Location.X - 1, world.player.Location.Y);
                     break;
             }
-            //foreach(Tile tile in world.map.TilesOnMap)
-            //{
-            //    switch(Direction)
-            //    {
-            //        case "Up":
-            //            tile.Location = new Point(tile.Location.X, tile.Location.Y - 1);
-            //            break;
-            //        case "Down":
-            //            tile.Location = new Point(tile.Location.X, tile.Location.Y + 1);
-            //            break;
-            //        case "Left":
-            //            tile.Location = new Point(tile.Location.X - 1, tile.Location.Y);
-            //            break;
-            //        case "Right":
-            //            tile.Location = new Point(tile.Location.X + 1, tile.Location.Y);
-            //            break;
-            //    }
-            //    TempImg = world.map.DrawTile(tile);
-            //}
-            //world.map.gameForm.Image = TempImg;
         }
         Bitmap DrawMap(Bitmap TempImg, int x, int y)
         {
-            var bitmap = new Bitmap(world.map.gameForm.Image, world.map.gameForm.Width, world.map.gameForm.Height);
+            var bitmap = new Bitmap(world.charForm.Image, world.charForm.Width, world.charForm.Height);
             var graphics = Graphics.FromImage(bitmap);
 
-            //graphics.SmoothingMode = SmoothingMode.AntiAlias;
-            graphics.DrawImage(TempImg, new Point(x,y));
+            graphics.DrawImage(TempImg, new Point(x, y));
 
             return bitmap;
         }
     }
     public class HUDObject
     {
+        public bool Shown = false;
         public List<Point> Boundries { get; set; }
+        public PictureBox Picture { get; set; }
         public Bitmap Image { get; set; }
+        public string Text { get; set; }
 
+        public HUDObject(List<Point> _Boundries, Bitmap _Image = null, string _Text = null)
+        {
+            Boundries = _Boundries;
+            Image = _Image;
+            Text = _Text;
+        }
         public Point FindCenterofBounds()
         {
             Point tempPoint = new Point((Boundries[1].X) / 2, (Boundries[1].Y) / 2);

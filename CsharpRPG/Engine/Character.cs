@@ -113,7 +113,7 @@ namespace RPG_Engine
             {
                 if (CheckNextTile() == CurrentLocation.MonsterLivingHere.Location)
                 {
-                    world.combat = new Combat(world.Output, this, CurrentLocation.MonsterLivingHere);
+                    world.combat = new Combat(world.combat.Output, world.combat.CombatForm, this, world.combat.PHealth, world.combat.PImg, CurrentLocation.MonsterLivingHere, world.combat.DHealth, world.combat.DImg, world, world.combat.wait);
                     return true;
                 }
             }
@@ -133,7 +133,7 @@ namespace RPG_Engine
                     if (spawn < CurrentLocation.MonsterLivingHere.SpawnChance)
                     {
                         CurrentLocation.MonsterLivingHere.Location = CheckNextTile();
-                        world.combat = new Combat(world.Output, this, CurrentLocation.MonsterLivingHere);
+                        world.combat = new Combat(world.combat.Output, world.combat.CombatForm, this, world.combat.PHealth, world.combat.PImg, CurrentLocation.MonsterLivingHere, world.combat.DHealth, world.combat.DImg, world, world.combat.wait);
                     }
                     CountDown = rand.Next(MAX_COUNTDOWN);
                 }
@@ -184,7 +184,7 @@ namespace RPG_Engine
                 SpawnMonsterLivingHere();
             }
         }
-
+    
         public void LevelUp()
         {
             if (exp >= maxExp)

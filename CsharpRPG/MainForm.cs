@@ -43,7 +43,7 @@ namespace CsharpRPG
 
             creator.Close();
 
-            combat = new Combat(lblOutput, player, player.CurrentLocation.MonsterLivingHere);
+            combat = new Combat(lblCombatOutput, panCombat, player, pbPHealth, pbPlayer, player.CurrentLocation.MonsterLivingHere, pbDHealth, pbDefender, world, wait);
             world.combat = combat;
 
             updateScreen();
@@ -181,7 +181,7 @@ namespace CsharpRPG
         }
         void InitializeHUD()
         {
-            world.HUD = new Hud(new Bitmap("icons/HUDBars/CharStatBar.png"), new Bitmap("icons/HUDBars/CharImgBox.png"), world);
+            world.HUD = new Hud(new Bitmap("icons/HUDBars/CharStatBar.png"), new Bitmap("icons/HUDBars/CharImgBox.png"), new Bitmap("icons/HUDBars/strength.png"), new Bitmap("icons/HUDBars/defense.png"), world);
         }
         void InitializeScreenControls()
         {
@@ -258,7 +258,7 @@ namespace CsharpRPG
         {
             if (world.combat.Initiated == true)
             {
-                world.combat.Attack(world.combat.monster);
+                //world.combat.Attack();
                 //HUD.Update();
             }
         }

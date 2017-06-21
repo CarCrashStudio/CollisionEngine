@@ -1,97 +1,140 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.IO;
+using System.Windows.Forms;
 
 namespace RPG_Engine
 {
     public class Combat
     {
         Random rand = new Random();
-        RichTextBox Output;
+
+        public Timer wait;
+        public RichTextBox Output;
+        public Panel CombatForm;
+        public PictureBox PHealth;
+        public PictureBox DHealth;
+        public PictureBox PImg;
+        public PictureBox DImg;
+
+        World world;
         Character player;
         public Monster monster;
         public bool Initiated { get; set; }
 
-        public Combat(RichTextBox _output, Character _player, Monster _monster)
+        public Combat(RichTextBox _output, Panel _CombatForm, Character _player, PictureBox _PHealth, PictureBox _PImg, Monster _monster, PictureBox _DHealth, PictureBox _DImg, World _world, Timer _wait)
         {
             Output = _output;
+            CombatForm = _CombatForm;
             player = _player;
             monster = _monster;
+            world = _world;
 
-            if (!(monster == null)) { if (player.CheckNextTile() == monster.Location) { InitiateCombat(); } }
+            PHealth = _PHealth;
+            PImg = _PImg;
+            DHealth = _DHealth;
+            DImg = _DImg;
+
+            wait = _wait;
+
+            if (!(monster == null)) { InitiateCombat(); }
         }
 
         void InitiateCombat()
         {
+            player.Facing = "South"; // Set the player so you see the front facing image
+            player.Draw(); // Draw the front facing image
+
+            PImg.Image = player.Image;
+            DImg.Image = monster.Image;
+
             Initiated = true;
+            world.charForm.Visible = false;
+            CombatForm.Visible = true;
             Output.Text += Environment.NewLine + "Combat initiated";
         }
-        public void Attack(Monster defender)
+        public void DefenderAttack()
         {
-            int damage = Damage(player, defender);
-            defender.Health -= damage;
-            Output.Text += Environment.NewLine + Environment.NewLine + player.Name + " dealt " + damage + " damage to " + defender.Name + Environment.NewLine;
-            if (defender.isDead())
-            {
-                Output.Text += Environment.NewLine + "You beat " + defender.Name + ". You earned " + defender.RewardExperiencePoints + " exp and " + defender.RewardGold + " gold.";
-                player.Exp += defender.RewardExperiencePoints;
-                player.Gold += defender.RewardGold;
-                // Get random loot items from the monster
-                List<InventoryItem> lootedItems = new List<InventoryItem>();
+            int damage = Damage(monster, player);
+            player.Health -= damage;
+            Output.Text += monster.Name + " dealt " + damage + " damage to " + player.Name + Environment.NewLine;
+            world.HUD.Update();
+            //updateScreen();
+            if (player.isDead()) { Output.Text += Environment.NewLine + Environment.NewLine + "You lose." + Environment.NewLine; Initiated = false; }
+        }
+        public void PlayerAttack()
+        {
+            int damage = Damage(player, monster);
+            monster.Health -= damage;
+            world.HUD.Update();
+            Output.Text += Environment.NewLine + Environment.NewLine + player.Name + " dealt " + damage + " damage to " + monster.Name + Environment.NewLine;
+            CheckDeath();
+        }
+        void RewardLoot()
+        {
+            // Get random loot items from the monster
+            List<InventoryItem> lootedItems = new List<InventoryItem>();
 
-                // Add items to the lootedItems list, comparing a random number to the drop percentage
-                foreach (LootItem lootItem in defender.LootTable)
+            // Add items to the lootedItems list, comparing a random number to the drop percentage
+            foreach (LootItem lootItem in monster.LootTable)
+            {
+                if (rand.Next(1, 100) <= lootItem.DropPercentage)
                 {
-                    if (rand.Next(1, 100) <= lootItem.DropPercentage)
+                    lootedItems.Add(new InventoryItem(lootItem.Details, 1));
+                }
+            }
+
+            // If no items were randomly selected, then add the default loot item(s).
+            if (lootedItems.Count == 0)
+            {
+                foreach (LootItem lootItem in monster.LootTable)
+                {
+                    if (lootItem.IsDefaultItem)
                     {
                         lootedItems.Add(new InventoryItem(lootItem.Details, 1));
                     }
                 }
+            }
 
-                // If no items were randomly selected, then add the default loot item(s).
-                if (lootedItems.Count == 0)
+            // Add the looted items to the player's inventory
+            foreach (InventoryItem inventoryItem in lootedItems)
+            {
+                player.AddItemToInventory(inventoryItem.Details);
+
+                if (inventoryItem.Quantity == 1)
                 {
-                    foreach (LootItem lootItem in defender.LootTable)
-                    {
-                        if (lootItem.IsDefaultItem)
-                        {
-                            lootedItems.Add(new InventoryItem(lootItem.Details, 1));
-                        }
-                    }
+                    Output.Text += "You loot " + inventoryItem.Quantity.ToString() + " " + inventoryItem.Details.Name + Environment.NewLine;
                 }
-
-                // Add the looted items to the player's inventory
-                foreach (InventoryItem inventoryItem in lootedItems)
+                else
                 {
-                    player.AddItemToInventory(inventoryItem.Details);
-
-                    if (inventoryItem.Quantity == 1)
-                    {
-                        Output.Text += "You loot " + inventoryItem.Quantity.ToString() + " " + inventoryItem.Details.Name + Environment.NewLine;
-                    }
-                    else
-                    {
-                        Output.Text += "You loot " + inventoryItem.Quantity.ToString() + " " + inventoryItem.Details.NamePlural + Environment.NewLine;
-                    }
+                    Output.Text += "You loot " + inventoryItem.Quantity.ToString() + " " + inventoryItem.Details.NamePlural + Environment.NewLine;
                 }
+            }
+        }
+        void CheckDeath()
+        {
+            if (monster.isDead())
+            {
+                Output.Text += Environment.NewLine + "You beat " + monster.Name + ". You earned " + monster.RewardExperiencePoints + " exp and " + monster.RewardGold + " gold.";
+                player.Exp += monster.RewardExperiencePoints;
+                player.Gold += monster.RewardGold;
+
+                RewardLoot();
+
                 player.LevelUp();
                 Initiated = false;
-                defender.Location = new Point(11, 11);
-                //updateScreen();
-                defender.Health = defender.MaxHealth;
+                world.charForm.Visible = true;
+                CombatForm.Visible = false;
+                //monster.Location = new Point(11, 11);
+                monster.Health = monster.MaxHealth;
             }
             else
             {
-                damage = Damage(defender, player);
-                player.Health -= damage;
-                Output.Text += defender.Name + " dealt " + damage + " damage to " + player.Name + Environment.NewLine;
-
-                //updateScreen();
-                if (player.isDead()) { Output.Text += Environment.NewLine + Environment.NewLine + "You lose." + Environment.NewLine; Initiated = false; }
+                wait.Enabled = true;
             }
         }
         int Damage(Entity attacker, Entity defender)
