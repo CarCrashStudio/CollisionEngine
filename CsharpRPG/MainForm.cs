@@ -249,13 +249,11 @@ namespace CsharpRPG
         }
         private void lblClose_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Are you sure you want to quit?", "Are you sure?", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-                Close();
-            }
+            
         }
         private void pbMap_Click(object sender, EventArgs e)
         {
+            
             if (world.combat.Initiated == true)
             {
                 //world.combat.Attack();
@@ -295,5 +293,27 @@ namespace CsharpRPG
             //ScrollToBottomOfMessages();
         }
         #endregion
+
+        private void pbMap_MouseClick(object sender, MouseEventArgs e)
+        {
+            foreach (HUDObject button in world.HUD.Clickables)
+            {
+                if (e.Location.X > button.Boundries[0].X && e.Location.X < button.Boundries[1].X)
+                {
+                    if (e.Location.Y > button.Boundries[0].Y && e.Location.Y < button.Boundries[1].Y)
+                    {
+                        switch (button.Name)
+                        {
+                            case "Close":
+                                if (MessageBox.Show("Are you sure you want to quit?", "Are you sure?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                                {
+                                    Close();
+                                }
+                                break;
+                        }
+                    }
+                }
+            }           
+        }
     }
 }

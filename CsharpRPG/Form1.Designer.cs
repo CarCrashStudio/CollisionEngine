@@ -150,13 +150,15 @@
             // 
             // pbMap
             // 
+            this.pbMap.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pbMap.Image = global::CsharpRPG.Properties.Resources._void;
             this.pbMap.Location = new System.Drawing.Point(5, 5);
             this.pbMap.Name = "pbMap";
-            this.pbMap.Size = new System.Drawing.Size(320, 320);
+            this.pbMap.Size = new System.Drawing.Size(666, 352);
             this.pbMap.TabIndex = 15;
             this.pbMap.TabStop = false;
             this.pbMap.Click += new System.EventHandler(this.pbMap_Click);
+            this.pbMap.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pbMap_MouseClick);
             this.pbMap.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbMap_MouseMove);
             // 
             // panCombat

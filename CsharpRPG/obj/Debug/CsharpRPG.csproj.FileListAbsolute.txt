@@ -60,3 +60,15 @@ C:\Users\linki\Source\Repos\RogueRPG\CsharpRPG\obj\Debug\CsharpRPG.Properties.Re
 C:\Users\linki\Source\Repos\RogueRPG\CsharpRPG\obj\Debug\CsharpRPG.csproj.GenerateResource.Cache
 C:\Users\linki\Source\Repos\RogueRPG\CsharpRPG\obj\Debug\CsharpRPG.exe
 C:\Users\linki\Source\Repos\RogueRPG\CsharpRPG\obj\Debug\CsharpRPG.pdb
+C:\Users\linki\Desktop\RogueRPG-master\CsharpRPG\bin\Debug\CsharpRPG.exe.config
+C:\Users\linki\Desktop\RogueRPG-master\CsharpRPG\bin\Debug\CsharpRPG.exe
+C:\Users\linki\Desktop\RogueRPG-master\CsharpRPG\bin\Debug\CsharpRPG.pdb
+C:\Users\linki\Desktop\RogueRPG-master\CsharpRPG\obj\Debug\CsharpRPG.csprojResolveAssemblyReference.cache
+C:\Users\linki\Desktop\RogueRPG-master\CsharpRPG\obj\Debug\CsharpRPG.CreatorWindow.resources
+C:\Users\linki\Desktop\RogueRPG-master\CsharpRPG\obj\Debug\CsharpRPG.Journal.resources
+C:\Users\linki\Desktop\RogueRPG-master\CsharpRPG\obj\Debug\CsharpRPG.MainForm.resources
+C:\Users\linki\Desktop\RogueRPG-master\CsharpRPG\obj\Debug\CsharpRPG.Properties.Resources.resources
+C:\Users\linki\Desktop\RogueRPG-master\CsharpRPG\obj\Debug\CsharpRPG.csproj.GenerateResource.Cache
+C:\Users\linki\Desktop\RogueRPG-master\CsharpRPG\obj\Debug\CsharpRPG.exe
+C:\Users\linki\Desktop\RogueRPG-master\CsharpRPG\obj\Debug\CsharpRPG.pdb
+C:\Users\linki\Source\Repos\RogueRPG\CsharpRPG\obj\Debug\CsharpRPG.csprojResolveAssemblyReference.cache
