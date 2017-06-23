@@ -40,6 +40,7 @@
             this.btnATK = new System.Windows.Forms.Label();
             this.lblCombatOutput = new System.Windows.Forms.RichTextBox();
             this.wait = new System.Windows.Forms.Timer(this.components);
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbMap)).BeginInit();
             this.panCombat.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbDHealth)).BeginInit();
@@ -50,11 +51,14 @@
             // 
             // pbMap
             // 
+            this.pbMap.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pbMap.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pbMap.Image = global::CsharpRPG.Properties.Resources._void;
             this.pbMap.Location = new System.Drawing.Point(0, 0);
             this.pbMap.Name = "pbMap";
-            this.pbMap.Size = new System.Drawing.Size(878, 588);
+            this.pbMap.Size = new System.Drawing.Size(876, 588);
             this.pbMap.TabIndex = 15;
             this.pbMap.TabStop = false;
             this.pbMap.Click += new System.EventHandler(this.pbMap_Click);
@@ -63,8 +67,9 @@
             // 
             // panCombat
             // 
-            this.panCombat.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+            this.panCombat.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panCombat.Controls.Add(this.pbDHealth);
             this.panCombat.Controls.Add(this.pbPHealth);
             this.panCombat.Controls.Add(this.pbDefender);
@@ -166,18 +171,30 @@
             this.wait.Interval = 350;
             this.wait.Tick += new System.EventHandler(this.wait_Tick);
             // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(764, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 31;
+            this.label1.Text = "label1";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(876, 587);
             this.ControlBox = false;
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.panCombat);
             this.Controls.Add(this.pbMap);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.KeyPreview = true;
             this.Name = "MainForm";
             this.Text = "Window";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
@@ -189,6 +206,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbDefender)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPlayer)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -205,5 +223,6 @@
         private System.Windows.Forms.Label btnATK;
         private System.Windows.Forms.RichTextBox lblCombatOutput;
         private System.Windows.Forms.Timer wait;
+        private System.Windows.Forms.Label label1;
     }
 }

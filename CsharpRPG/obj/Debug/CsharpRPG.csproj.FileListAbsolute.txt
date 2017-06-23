@@ -72,3 +72,7 @@ C:\Users\linki\Desktop\RogueRPG-master\CsharpRPG\obj\Debug\CsharpRPG.csproj.Gene
 C:\Users\linki\Desktop\RogueRPG-master\CsharpRPG\obj\Debug\CsharpRPG.exe
 C:\Users\linki\Desktop\RogueRPG-master\CsharpRPG\obj\Debug\CsharpRPG.pdb
 C:\Users\linki\Source\Repos\RogueRPG\CsharpRPG\obj\Debug\CsharpRPG.csprojResolveAssemblyReference.cache
+C:\Users\linki\Source\Repos\RogueRPG\CsharpRPG\bin\Debug\CsharpRPG.exe.manifest
+C:\Users\linki\Source\Repos\RogueRPG\CsharpRPG\bin\Debug\CsharpRPG.application
+C:\Users\linki\Source\Repos\RogueRPG\CsharpRPG\obj\Debug\CsharpRPG.exe.manifest
+C:\Users\linki\Source\Repos\RogueRPG\CsharpRPG\obj\Debug\CsharpRPG.application

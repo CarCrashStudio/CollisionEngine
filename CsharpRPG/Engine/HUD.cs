@@ -96,6 +96,7 @@ namespace RPG_Engine
             temp.Add(new Point(0, world.HudForm.Height - 32));
             temp.Add(new Point(32, world.HudForm.Height));
             InventoryButton = new HUDObject(temp, new Bitmap("icons/HUDBars/bagbutton.png"));
+            InventoryButton.Name = "Bag";
             Clickables.Add(InventoryButton);
 
             temp = new List<Point>();

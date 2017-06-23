@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -24,14 +24,53 @@ namespace CsharpRPG
 
         // Object Classes
         Random rand = new Random();
+        SqlConnection sqlConn;
+
+        // Variables
+        string connString = "Server=tcp:roguedatabase.database.windows.net,1433;Initial Catalog=rogueDB;Persist Security Info=False;User ID=treyhall;Password=web560;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
         public MainForm()
         {
             InitializeComponent();
             SetupGame();
         }
+
+        void TestSQL()
+        {
+            try
+            {
+                OpenSqlConn();
+
+                label1.Text = "Connected";
+
+                CloseSqlConn();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                label1.Text = "Not Connected";
+            }
+        }
+        void OpenSqlConn()
+        {
+            try
+            {
+                sqlConn = new SqlConnection(connString);
+                sqlConn.Open();
+            }
+            catch { }
+        }
+        void CloseSqlConn()
+        {
+            try
+            {
+                sqlConn.Close();
+            }
+            catch { }
+        }
         void SetupGame()
         {
+            TestSQL();
             world = new World(pbMap); //Create the World Object that holds all needed objects
 
             InitializeScreenControls();
@@ -182,6 +221,17 @@ namespace CsharpRPG
             //world.Inventory = lstInventory;
             world.Journal = journal.dgvQuests;
         }
+        void OpenBag()
+        {
+            world.HUD.InventoryBox.Shown = true;
+            world.HUD.DrawBars(world.HUD.InventoryBox, world.HudForm);
+            world.HUD.UpdateInventory();
+        }
+        void CloseBag()
+        {
+            world.HUD.InventoryBox.Shown = false;
+            world.HUD.Update();
+        }
         
         #region EventHandlers
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
@@ -191,6 +241,10 @@ namespace CsharpRPG
             {
                 if (!world.combat.Initiated)
                 {
+                    if(world.HUD.InventoryBox.Shown)
+                    {
+                        CloseBag();
+                    }
                     player.MovePlayer(keyPressed);
                     updateScreen();
                 }
@@ -301,6 +355,9 @@ namespace CsharpRPG
                                 {
                                     Close();
                                 }
+                                break;
+                            case "Bag":
+                                OpenBag();
                                 break;
                         }
                     }
