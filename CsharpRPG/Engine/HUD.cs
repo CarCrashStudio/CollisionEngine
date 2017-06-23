@@ -102,6 +102,7 @@ namespace RPG_Engine
             temp.Add(new Point(world.WIDTH - 32, world.HEIGHT - 32));
             temp.Add(new Point(world.WIDTH, world.HEIGHT));
             CloseButton = new HUDObject(temp, new Bitmap("icons/HUDBars/exitbutton.png"));
+            CloseButton.Name = "Close";
             Clickables.Add(CloseButton);
 
             temp = new List<Point>();
