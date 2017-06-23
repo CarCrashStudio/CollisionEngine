@@ -93,14 +93,14 @@ namespace RPG_Engine
             Defense = new HUDObject(temp, defImg, ": " + world.player.MaximumDefense.ToString());
 
             temp = new List<Point>();
-            temp.Add(new Point(0, world.HEIGHT - 32));
-            temp.Add(new Point(32, world.HEIGHT));
+            temp.Add(new Point(0, world.HudForm.Height - 32));
+            temp.Add(new Point(32, world.HudForm.Height));
             InventoryButton = new HUDObject(temp, new Bitmap("icons/HUDBars/bagbutton.png"));
             Clickables.Add(InventoryButton);
 
             temp = new List<Point>();
-            temp.Add(new Point(world.WIDTH - 32, world.HEIGHT - 32));
-            temp.Add(new Point(world.WIDTH, world.HEIGHT));
+            temp.Add(new Point(world.HudForm.Width - 32, world.HudForm.Height - 32));
+            temp.Add(new Point(world.HudForm.Width, world.HudForm.Height));
             CloseButton = new HUDObject(temp, new Bitmap("icons/HUDBars/exitbutton.png"));
             CloseButton.Name = "Close";
             Clickables.Add(CloseButton);
