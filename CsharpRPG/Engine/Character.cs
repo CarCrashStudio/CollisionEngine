@@ -39,13 +39,26 @@ namespace RPG_Engine
         public int CountDown { get; set; }
         public int MAX_COUNTDOWN { get { return 100; } }
 
-        public Character(int _id, string _name, Point _location, int _level, int _exp, int _maxExp, int _gold, Bitmap _img, World _world, PictureBox _charForm) :
-            base(_id, _name,_location,_img,_world,_charForm)
+        public Character(int _id, string _name, string clss, Point _location, int _level, int _exp, int _maxExp, int _gold, Bitmap _img, World _world, PictureBox _HudForm) :
+            base(_id, _name,_location,_img,_world,_HudForm)
         {
             level = _level;
             exp = _exp;
             maxExp = _maxExp;
             gold = _gold;
+
+            Class = clss;
+
+            MaxHealth = CalculateMaxHealth();
+            Health = MaxHealth;
+
+            MaxMana = CalculateMaxMana();
+            Mana = MaxMana;
+
+            MaximumDamage = CalculateMaxDamage();
+            MaximumDefense = CalculateMaxDefense();
+
+            //Inventory.Add(new InventoryItem(world.WeaponByID(world.WEAPON_ID_RUSTY_SWORD), 1)); //Give 1 'Rusty Sword' to player
 
             Inventory = new List<InventoryItem>();
             Quests = new List<PlayerQuest>();
@@ -53,11 +66,11 @@ namespace RPG_Engine
 
         public Bitmap Draw()
         {
-            var bitmap = new Bitmap(world.charForm.Image, world.WIDTH, world.HEIGHT);
+            var bitmap = new Bitmap(world.HudForm.Image, world.WIDTH, world.HEIGHT);
             var graphics = Graphics.FromImage(bitmap);
 
             //graphics.SmoothingMode = SmoothingMode.AntiAlias;
-            graphics.DrawImage(Image, new Point(world.charForm.Width / 2, world.charForm.Height / 2));
+            graphics.DrawImage(Image, new Point(world.GameForm.Width / 2, world.GameForm.Height / 2));
 
             return bitmap;
         }
@@ -80,7 +93,7 @@ namespace RPG_Engine
                     Image = new Bitmap("icons/PlayerStates/PlayerLeft.bmp");
                     break;
             }
-            world.charForm.Image = Draw();
+            world.HudForm.Image = Draw();
         }
 
         public bool isColliding()
@@ -395,7 +408,7 @@ namespace RPG_Engine
             {
                 if (CheckNextTile() == transition.Location && Facing == transition.RequiredFacingDirection)
                 {
-                    world.player.Location = transition.NextLocation.Transitions[0].Location;
+                    Location = transition.NextLocation.Transitions[0].Location;
                     MoveTo(transition.NextLocation);
                 }
                 //world.HUD.Update();
@@ -436,7 +449,7 @@ namespace RPG_Engine
 
             CountDown = MAX_COUNTDOWN; //Countdown resets upon entering a new location
 
-            world.map = new WorldMap(CurrentLocation.Name, world.charForm, world);
+            world.map = new WorldMap(CurrentLocation.Name, world.HudForm, world);
         }
         public void RecieveQuest(NPC npc)
         {

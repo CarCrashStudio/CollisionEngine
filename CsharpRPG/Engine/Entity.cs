@@ -17,11 +17,11 @@ namespace RPG_Engine
         int maxMana;
         int maxDamage;
         int maxDefense;
-        PictureBox charForm;
+        PictureBox HudForm;
 
         Random rand = new Random();
 
-        public Entity(int _id, string _name, Point _location,  Bitmap _img, World _world, PictureBox _charForm)
+        public Entity(int _id, string _name, Point _location,  Bitmap _img, World _world, PictureBox _HudForm)
         {
             id = _id;
             name = _name;
@@ -30,7 +30,7 @@ namespace RPG_Engine
 
             world = _world;
 
-            charForm = _charForm;
+            HudForm = _HudForm;
         }
         public int ID { get { return id; } set { id = value; } }
         public string Name { get { return name; } set { name = value; } }

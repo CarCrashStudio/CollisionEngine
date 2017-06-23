@@ -53,7 +53,7 @@ namespace RPG_Engine
             DImg.Image = monster.Image;
 
             Initiated = true;
-            world.charForm.Visible = false;
+            world.HudForm.Visible = false;
             CombatForm.Visible = true;
             Output.Text += Environment.NewLine + "Combat initiated";
         }
@@ -127,7 +127,7 @@ namespace RPG_Engine
 
                 player.LevelUp();
                 Initiated = false;
-                world.charForm.Visible = true;
+                world.HudForm.Visible = true;
                 CombatForm.Visible = false;
                 //monster.Location = new Point(11, 11);
                 monster.Health = monster.MaxHealth;

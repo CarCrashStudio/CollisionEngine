@@ -20,16 +20,16 @@ namespace RPG_Engine
         public Point Location { get { return location; } set { location = value; } }
         public Bitmap Image { get { return img; } set { img = value; } }
         public Quest QuestAvailableHere { get; set; }
-        public PictureBox charForm { get; set; }//Does the NPC Have a quest
+        public PictureBox HudForm{ get; set; }//Does the NPC Have a quest
 
-        public NPC(int _id, string _name, Bitmap _img, Point _location, Quest _questAvailibleHere, PictureBox _charForm)
+        public NPC(int _id, string _name, Bitmap _img, Point _location, Quest _questAvailibleHere, PictureBox _HudForm)
         {
             id = _id;
             name = _name;
             img = _img;
             location = _location;
             QuestAvailableHere = _questAvailibleHere;
-            charForm = _charForm;
+            HudForm = _HudForm;
 
             Draw();
         }
@@ -40,13 +40,13 @@ namespace RPG_Engine
             img = npc.Image;
             location = npc.Location;
             QuestAvailableHere = npc.QuestAvailableHere;
-            charForm = npc.charForm;
+            HudForm = npc.HudForm;
 
             Draw();
         }
         public Bitmap Draw()
         {
-            var bitmap = new Bitmap(charForm.Image, charForm.Width, charForm.Height);
+            var bitmap = new Bitmap(HudForm.Image, HudForm.Width, HudForm.Height);
             var graphics = Graphics.FromImage(bitmap);
 
             //graphics.SmoothingMode = SmoothingMode.AntiAlias;

@@ -55,127 +55,119 @@ namespace CsharpRPG
             ScrollToBottomOfMessages();
         }
 
-        void UseItem()
-        {
-            string item = string.Empty;
-            int x;
-            if (!(lstInventory.SelectedIndex == -1))
-            {
-                x = 0;
-                item = "";
-                while (lstInventory.SelectedItem.ToString()[x] != '(')
-                {
-                    item += lstInventory.SelectedItem.ToString()[x];
-                    x++;
-                }
-            }
+        //void UseItem()
+        //{
+        //    string item = string.Empty;
+        //    int x;
+        //    if (!(lstInventory.SelectedIndex == -1))
+        //    {
+        //        x = 0;
+        //        item = "";
+        //        while (lstInventory.SelectedItem.ToString()[x] != '(')
+        //        {
+        //            item += lstInventory.SelectedItem.ToString()[x];
+        //            x++;
+        //        }
+        //    }
 
-            try
-            {
-                if (!(item.Contains("Potion")))
-                {
-                    try
-                    {
-                        Weapon weapon = world.WeaponByName(item);
-                        if (weapon.Equipped == true)
-                        {
-                            player.MaximumDamage -= weapon.MaximumDamage;
-                            weapon.Equipped = false;
-                            if (weapon.OffHand == true)
-                            {
-                                player.OffHandEquipped = false;
-                            }
-                            if (weapon.MainHand == true)
-                            {
-                                player.MainHandEquipped = false;
-                            }
-                            weapon.EquipTag = "";
-                            updateScreen();
-                        }
-                        else
-                        {
-                            if (weapon.MainHand == true)
-                            {
-                                if (player.MainHandEquipped == false)
-                                {
-                                    player.MaximumDamage += weapon.MaximumDamage;
-                                    weapon.Equipped = true;
-                                    player.MainHandEquipped = true;
-                                    weapon.EquipTag = "- Equipped";
-                                    updateScreen();
-                                }
-                                else { lblOutput.Text += "Main Hand is full!" + Environment.NewLine + Environment.NewLine; }
-                            }
-                            if (weapon.OffHand == true)
-                            {
-                                if (player.OffHandEquipped == false)
-                                {
-                                    player.MaximumDamage += weapon.MaximumDamage;
-                                    weapon.Equipped = true;
-                                    player.OffHandEquipped = true;
-                                    weapon.EquipTag = "- Equipped";
-                                    updateScreen();
-                                }
-                                else { lblOutput.Text += "Off Hand is full!" + Environment.NewLine + Environment.NewLine; }
-                            }
-                        }
-                    }
-                    catch { }
-                }
-                else
-                {
-                    try
-                    {
-                        Potion potion = world.PotionByName(item);
-                        if (item.Contains("Health"))
-                        {
-                            player.Health += potion.AmountToBuff;
-                            if (player.Health > player.MaxHealth)
-                            {
-                                player.Health = player.MaxHealth;
-                            }
-                            player.RemoveItemFromInventory(potion);
-                        }
-                        if (item.Contains("Mana"))
-                        {
-                            player.Mana += potion.AmountToBuff;
-                            if (player.Mana > player.MaxMana)
-                            {
-                                player.Mana = player.Mana;
-                            }
-                            player.RemoveItemFromInventory(potion);
-                        }
-                        updateScreen();
-                    }
-                    catch { }
-                }
-            }
-            catch { lblOutput.Text += item + " cannot be used or equipped!"; }
-        }
+        //    try
+        //    {
+        //        if (!(item.Contains("Potion")))
+        //        {
+        //            try
+        //            {
+        //                Weapon weapon = world.WeaponByName(item);
+        //                if (weapon.Equipped == true)
+        //                {
+        //                    player.MaximumDamage -= weapon.MaximumDamage;
+        //                    weapon.Equipped = false;
+        //                    if (weapon.OffHand == true)
+        //                    {
+        //                        player.OffHandEquipped = false;
+        //                    }
+        //                    if (weapon.MainHand == true)
+        //                    {
+        //                        player.MainHandEquipped = false;
+        //                    }
+        //                    weapon.EquipTag = "";
+        //                    updateScreen();
+        //                }
+        //                else
+        //                {
+        //                    if (weapon.MainHand == true)
+        //                    {
+        //                        if (player.MainHandEquipped == false)
+        //                        {
+        //                            player.MaximumDamage += weapon.MaximumDamage;
+        //                            weapon.Equipped = true;
+        //                            player.MainHandEquipped = true;
+        //                            weapon.EquipTag = "- Equipped";
+        //                            updateScreen();
+        //                        }
+        //                        else {
+        //                            //lblOutput.Text += "Main Hand is full!" + Environment.NewLine + Environment.NewLine;
+        //                        }
+        //                    }
+        //                    if (weapon.OffHand == true)
+        //                    {
+        //                        if (player.OffHandEquipped == false)
+        //                        {
+        //                            player.MaximumDamage += weapon.MaximumDamage;
+        //                            weapon.Equipped = true;
+        //                            player.OffHandEquipped = true;
+        //                            weapon.EquipTag = "- Equipped";
+        //                            updateScreen();
+        //                        }
+        //                        else { 
+        //                            //lblOutput.Text += "Off Hand is full!" + Environment.NewLine + Environment.NewLine; 
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //            catch { }
+        //        }
+        //        else
+        //        {
+        //            try
+        //            {
+        //                Potion potion = world.PotionByName(item);
+        //                if (item.Contains("Health"))
+        //                {
+        //                    player.Health += potion.AmountToBuff;
+        //                    if (player.Health > player.MaxHealth)
+        //                    {
+        //                        player.Health = player.MaxHealth;
+        //                    }
+        //                    player.RemoveItemFromInventory(potion);
+        //                }
+        //                if (item.Contains("Mana"))
+        //                {
+        //                    player.Mana += potion.AmountToBuff;
+        //                    if (player.Mana > player.MaxMana)
+        //                    {
+        //                        player.Mana = player.Mana;
+        //                    }
+        //                    player.RemoveItemFromInventory(potion);
+        //                }
+        //                updateScreen();
+        //            }
+        //            catch { }
+        //        }
+        //    }
+        //    catch { 
+        //        //lblOutput.Text += item + " cannot be used or equipped!"; 
+        //    }
+        //}
         void ScrollToBottomOfMessages()
         {
-            lblOutput.SelectionStart = lblOutput.Text.Length;
-            lblOutput.ScrollToCaret();
+            //lblOutput.SelectionStart = lblOutput.Text.Length;
+            //lblOutput.ScrollToCaret();
         }
 
         void InitializePlayer()
         {
-            player = new Character(1, creator.txtName.Text, new Point(0, 9), 1, 0, 100, 10, new Bitmap("icons/PlayerStates/PlayerDown.bmp"), world, pbMap); //You, the player, Character creation will be implemented later
+            player = new Character(1, creator.txtName.Text, creator.cmbClass.SelectedItem.ToString(),  new Point(0, 9), 1, 0, 100, 10, new Bitmap("icons/PlayerStates/PlayerDown.bmp"), world, pbMap); //You, the player, Character creation will be implemented later
             world.player = player;
-
-            player.Class = creator.cmbClass.SelectedItem.ToString();
-
-            player.MaxHealth = player.CalculateMaxHealth();
-            player.Health = player.MaxHealth;
-
-            player.MaxMana = player.CalculateMaxMana();
-            player.Mana = player.MaxMana;
-
-            player.MaximumDamage = player.CalculateMaxDamage();
-            player.MaximumDefense = player.CalculateMaxDefense();
-
-            player.Inventory.Add(new InventoryItem(world.WeaponByID(world.WEAPON_ID_RUSTY_SWORD), 1)); //Give 1 'Rusty Sword' to player
-
             player.MoveTo(world.LocationByID(world.LOCATION_ID_HOUSE));
             InitializeHUD();
         }
@@ -185,9 +177,9 @@ namespace CsharpRPG
         }
         void InitializeScreenControls()
         {
-            world.Stats = lblStats;
-            world.Output = lblOutput;
-            world.Inventory = lstInventory;
+            //world.Stats = lblStats;
+            //world.Output = lblOutput;
+            //world.Inventory = lstInventory;
             world.Journal = journal.dgvQuests;
         }
         
@@ -205,25 +197,25 @@ namespace CsharpRPG
             }
             else
             {
-                switch (keyPressed)
-                {
-                    case "Enter":
-                        if (txtInput.Text != string.Empty)
-                        {
-                            lblOutput.Text += player.Name + ": " + txtInput.Text + Environment.NewLine; txtInput.Clear();
-                        }
-                        else
-                        {
-                            //if (npc.Location == player.CheckNextTile())
-                            //{
-                            //    if (npc.QuestAvailableHere != null)
-                            //    {
-                            //        player.RecieveQuest(npc);
-                            //    }
-                            //}
-                        }
-                        break;
-                }
+                //switch (keyPressed)
+                //{
+                //    case "Enter":
+                //        if (txtInput.Text != string.Empty)
+                //        {
+                //            lblOutput.Text += player.Name + ": " + txtInput.Text + Environment.NewLine; txtInput.Clear();
+                //        }
+                //        else
+                //        {
+                //            if (npc.Location == player.CheckNextTile())
+                //            {
+                //                if (npc.QuestAvailableHere != null)
+                //                {
+                //                    player.RecieveQuest(npc);
+                //                }
+                //            }
+                //        }
+                //        break;
+                //}
             }
         }
         private void MainForm_KeyUp(object sender, KeyEventArgs e)
@@ -274,8 +266,8 @@ namespace CsharpRPG
         }
         private void btnUse_Click(object sender, EventArgs e)
         {
-            UseItem();
-            lstInventory.SelectedIndex = -1;
+            //UseItem();
+            //lstInventory.SelectedIndex = -1;
         }
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {

@@ -41,7 +41,8 @@ namespace RPG_Engine
         public int TILE_ID_WATER { get { return 3; } }
         public int TILE_ID_WOODFLOOR { get { return 100; } }
 
-        public PictureBox charForm { get; set; }
+        public PictureBox HudForm { get; set; }
+        public PictureBox GameForm { get; set; }
         public WorldMap map { get; set; }
         public Combat combat { get; set; }
         public Character player { get; set; }
@@ -59,10 +60,12 @@ namespace RPG_Engine
         public int HEIGHT { get { return (MAX_MAP_SIZE + 1) * ICON_SIZE; } }
         public Point CENTER { get { return new Point((WIDTH / 2) / 32, (HEIGHT / 2) / 32); } }
 
-        public World(PictureBox _charForm)
+        public World(PictureBox _HudForm)
         {
-            charForm = _charForm;
-            charForm.Size = new Size(WIDTH, HEIGHT);
+            GameForm = new PictureBox();
+            HudForm = _HudForm;
+            GameForm.Size = new Size(WIDTH, HEIGHT);
+            GameForm.Image = new Bitmap(32, 32);
 
             PopulateItems();
             PopulateWeapons();
@@ -132,14 +135,14 @@ namespace RPG_Engine
         }
         void PopulateNPCs()
         {
-            NPC bugSquasher = new RPG_Engine.NPC(NPC_ID_BUGSQUASHER, "Bug Squasher", new System.Drawing.Bitmap("icons/NPC.bmp"), new System.Drawing.Point(0, 0), QuestByID(QUEST_ID_BUGSQUASHING), charForm);
+            NPC bugSquasher = new RPG_Engine.NPC(NPC_ID_BUGSQUASHER, "Bug Squasher", new System.Drawing.Bitmap("icons/NPC.bmp"), new System.Drawing.Point(0, 0), QuestByID(QUEST_ID_BUGSQUASHING), HudForm);
 
             NPCs.Add(bugSquasher);
         }
         void PopulateMonsters()
         {
             
-            Monster spider = new RPG_Engine.Monster(MONSTER_ID_SPIDER, "Spider", new System.Drawing.Point(6, 5), 10, 10, 0, 0, 5, 5, 10, 5, 50, new System.Drawing.Bitmap("icons/spider.png"), this, this.charForm);
+            Monster spider = new RPG_Engine.Monster(MONSTER_ID_SPIDER, "Spider", new System.Drawing.Point(6, 5), 10, 10, 0, 0, 5, 5, 10, 5, 50, new System.Drawing.Bitmap("icons/spider.png"), this, this.HudForm);
             spider.LootTable.Add(new LootItem(ItemByID(ITEM_ID_SPIDER_SILK), 100, true));
             spider.MaxHealth = 10;
             spider.Health = spider.MaxHealth;

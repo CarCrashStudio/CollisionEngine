@@ -25,7 +25,7 @@ namespace RPG_Engine
             gameForm = _gameForm;
             world = _world;
 
-            //CurrentMap = (Bitmap)world.charForm.Image;
+            //CurrentMap = (Bitmap)world.HudForm.Image;
 
             BuildMap();
             CalibrateMap();
@@ -35,7 +35,7 @@ namespace RPG_Engine
         void BuildMap() // read through a text file of IDs and places them in the CurrentMap bitmap 
         {
             MapLoc = new Point(0, 0);
-            CurrentMap = (Bitmap)world.charForm.Image;
+            CurrentMap = (Bitmap)world.GameForm.Image;
 
             int id = 0;
             Tile tile;
@@ -89,10 +89,11 @@ namespace RPG_Engine
         public void ShiftMap(int x, int y)
         {
             MapLoc = new Point(MapLoc.X + x, MapLoc.Y + y);
+            world.GameForm.Location = new Point(MapLoc.X * 32, MapLoc.Y * 32);
         }
         Bitmap DrawMap()
         {
-            var bitmap = new Bitmap(gameForm.Width, gameForm.Height);
+            var bitmap = new Bitmap(world.GameForm.Width, world.GameForm.Height);
             var graphics = Graphics.FromImage(bitmap);
 
             //graphics.SmoothingMode = SmoothingMode.AntiAlias;

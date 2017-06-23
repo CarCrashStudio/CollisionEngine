@@ -102,7 +102,6 @@ namespace RPG_Engine
             temp.Add(new Point(world.WIDTH - 32, world.HEIGHT - 32));
             temp.Add(new Point(world.WIDTH, world.HEIGHT));
             CloseButton = new HUDObject(temp, new Bitmap("icons/HUDBars/exitbutton.png"));
-            CloseButton.Name = "Close";
             Clickables.Add(CloseButton);
 
             temp = new List<Point>();
@@ -136,19 +135,19 @@ namespace RPG_Engine
             Strength.Text = ": " + world.player.MaximumDamage.ToString();
             Defense.Text = ": " + world.player.MaximumDefense.ToString();
 
-            world.charForm.Image = DrawBars(CharImgBox, world.charForm);
-            world.charForm.Image = DrawBars(CharImg, world.charForm);
-            world.charForm.Image = DrawBars(CharStatBar, world.charForm);
-            world.charForm.Image = DrawBars(NameLevelString, world.charForm);
-            world.charForm.Image = DrawBars(Class, world.charForm);
-            world.charForm.Image = DrawBars(Strength, world.charForm);
-            world.charForm.Image = DrawBars(Defense, world.charForm);
+            world.HudForm.Image = DrawBars(CharImgBox, world.HudForm);
+            world.HudForm.Image = DrawBars(CharImg, world.HudForm);
+            world.HudForm.Image = DrawBars(CharStatBar, world.HudForm);
+            world.HudForm.Image = DrawBars(NameLevelString, world.HudForm);
+            world.HudForm.Image = DrawBars(Class, world.HudForm);
+            world.HudForm.Image = DrawBars(Strength, world.HudForm);
+            world.HudForm.Image = DrawBars(Defense, world.HudForm);
 
-            world.charForm.Image = DrawBars(InventoryButton, world.charForm);
-            world.charForm.Image = DrawBars(CloseButton, world.charForm);
+            world.HudForm.Image = DrawBars(InventoryButton, world.HudForm);
+            world.HudForm.Image = DrawBars(CloseButton, world.HudForm);
 
-            world.charForm.Image = DrawHealth(MainHealthBar, world.charForm, world.player, world.charForm.Width, world.charForm.Height, world.charForm.Image);
-            world.charForm.Image = DrawExp(MainExpBar, world.charForm, world.player, world.charForm.Width, world.charForm.Height, world.charForm.Image);
+            world.HudForm.Image = DrawHealth(MainHealthBar, world.HudForm, world.player, world.HudForm.Width, world.HudForm.Height, world.HudForm.Image);
+            world.HudForm.Image = DrawExp(MainExpBar, world.HudForm, world.player, world.HudForm.Width, world.HudForm.Height, world.HudForm.Image);
         }
         public void UpdateInventory()
         {
@@ -169,8 +168,8 @@ namespace RPG_Engine
                 }
                 if (InventoryBox.Shown)
                 {
-                    world.charForm.Image = DrawBars(Gold, world.charForm);
-                    world.charForm.Image = DrawBars(InventoryItem, world.charForm);
+                    world.HudForm.Image = DrawBars(Gold, world.HudForm);
+                    world.HudForm.Image = DrawBars(InventoryItem, world.HudForm);
                 }
                 InventoryItems.Add(InventoryItem);
             }
@@ -194,7 +193,7 @@ namespace RPG_Engine
         }
         void UpdatePlayer()
         {
-            world.charForm.Image = world.player.Draw();
+            world.HudForm.Image = world.player.Draw();
             //UpdateInventory();
             UpdateStats();
         }
@@ -207,7 +206,7 @@ namespace RPG_Engine
             Monster MonsterLivingHere = world.player.CurrentLocation.MonsterLivingHere;
             if (MonsterLivingHere != null)
             {
-                world.charForm.Image = MonsterLivingHere.Draw();
+                world.HudForm.Image = MonsterLivingHere.Draw();
             }
         }
         void UpdateCombatScreen()
@@ -312,35 +311,6 @@ namespace RPG_Engine
         public Point GetCursorPos(MouseEventArgs e)
         {
             return new Point(e.Location.X, e.Location.Y);
-        }
-
-        public void ShiftMap(string Direction)
-        {
-            TempImg = (Bitmap)world.charForm.Image;
-            switch (Direction)
-            {
-                case "Up":
-                    TempImg = DrawMap(TempImg, world.player.Location.X, world.player.Location.Y + 1);
-                    break;
-                case "Down":
-                    TempImg = DrawMap(TempImg, world.player.Location.X, world.player.Location.Y - 1);
-                    break;
-                case "Left":
-                    TempImg = DrawMap(TempImg, world.player.Location.X + 1, world.player.Location.Y);
-                    break;
-                case "Right":
-                    TempImg = DrawMap(TempImg, world.player.Location.X - 1, world.player.Location.Y);
-                    break;
-            }
-        }
-        Bitmap DrawMap(Bitmap TempImg, int x, int y)
-        {
-            var bitmap = new Bitmap(world.charForm.Image, world.charForm.Width, world.charForm.Height);
-            var graphics = Graphics.FromImage(bitmap);
-
-            graphics.DrawImage(TempImg, new Point(x, y));
-
-            return bitmap;
         }
     }
     public class HUDObject

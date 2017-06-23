@@ -16,8 +16,8 @@ namespace RPG_Engine
 
         public int SpawnChance { get; set; }
 
-        public Monster(int _id, string _name, Point _location, int _hp, int _maxHp, int _mana, int _maxMana, int _maximumDamage, int _maxDefense, int _rewardExp, int _rewardGold, int _spawnChance, Bitmap _img, World _world, PictureBox _charForm) :
-            base(_id, _name, _location, _img, _world, _charForm)
+        public Monster(int _id, string _name, Point _location, int _hp, int _maxHp, int _mana, int _maxMana, int _maximumDamage, int _maxDefense, int _rewardExp, int _rewardGold, int _spawnChance, Bitmap _img, World _world, PictureBox _HudForm) :
+            base(_id, _name, _location, _img, _world, _HudForm)
         {
             rewardExp = _rewardExp;
             rewardGold = _rewardGold;
@@ -28,7 +28,7 @@ namespace RPG_Engine
             SpawnChance = _spawnChance;
         }
         public Monster(Monster monster) :
-            base(monster.ID, monster.Name, monster.Location, monster.Image, monster.world, monster.world.charForm)
+            base(monster.ID, monster.Name, monster.Location, monster.Image, monster.world, monster.world.HudForm)
         {
             rewardExp = monster.rewardExp;
             rewardGold = monster.RewardGold;
@@ -41,7 +41,7 @@ namespace RPG_Engine
 
         public Bitmap Draw()
         {
-            var bitmap = new Bitmap(world.charForm.Image, world.WIDTH, world.HEIGHT);
+            var bitmap = new Bitmap(world.HudForm.Image, world.WIDTH, world.HEIGHT);
             var graphics = Graphics.FromImage(bitmap);
 
             //graphics.SmoothingMode = SmoothingMode.AntiAlias;
