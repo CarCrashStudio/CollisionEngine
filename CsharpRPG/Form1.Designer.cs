@@ -148,6 +148,7 @@
             this.btnATK.TabIndex = 28;
             this.btnATK.Text = "ATK";
             this.btnATK.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnATK.Click += new System.EventHandler(this.btnATK_Click);
             // 
             // lblCombatOutput
             // 
@@ -159,6 +160,11 @@
             this.lblCombatOutput.Size = new System.Drawing.Size(764, 188);
             this.lblCombatOutput.TabIndex = 27;
             this.lblCombatOutput.Text = " ";
+            // 
+            // wait
+            // 
+            this.wait.Interval = 350;
+            this.wait.Tick += new System.EventHandler(this.wait_Tick);
             // 
             // MainForm
             // 

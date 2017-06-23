@@ -63,7 +63,6 @@ namespace RPG_Engine
             player.Health -= damage;
             Output.Text += monster.Name + " dealt " + damage + " damage to " + player.Name + Environment.NewLine;
             world.HUD.Update();
-            //updateScreen();
             if (player.isDead()) { Output.Text += Environment.NewLine + Environment.NewLine + "You lose." + Environment.NewLine; Initiated = false; }
         }
         public void PlayerAttack()

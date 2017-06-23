@@ -258,7 +258,7 @@ namespace RPG_Engine
             Bitmap img = new Bitmap("icons/HUDBars/HealthBar/HealthBar10.png");
             if (entity != null)
             {
-                double temp = entity.Health / entity.MaxHealth;
+                double temp = (double)entity.Health / entity.MaxHealth;
                 if (temp == 1) { img = new Bitmap("icons/HUDBars/HealthBar/HealthBar10.png"); }
                 else if (temp >= .9 && temp < 1) { img = new Bitmap("icons/HUDBars/HealthBar/HealthBar9.png"); }
                 else if (temp >= .8 && temp < .9) { img = new Bitmap("icons/HUDBars/HealthBar/HealthBar8.png"); }

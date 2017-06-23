@@ -307,5 +307,17 @@ namespace CsharpRPG
                 }
             }           
         }
+
+        private void btnATK_Click(object sender, EventArgs e)
+        {
+            world.combat.PlayerAttack();
+            wait.Enabled = true;
+        }
+
+        private void wait_Tick(object sender, EventArgs e)
+        {
+            wait.Enabled = false;
+            world.combat.DefenderAttack();
+        }
     }
 }
