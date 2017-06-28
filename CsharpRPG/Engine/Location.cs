@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace RPG_Engine
+namespace CsharpRPG.Engine
 {
     public class Location
     {

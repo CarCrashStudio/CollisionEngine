@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RPG_Engine
+namespace CsharpRPG.Engine
+
 {
     public class Biome
     {

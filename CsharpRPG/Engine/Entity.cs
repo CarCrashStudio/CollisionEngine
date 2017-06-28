@@ -3,7 +3,7 @@ using System.Windows.Forms;
 using System.IO;
 using System;
 
-namespace RPG_Engine
+namespace CsharpRPG.Engine
 {
     public class Entity
     {

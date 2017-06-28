@@ -76,3 +76,4 @@ C:\Users\linki\Source\Repos\RogueRPG\CsharpRPG\bin\Debug\CsharpRPG.exe.manifest
 C:\Users\linki\Source\Repos\RogueRPG\CsharpRPG\bin\Debug\CsharpRPG.application
 C:\Users\linki\Source\Repos\RogueRPG\CsharpRPG\obj\Debug\CsharpRPG.exe.manifest
 C:\Users\linki\Source\Repos\RogueRPG\CsharpRPG\obj\Debug\CsharpRPG.application
+C:\Users\linki\Source\Repos\RogueRPG\CsharpRPG\obj\Debug\CsharpRPG.LoginForm.resources

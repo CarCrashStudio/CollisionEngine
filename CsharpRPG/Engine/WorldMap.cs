@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
 
-namespace RPG_Engine
+namespace CsharpRPG.Engine
 {
     public class WorldMap // Class holding the play area and tiles inside
     {
@@ -19,13 +19,10 @@ namespace RPG_Engine
         public Bitmap CurrentMap { get; set; } // Bitmap to save full map to, increase load time
         public Point MapLoc { get; set; }
 
-        public WorldMap(string _name, PictureBox _gameForm, World _world)
+        public WorldMap(string _name, World _world)
         {
             name = _name;
-            gameForm = _gameForm;
             world = _world;
-
-            //CurrentMap = (Bitmap)world.HudForm.Image;
 
             BuildMap();
             CalibrateMap();
@@ -75,6 +72,7 @@ namespace RPG_Engine
                 if (x > world.MAX_MAP_SIZE) { y++; x = 0; }
             }
             reader.Close();
+            world.GameForm.Image = CurrentMap;
         } 
         public Bitmap DrawTile(Tile tile) // Draw the tile to the CurrentMap Bitmap 
         {
@@ -88,8 +86,7 @@ namespace RPG_Engine
 
         public void ShiftMap(int x, int y)
         {
-            MapLoc = new Point(MapLoc.X + x, MapLoc.Y + y);
-            world.GameForm.Location = new Point(MapLoc.X * 32, MapLoc.Y * 32);
+            MapLoc = new Point(MapLoc.X + x, MapLoc.Y + y);            
         }
         Bitmap DrawMap()
         {
@@ -114,7 +111,10 @@ namespace RPG_Engine
         }
 
         public void SetMap()
-        { gameForm.Image = DrawMap(); }
+        {
+            world.GameForm.Location = new Point(MapLoc.X * 32, MapLoc.Y * 32);
+            world.GameForm.Image = DrawMap();
+        }
     } 
     public class Tile // Class to hold tile information 
     {

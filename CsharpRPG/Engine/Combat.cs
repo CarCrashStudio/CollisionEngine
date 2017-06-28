@@ -7,7 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
-namespace RPG_Engine
+namespace CsharpRPG.Engine
 {
     public class Combat
     {

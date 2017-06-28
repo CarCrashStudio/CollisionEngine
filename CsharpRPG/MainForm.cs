@@ -1,22 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data.SqlClient;
+﻿using CsharpRPG.Engine;
+using System;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using RPG_Engine;
 
 namespace CsharpRPG
 {
     public partial class MainForm : Form
     {
         // Engine Object Classes
-        Character player;
         World world;
-        Combat combat;
+        Sql SQL;
 
         // Forms
         Journal journal = new Journal();
@@ -24,10 +17,10 @@ namespace CsharpRPG
 
         // Object Classes
         Random rand = new Random();
-        SqlConnection sqlConn;
 
         // Variables
-        string connString = "Server=tcp:roguedatabase.database.windows.net,1433;Initial Catalog=rogueDB;Persist Security Info=False;User ID=treyhall;Password=web560;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+        string sqlID = "treyhall";
+        string sqlPass = "web.56066";
 
         public MainForm()
         {
@@ -35,55 +28,115 @@ namespace CsharpRPG
             SetupGame();
         }
 
-        void TestSQL()
+        void Login()
         {
             try
             {
-                OpenSqlConn();
+                LoginForm login = new LoginForm();
+                login.ShowDialog();
+                string arg = String.Format("Username = '{0}'", login.txtUser.Text);
 
-                label1.Text = "Connected";
+                SQL.Open();
 
-                CloseSqlConn();
+                ValidateLogin(login, arg);
+
+                SQL.Close();
             }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                label1.Text = "Not Connected";
-            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }            
         }
-        void OpenSqlConn()
+        void ValidateLogin(LoginForm login, string arg)
         {
             try
             {
-                sqlConn = new SqlConnection(connString);
-                sqlConn.Open();
+                object[] obj = SQL.ExecuteSELECTWHERE("Password", arg, "UserData");
+                string pass = obj.GetValue(0).ToString();
+                string user = login.txtUser.Text;
+
+                if (pass == login.txtPass.Text)
+                {
+                    login.Close();
+                    CheckForProfile(arg);
+                }
             }
-            catch { }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }            
         }
-        void CloseSqlConn()
+        void CheckForProfile(string arg)
         {
             try
             {
-                sqlConn.Close();
+                object[] obj = SQL.ExecuteSELECTWHERE("Screenname", arg, "UserData");
+                string screen = obj.GetValue(0).ToString();
+
+                arg = String.Format("Screenname = '{0}'", screen);
+                obj = SQL.ExecuteSELECTWHERE("Screenname", arg, "CharacterData");
+                if (obj.Length == 0)
+                {
+                    CreateCharacter(screen);
+                    SQL.ExecuteINSERT("CharacterData", world.player.Name, world.player.Class, world.player.Health, world.player.Exp, world.player.MaxExp, world.player.Level, world.player.Gold, world.player.Location.X, world.player.Location.Y, world.player.CurrentLocation.ID);
+                }
+                else { LoadCharacter(screen); }
             }
-            catch { }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }           
         }
-        void SetupGame()
+        void CreateCharacter(string screenname)
         {
-            TestSQL();
-            world = new World(pbMap); //Create the World Object that holds all needed objects
-
-            InitializeScreenControls();
-
             creator = new CreatorWindow();
+            creator.txtName.Text = screenname;
+            creator.txtName.Enabled = false;
             creator.ShowDialog();
 
             InitializePlayer();
 
             creator.Close();
+        }
+        void LoadCharacter(string screename)
+        {
+            try
+            {
+                string arg = String.Format("Screenname = '{0}'", screename);
+                string clss = SQL.ExecuteSELECTWHERE("Class", arg, "CharacterData").GetValue(0).ToString();
+                int level = int.Parse(SQL.ExecuteSELECTWHERE("Level", arg, "CharacterData").GetValue(0).ToString());
+                int exp = int.Parse(SQL.ExecuteSELECTWHERE("Exp", arg, "CharacterData").GetValue(0).ToString());
+                int gold = int.Parse(SQL.ExecuteSELECTWHERE("Gold", arg, "CharacterData").GetValue(0).ToString());
+                int maxExp = int.Parse(SQL.ExecuteSELECTWHERE("MaxExp", arg, "CharacterData").GetValue(0).ToString());
+                int locX = int.Parse(SQL.ExecuteSELECTWHERE("LocX", arg, "CharacterData").GetValue(0).ToString());
+                int locY = int.Parse(SQL.ExecuteSELECTWHERE("LocY", arg, "CharacterData").GetValue(0).ToString());
+                world.player = new Character(1, screename, clss, new Point(locX, locY), level, exp, maxExp, gold, new Bitmap(32, 32), world, pbMap);
+                world.player.MoveTo(world.LocationByID(int.Parse(SQL.ExecuteSELECTWHERE("LastLocation", arg, "CharacterData").GetValue(0).ToString())));
 
-            combat = new Combat(lblCombatOutput, panCombat, player, pbPHealth, pbPlayer, player.CurrentLocation.MonsterLivingHere, pbDHealth, pbDefender, world, wait);
-            world.combat = combat;
+                InitializeHUD();
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+        }
+        void SaveCharacter(string screenname)
+        {
+            try
+            {
+                SQL.Open();
+
+                SQL.ExecuteUPDATE("CharacterData", "Screenname = '" + screenname + "'", "Class = '" + world.player.Class + "'");
+                SQL.ExecuteUPDATE("CharacterData", "Screenname = '" + screenname + "'", "Gold = '" + world.player.Gold + "'");
+                SQL.ExecuteUPDATE("CharacterData", "Screenname = '" + screenname + "'", "Exp = '" + world.player.Exp + "'");
+                SQL.ExecuteUPDATE("CharacterData", "Screenname = '" + screenname + "'", "MaxExp = '" + world.player.MaxExp + "'");
+                SQL.ExecuteUPDATE("CharacterData", "Screenname = '" + screenname + "'", "Level = '" + world.player.Level + "'");
+                SQL.ExecuteUPDATE("CharacterData", "Screenname = '" + screenname + "'", "LocX = '" + world.player.Location.X + "'");
+                SQL.ExecuteUPDATE("CharacterData", "Screenname = '" + screenname + "'", "LocY = '" + world.player.Location.Y + "'");
+                SQL.ExecuteUPDATE("CharacterData", "Screenname = '" + screenname + "'", "LastLocation = '" + world.player.CurrentLocation.ID + "'");
+
+                SQL.Close();
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+        }
+
+        void SetupGame()
+        {
+            SQL = new Sql(String.Format("Server=tcp:roguedatabase.database.windows.net,1433;Initial Catalog=rogueDB;Persist Security Info=False;User ID={0};Password={1};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;", sqlID, sqlPass));
+            world = new World(pbMap, pbGameForm); //Create the World Object that holds all needed objects
+            Login();
+
+            InitializeScreenControls();
+
+            world.combat = new Combat(lblCombatOutput, panCombat, world.player, pbPHealth, pbPlayer, world.player.CurrentLocation.MonsterLivingHere, pbDHealth, pbDefender, world, wait);
 
             updateScreen();
         }
@@ -93,110 +146,7 @@ namespace CsharpRPG
             world.HUD.Update();
             ScrollToBottomOfMessages();
         }
-
-        //void UseItem()
-        //{
-        //    string item = string.Empty;
-        //    int x;
-        //    if (!(lstInventory.SelectedIndex == -1))
-        //    {
-        //        x = 0;
-        //        item = "";
-        //        while (lstInventory.SelectedItem.ToString()[x] != '(')
-        //        {
-        //            item += lstInventory.SelectedItem.ToString()[x];
-        //            x++;
-        //        }
-        //    }
-
-        //    try
-        //    {
-        //        if (!(item.Contains("Potion")))
-        //        {
-        //            try
-        //            {
-        //                Weapon weapon = world.WeaponByName(item);
-        //                if (weapon.Equipped == true)
-        //                {
-        //                    player.MaximumDamage -= weapon.MaximumDamage;
-        //                    weapon.Equipped = false;
-        //                    if (weapon.OffHand == true)
-        //                    {
-        //                        player.OffHandEquipped = false;
-        //                    }
-        //                    if (weapon.MainHand == true)
-        //                    {
-        //                        player.MainHandEquipped = false;
-        //                    }
-        //                    weapon.EquipTag = "";
-        //                    updateScreen();
-        //                }
-        //                else
-        //                {
-        //                    if (weapon.MainHand == true)
-        //                    {
-        //                        if (player.MainHandEquipped == false)
-        //                        {
-        //                            player.MaximumDamage += weapon.MaximumDamage;
-        //                            weapon.Equipped = true;
-        //                            player.MainHandEquipped = true;
-        //                            weapon.EquipTag = "- Equipped";
-        //                            updateScreen();
-        //                        }
-        //                        else {
-        //                            //lblOutput.Text += "Main Hand is full!" + Environment.NewLine + Environment.NewLine;
-        //                        }
-        //                    }
-        //                    if (weapon.OffHand == true)
-        //                    {
-        //                        if (player.OffHandEquipped == false)
-        //                        {
-        //                            player.MaximumDamage += weapon.MaximumDamage;
-        //                            weapon.Equipped = true;
-        //                            player.OffHandEquipped = true;
-        //                            weapon.EquipTag = "- Equipped";
-        //                            updateScreen();
-        //                        }
-        //                        else { 
-        //                            //lblOutput.Text += "Off Hand is full!" + Environment.NewLine + Environment.NewLine; 
-        //                        }
-        //                    }
-        //                }
-        //            }
-        //            catch { }
-        //        }
-        //        else
-        //        {
-        //            try
-        //            {
-        //                Potion potion = world.PotionByName(item);
-        //                if (item.Contains("Health"))
-        //                {
-        //                    player.Health += potion.AmountToBuff;
-        //                    if (player.Health > player.MaxHealth)
-        //                    {
-        //                        player.Health = player.MaxHealth;
-        //                    }
-        //                    player.RemoveItemFromInventory(potion);
-        //                }
-        //                if (item.Contains("Mana"))
-        //                {
-        //                    player.Mana += potion.AmountToBuff;
-        //                    if (player.Mana > player.MaxMana)
-        //                    {
-        //                        player.Mana = player.Mana;
-        //                    }
-        //                    player.RemoveItemFromInventory(potion);
-        //                }
-        //                updateScreen();
-        //            }
-        //            catch { }
-        //        }
-        //    }
-        //    catch { 
-        //        //lblOutput.Text += item + " cannot be used or equipped!"; 
-        //    }
-        //}
+        
         void ScrollToBottomOfMessages()
         {
             //lblOutput.SelectionStart = lblOutput.Text.Length;
@@ -205,9 +155,8 @@ namespace CsharpRPG
 
         void InitializePlayer()
         {
-            player = new Character(1, creator.txtName.Text, creator.cmbClass.SelectedItem.ToString(),  new Point(0, 9), 1, 0, 100, 10, new Bitmap("icons/PlayerStates/PlayerDown.bmp"), world, pbMap); //You, the player, Character creation will be implemented later
-            world.player = player;
-            player.MoveTo(world.LocationByID(world.LOCATION_ID_HOUSE));
+            world.player = new Character(1, creator.txtName.Text, creator.cmbClass.SelectedItem.ToString(), new Point(0, 9), 1, 0, 100, 10, new Bitmap("icons/PlayerStates/PlayerDown.bmp"), world, pbMap); //You, the player, Character creation will be implemented later
+            world.player.MoveTo(world.LocationByID(world.LOCATION_ID_HOUSE));
             InitializeHUD();
         }
         void InitializeHUD()
@@ -216,9 +165,6 @@ namespace CsharpRPG
         }
         void InitializeScreenControls()
         {
-            //world.Stats = lblStats;
-            //world.Output = lblOutput;
-            //world.Inventory = lstInventory;
             world.Journal = journal.dgvQuests;
         }
         void OpenBag()
@@ -245,7 +191,7 @@ namespace CsharpRPG
                     {
                         CloseBag();
                     }
-                    player.MovePlayer(keyPressed);
+                    world.player.MovePlayer(keyPressed);
                     updateScreen();
                 }
             }
@@ -353,7 +299,8 @@ namespace CsharpRPG
                             case "Close":
                                 if (MessageBox.Show("Are you sure you want to quit?", "Are you sure?", MessageBoxButtons.YesNo) == DialogResult.Yes)
                                 {
-                                    Close();
+                                    SaveCharacter(world.player.Name);
+                                    Close();                                    
                                 }
                                 break;
                             case "Bag":

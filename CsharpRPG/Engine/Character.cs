@@ -4,7 +4,7 @@ using System.Windows.Forms;
 using System.Collections.Generic;
 using System.IO;
 
-namespace RPG_Engine
+namespace CsharpRPG.Engine
 { 
     public class Character : Entity
     {
@@ -70,7 +70,7 @@ namespace RPG_Engine
             var graphics = Graphics.FromImage(bitmap);
 
             //graphics.SmoothingMode = SmoothingMode.AntiAlias;
-            graphics.DrawImage(Image, new Point(world.GameForm.Width / 2, world.GameForm.Height / 2));
+            graphics.DrawImage(Image, new Point(world.WIDTH / 2, world.HEIGHT / 2));
 
             return bitmap;
         }
@@ -449,7 +449,7 @@ namespace RPG_Engine
 
             CountDown = MAX_COUNTDOWN; //Countdown resets upon entering a new location
 
-            world.map = new WorldMap(CurrentLocation.Name, world.HudForm, world);
+            world.map = new WorldMap(CurrentLocation.Name, world);
         }
         public void RecieveQuest(NPC npc)
         {

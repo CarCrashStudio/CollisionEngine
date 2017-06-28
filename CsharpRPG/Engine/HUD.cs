@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace RPG_Engine
+namespace CsharpRPG.Engine
+
+
+
 {
     public class Hud
     {
-        Bitmap TempImg;
-
         public List<HUDObject> Clickables { get; set; }
         public List<HUDObject> InventoryItems { get; set; }
 

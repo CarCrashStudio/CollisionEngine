@@ -1,4 +1,4 @@
-﻿namespace RPG_Engine
+﻿namespace CsharpRPG.Engine
 {
     public class Weapon : Item
     {

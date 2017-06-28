@@ -41,12 +41,14 @@
             this.lblCombatOutput = new System.Windows.Forms.RichTextBox();
             this.wait = new System.Windows.Forms.Timer(this.components);
             this.label1 = new System.Windows.Forms.Label();
+            this.pbGameForm = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbMap)).BeginInit();
             this.panCombat.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbDHealth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPHealth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbDefender)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPlayer)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbGameForm)).BeginInit();
             this.SuspendLayout();
             // 
             // pbMap
@@ -181,6 +183,16 @@
             this.label1.TabIndex = 31;
             this.label1.Text = "label1";
             // 
+            // pbGameForm
+            // 
+            this.pbGameForm.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbGameForm.Image = global::CsharpRPG.Properties.Resources._void;
+            this.pbGameForm.Location = new System.Drawing.Point(0, 0);
+            this.pbGameForm.Name = "pbGameForm";
+            this.pbGameForm.Size = new System.Drawing.Size(320, 320);
+            this.pbGameForm.TabIndex = 32;
+            this.pbGameForm.TabStop = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -190,6 +202,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panCombat);
             this.Controls.Add(this.pbMap);
+            this.Controls.Add(this.pbGameForm);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.KeyPreview = true;
             this.Name = "MainForm";
@@ -205,6 +218,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbPHealth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbDefender)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPlayer)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbGameForm)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -224,5 +238,6 @@
         private System.Windows.Forms.RichTextBox lblCombatOutput;
         private System.Windows.Forms.Timer wait;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.PictureBox pbGameForm;
     }
 }

@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace RPG_Engine
+namespace CsharpRPG.Engine
 {
     public class World
     {
@@ -60,12 +60,11 @@ namespace RPG_Engine
         public int HEIGHT { get { return (MAX_MAP_SIZE + 1) * ICON_SIZE; } }
         public Point CENTER { get { return new Point((WIDTH / 2) / 32, (HEIGHT / 2) / 32); } }
 
-        public World(PictureBox _HudForm)
+        public World(PictureBox _HudForm, PictureBox _GameForm)
         {
-            GameForm = new PictureBox();
+            GameForm = _GameForm;
             HudForm = _HudForm;
             GameForm.Size = new Size(WIDTH, HEIGHT);
-            GameForm.Image = new Bitmap(32, 32);
 
             PopulateItems();
             PopulateWeapons();
@@ -79,23 +78,23 @@ namespace RPG_Engine
 
         void PopulateItems()
         {
-            Item spiderSilk = new RPG_Engine.Item(ITEM_ID_SPIDER_SILK, "Spider Silk", "Spider Silk", 5);
+            Item spiderSilk = new CsharpRPG.Engine.Item(ITEM_ID_SPIDER_SILK, "Spider Silk", "Spider Silk", 5);
 
             Items.Add(spiderSilk);  
         }
         void PopulateWeapons()
         {
-            Weapon rustySword = new RPG_Engine.Weapon(WEAPON_ID_RUSTY_SWORD, "Rusty Sword", "Rusty Swords", 1, 5, 5, true, false);
-            Weapon crudeAx = new RPG_Engine.Weapon(WEAPON_ID_CRUDE_AX, "Crude Ax", "Crude Axes", 1, 7, 10, true, false);
+            Weapon rustySword = new CsharpRPG.Engine.Weapon(WEAPON_ID_RUSTY_SWORD, "Rusty Sword", "Rusty Swords", 1, 5, 5, true, false);
+            Weapon crudeAx = new CsharpRPG.Engine.Weapon(WEAPON_ID_CRUDE_AX, "Crude Ax", "Crude Axes", 1, 7, 10, true, false);
 
             Weapons.Add(rustySword);
             Weapons.Add(crudeAx);
         }
         void PopulatePotions()
         {
-            Potion basicHealthPotion = new RPG_Engine.Potion(POTION_ID_BASIC_HEALTH, "Basic Health Potion", "Basic Health Potions", 15, 30);
-            Potion medHealthPotion = new RPG_Engine.Potion(POTION_ID_BASIC_HEALTH, "Better Health Potion", "Better Health Potions", 30, 60);
-            Potion HighHealthPotion = new RPG_Engine.Potion(POTION_ID_BASIC_HEALTH, "Best Health Potion", "Best Health Potions", 45, 90);
+            Potion basicHealthPotion = new CsharpRPG.Engine.Potion(POTION_ID_BASIC_HEALTH, "Basic Health Potion", "Basic Health Potions", 15, 30);
+            Potion medHealthPotion = new CsharpRPG.Engine.Potion(POTION_ID_BASIC_HEALTH, "Better Health Potion", "Better Health Potions", 30, 60);
+            Potion HighHealthPotion = new CsharpRPG.Engine.Potion(POTION_ID_BASIC_HEALTH, "Best Health Potion", "Best Health Potions", 45, 90);
 
             Potions.Add(basicHealthPotion);
             Potions.Add(medHealthPotion);
@@ -103,7 +102,7 @@ namespace RPG_Engine
         }
         void PopulateQuests()
         {
-            Quest bugSquashing = new RPG_Engine.Quest(QUEST_ID_BUGSQUASHING, "Bug Squasher", "Kill 5 Spiders", 10, 5);
+            Quest bugSquashing = new CsharpRPG.Engine.Quest(QUEST_ID_BUGSQUASHING, "Bug Squasher", "Kill 5 Spiders", 10, 5);
             bugSquashing.QuestCompletionItems.Add(new QuestCompletionItem(ItemByID(ITEM_ID_SPIDER_SILK), 2));
             bugSquashing.RewardItem = PotionByID(POTION_ID_BASIC_HEALTH);
 
@@ -114,7 +113,7 @@ namespace RPG_Engine
             Location homeInside = new Location(LOCATION_ID_HOUSE_INSIDE, "Inside", "You should really clean this place up.");
             homeInside.MonsterLivingHere = null;
 
-            Location field = new RPG_Engine.Location(LOCATION_ID_FIELD, "Fields", "This place is swarmed with spiders");
+            Location field = new CsharpRPG.Engine.Location(LOCATION_ID_FIELD, "Fields", "This place is swarmed with spiders");
             field.MonsterLivingHere = MonsterByID(MONSTER_ID_SPIDER);
             field.Transitions = new List<Transition>();
 
@@ -135,14 +134,14 @@ namespace RPG_Engine
         }
         void PopulateNPCs()
         {
-            NPC bugSquasher = new RPG_Engine.NPC(NPC_ID_BUGSQUASHER, "Bug Squasher", new System.Drawing.Bitmap("icons/NPC.bmp"), new System.Drawing.Point(0, 0), QuestByID(QUEST_ID_BUGSQUASHING), HudForm);
+            NPC bugSquasher = new CsharpRPG.Engine.NPC(NPC_ID_BUGSQUASHER, "Bug Squasher", new System.Drawing.Bitmap("icons/NPC.bmp"), new System.Drawing.Point(0, 0), QuestByID(QUEST_ID_BUGSQUASHING), HudForm);
 
             NPCs.Add(bugSquasher);
         }
         void PopulateMonsters()
         {
             
-            Monster spider = new RPG_Engine.Monster(MONSTER_ID_SPIDER, "Spider", new System.Drawing.Point(6, 5), 10, 10, 0, 0, 5, 5, 10, 5, 50, new System.Drawing.Bitmap("icons/spider.png"), this, this.HudForm);
+            Monster spider = new CsharpRPG.Engine.Monster(MONSTER_ID_SPIDER, "Spider", new System.Drawing.Point(6, 5), 10, 10, 0, 0, 5, 5, 10, 5, 50, new System.Drawing.Bitmap("icons/spider.png"), this, this.HudForm);
             spider.LootTable.Add(new LootItem(ItemByID(ITEM_ID_SPIDER_SILK), 100, true));
             spider.MaxHealth = 10;
             spider.Health = spider.MaxHealth;
