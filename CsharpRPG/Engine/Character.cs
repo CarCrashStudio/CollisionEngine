@@ -23,6 +23,7 @@ namespace CsharpRPG.Engine
         public int Exp { get { return exp; } set { exp = value; } }
         public int MaxExp { get { return maxExp; } set { maxExp = value; } }
         public int Gold { get { return gold; } set { gold = value; } }
+        public string Slug { get; set; }
 
         public List<InventoryItem> Inventory { get; set; }
         public List<PlayerQuest> Quests { get; set; }
@@ -39,13 +40,14 @@ namespace CsharpRPG.Engine
         public int CountDown { get; set; }
         public int MAX_COUNTDOWN { get { return 100; } }
 
-        public Character(int _id, string _name, string clss, Point _location, int _level, int _exp, int _maxExp, int _gold, Bitmap _img, World _world, PictureBox _HudForm) :
-            base(_id, _name,_location,_img,_world,_HudForm)
+        public Character(int _id, string _name, string clss, Point _location, int _level, int _exp, int _maxExp, int _gold, string slug, Bitmap _img, World _world, PictureBox _HudForm) :
+            base(_id, _name,_location, _img, _world,_HudForm)
         {
             level = _level;
             exp = _exp;
             maxExp = _maxExp;
             gold = _gold;
+            Slug = slug;
 
             Class = clss;
 
@@ -62,17 +64,6 @@ namespace CsharpRPG.Engine
 
             Inventory = new List<InventoryItem>();
             Quests = new List<PlayerQuest>();
-        }
-
-        public Bitmap Draw()
-        {
-            var bitmap = new Bitmap(world.HudForm.Image, world.WIDTH, world.HEIGHT);
-            var graphics = Graphics.FromImage(bitmap);
-
-            //graphics.SmoothingMode = SmoothingMode.AntiAlias;
-            graphics.DrawImage(Image, new Point(world.WIDTH / 2, world.HEIGHT / 2));
-
-            return bitmap;
         }
 
         public void Move(int x, int y)
@@ -93,7 +84,7 @@ namespace CsharpRPG.Engine
                     Image = new Bitmap("icons/PlayerStates/PlayerLeft.bmp");
                     break;
             }
-            world.HudForm.Image = Draw();
+            world.HudForm.Image = Draw(world.HudForm.Width, world.HudForm.Height, new Point(world.WIDTH / 2, world.HEIGHT / 2), (Bitmap)world.HudForm.Image);
         }
 
         public bool isColliding()

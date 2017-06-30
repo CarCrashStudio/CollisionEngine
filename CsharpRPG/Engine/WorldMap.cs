@@ -5,23 +5,20 @@ using System.IO;
 
 namespace CsharpRPG.Engine
 {
-    public class WorldMap // Class holding the play area and tiles inside
+    public class WorldMap : ScreenObject // Class holding the play area and tiles inside
     {
         World world;
 
         int x = 0;
         int y = 0; // Tile Coords vars
-        string name; // World/File name
 
-        public string Name { get { return name; } set { name = value; } } // Map name
         public List<Tile> TilesOnMap { get; set; } // List of Tiles on map
         public PictureBox gameForm { get; set; } // Picture box to display on
-        public Bitmap CurrentMap { get; set; } // Bitmap to save full map to, increase load time
         public Point MapLoc { get; set; }
 
-        public WorldMap(string _name, World _world)
+        public WorldMap(string _name, World _world) : 
+            base(0, _name, new Bitmap(_world.WIDTH, _world.HEIGHT))
         {
-            name = _name;
             world = _world;
 
             BuildMap();
@@ -29,17 +26,16 @@ namespace CsharpRPG.Engine
             SetMap();
         }
 
-        void BuildMap() // read through a text file of IDs and places them in the CurrentMap bitmap 
+        void BuildMap() // read through a text file of IDs and places them in the Image bitmap 
         {
             MapLoc = new Point(0, 0);
-            CurrentMap = (Bitmap)world.GameForm.Image;
 
             int id = 0;
             Tile tile;
 
             TilesOnMap = new List<Tile>();
             StreamReader reader;
-            reader = File.OpenText("maps/" + name + ".txt");
+            reader = File.OpenText("maps/" + Name + ".txt");
 
             while (!reader.EndOfStream)
             {
@@ -64,24 +60,14 @@ namespace CsharpRPG.Engine
                 tile = new Tile(world.TileByID(id));
                 tile.Location = new Point(x, y);
 
-                CurrentMap = DrawTile(tile);
-                CurrentMap.Save(name + ".png");
+                Image = tile.Draw(world.WIDTH, world.HEIGHT, new Point((tile.Location.X * 32), (tile.Location.Y * 32)), Image);
+                Image.Save(Name + ".png");
 
                 TilesOnMap.Add(tile);
                 x++;
                 if (x > world.MAX_MAP_SIZE) { y++; x = 0; }
             }
             reader.Close();
-            world.GameForm.Image = CurrentMap;
-        } 
-        public Bitmap DrawTile(Tile tile) // Draw the tile to the CurrentMap Bitmap 
-        {
-            var bitmap = new Bitmap(CurrentMap, world.WIDTH, world.HEIGHT);  
-            var graphics = Graphics.FromImage(bitmap);
-
-            graphics.DrawImage(tile.Image, new Point((tile.Location.X * 32), (tile.Location.Y * 32)));
-
-            return bitmap;
         }
 
         public void ShiftMap(int x, int y)
@@ -90,11 +76,11 @@ namespace CsharpRPG.Engine
         }
         Bitmap DrawMap()
         {
-            var bitmap = new Bitmap(world.GameForm.Width, world.GameForm.Height);
+            var bitmap = new Bitmap(world.HudForm.Width, world.HudForm.Height);
             var graphics = Graphics.FromImage(bitmap);
 
             //graphics.SmoothingMode = SmoothingMode.AntiAlias;
-            graphics.DrawImage(CurrentMap, new Point(MapLoc.X * 32, MapLoc.Y * 32));
+            graphics.DrawImage(Image, new Point(MapLoc.X * 32, MapLoc.Y * 32));
 
             return bitmap;
         }
@@ -112,41 +98,30 @@ namespace CsharpRPG.Engine
 
         public void SetMap()
         {
-            world.GameForm.Location = new Point(MapLoc.X * 32, MapLoc.Y * 32);
-            world.GameForm.Image = DrawMap();
+            world.HudForm.Image = DrawMap();
         }
     } 
-    public class Tile // Class to hold tile information 
+    public class Tile : ScreenObject// Class to hold tile information 
     {
         const int ICON_SIZE = 32; // 32x32 icons
 
-        int id;
-        string name;
         int dense;
         Point location;
-        Bitmap img;
 
-        public int ID { get { return id; } set { id = value; } } // Tile ID
-        public string Name { get { return name; } set { name = value; } } // Tile Name
         public int Dense { get { return dense; } set { dense = value; } } // Tile Density (Can you walk over it or not)
         public Point Location { get { return location; } set { location = value; } } // Tile Point
-        public Bitmap Image { get { return img; } set { img = value; } } // Tile Image
 
-        public Tile(int _id, string _name, int _dense, Point _location, Bitmap _img)
+        public Tile(int _id, string _name, int _dense, Point _location, Bitmap _img) :
+            base(_id, _name, _img)
         {
-            id = _id;
-            name = _name;
             dense = _dense;
             location = _location;
-            img = _img;
         }
-        public Tile(Tile tile)
+        public Tile(Tile tile) : 
+            base(tile.ID, tile.Name, tile.Image)
         {
-            id = tile.ID;
-            name = tile.Name;
             dense = tile.Dense;
             location = tile.Location;
-            img = tile.Image;
         }
     } 
 }

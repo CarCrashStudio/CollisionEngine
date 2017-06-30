@@ -47,7 +47,8 @@ namespace CsharpRPG.Engine
         void InitiateCombat()
         {
             player.Facing = "South"; // Set the player so you see the front facing image
-            player.Draw(); // Draw the front facing image
+            player.Move(0, 0);
+            player.Draw(world.HudForm.Width, world.HudForm.Height, new Point(world.WIDTH / 2, world.HEIGHT / 2), (Bitmap)world.HudForm.Image); // Draw the front facing image
 
             PImg.Image = player.Image;
             DImg.Image = monster.Image;

@@ -91,6 +91,7 @@
     <Compile Include="Engine\NPC.cs" />
     <Compile Include="Engine\Potion.cs" />
     <Compile Include="Engine\Quest.cs" />
+    <Compile Include="Engine\ScreenObjects.cs" />
     <Compile Include="Engine\Sql.cs" />
     <Compile Include="Engine\Weapon.cs" />
     <Compile Include="Engine\World.cs" />

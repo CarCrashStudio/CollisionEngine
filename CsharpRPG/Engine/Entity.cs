@@ -5,12 +5,10 @@ using System;
 
 namespace CsharpRPG.Engine
 {
-    public class Entity
+    public class Entity : ScreenObject
     {
         Point location;
-        Bitmap img;
-        int id;
-        string name;
+        
         int hp;
         int maxHp;
         int mana;
@@ -21,26 +19,19 @@ namespace CsharpRPG.Engine
 
         Random rand = new Random();
 
-        public Entity(int _id, string _name, Point _location,  Bitmap _img, World _world, PictureBox _HudForm)
+        public Entity(int _id, string _name, Point _location, Bitmap _img, World _world, PictureBox _HudForm):base(_id,_name, _img)
         {
-            id = _id;
-            name = _name;
             location = _location;
-            img = _img;
-
             world = _world;
-
             HudForm = _HudForm;
         }
-        public int ID { get { return id; } set { id = value; } }
-        public string Name { get { return name; } set { name = value; } }
+
         public int Health { get { return hp; } set { hp = value; } }
         public int MaxHealth { get { return maxHp; } set { maxHp = value; } }
         public int Mana { get { return mana; } set { mana = value; } }
         public int MaxMana { get { return maxMana; } set { maxMana = value; } }
         public Point Location { get { return location; } set { location = value; } }
-        public Bitmap Image { get { return img; } set { img = value; } }
-
+        
         public World world { get;  set; }
 
         public int MaximumDamage { get { return maxDamage; } set { maxDamage = value; } }
@@ -69,7 +60,6 @@ namespace CsharpRPG.Engine
             }
             return new Point(0, 0);
         }
-
         public bool isDead()
         {
             if (hp <= 0)

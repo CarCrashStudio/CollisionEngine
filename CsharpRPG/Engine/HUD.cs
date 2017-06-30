@@ -149,8 +149,8 @@ namespace CsharpRPG.Engine
             world.HudForm.Image = DrawBars(InventoryButton, world.HudForm);
             world.HudForm.Image = DrawBars(CloseButton, world.HudForm);
 
-            world.HudForm.Image = DrawHealth(MainHealthBar, world.HudForm, world.player, world.HudForm.Width, world.HudForm.Height, world.HudForm.Image);
-            world.HudForm.Image = DrawExp(MainExpBar, world.HudForm, world.player, world.HudForm.Width, world.HudForm.Height, world.HudForm.Image);
+            DrawHealth(MainHealthBar, world.HudForm, world.player);
+            DrawExp(MainExpBar, world.HudForm, world.player);
         }
         public void UpdateInventory()
         {
@@ -196,7 +196,7 @@ namespace CsharpRPG.Engine
         }
         void UpdatePlayer()
         {
-            world.HudForm.Image = world.player.Draw();
+            world.HudForm.Image = world.player.Draw(world.HudForm.Width, world.HudForm.Height, new Point(world.WIDTH / 2, world.HEIGHT / 2), (Bitmap)world.HudForm.Image);
             //UpdateInventory();
             UpdateStats();
         }
@@ -209,13 +209,13 @@ namespace CsharpRPG.Engine
             Monster MonsterLivingHere = world.player.CurrentLocation.MonsterLivingHere;
             if (MonsterLivingHere != null)
             {
-                world.HudForm.Image = MonsterLivingHere.Draw();
+                world.HudForm.Image = MonsterLivingHere.Draw(world.WIDTH, world.HEIGHT, new Point(MonsterLivingHere.Location.X * 32, MonsterLivingHere.Location.Y * 32), (Bitmap)world.HudForm.Image);
             }
         }
         void UpdateCombatScreen()
         {
-            world.combat.PHealth.Image = DrawHealth(PHealthCombat, world.combat.PHealth, world.player, 160, 16);
-            world.combat.DHealth.Image = DrawHealth(DHealthCombat, world.combat.DHealth, world.player.CurrentLocation.MonsterLivingHere, 160, 16);
+            DrawHealth(PHealthCombat, world.combat.PHealth, world.player);
+            DrawHealth(DHealthCombat, world.combat.DHealth, world.player.CurrentLocation.MonsterLivingHere);
         }
         public Bitmap DrawBars(HUDObject bar, PictureBox form)
         {
@@ -244,19 +244,8 @@ namespace CsharpRPG.Engine
             }
             return bitmap;
         }
-        public Bitmap DrawHealth(HUDObject health, PictureBox form, Entity entity, int Width, int Height, Image Image = null)
+        public void DrawHealth(HUDObject health, PictureBox form, Entity entity)
         {
-            var bitmap = health.Image;
-            if (Image == null)
-            {
-                bitmap = new Bitmap(Width, Height);
-            }
-            else
-            {
-                bitmap = new Bitmap(Image, Width, Height);
-            }
-            var graphics = Graphics.FromImage(bitmap);
-
             Bitmap img = new Bitmap("icons/HUDBars/HealthBar/HealthBar10.png");
             if (entity != null)
             {
@@ -273,22 +262,10 @@ namespace CsharpRPG.Engine
                 else if (temp >= .1 && temp < .2) { img = new Bitmap("icons/HUDBars/HealthBar/HealthBar1.png"); }
             }
             health.Image = img;
-            graphics.DrawImage(health.Image, health.Boundries[0]);
-
-            return bitmap;
+            form.Image = health.Draw(world.HudForm.Width, world.HudForm.Height, health.Boundries[0], (Bitmap)form.Image);
         }
-        public Bitmap DrawExp(HUDObject exp, PictureBox form, Character entity, int Width, int Height, Image Image = null)
+        public void DrawExp(HUDObject exp, PictureBox form, Character entity)
         {
-            var bitmap = exp.Image;
-            if (Image == null)
-            {
-                bitmap = new Bitmap(Width, Height);
-            }
-            else
-            {
-                bitmap = new Bitmap(Image, Width, Height);
-            }
-            var graphics = Graphics.FromImage(bitmap);
 
             Bitmap img = new Bitmap("icons/HUDBars/ExpBar/ExpBar (10).png");
             if (entity != null)
@@ -306,9 +283,7 @@ namespace CsharpRPG.Engine
                 else if (temp >= .1 && temp < .2) { img = new Bitmap("icons/HUDBars/ExpBar/ExpBar (1).png"); }
             }
             exp.Image = img;
-            graphics.DrawImage(exp.Image, exp.Boundries[0]);
-
-            return bitmap;
+            form.Image = exp.Draw(world.HudForm.Width, world.HudForm.Height, exp.Boundries[0], (Bitmap)form.Image);
         }
 
         public Point GetCursorPos(MouseEventArgs e)
@@ -316,16 +291,15 @@ namespace CsharpRPG.Engine
             return new Point(e.Location.X, e.Location.Y);
         }
     }
-    public class HUDObject
+    public class HUDObject : ScreenObject
     {
-        public string Name { get; set; }
         public bool Shown = false;
         public List<Point> Boundries { get; set; }
         public PictureBox Picture { get; set; }
-        public Bitmap Image { get; set; }
         public string Text { get; set; }
 
-        public HUDObject(List<Point> _Boundries, Bitmap _Image = null, string _Text = null)
+        public HUDObject(List<Point> _Boundries, Bitmap _Image = null, string _Text = null) : 
+            base(1000,"HUDObject",_Image)
         {
             Boundries = _Boundries;
             Image = _Image;

@@ -32,35 +32,13 @@ namespace CsharpRPG
         {
             try
             {
-                LoginForm login = new LoginForm();
+                LoginForm login = new LoginForm(SQL, this);
                 login.ShowDialog();
-                string arg = String.Format("Username = '{0}'", login.txtUser.Text);
 
-                SQL.Open();
-
-                ValidateLogin(login, arg);
-
-                SQL.Close();
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }            
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
-        void ValidateLogin(LoginForm login, string arg)
-        {
-            try
-            {
-                object[] obj = SQL.ExecuteSELECTWHERE("Password", arg, "UserData");
-                string pass = obj.GetValue(0).ToString();
-                string user = login.txtUser.Text;
-
-                if (pass == login.txtPass.Text)
-                {
-                    login.Close();
-                    CheckForProfile(arg);
-                }
-            }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }            
-        }
-        void CheckForProfile(string arg)
+        public void CheckForProfile(string arg)
         {
             try
             {
@@ -101,7 +79,8 @@ namespace CsharpRPG
                 int maxExp = int.Parse(SQL.ExecuteSELECTWHERE("MaxExp", arg, "CharacterData").GetValue(0).ToString());
                 int locX = int.Parse(SQL.ExecuteSELECTWHERE("LocX", arg, "CharacterData").GetValue(0).ToString());
                 int locY = int.Parse(SQL.ExecuteSELECTWHERE("LocY", arg, "CharacterData").GetValue(0).ToString());
-                world.player = new Character(1, screename, clss, new Point(locX, locY), level, exp, maxExp, gold, new Bitmap(32, 32), world, pbMap);
+                string slug = SQL.ExecuteSELECTWHERE("Slug", arg, "CharacterData").GetValue(0).ToString();
+                world.player = new Character(1, screename, clss, new Point(locX, locY), level, exp, maxExp, gold, slug, new Bitmap("icons/" + slug + ".png"), world, pbMap);
                 world.player.MoveTo(world.LocationByID(int.Parse(SQL.ExecuteSELECTWHERE("LastLocation", arg, "CharacterData").GetValue(0).ToString())));
 
                 InitializeHUD();
@@ -155,7 +134,7 @@ namespace CsharpRPG
 
         void InitializePlayer()
         {
-            world.player = new Character(1, creator.txtName.Text, creator.cmbClass.SelectedItem.ToString(), new Point(0, 9), 1, 0, 100, 10, new Bitmap("icons/PlayerStates/PlayerDown.bmp"), world, pbMap); //You, the player, Character creation will be implemented later
+            world.player = new Character(1, creator.txtName.Text, creator.cmbClass.SelectedItem.ToString(), new Point(0, 9), 1, 0, 100, 10, "player", new Bitmap("icons/player.png"), world, pbMap); //You, the player, Character creation will be implemented later
             world.player.MoveTo(world.LocationByID(world.LOCATION_ID_HOUSE));
             InitializeHUD();
         }
@@ -194,28 +173,6 @@ namespace CsharpRPG
                     world.player.MovePlayer(keyPressed);
                     updateScreen();
                 }
-            }
-            else
-            {
-                //switch (keyPressed)
-                //{
-                //    case "Enter":
-                //        if (txtInput.Text != string.Empty)
-                //        {
-                //            lblOutput.Text += player.Name + ": " + txtInput.Text + Environment.NewLine; txtInput.Clear();
-                //        }
-                //        else
-                //        {
-                //            if (npc.Location == player.CheckNextTile())
-                //            {
-                //                if (npc.QuestAvailableHere != null)
-                //                {
-                //                    player.RecieveQuest(npc);
-                //                }
-                //            }
-                //        }
-                //        break;
-                //}
             }
         }
         private void MainForm_KeyUp(object sender, KeyEventArgs e)
