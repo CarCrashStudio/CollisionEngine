@@ -42,6 +42,10 @@
             this.wait = new System.Windows.Forms.Timer(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.pbGameForm = new System.Windows.Forms.PictureBox();
+            this.walkW = new System.Windows.Forms.Timer(this.components);
+            this.walkA = new System.Windows.Forms.Timer(this.components);
+            this.walkS = new System.Windows.Forms.Timer(this.components);
+            this.walkD = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pbMap)).BeginInit();
             this.panCombat.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbDHealth)).BeginInit();
@@ -193,6 +197,22 @@
             this.pbGameForm.TabIndex = 32;
             this.pbGameForm.TabStop = false;
             // 
+            // walkW
+            // 
+            this.walkW.Tick += new System.EventHandler(this.walkW_Tick);
+            // 
+            // walkA
+            // 
+            this.walkA.Tick += new System.EventHandler(this.walkA_Tick);
+            // 
+            // walkS
+            // 
+            this.walkS.Tick += new System.EventHandler(this.walkS_Tick);
+            // 
+            // walkD
+            // 
+            this.walkD.Tick += new System.EventHandler(this.walkD_Tick);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -239,5 +259,9 @@
         private System.Windows.Forms.Timer wait;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pbGameForm;
+        private System.Windows.Forms.Timer walkW;
+        private System.Windows.Forms.Timer walkA;
+        private System.Windows.Forms.Timer walkS;
+        private System.Windows.Forms.Timer walkD;
     }
 }

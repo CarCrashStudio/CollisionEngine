@@ -1,15 +1,8 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows.Forms;
 
 namespace CsharpRPG.Engine
-
-
-
 {
     public class Hud
     {
@@ -41,81 +34,13 @@ namespace CsharpRPG.Engine
         public HUDObject PHealthCombat { get; set; }
         public HUDObject DHealthCombat { get; set; }
 
-        Bitmap strImg;
-        Bitmap defImg;
+        public Bitmap strImg;
+        public Bitmap defImg;
 
         World world { get; set; }
-        public Hud(Bitmap _CharStatBar, Bitmap _CharImgBox, Bitmap _strImg, Bitmap _defImg, World _world)
+        public Hud(World _world)
         {
-            Clickables = new List<HUDObject>();
-            InventoryItems = new List<HUDObject>();
-
-            strImg = _strImg;
-            defImg = _defImg;
-
             world = _world;
-            List<Point> temp = new List<Point>();
-            temp.Add(new Point(0, 0));
-            temp.Add(new Point(temp[0].X + _CharImgBox.Width, temp[0].Y + _CharImgBox.Height));
-
-            CharImgBox = new HUDObject(temp, _CharImgBox);
-
-            temp = new List<Point>();
-            temp.Add(new Point(CharImgBox.Boundries[0].X + 10, CharImgBox.Boundries[0].Y + 10));
-            CharImg = new HUDObject(temp, world.player.Image);
-
-            temp = new List<Point>();
-            temp.Add(new Point(CharImgBox.Boundries[1].X, 0));
-            temp.Add(new Point(temp[0].X + _CharStatBar.Width, temp[0].Y + _CharStatBar.Height));
-            CharStatBar = new HUDObject(temp, _CharStatBar);
-
-            temp = new List<Point>();
-            temp.Add(new Point(CharStatBar.FindCenterofBounds().X - 45, CharStatBar.FindCenterofBounds().Y + 25));
-            MainHealthBar = new HUDObject(temp, new Bitmap("icons/HUDBars/HealthBar/HealthBar10.png"));
-
-            temp = new List<Point>();
-            temp.Add(new Point(CharStatBar.FindCenterofBounds().X - 45, CharStatBar.FindCenterofBounds().Y + 40));
-            MainExpBar = new HUDObject(temp, new Bitmap("icons/HUDBars/ExpBar/ExpBar (10).png"));
-
-            temp = new List<Point>();
-            temp.Add(new Point(MainHealthBar.Boundries[0].X, MainHealthBar.Boundries[0].Y - 80));
-            NameLevelString = new HUDObject(temp, null, world.player.Name + " (" + world.player.Level + ")");
-
-            temp = new List<Point>();
-            temp.Add(new Point(MainHealthBar.Boundries[0].X, NameLevelString.Boundries[0].Y + 25));
-            Class = new HUDObject(temp, null, world.player.Class);
-
-            temp = new List<Point>();
-            temp.Add(new Point(MainHealthBar.Boundries[0].X, NameLevelString.Boundries[0].Y + 45));
-            Strength = new HUDObject(temp, strImg, ": " + world.player.MaximumDamage.ToString());
-
-            temp = new List<Point>();
-            temp.Add(new Point(MainHealthBar.Boundries[0].X + 70, NameLevelString.Boundries[0].Y + 45));
-            Defense = new HUDObject(temp, defImg, ": " + world.player.MaximumDefense.ToString());
-
-            temp = new List<Point>();
-            temp.Add(new Point(0, world.HudForm.Height - 32));
-            temp.Add(new Point(32, world.HudForm.Height));
-            InventoryButton = new HUDObject(temp, new Bitmap("icons/HUDBars/bagbutton.png"));
-            InventoryButton.Name = "Bag";
-            Clickables.Add(InventoryButton);
-
-            temp = new List<Point>();
-            temp.Add(new Point(world.HudForm.Width - 32, world.HudForm.Height - 32));
-            temp.Add(new Point(world.HudForm.Width, world.HudForm.Height));
-            CloseButton = new HUDObject(temp, new Bitmap("icons/HUDBars/exitbutton.png"));
-            CloseButton.Name = "Close";
-            Clickables.Add(CloseButton);
-
-            temp = new List<Point>();
-            temp.Add(new Point(InventoryButton.Boundries[0].X, InventoryButton.Boundries[0].Y - 400));
-            temp.Add(new Point(InventoryButton.Boundries[0].X + 300, InventoryButton.Boundries[0].Y));
-            InventoryBox = new HUDObject(temp, new Bitmap("icons/HUDBars/bagbox.png"));
-
-            temp = new List<Point>();
-            temp.Add(new Point(0, 0));
-            PHealthCombat = new HUDObject(temp);
-            DHealthCombat = new HUDObject(temp);
         }
 
         public void AddCombatHealth()
@@ -127,8 +52,10 @@ namespace CsharpRPG.Engine
         {
             UpdateWorld();
             UpdatePlayer();
-            //UpdateMonsters();
-            UpdateCombatScreen();
+            if (world.combat.Initiated)
+            {
+                UpdateCombatScreen();
+            }
         }
 
         void UpdateStats()
@@ -281,6 +208,7 @@ namespace CsharpRPG.Engine
                 else if (temp >= .3 && temp < .4) { img = new Bitmap("icons/HUDBars/ExpBar/ExpBar (3).png"); }
                 else if (temp >= .2 && temp < .3) { img = new Bitmap("icons/HUDBars/ExpBar/ExpBar (2).png"); }
                 else if (temp >= .1 && temp < .2) { img = new Bitmap("icons/HUDBars/ExpBar/ExpBar (1).png"); }
+                else { img = new Bitmap("icons/HUDBars/ExpBar/ExpBarEmpty.bmp"); }
             }
             exp.Image = img;
             form.Image = exp.Draw(world.HudForm.Width, world.HudForm.Height, exp.Boundries[0], (Bitmap)form.Image);

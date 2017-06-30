@@ -40,8 +40,8 @@ namespace CsharpRPG.Engine
         public int CountDown { get; set; }
         public int MAX_COUNTDOWN { get { return 100; } }
 
-        public Character(int _id, string _name, string clss, Point _location, int _level, int _exp, int _maxExp, int _gold, string slug, Bitmap _img, World _world, PictureBox _HudForm) :
-            base(_id, _name,_location, _img, _world,_HudForm)
+        public Character(int _id, string _name, string clss, Point _location, int _level, int _exp, int _maxExp, int _gold, string slug, Bitmap _img, PictureBox _HudForm) :
+            base(_id, _name,_location, _img, _HudForm)
         {
             level = _level;
             exp = _exp;
@@ -147,16 +147,16 @@ namespace CsharpRPG.Engine
         {
             switch (keyPressed)
             {
-                case "Up":
+                case "W":
                     Facing = "North";
                     break;
-                case "Down":
+                case "S":
                     Facing = "South";
                     break;
-                case "Left":
+                case "A":
                     Facing = "West";
                     break;
-                case "Right":
+                case "D":
                     Facing = "East";
                     break;
             }

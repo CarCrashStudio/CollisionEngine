@@ -1,22 +1,19 @@
-﻿namespace CsharpRPG.Engine
+﻿using System.Drawing;
+
+namespace CsharpRPG.Engine
 {
-    public class Item
+    public class Item : ScreenObject
     {
-        int id;
-        string name;
         string namePlural;
         int cost;
 
-        public Item(int _id, string _name, string _namePlural, int _cost)
+        public Item(int _id, string _name, string _namePlural, int _cost, Bitmap _img) :
+            base(_id, _name, _img)
         {
-            id = _id;
-            name = _name;
             namePlural = _namePlural;
             cost = _cost;
         }
 
-        public int ID { get { return id; } set { id = value; } }
-        public string Name { get { return name; } set { name = value; } }
         public string NamePlural { get { return namePlural; } set { namePlural = value; } }
         public int Cost { get { return cost; } set { cost = value; } }
 

@@ -8,51 +8,32 @@ using System.Windows.Forms;
 
 namespace CsharpRPG.Engine
 {
-    public class NPC
+    public class NPC : ScreenObject
     {
-        int id;
-        string name;
-        Bitmap img;
-        Point location;
-
-        public int ID { get { return id; } set { id = value; } }
-        public string Name { get { return name; } set { name = value; } }
-        public Point Location { get { return location; } set { location = value; } }
-        public Bitmap Image { get { return img; } set { img = value; } }
+        public Point Location { get; set; }
         public Quest QuestAvailableHere { get; set; }
-        public PictureBox HudForm{ get; set; }//Does the NPC Have a quest
+        public PictureBox HudForm{ get; set; }
 
-        public NPC(int _id, string _name, Bitmap _img, Point _location, Quest _questAvailibleHere, PictureBox _HudForm)
+        public World world { get; set; }
+
+        public NPC(int _id, string _name, Bitmap _img, Point _location, Quest _questAvailibleHere, PictureBox _HudForm, World _world) : 
+            base(_id, _name, _img)
         {
-            id = _id;
-            name = _name;
-            img = _img;
-            location = _location;
+            Location = _location;
             QuestAvailableHere = _questAvailibleHere;
             HudForm = _HudForm;
+            world = _world;
 
-            Draw();
+            Draw(world.HudForm.Width, world.HudForm.Height, new Point(Location.X * 32, Location.Y * 32), (Bitmap)world.HudForm.Image);
         }
-        public NPC(NPC npc)
+        public NPC(NPC npc) : 
+            base(npc.ID, npc.Name, npc.Image)
         {
-            id = npc.ID;
-            name = npc.Name;
-            img = npc.Image;
-            location = npc.Location;
+            Location = npc.Location;
             QuestAvailableHere = npc.QuestAvailableHere;
             HudForm = npc.HudForm;
 
-            Draw();
-        }
-        public Bitmap Draw()
-        {
-            var bitmap = new Bitmap(HudForm.Image, HudForm.Width, HudForm.Height);
-            var graphics = Graphics.FromImage(bitmap);
-
-            //graphics.SmoothingMode = SmoothingMode.AntiAlias;
-            graphics.DrawImage(img, new Point((location.X * 32), (location.Y * 32)));
-
-            return bitmap;
+            Draw(world.HudForm.Width, world.HudForm.Height, new Point(Location.X * 32, Location.Y * 32), (Bitmap)world.HudForm.Image);
         }
     }
 }

@@ -21,11 +21,29 @@ namespace CsharpRPG
         // Variables
         string sqlID = "treyhall";
         string sqlPass = "web.56066";
+        string sqlConnString = 
+            "Server=tcp:roguedatabase.database.windows.net,1433;" +
+            "Initial Catalog=rogueDB;" +
+            "Persist Security Info=False;" +
+            "User ID={0};" +
+            "Password={1};" +
+            "MultipleActiveResultSets=False;" +
+            "Encrypt=True;" +
+            "TrustServerCertificate=False;" +
+            "Connection Timeout=30;";
 
         public MainForm()
         {
             InitializeComponent();
             SetupGame();
+        }
+        void SetupGame()
+        {
+            SQL = new Sql(String.Format(sqlConnString, sqlID, sqlPass));
+            Login();
+            InitializeScreenControls();
+            world.combat = new Combat(lblCombatOutput, panCombat, world.player, pbPHealth, pbPlayer, world.player.CurrentLocation.MonsterLivingHere, pbDHealth, pbDefender, world, wait);
+            updateScreen();
         }
 
         void Login()
@@ -80,10 +98,8 @@ namespace CsharpRPG
                 int locX = int.Parse(SQL.ExecuteSELECTWHERE("LocX", arg, "CharacterData").GetValue(0).ToString());
                 int locY = int.Parse(SQL.ExecuteSELECTWHERE("LocY", arg, "CharacterData").GetValue(0).ToString());
                 string slug = SQL.ExecuteSELECTWHERE("Slug", arg, "CharacterData").GetValue(0).ToString();
-                world.player = new Character(1, screename, clss, new Point(locX, locY), level, exp, maxExp, gold, slug, new Bitmap("icons/" + slug + ".png"), world, pbMap);
+                world = new World(pbMap, pbGameForm, new Bitmap("icons/HUDBars/CharStatBar.png"), new Bitmap("icons/HUDBars/CharImgBox.png"), new Bitmap("icons/HUDBars/strength.png"), new Bitmap("icons/HUDBars/defense.png"), new Character(1, screename, clss, new Point(locX, locY), level, exp, maxExp, gold, slug, new Bitmap("icons/" + slug + ".png"), pbMap)); 
                 world.player.MoveTo(world.LocationByID(int.Parse(SQL.ExecuteSELECTWHERE("LastLocation", arg, "CharacterData").GetValue(0).ToString())));
-
-                InitializeHUD();
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
@@ -105,42 +121,17 @@ namespace CsharpRPG
                 SQL.Close();
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
-        }
-
-        void SetupGame()
-        {
-            SQL = new Sql(String.Format("Server=tcp:roguedatabase.database.windows.net,1433;Initial Catalog=rogueDB;Persist Security Info=False;User ID={0};Password={1};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;", sqlID, sqlPass));
-            world = new World(pbMap, pbGameForm); //Create the World Object that holds all needed objects
-            Login();
-
-            InitializeScreenControls();
-
-            world.combat = new Combat(lblCombatOutput, panCombat, world.player, pbPHealth, pbPlayer, world.player.CurrentLocation.MonsterLivingHere, pbDHealth, pbDefender, world, wait);
-
-            updateScreen();
-        }
+        }       
 
         void updateScreen()
         {
             world.HUD.Update();
-            ScrollToBottomOfMessages();
-        }
-        
-        void ScrollToBottomOfMessages()
-        {
-            //lblOutput.SelectionStart = lblOutput.Text.Length;
-            //lblOutput.ScrollToCaret();
         }
 
         void InitializePlayer()
         {
-            world.player = new Character(1, creator.txtName.Text, creator.cmbClass.SelectedItem.ToString(), new Point(0, 9), 1, 0, 100, 10, "player", new Bitmap("icons/player.png"), world, pbMap); //You, the player, Character creation will be implemented later
+            world = new World(pbMap, pbGameForm, new Bitmap("icons/HUDBars/CharStatBar.png"), new Bitmap("icons/HUDBars/CharImgBox.png"), new Bitmap("icons/HUDBars/strength.png"), new Bitmap("icons/HUDBars/defense.png"), new Character(1, creator.txtName.Text, creator.cmbClass.SelectedItem.ToString(), new Point(0, 9), 1, 0, 100, 10, "player", new Bitmap("icons/player.png"), pbMap)); //You, the player, Character creation will be implemented later
             world.player.MoveTo(world.LocationByID(world.LOCATION_ID_HOUSE));
-            InitializeHUD();
-        }
-        void InitializeHUD()
-        {
-            world.HUD = new Hud(new Bitmap("icons/HUDBars/CharStatBar.png"), new Bitmap("icons/HUDBars/CharImgBox.png"), new Bitmap("icons/HUDBars/strength.png"), new Bitmap("icons/HUDBars/defense.png"), world);
         }
         void InitializeScreenControls()
         {
@@ -162,22 +153,57 @@ namespace CsharpRPG
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
             string keyPressed = e.KeyCode.ToString();
-            if (keyPressed == "Up" || keyPressed == "Down" || keyPressed == "Left" || keyPressed == "Right")
+            if (keyPressed == "W" || keyPressed == "S" || keyPressed == "A" || keyPressed == "D")
             {
                 if (!world.combat.Initiated)
                 {
                     if(world.HUD.InventoryBox.Shown)
                     {
                         CloseBag();
+                    }                    
+
+                    switch (keyPressed)
+                    {
+                        case "W":
+                            walkW.Enabled = true;
+                            break;
+
+                        case "S":
+                            walkS.Enabled = true;
+                            break;
+
+                        case "A":
+                            walkA.Enabled = true;
+                            break;
+
+                        case "D":
+                            walkD.Enabled = true;
+                            break;
                     }
-                    world.player.MovePlayer(keyPressed);
-                    updateScreen();
                 }
             }
         }
         private void MainForm_KeyUp(object sender, KeyEventArgs e)
         {
-            //MessageBox.Show(e.KeyCode.ToString() + " was pressed."); //DEBUG PURPOSES
+            string keyPressed = e.KeyCode.ToString();
+            switch (keyPressed)
+            {
+                case "W":
+                    walkW.Enabled = false;
+                    break;
+
+                case "S":
+                    walkS.Enabled = false;
+                    break;
+
+                case "A":
+                    walkA.Enabled = false;
+                    break;
+
+                case "D":
+                    walkD.Enabled = false;
+                    break;
+            }
         }
         private void lblJournal_Click(object sender, EventArgs e)
         {
@@ -228,7 +254,7 @@ namespace CsharpRPG
         }
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            world.Save();
+            SaveCharacter(world.player.Name);
         }
         private void pbComb_Click(object sender, EventArgs e)
         {
@@ -241,8 +267,6 @@ namespace CsharpRPG
             //lblOutput.Text += Environment.NewLine;
             //ScrollToBottomOfMessages();
         }
-        #endregion
-
         private void pbMap_MouseClick(object sender, MouseEventArgs e)
         {
             foreach (HUDObject button in world.HUD.Clickables)
@@ -257,7 +281,7 @@ namespace CsharpRPG
                                 if (MessageBox.Show("Are you sure you want to quit?", "Are you sure?", MessageBoxButtons.YesNo) == DialogResult.Yes)
                                 {
                                     SaveCharacter(world.player.Name);
-                                    Close();                                    
+                                    Close();
                                 }
                                 break;
                             case "Bag":
@@ -266,19 +290,42 @@ namespace CsharpRPG
                         }
                     }
                 }
-            }           
+            }
         }
-
         private void btnATK_Click(object sender, EventArgs e)
         {
             world.combat.PlayerAttack();
             wait.Enabled = true;
         }
-
         private void wait_Tick(object sender, EventArgs e)
         {
             wait.Enabled = false;
             world.combat.DefenderAttack();
         }
+        private void walkW_Tick(object sender, EventArgs e)
+        {
+            walkW.Enabled = false;
+            world.player.MovePlayer("W");
+            updateScreen();
+        }
+        private void walkA_Tick(object sender, EventArgs e)
+        {
+            walkA.Enabled = false;
+            world.player.MovePlayer("A");
+            updateScreen();
+        }
+        private void walkS_Tick(object sender, EventArgs e)
+        {
+            walkS.Enabled = false;
+            world.player.MovePlayer("S");
+            updateScreen();
+        }
+        private void walkD_Tick(object sender, EventArgs e)
+        {
+            walkD.Enabled = false;
+            world.player.MovePlayer("D");
+            updateScreen();
+        }
+        #endregion
     }
 }

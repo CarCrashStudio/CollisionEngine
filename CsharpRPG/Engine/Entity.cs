@@ -19,7 +19,8 @@ namespace CsharpRPG.Engine
 
         Random rand = new Random();
 
-        public Entity(int _id, string _name, Point _location, Bitmap _img, World _world, PictureBox _HudForm):base(_id,_name, _img)
+        public Entity(int _id, string _name, Point _location, Bitmap _img, PictureBox _HudForm, World _world = null) :
+            base(_id,_name, _img)
         {
             location = _location;
             world = _world;
