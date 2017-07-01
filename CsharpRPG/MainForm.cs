@@ -60,12 +60,13 @@ namespace CsharpRPG
         {
             try
             {
-                object[] obj = SQL.ExecuteSELECTWHERE("Screenname", arg, "UserData");
-                string screen = obj.GetValue(0).ToString();
+                object[,] obj = SQL.ExecuteSELECTWHERE("Screenname", arg, "UserData");
+                string screen = obj[0,0].ToString();
 
                 arg = String.Format("Screenname = '{0}'", screen);
                 obj = SQL.ExecuteSELECTWHERE("Screenname", arg, "CharacterData");
-                if (obj.Length == 0)
+                string str = obj[0, 0].ToString();
+                if (str == string.Empty)
                 {
                     CreateCharacter(screen);
                     SQL.ExecuteINSERT("CharacterData", world.player.Name, world.player.Class, world.player.Health, world.player.Exp, world.player.MaxExp, world.player.Level, world.player.Gold, world.player.Location.X, world.player.Location.Y, world.player.CurrentLocation.ID);
@@ -90,16 +91,41 @@ namespace CsharpRPG
             try
             {
                 string arg = String.Format("Screenname = '{0}'", screename);
-                string clss = SQL.ExecuteSELECTWHERE("Class", arg, "CharacterData").GetValue(0).ToString();
-                int level = int.Parse(SQL.ExecuteSELECTWHERE("Level", arg, "CharacterData").GetValue(0).ToString());
-                int exp = int.Parse(SQL.ExecuteSELECTWHERE("Exp", arg, "CharacterData").GetValue(0).ToString());
-                int gold = int.Parse(SQL.ExecuteSELECTWHERE("Gold", arg, "CharacterData").GetValue(0).ToString());
-                int maxExp = int.Parse(SQL.ExecuteSELECTWHERE("MaxExp", arg, "CharacterData").GetValue(0).ToString());
-                int locX = int.Parse(SQL.ExecuteSELECTWHERE("LocX", arg, "CharacterData").GetValue(0).ToString());
-                int locY = int.Parse(SQL.ExecuteSELECTWHERE("LocY", arg, "CharacterData").GetValue(0).ToString());
-                string slug = SQL.ExecuteSELECTWHERE("Slug", arg, "CharacterData").GetValue(0).ToString();
-                world = new World(pbMap, pbGameForm, new Bitmap("icons/HUDBars/CharStatBar.png"), new Bitmap("icons/HUDBars/CharImgBox.png"), new Bitmap("icons/HUDBars/strength.png"), new Bitmap("icons/HUDBars/defense.png"), new Character(1, screename, clss, new Point(locX, locY), level, exp, maxExp, gold, slug, new Bitmap("icons/" + slug + ".png"), pbMap)); 
-                world.player.MoveTo(world.LocationByID(int.Parse(SQL.ExecuteSELECTWHERE("LastLocation", arg, "CharacterData").GetValue(0).ToString())));
+                string clss = SQL.ExecuteSELECTWHERE("Class", arg, "CharacterData").GetValue(0,0).ToString();
+                int health = int.Parse(SQL.ExecuteSELECTWHERE("Health", arg, "CharacterData").GetValue(0, 0).ToString());
+                int maxhealth = int.Parse(SQL.ExecuteSELECTWHERE("MaxHealth", arg, "CharacterData").GetValue(0, 0).ToString());
+                int mana = int.Parse(SQL.ExecuteSELECTWHERE("Mana", arg, "CharacterData").GetValue(0, 0).ToString());
+                int maxmana = int.Parse(SQL.ExecuteSELECTWHERE("MaxMana", arg, "CharacterData").GetValue(0, 0).ToString());
+                int damage = int.Parse(SQL.ExecuteSELECTWHERE("Damage", arg, "CharacterData").GetValue(0, 0).ToString());
+                int defense = int.Parse(SQL.ExecuteSELECTWHERE("Defense", arg, "CharacterData").GetValue(0, 0).ToString());
+                int level = int.Parse(SQL.ExecuteSELECTWHERE("Level", arg, "CharacterData").GetValue(0, 0).ToString());
+                int exp = int.Parse(SQL.ExecuteSELECTWHERE("Exp", arg, "CharacterData").GetValue(0, 0).ToString());
+                int gold = int.Parse(SQL.ExecuteSELECTWHERE("Gold", arg, "CharacterData").GetValue(0, 0).ToString());
+                int maxExp = int.Parse(SQL.ExecuteSELECTWHERE("MaxExp", arg, "CharacterData").GetValue(0, 0).ToString());
+                int locX = int.Parse(SQL.ExecuteSELECTWHERE("LocX", arg, "CharacterData").GetValue(0, 0).ToString());
+                int locY = int.Parse(SQL.ExecuteSELECTWHERE("LocY", arg, "CharacterData").GetValue(0, 0).ToString());
+                string slug = SQL.ExecuteSELECTWHERE("Slug", arg, "CharacterData").GetValue(0, 0).ToString();
+                world = new World(pbMap, pbGameForm, new Bitmap("icons/HUDBars/CharStatBar.png"), new Bitmap("icons/HUDBars/CharImgBox.png"), new Bitmap("icons/HUDBars/strength.png"), new Bitmap("icons/HUDBars/defense.png"), new Character(1, screename, clss, new Point(locX, locY), health, maxhealth, mana, maxmana, damage, defense, level, exp, maxExp, gold, slug, new Bitmap("icons/" + slug + ".png"), pbMap)); 
+                world.player.MoveTo(world.LocationByID(int.Parse(SQL.ExecuteSELECTWHERE("LastLocation", arg, "CharacterData").GetValue(0, 0).ToString())));
+                LoadCharacterSkills(screename);
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+        }
+        void LoadCharacterSkills(string screenname)
+        {
+            try
+            {
+                string arg = String.Format("Screenname = '{0}'", screenname);
+                object[,] query = SQL.ExecuteSELECTWHERE("*", arg, "CharacterSkills");
+                for (int i = 0; i < query.Length / 4; i++)
+                {
+                    if (query[i,1] != null)
+                    {
+                        world.player.Skills.Add(world.SkillByID(int.Parse(query[i,1].ToString())));
+                        world.player.Skills[i].SkillExp = int.Parse(query[i, 2].ToString());
+                        world.player.Skills[i].SkillLevel = int.Parse(query[i, 3].ToString());
+                    }                    
+                }
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
@@ -111,6 +137,12 @@ namespace CsharpRPG
 
                 SQL.ExecuteUPDATE("CharacterData", "Screenname = '" + screenname + "'", "Class = '" + world.player.Class + "'");
                 SQL.ExecuteUPDATE("CharacterData", "Screenname = '" + screenname + "'", "Gold = '" + world.player.Gold + "'");
+                SQL.ExecuteUPDATE("CharacterData", "Screenname = '" + screenname + "'", "Health = '" + world.player.Health + "'");
+                SQL.ExecuteUPDATE("CharacterData", "Screenname = '" + screenname + "'", "MaxHealth = '" + world.player.MaxHealth + "'");
+                SQL.ExecuteUPDATE("CharacterData", "Screenname = '" + screenname + "'", "Mana = '" + world.player.Mana + "'");
+                SQL.ExecuteUPDATE("CharacterData", "Screenname = '" + screenname + "'", "MaxMana = '" + world.player.MaxMana + "'");
+                SQL.ExecuteUPDATE("CharacterData", "Screenname = '" + screenname + "'", "Damage = '" + world.player.MaximumDamage + "'");
+                SQL.ExecuteUPDATE("CharacterData", "Screenname = '" + screenname + "'", "Defense = '" + world.player.MaximumDefense + "'");
                 SQL.ExecuteUPDATE("CharacterData", "Screenname = '" + screenname + "'", "Exp = '" + world.player.Exp + "'");
                 SQL.ExecuteUPDATE("CharacterData", "Screenname = '" + screenname + "'", "MaxExp = '" + world.player.MaxExp + "'");
                 SQL.ExecuteUPDATE("CharacterData", "Screenname = '" + screenname + "'", "Level = '" + world.player.Level + "'");
@@ -119,9 +151,87 @@ namespace CsharpRPG
                 SQL.ExecuteUPDATE("CharacterData", "Screenname = '" + screenname + "'", "LastLocation = '" + world.player.CurrentLocation.ID + "'");
 
                 SQL.Close();
+                SaveCharacterSkills(screenname);
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }       
+        void SaveCharacterSkills(string screenname)
+        {
+            try
+            {
+                SQL.Open();
+
+                foreach (Skill skill in world.player.Skills)
+                {
+                    SQL.ExecuteUPDATEAND("CharacterSkills", "Screenname = '" + screenname + "'", "ID = " + skill.ID, "Exp = '" + skill.SkillExp + "'");
+                    SQL.ExecuteUPDATEAND("CharacterSkills", "Screenname = '" + screenname + "'", "ID = " + skill.ID, "Level = '" + skill.SkillLevel + "'");
+                }                
+
+                SQL.Close();
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+        }
+
+        public int CalculateMaxHealth(string Class)
+        {
+            switch (Class)
+            {
+                case "Rogue":
+                    return 50;
+                case "Mage":
+                    return 60;
+                case "Warrior":
+                    return 100;
+                case "Scout":
+                    return 70;
+            }
+            return 0;
+        }
+        public int CalculateMaxMana(string Class)
+        {
+            switch (Class)
+            {
+                case "Rogue":
+                    return 10;
+                case "Mage":
+                    return 25;
+                case "Warrior":
+                    return 5;
+                case "Scout":
+                    return 5;
+            }
+            return 0;
+        }
+        public int CalculateMaxDamage(string Class)
+        {
+            switch (Class)
+            {
+                case "Rogue":
+                    return 2;
+                case "Mage":
+                    return 3;
+                case "Warrior":
+                    return 5;
+                case "Scout":
+                    return 2;
+            }
+            return 0;
+        }
+        public int CalculateMaxDefense(string Class)
+        {
+            switch (Class)
+            {
+                case "Rogue":
+                    return 5;
+                case "Mage":
+                    return 3;
+                case "Warrior":
+                    return 8;
+                case "Scout":
+                    return 6;
+            }
+            return 0;
+        }
 
         void updateScreen()
         {
@@ -130,8 +240,9 @@ namespace CsharpRPG
 
         void InitializePlayer()
         {
-            world = new World(pbMap, pbGameForm, new Bitmap("icons/HUDBars/CharStatBar.png"), new Bitmap("icons/HUDBars/CharImgBox.png"), new Bitmap("icons/HUDBars/strength.png"), new Bitmap("icons/HUDBars/defense.png"), new Character(1, creator.txtName.Text, creator.cmbClass.SelectedItem.ToString(), new Point(0, 9), 1, 0, 100, 10, "player", new Bitmap("icons/player.png"), pbMap)); //You, the player, Character creation will be implemented later
+            world = new World(pbMap, pbGameForm, new Bitmap("icons/HUDBars/CharStatBar.png"), new Bitmap("icons/HUDBars/CharImgBox.png"), new Bitmap("icons/HUDBars/strength.png"), new Bitmap("icons/HUDBars/defense.png"), new Character(1, creator.txtName.Text, creator.cmbClass.SelectedItem.ToString(), new Point(0, 9), CalculateMaxHealth(creator.cmbClass.Text), CalculateMaxHealth(creator.cmbClass.Text), CalculateMaxMana(creator.cmbClass.Text), CalculateMaxMana(creator.cmbClass.Text), CalculateMaxDamage(creator.cmbClass.Text), CalculateMaxDefense(creator.cmbClass.Text), 1, 0, 100, 10, "player", new Bitmap("icons/player.png"), pbMap)); //You, the player, Character creation will be implemented later
             world.player.MoveTo(world.LocationByID(world.LOCATION_ID_HOUSE));
+            world.player.Skills.Add(world.SkillByID(world.SKILL_ID_ATTACK));
         }
         void InitializeScreenControls()
         {
@@ -294,13 +405,15 @@ namespace CsharpRPG
         }
         private void btnATK_Click(object sender, EventArgs e)
         {
-            world.combat.PlayerAttack();
-            wait.Enabled = true;
+            foreach(Skill skill in world.player.Skills)
+            {
+                lstSkills.Items.Add(skill.Name);
+            }            
         }
         private void wait_Tick(object sender, EventArgs e)
         {
             wait.Enabled = false;
-            world.combat.DefenderAttack();
+            world.combat.DefenderAttack(world.player.CurrentLocation.MonsterLivingHere.Skills[rand.Next(world.player.CurrentLocation.MonsterLivingHere.Skills.Count)]);
         }
         private void walkW_Tick(object sender, EventArgs e)
         {
@@ -325,6 +438,11 @@ namespace CsharpRPG
             walkD.Enabled = false;
             world.player.MovePlayer("D");
             updateScreen();
+        }
+        private void lstSkills_DoubleClick(object sender, EventArgs e)
+        {
+            world.combat.PlayerAttack(world.SkillByName(lstSkills.SelectedItem.ToString()));
+            wait.Enabled = true;
         }
         #endregion
     }

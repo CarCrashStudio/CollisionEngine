@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="CsharpRPG.exe" size="83912">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="CsharpRPG.exe" size="90056">
       <assemblyIdentity name="CsharpRPG" version="1.11.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>y16XwMeGqkGHBb6zrDc88YzQ0J55mhkHdK2mUABmFJY=</dsig:DigestValue>
+        <dsig:DigestValue>18/BI9rb+ejCp3JHDzEEXTQCMqZYePdNjEUvVLdOz0k=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

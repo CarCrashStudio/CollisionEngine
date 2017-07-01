@@ -9,14 +9,15 @@ namespace CsharpRPG.Engine
     {
         string SELECTstring = "SELECT {0} FROM {1};";
         string SELECTWHEREstring = "SELECT {0} FROM {1} WHERE {2};";
+        string SELECTWHEREANDstring = "SELECT {0} FROM {1} WHERE {2} AND {3};";
         string UPDATEstring = "UPDATE {0} SET {1} WHERE {2};";
+        string UPDATEANDstring = "UPDATE {0} SET {1} WHERE {2} AND {3};";
         string INSERTstring = "INSERT INTO {0} VALUES ('{1}', '{2}', '{3}', '{4}','{5}','{6}','{7}','{8}','{9}','{10}');";
 
         SqlConnection Connection;
         SqlCommand Command;
         SqlDataReader Reader;
-        List<object> Results;
-
+        object[,] Results;
         public Sql(string connectionString)
         {
             Connection = new SqlConnection(connectionString);
@@ -56,33 +57,49 @@ namespace CsharpRPG.Engine
             catch { }
         }
 
-        object[] ExecuteReader(string query)
+        object[,] ExecuteReader(string query)
         {
             try
             {
+                int i = 0;
                 Command = new SqlCommand(query, Connection);
-                Reader = Command.ExecuteReader();
-                Results = new List<object>();
+                Reader = Command.ExecuteReader();                
                 while (Reader.Read())
                 {
-                    Results.Add(Reader.GetValue(0));
+                    Results = new object[10, Reader.FieldCount];
+                    for (int j = 0; j < Reader.FieldCount; j++)
+                    {
+                        Results[i, j] = Reader.GetValue(j);
+                    }
+                    i++;
                 }
                 Reader.Close();
-                return Results.ToArray();
+                return Results;
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); return null; }
         }
 
-        public object[] ExecuteSELECT(string arg, string table)
+        public object[,] ExecuteSELECT(string arg, string table)
         {
             string query = String.Format(SELECTstring, arg, table);
             return ExecuteReader(query);
  
         }
-        public object[] ExecuteSELECTWHERE(string arg1, string arg2, string table)
+        public object[,] ExecuteSELECTWHERE(string arg1, string arg2, string table)
         {
             string query = String.Format(SELECTWHEREstring, arg1, table, arg2);
             return ExecuteReader(query);
+        }
+        public object[,] ExecuteSELECTWHEREAND(string arg1, string arg2, string arg3, string table)
+        {
+            string query = String.Format(SELECTWHEREANDstring, arg1, table, arg2, arg3);
+            return ExecuteReader(query);
+        }
+        public void ExecuteUPDATEAND(string table, string condition, string condition2, string arg1)
+        {
+            string query = String.Format(UPDATEANDstring, table, arg1, condition, condition2);
+            Command = new SqlCommand(query, Connection);
+            Command.ExecuteNonQuery();
         }
         public void ExecuteUPDATE(string table, string condition, string arg1)
         {

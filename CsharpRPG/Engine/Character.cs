@@ -27,6 +27,7 @@ namespace CsharpRPG.Engine
 
         public List<InventoryItem> Inventory { get; set; }
         public List<PlayerQuest> Quests { get; set; }
+        
 
         public bool HeadEquipped { get; set; }
         public bool TorsoEquipped { get; set; }
@@ -40,8 +41,8 @@ namespace CsharpRPG.Engine
         public int CountDown { get; set; }
         public int MAX_COUNTDOWN { get { return 100; } }
 
-        public Character(int _id, string _name, string clss, Point _location, int _level, int _exp, int _maxExp, int _gold, string slug, Bitmap _img, PictureBox _HudForm) :
-            base(_id, _name,_location, _img, _HudForm)
+        public Character(int _id, string _name, string clss, Point _location, int _hp, int _maxHp, int _mana, int _maxMana, int _maximumDamage, int _maxDefense, int _level, int _exp, int _maxExp, int _gold, string slug, Bitmap _img, PictureBox _HudForm) :
+            base(_id, _name, _location, _hp, _maxHp, _mana, _maxMana, _maximumDamage, _maxDefense, _img, _HudForm)
         {
             level = _level;
             exp = _exp;
@@ -50,15 +51,6 @@ namespace CsharpRPG.Engine
             Slug = slug;
 
             Class = clss;
-
-            MaxHealth = CalculateMaxHealth();
-            Health = MaxHealth;
-
-            MaxMana = CalculateMaxMana();
-            Mana = MaxMana;
-
-            MaximumDamage = CalculateMaxDamage();
-            MaximumDefense = CalculateMaxDefense();
 
             //Inventory.Add(new InventoryItem(world.WeaponByID(world.WEAPON_ID_RUSTY_SWORD), 1)); //Give 1 'Rusty Sword' to player
 
@@ -194,69 +186,11 @@ namespace CsharpRPG.Engine
             if (exp >= maxExp)
             {
                 level++;
+                maxExp += rand.Next(100, maxExp);
             }
         }
 
-        public int CalculateMaxHealth()
-        {
-            switch (Class)
-            {
-                case "Rogue":
-                    return 50;
-                case "Mage":
-                    return 60;
-                case "Warrior":
-                    return 100;
-                case "Scout":
-                    return 70;
-            }
-            return 0;
-        }
-        public int CalculateMaxMana()
-        {
-            switch (Class)
-            {
-                case "Rogue":
-                    return 10;
-                case "Mage":
-                    return 25;
-                case "Warrior":
-                    return 5;
-                case "Scout":
-                    return 5;
-            }
-            return 0;
-        }
-        public int CalculateMaxDamage()
-        {
-            switch (Class)
-            {
-                case "Rogue":
-                    return 2;
-                case "Mage":
-                    return 3;
-                case "Warrior":
-                    return 5;
-                case "Scout":
-                    return 2;
-            }
-            return 0;
-        }
-        public int CalculateMaxDefense()
-        {
-            switch (Class)
-            {
-                case "Rogue":
-                    return 5;
-                case "Mage":
-                    return 3;
-                case "Warrior":
-                    return 8;
-                case "Scout":
-                    return 6;
-            }
-            return 0;
-        }
+        
 
         public bool HasRequiredItemToEnterThisLocation(Location location)
         {

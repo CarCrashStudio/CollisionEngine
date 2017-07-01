@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using System.IO;
 using System;
+using System.Collections.Generic;
 
 namespace CsharpRPG.Engine
 {
@@ -19,12 +20,19 @@ namespace CsharpRPG.Engine
 
         Random rand = new Random();
 
-        public Entity(int _id, string _name, Point _location, Bitmap _img, PictureBox _HudForm, World _world = null) :
+        public Entity(int _id, string _name, Point _location, int _hp, int _maxHp, int _mana, int _maxMana, int _maximumDamage, int _maxDefense, Bitmap _img, PictureBox _HudForm, World _world = null) :
             base(_id,_name, _img)
         {
+            hp = _hp;
+            maxHp = _maxHp;
+            mana = _mana;
+            maxMana = _maxMana;
+            maxDamage = _maximumDamage;
+            maxDefense = _maxDefense;
             location = _location;
             world = _world;
             HudForm = _HudForm;
+            Skills = new List<Skill>();
         }
 
         public int Health { get { return hp; } set { hp = value; } }
@@ -32,7 +40,8 @@ namespace CsharpRPG.Engine
         public int Mana { get { return mana; } set { mana = value; } }
         public int MaxMana { get { return maxMana; } set { maxMana = value; } }
         public Point Location { get { return location; } set { location = value; } }
-        
+        public List<Skill> Skills { get; set; }
+
         public World world { get;  set; }
 
         public int MaximumDamage { get { return maxDamage; } set { maxDamage = value; } }

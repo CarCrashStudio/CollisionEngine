@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.pbMap = new System.Windows.Forms.PictureBox();
             this.panCombat = new System.Windows.Forms.Panel();
+            this.lstSkills = new System.Windows.Forms.ListBox();
             this.pbDHealth = new System.Windows.Forms.PictureBox();
             this.pbPHealth = new System.Windows.Forms.PictureBox();
             this.pbDefender = new System.Windows.Forms.PictureBox();
@@ -76,6 +77,7 @@
             this.panCombat.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panCombat.Controls.Add(this.lstSkills);
             this.panCombat.Controls.Add(this.pbDHealth);
             this.panCombat.Controls.Add(this.pbPHealth);
             this.panCombat.Controls.Add(this.pbDefender);
@@ -90,9 +92,21 @@
             this.panCombat.TabIndex = 30;
             this.panCombat.Visible = false;
             // 
+            // lstSkills
+            // 
+            this.lstSkills.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lstSkills.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lstSkills.FormattingEnabled = true;
+            this.lstSkills.ItemHeight = 25;
+            this.lstSkills.Location = new System.Drawing.Point(607, 218);
+            this.lstSkills.Name = "lstSkills";
+            this.lstSkills.Size = new System.Drawing.Size(257, 154);
+            this.lstSkills.TabIndex = 35;
+            this.lstSkills.DoubleClick += new System.EventHandler(this.lstSkills_DoubleClick);
+            // 
             // pbDHealth
             // 
-            this.pbDHealth.Location = new System.Drawing.Point(685, 195);
+            this.pbDHealth.Location = new System.Drawing.Point(704, 196);
             this.pbDHealth.Name = "pbDHealth";
             this.pbDHealth.Size = new System.Drawing.Size(160, 16);
             this.pbDHealth.TabIndex = 34;
@@ -108,7 +122,7 @@
             // 
             // pbDefender
             // 
-            this.pbDefender.Location = new System.Drawing.Point(679, 7);
+            this.pbDefender.Location = new System.Drawing.Point(687, 7);
             this.pbDefender.Name = "pbDefender";
             this.pbDefender.Size = new System.Drawing.Size(180, 184);
             this.pbDefender.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -157,7 +171,7 @@
             this.btnATK.Name = "btnATK";
             this.btnATK.Size = new System.Drawing.Size(90, 23);
             this.btnATK.TabIndex = 28;
-            this.btnATK.Text = "ATK";
+            this.btnATK.Text = "SKILL";
             this.btnATK.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.btnATK.Click += new System.EventHandler(this.btnATK_Click);
             // 
@@ -199,18 +213,22 @@
             // 
             // walkW
             // 
+            this.walkW.Interval = 50;
             this.walkW.Tick += new System.EventHandler(this.walkW_Tick);
             // 
             // walkA
             // 
+            this.walkA.Interval = 50;
             this.walkA.Tick += new System.EventHandler(this.walkA_Tick);
             // 
             // walkS
             // 
+            this.walkS.Interval = 50;
             this.walkS.Tick += new System.EventHandler(this.walkS_Tick);
             // 
             // walkD
             // 
+            this.walkD.Interval = 50;
             this.walkD.Tick += new System.EventHandler(this.walkD_Tick);
             // 
             // MainForm
@@ -263,5 +281,6 @@
         private System.Windows.Forms.Timer walkA;
         private System.Windows.Forms.Timer walkS;
         private System.Windows.Forms.Timer walkD;
+        private System.Windows.Forms.ListBox lstSkills;
     }
 }

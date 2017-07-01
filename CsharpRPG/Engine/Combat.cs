@@ -48,7 +48,7 @@ namespace CsharpRPG.Engine
         {
             player.Facing = "South"; // Set the player so you see the front facing image
             player.Move(0, 0);
-            player.Draw(world.HudForm.Width, world.HudForm.Height, new Point(world.WIDTH / 2, world.HEIGHT / 2), (Bitmap)world.HudForm.Image); // Draw the front facing image
+            //player.Draw(world.HudForm.Width, world.HudForm.Height, new Point(world.WIDTH / 2, world.HEIGHT / 2), (Bitmap)world.HudForm.Image); // Draw the front facing image
 
             PImg.Image = player.Image;
             DImg.Image = monster.Image;
@@ -58,20 +58,18 @@ namespace CsharpRPG.Engine
             CombatForm.Visible = true;
             Output.Text += Environment.NewLine + "Combat initiated";
         }
-        public void DefenderAttack()
+        public void DefenderAttack(Skill skill)
         {
-            int damage = Damage(monster, player);
-            player.Health -= damage;
-            Output.Text += monster.Name + " dealt " + damage + " damage to " + player.Name + Environment.NewLine;
+            skill.Use(player);
+            Output.Text += monster.Name + " used " + skill.Name + " on " + player.Name + "dealing " + skill.Debuffamnt + "damage." + Environment.NewLine;
             world.HUD.Update();
             if (player.isDead()) { Output.Text += Environment.NewLine + Environment.NewLine + "You lose." + Environment.NewLine; Initiated = false; }
         }
-        public void PlayerAttack()
+        public void PlayerAttack(Skill skill)
         {
-            int damage = Damage(player, monster);
-            monster.Health -= damage;
+            skill.Use(monster);
             world.HUD.Update();
-            Output.Text += Environment.NewLine + Environment.NewLine + player.Name + " dealt " + damage + " damage to " + monster.Name + Environment.NewLine;
+            Output.Text += Environment.NewLine + Environment.NewLine + player.Name + " used " + skill.Name + " on " + monster.Name + "dealing " + skill.Debuffamnt + "damage." + Environment.NewLine;
             CheckDeath();
         }
         void RewardLoot()
@@ -137,10 +135,12 @@ namespace CsharpRPG.Engine
                 wait.Enabled = true;
             }
         }
-        int Damage(Entity attacker, Entity defender)
+        int Damage(Entity attacker, Entity defender, int buff, int debuff)
         {
             int temp = rand.Next(attacker.MaximumDamage);
             temp -= rand.Next(defender.MaximumDefense);
+            temp += buff;
+            temp -= debuff;
             if (temp < 0)
             {
                 temp = 1;

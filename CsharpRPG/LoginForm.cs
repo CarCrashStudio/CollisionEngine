@@ -26,11 +26,11 @@ namespace CsharpRPG
         {
             try
             {
-                object[] obj = SQL.ExecuteSELECTWHERE("Password", arg, "UserData");
-                string pass = obj.GetValue(0).ToString();
+                object[,] obj = SQL.ExecuteSELECTWHERE("Password", arg, "UserData");
+                string pass = obj[0,0].ToString();
                 string user = txtUser.Text;
 
-                if(obj.Count() != 0)
+                if(obj.Length != 0)
                 {
                     if (pass == txtPass.Text)
                     {

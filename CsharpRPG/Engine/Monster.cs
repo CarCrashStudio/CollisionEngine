@@ -17,7 +17,7 @@ namespace CsharpRPG.Engine
         public int SpawnChance { get; set; }
 
         public Monster(int _id, string _name, Point _location, int _hp, int _maxHp, int _mana, int _maxMana, int _maximumDamage, int _maxDefense, int _rewardExp, int _rewardGold, int _spawnChance, Bitmap _img, World _world, PictureBox _HudForm) :
-            base(_id, _name, _location, _img, _HudForm, _world)
+            base(_id, _name, _location, _hp, _maxHp, _mana, _maxMana, _maximumDamage, _maxDefense, _img, _HudForm, _world)
         {
             rewardExp = _rewardExp;
             rewardGold = _rewardGold;
@@ -28,7 +28,7 @@ namespace CsharpRPG.Engine
             SpawnChance = _spawnChance;
         }
         public Monster(Monster monster) :
-            base(monster.ID, monster.Name, monster.Location, monster.Image, monster.world.HudForm, monster.world)
+            base(monster.ID, monster.Name, monster.Location, monster.Health, monster.MaxHealth, monster.Mana, monster.MaxMana, monster.MaximumDamage, monster.MaximumDefense, monster.Image, monster.world.HudForm, monster.world)
         {
             rewardExp = monster.rewardExp;
             rewardGold = monster.RewardGold;

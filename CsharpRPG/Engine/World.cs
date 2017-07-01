@@ -16,6 +16,7 @@ namespace CsharpRPG.Engine
         public List<Tile> Tiles = new List<Tile>();
         public List<Biome> Biomes = new List<Biome>();
         public List<HUDObject> HUDObjects = new List<HUDObject>();
+        public List<Skill> Skills = new List<Skill>();
 
         public int WEAPON_ID_RUSTY_SWORD { get { return 1; } }
         public int WEAPON_ID_CRUDE_AX { get { return 2; } }
@@ -41,6 +42,9 @@ namespace CsharpRPG.Engine
         public int TILE_ID_DIRT { get { return 2; } }
         public int TILE_ID_WATER { get { return 3; } }
         public int TILE_ID_WOODFLOOR { get { return 100; } }
+
+        public int SKILL_ID_ATTACK { get { return 0; } }
+        public int SKILL_ID_BURN { get { return 1; } }
 
         public PictureBox HudForm { get; set; }
         public PictureBox GameForm { get; set; }
@@ -71,6 +75,7 @@ namespace CsharpRPG.Engine
             PopulateWeapons();
             PopulatePotions();
             PopulateQuests();
+            PopulateSkills();
             PopulateMonsters();
             PopulateLocations();
             PopulateNPCs();           
@@ -145,11 +150,7 @@ namespace CsharpRPG.Engine
             
             Monster spider = new Monster(MONSTER_ID_SPIDER, "Spider", new System.Drawing.Point(6, 5), 10, 10, 0, 0, 5, 5, 10, 5, 50, new System.Drawing.Bitmap("icons/spider.png"), this, this.HudForm);
             spider.LootTable.Add(new LootItem(ItemByID(ITEM_ID_SPIDER_SILK), 100, true));
-            spider.MaxHealth = 10;
-            spider.Health = spider.MaxHealth;
-            spider.MaxMana = 0;
-            spider.MaximumDamage = 5;
-            spider.MaximumDefense = 5;
+            spider.Skills.Add(SkillByID(SKILL_ID_ATTACK));
 
             Monsters.Add(spider);
         }
@@ -169,7 +170,17 @@ namespace CsharpRPG.Engine
 
             Tiles.Add(woodFloor);
         }
-        public void PopulateHUDObjects(Bitmap _CharStatBar, Bitmap _CharImgBox, Bitmap _strImg, Bitmap _defImg)
+        void PopulateSkills()
+        {
+            Skills = new List<Skill>();
+
+            Debuff Attack = new Debuff(SKILL_ID_ATTACK, "Attack", new Bitmap(32, 32), "Health", 5);
+            Debuff Burn = new Debuff(SKILL_ID_BURN, "Burn", new Bitmap(32, 32), "Health", 5);
+
+            Skills.Add(Attack);
+            Skills.Add(Burn);
+        }
+        void PopulateHUDObjects(Bitmap _CharStatBar, Bitmap _CharImgBox, Bitmap _strImg, Bitmap _defImg)
         {
             HUD = new Hud(this);
 
@@ -377,6 +388,29 @@ namespace CsharpRPG.Engine
                 }
             }
 
+            return null;
+        }
+
+        public Skill SkillByID(int id)
+        {
+            foreach (Skill skill in Skills)
+            {
+                if(skill.ID == id)
+                {
+                    return skill;
+                }
+            }
+            return null;
+        }
+        public Skill SkillByName(string name)
+        {
+            foreach (Skill skill in Skills)
+            {
+                if(skill.Name == name)
+                {
+                    return skill;
+                }
+            }
             return null;
         }
     }
