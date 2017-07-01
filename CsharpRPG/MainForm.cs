@@ -69,7 +69,7 @@ namespace CsharpRPG
                 if (str == string.Empty)
                 {
                     CreateCharacter(screen);
-                    SQL.ExecuteINSERT("CharacterData", world.player.Name, world.player.Class, world.player.Health, world.player.Exp, world.player.MaxExp, world.player.Level, world.player.Gold, world.player.Location.X, world.player.Location.Y, world.player.CurrentLocation.ID);
+                    SQL.ExecuteINSERT10("CharacterData", world.player.Name, world.player.Class, world.player.Health, world.player.Exp, world.player.MaxExp, world.player.Level, world.player.Gold, world.player.Location.X, world.player.Location.Y, world.player.CurrentLocation.ID);
                 }
                 else { LoadCharacter(screen); }
             }
@@ -129,6 +129,22 @@ namespace CsharpRPG
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
+        void LoadCharacterInventory(string screenname)
+        {
+            try
+            {
+                string arg = String.Format("Screenname = '{0}'", screenname);
+                object[,] query = SQL.ExecuteSELECTWHERE("*", arg, "CharacterInventory");
+                for (int i = 0; i < query.Length / 4; i++)
+                {
+                    if (query[i, 1] != null)
+                    {
+                        world.player.Inventory.Add(new InventoryItem(world.ItemByID(int.Parse(query[i, 1].ToString())), int.Parse(query[i, 2].ToString())));
+                    }
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+        }
         void SaveCharacter(string screenname)
         {
             try
@@ -151,7 +167,6 @@ namespace CsharpRPG
                 SQL.ExecuteUPDATE("CharacterData", "Screenname = '" + screenname + "'", "LastLocation = '" + world.player.CurrentLocation.ID + "'");
 
                 SQL.Close();
-                SaveCharacterSkills(screenname);
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }       
@@ -160,16 +175,43 @@ namespace CsharpRPG
             try
             {
                 SQL.Open();
-
                 foreach (Skill skill in world.player.Skills)
                 {
-                    SQL.ExecuteUPDATEAND("CharacterSkills", "Screenname = '" + screenname + "'", "ID = " + skill.ID, "Exp = '" + skill.SkillExp + "'");
-                    SQL.ExecuteUPDATEAND("CharacterSkills", "Screenname = '" + screenname + "'", "ID = " + skill.ID, "Level = '" + skill.SkillLevel + "'");
-                }                
-
+                    object[,] obj = SQL.ExecuteSELECTWHEREAND("*", "Screenname = '" + screenname + "'", "ID = " + skill.ID, "CharacterSkills");
+                    if (obj[0, 0] == null)
+                    {
+                        SQL.ExecuteINSERT4("CharacterSkills", screenname, skill.ID, skill.SkillExp, skill.SkillLevel);
+                    }
+                    else
+                    {
+                        SQL.ExecuteUPDATEAND("CharacterSkills", "Screenname = '" + screenname + "'", "ID = " + skill.ID, "Exp = '" + skill.SkillExp + "'");
+                        SQL.ExecuteUPDATEAND("CharacterSkills", "Screenname = '" + screenname + "'", "ID = " + skill.ID, "Level = '" + skill.SkillLevel + "'");
+                    }              
+                }
                 SQL.Close();
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
+            catch {  }
+        }
+        void SaveCharacterInventory(string screenname)
+        {
+            try
+            {
+                SQL.Open();                
+                foreach (InventoryItem item in world.player.Inventory)
+                {
+                    object[,] obj = SQL.ExecuteSELECTWHEREAND("Quantity", "Screenname = '" + screenname + "'", "Id = " + item.Details.ID, "CharacterInventory");
+                    if(obj[0,0] == null)
+                    {
+                        SQL.ExecuteINSERT3("CharacterInventory", screenname, item.Details.ID, item.Quantity);
+                    }
+                    else
+                    {
+                        SQL.ExecuteUPDATEAND("CharacterInventory", "Screenname = '" + screenname + "'", "Id = " + item.Details.ID, "Quantity = '" + item.Quantity + "'");
+                    }                  
+                }
+                SQL.Close();
+            }
+            catch {  }
         }
 
         public int CalculateMaxHealth(string Class)
@@ -366,6 +408,8 @@ namespace CsharpRPG
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             SaveCharacter(world.player.Name);
+            SaveCharacterSkills(world.player.Name);
+            SaveCharacterInventory(world.player.Name);
         }
         private void pbComb_Click(object sender, EventArgs e)
         {
@@ -390,8 +434,7 @@ namespace CsharpRPG
                         {
                             case "Close":
                                 if (MessageBox.Show("Are you sure you want to quit?", "Are you sure?", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                                {
-                                    SaveCharacter(world.player.Name);
+                                {                                  
                                     Close();
                                 }
                                 break;
@@ -408,7 +451,8 @@ namespace CsharpRPG
             foreach(Skill skill in world.player.Skills)
             {
                 lstSkills.Items.Add(skill.Name);
-            }            
+            }
+            lstSkills.Visible = true;
         }
         private void wait_Tick(object sender, EventArgs e)
         {
@@ -443,6 +487,7 @@ namespace CsharpRPG
         {
             world.combat.PlayerAttack(world.SkillByName(lstSkills.SelectedItem.ToString()));
             wait.Enabled = true;
+            lstSkills.Visible = false;
         }
         #endregion
     }

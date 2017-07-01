@@ -102,6 +102,7 @@
             this.lstSkills.Name = "lstSkills";
             this.lstSkills.Size = new System.Drawing.Size(257, 154);
             this.lstSkills.TabIndex = 35;
+            this.lstSkills.Visible = false;
             this.lstSkills.DoubleClick += new System.EventHandler(this.lstSkills_DoubleClick);
             // 
             // pbDHealth
