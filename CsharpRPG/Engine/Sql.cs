@@ -13,6 +13,7 @@ namespace CsharpRPG.Engine
         string UPDATEstring = "UPDATE {0} SET {1} WHERE {2};";
         string UPDATEANDstring = "UPDATE {0} SET {1} WHERE {2} AND {3};";
         string INSERT10string = "INSERT INTO {0} VALUES ('{1}', '{2}', '{3}', '{4}','{5}','{6}','{7}','{8}','{9}','{10}');";
+        string INSERT5string = "INSERT INTO {0} VALUES ('{1}', '{2}', '{3}', '{4}','{5}');";
         string INSERT4string = "INSERT INTO {0} VALUES ('{1}', '{2}', '{3}', '{4}');";
         string INSERT3string = "INSERT INTO {0} VALUES ('{1}', '{2}', '{3}');";
 
@@ -23,7 +24,7 @@ namespace CsharpRPG.Engine
         public Sql(string connectionString)
         {
             Connection = new SqlConnection(connectionString);
-            TestSQL();
+            //TestSQL();
         }
 
         void TestSQL()
@@ -66,10 +67,10 @@ namespace CsharpRPG.Engine
             {
                 int i = 0;
                 Command = new SqlCommand(query, Connection);
-                Reader = Command.ExecuteReader();                
+                Reader = Command.ExecuteReader();
+                Results = new object[10, Reader.FieldCount];
                 while (Reader.Read())
-                {
-                    Results = new object[10, Reader.FieldCount];
+                {                    
                     for (int j = 0; j < Reader.FieldCount; j++)
                     {
                         Results[i, j] = Reader.GetValue(j);
@@ -116,15 +117,21 @@ namespace CsharpRPG.Engine
             Command = new SqlCommand(query, Connection);
             Command.ExecuteNonQuery();
         }
-        public void ExecuteINSERT3(string table, object arg1, object arg2, object arg3)
+        public void ExecuteINSERT5(string table, object arg1, object arg2, object arg3, object arg4, object arg5)
         {
-            string query = String.Format(INSERT3string, table, arg1, arg2, arg3);
+            string query = String.Format(INSERT5string, table, arg1, arg2, arg3, arg4, arg5);
             Command = new SqlCommand(query, Connection);
             Command.ExecuteNonQuery();
         }
         public void ExecuteINSERT4(string table, object arg1, object arg2, object arg3, object arg4)
         {
             string query = String.Format(INSERT4string, table, arg1, arg2, arg3, arg4);
+            Command = new SqlCommand(query, Connection);
+            Command.ExecuteNonQuery();
+        }
+        public void ExecuteINSERT3(string table, object arg1, object arg2, object arg3)
+        {
+            string query = String.Format(INSERT3string, table, arg1, arg2, arg3);
             Command = new SqlCommand(query, Connection);
             Command.ExecuteNonQuery();
         }

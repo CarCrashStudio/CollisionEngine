@@ -24,24 +24,19 @@ namespace CsharpRPG
         
         bool IsValidated(string arg)
         {
-            try
-            {
-                object[,] obj = SQL.ExecuteSELECTWHERE("Password", arg, "UserData");
-                string pass = obj[0,0].ToString();
-                string user = txtUser.Text;
+            object[,] obj = SQL.ExecuteSELECTWHERE("Password", arg, "UserData");
+            string pass = obj[0,0].ToString();
+            string user = txtUser.Text;
 
-                if(obj.Length != 0)
+            if(obj.Length != 0)
+            {
+                if (pass == txtPass.Text)
                 {
-                    if (pass == txtPass.Text)
-                    {
-                        return true;
-                    }
-                    else { return false; }
+                    return true;
                 }
                 else { return false; }
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
-            return false;
+            else { return false; }
         }
         private void btnClose_Click(object sender, EventArgs e)
         {

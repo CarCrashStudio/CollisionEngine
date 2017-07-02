@@ -28,12 +28,12 @@ namespace CsharpRPG.Engine
 
         void BuildMap() // read through a text file of IDs and places them in the Image bitmap 
         {
-            MapLoc = new Point(0, 0);
+            MapLoc = new Point(0, 0); // Initialize the Point for the Map Location
 
-            int id = 0;
-            Tile tile;
+            int id = 0; // Variable for Tile Id;
+            Tile tile; // Blank Tile;
 
-            TilesOnMap = new List<Tile>();
+            TilesOnMap = new List<Tile>(); 
             StreamReader reader;
             reader = File.OpenText("maps/" + Name + ".txt");
 
@@ -50,7 +50,7 @@ namespace CsharpRPG.Engine
                         }
                         else { currentChar += char.ConvertFromUtf32(reader.Read()); }
                     }
-                    else { reader.Read(); break; }                    
+                    else { string temp = char.ConvertFromUtf32(reader.Read()); break; }                    
                 }
 
                 string read = "";
@@ -74,16 +74,6 @@ namespace CsharpRPG.Engine
         {
             MapLoc = new Point(MapLoc.X + x, MapLoc.Y + y);            
         }
-        Bitmap DrawMap()
-        {
-            var bitmap = new Bitmap(world.HudForm.Width, world.HudForm.Height);
-            var graphics = Graphics.FromImage(bitmap);
-
-            //graphics.SmoothingMode = SmoothingMode.AntiAlias;
-            graphics.DrawImage(Image, new Point(MapLoc.X * 32, MapLoc.Y * 32));
-
-            return bitmap;
-        }
 
         void CalibrateMap()
         {
@@ -98,7 +88,7 @@ namespace CsharpRPG.Engine
 
         public void SetMap()
         {
-            world.HudForm.Image = DrawMap();
+            world.HudForm.Image = Draw(world.HudForm.Width, world.HudForm.Height, new Point(MapLoc.X * 32, MapLoc.Y * 32));
         }
     } 
     public class Tile : ScreenObject// Class to hold tile information 

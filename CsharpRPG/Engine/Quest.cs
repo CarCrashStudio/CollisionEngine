@@ -21,8 +21,14 @@ namespace CsharpRPG.Engine
             desc = _desc;
             rewardExp = _rewardExp;
             rewardGold = _rewardGold;
-
-            QuestCompletionItems = new List<QuestCompletionItem>();
+        }
+        public Quest(Quest quest)
+        {
+            id = quest.ID;
+            name = quest.Name;
+            desc = quest.Description;
+            rewardExp = quest.RewardExperiencePoints;
+            rewardGold = quest.RewardGold;
         }
 
         public int ID { get {return id; } set {id = value; } }
@@ -34,7 +40,6 @@ namespace CsharpRPG.Engine
         public Item RewardItem { get; set; }
         public List<QuestCompletionItem> QuestCompletionItems { get; set; }
     }
-
     public class PlayerQuest
     {
         public Quest Details { get; set; }
@@ -45,8 +50,12 @@ namespace CsharpRPG.Engine
             Details = details;
             IsCompleted = false;
         }
+        public PlayerQuest(Quest details, string isCompleted)
+        {
+            Details = details;
+            IsCompleted = bool.Parse(isCompleted);
+        }
     }
-
     public class QuestCompletionItem
     {
         public Item Details { get; set; }

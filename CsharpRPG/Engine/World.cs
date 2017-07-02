@@ -7,8 +7,6 @@ namespace CsharpRPG.Engine
     public class World
     {
         public List<Item> Items = new List<Item>();
-        public List<Weapon> Weapons = new List<Weapon>();
-        public List<Potion> Potions = new List<Potion>();
         public List<Monster> Monsters = new List<Monster>();
         public List<Quest> Quests = new List<Quest>();
         public List<Location> Locations = new List<Location>();
@@ -47,7 +45,6 @@ namespace CsharpRPG.Engine
         public int SKILL_ID_BURN { get { return 1; } }
 
         public PictureBox HudForm { get; set; }
-        public PictureBox GameForm { get; set; }
         public WorldMap map { get; set; }
         public Combat combat { get; set; }
         public Character player { get; set; }
@@ -58,14 +55,54 @@ namespace CsharpRPG.Engine
         public ListBox Inventory { get; set; }
         public DataGridView Journal { get; set; }
 
+        public List<HUDObject> Clickables { get; set; }
+        public List<HUDObject> InventoryItems { get; set; }
 
-        public int MAX_MAP_SIZE { get { return 9; } }
+        // HUD STATS
+        public HUDObject CharImgBox { get; set; }
+        public HUDObject CharImg { get; set; }
+        public HUDObject CharStatBar { get; set; }
+        public HUDObject MainHealthBar { get; set; }
+        public HUDObject MainExpBar { get; set; }
+        public HUDObject NameLevelString { get; set; }
+        public HUDObject Class { get; set; }
+        public HUDObject Strength { get; set; }
+        public HUDObject Defense { get; set; }
+        public HUDObject InventoryItem { get; set; }
+        public HUDObject Gold { get; set; }
+
+        // HUD INVENTORIES
+        public HUDObject InventoryBox { get; set; }
+        public HUDObject QuestBox { get; set; }
+
+        // HUD BUTTONS
+        public HUDObject InventoryButton { get; set; }
+        public HUDObject CloseButton { get; set; }
+
+        // COMBAT SCREEN
+        public HUDObject PHealthCombat { get; set; }
+        public HUDObject DHealthCombat { get; set; }
+
+        public Bitmap strImg;
+        public Bitmap defImg;
+
+        public int MAX_MAP_SIZE { get { return 19; } }
         public int ICON_SIZE { get { return 32; } }
         public int WIDTH { get { return (MAX_MAP_SIZE + 1) * ICON_SIZE; } }
         public int HEIGHT { get { return (MAX_MAP_SIZE + 1) * ICON_SIZE; } }
-        public Point CENTER { get { return new Point((WIDTH / 2) / 32, (HEIGHT / 2) / 32); } }
+        public Point CENTER
+        {
+            get
+            {
+                if (!(WIDTH > HudForm.Width) || !(HEIGHT > HudForm.Height))
+                {
+                    return new Point((WIDTH / 2) / 32, (HEIGHT / 2) / 32);
+                }
+                else { return new Point(HudForm.Width / 2, HudForm.Height / 2); }
+            }
+        }
 
-        public World(PictureBox _HudForm, PictureBox _GameForm, Bitmap _CharStatBar, Bitmap _CharImgBox, Bitmap _strImg, Bitmap _defImg, Character _player)
+        public World(PictureBox _HudForm, Bitmap _CharStatBar, Bitmap _CharImgBox, Bitmap _strImg, Bitmap _defImg, Character _player)
         {
             HudForm = _HudForm;
             player = _player;
@@ -77,8 +114,8 @@ namespace CsharpRPG.Engine
             PopulateQuests();
             PopulateSkills();
             PopulateMonsters();
+            PopulateNPCs();
             PopulateLocations();
-            PopulateNPCs();           
             PopulateTiles();
             PopulateHUDObjects(_CharStatBar, _CharImgBox, _strImg, _defImg);
         }
@@ -94,8 +131,8 @@ namespace CsharpRPG.Engine
             Weapon rustySword = new Weapon(WEAPON_ID_RUSTY_SWORD, "Rusty Sword", "Rusty Swords", 1, 5, 5, true, false, new Bitmap("icons/items/Rusty Sword.png"));
             Weapon crudeAx = new Weapon(WEAPON_ID_CRUDE_AX, "Crude Ax", "Crude Axes", 1, 7, 10, true, false, new Bitmap("icons/items/Crude Ax.png"));
 
-            Weapons.Add(rustySword);
-            Weapons.Add(crudeAx);
+            Items.Add(rustySword);
+            Items.Add(crudeAx);
         }
         void PopulatePotions()
         {
@@ -103,17 +140,23 @@ namespace CsharpRPG.Engine
             Potion medHealthPotion = new Potion(POTION_ID_BASIC_HEALTH, "Better Health Potion", "Better Health Potions", 30, 60, new Bitmap("icons/items/Better Health Potion.png"));
             Potion HighHealthPotion = new Potion(POTION_ID_BASIC_HEALTH, "Best Health Potion", "Best Health Potions", 45, 90, new Bitmap("icons/items/Best Health Potion.png"));
 
-            Potions.Add(basicHealthPotion);
-            Potions.Add(medHealthPotion);
-            Potions.Add(HighHealthPotion);
+            Items.Add(basicHealthPotion);
+            Items.Add(medHealthPotion);
+            Items.Add(HighHealthPotion);
         }
         void PopulateQuests()
         {
             Quest bugSquashing = new Quest(QUEST_ID_BUGSQUASHING, "Bug Squasher", "Kill 5 Spiders", 10, 5);
+            bugSquashing.QuestCompletionItems = new List<QuestCompletionItem>();
             bugSquashing.QuestCompletionItems.Add(new QuestCompletionItem(ItemByID(ITEM_ID_SPIDER_SILK), 2));
-            bugSquashing.RewardItem = PotionByID(POTION_ID_BASIC_HEALTH);
+            bugSquashing.RewardItem = ItemByID(POTION_ID_BASIC_HEALTH);
 
             Quests.Add(bugSquashing);
+        }
+        void PopulateNPCs()
+        {
+            NPC bugSquasher = new NPC(NPC_ID_BUGSQUASHER, "Bug Squasher", new System.Drawing.Bitmap("icons/NPC.bmp"), new System.Drawing.Point(0, 0), new Quest(QuestByID(QUEST_ID_BUGSQUASHING)), this);
+            NPCs.Add(bugSquasher);
         }
         void PopulateLocations()
         {
@@ -122,35 +165,32 @@ namespace CsharpRPG.Engine
 
             Location field = new Location(LOCATION_ID_FIELD, "Fields", "This place is swarmed with spiders");
             field.MonsterLivingHere = MonsterByID(MONSTER_ID_SPIDER);
+
+            field.NPCsLivingHere = new List<NPC>();
+            field.NPCsLivingHere.Add(new NPC(NPCByID(NPC_ID_BUGSQUASHER)));
+
             field.Transitions = new List<Transition>();
 
             Location home = new Location(LOCATION_ID_HOUSE, "Your House", "You live here but now you should go adventuring");
             home.MonsterLivingHere = null;
             home.Transitions = new List<Transition>();
 
-
-
             Locations.Add(home);
             Locations.Add(homeInside);
             Locations.Add(field);
 
-            field.LocationToSouth = LocationByID(LOCATION_ID_HOUSE);
-            field.Transitions.Add(new Transition(new Point(5, 10), "South", field.LocationToSouth));
-            home.LocationToNorth = LocationByID(LOCATION_ID_FIELD);
-            home.Transitions.Add(new Transition(new Point(5, -1), "North", home.LocationToNorth));
-        }
-        void PopulateNPCs()
-        {
-            NPC bugSquasher = new NPC(NPC_ID_BUGSQUASHER, "Bug Squasher", new System.Drawing.Bitmap("icons/NPC.bmp"), new System.Drawing.Point(0, 0), QuestByID(QUEST_ID_BUGSQUASHING), HudForm, this);
-
-            NPCs.Add(bugSquasher);
+            Locations[2].LocationToSouth = LocationByID(LOCATION_ID_HOUSE);
+            Locations[2].Transitions.Add(new Transition(new Point(5, 10), "South", field.LocationToSouth));
+            Locations[0].LocationToNorth = LocationByID(LOCATION_ID_FIELD);
+            Locations[0].Transitions.Add(new Transition(new Point(5, -1), "North", home.LocationToNorth));
         }
         void PopulateMonsters()
         {
             
             Monster spider = new Monster(MONSTER_ID_SPIDER, "Spider", new System.Drawing.Point(6, 5), 10, 10, 0, 0, 5, 5, 10, 5, 50, new System.Drawing.Bitmap("icons/spider.png"), this, this.HudForm);
             spider.LootTable.Add(new LootItem(ItemByID(ITEM_ID_SPIDER_SILK), 100, true));
-            spider.Skills.Add(SkillByID(SKILL_ID_ATTACK));
+
+            
 
             Monsters.Add(spider);
         }
@@ -181,74 +221,74 @@ namespace CsharpRPG.Engine
             Skills.Add(Burn);
         }
         void PopulateHUDObjects(Bitmap _CharStatBar, Bitmap _CharImgBox, Bitmap _strImg, Bitmap _defImg)
-        {
+        {            
             HUD = new Hud(this);
 
-            HUD.Clickables = new List<HUDObject>();
-            HUD.InventoryItems = new List<HUDObject>();
+            Clickables = new List<HUDObject>();
+            InventoryItems = new List<HUDObject>();
 
             List<Point> temp = new List<Point>();
             temp.Add(new Point(0, 0));
             temp.Add(new Point(temp[0].X + _CharImgBox.Width, temp[0].Y + _CharImgBox.Height));
 
-            HUD.CharImgBox = new HUDObject(temp, _CharImgBox);
+            CharImgBox = new HUDObject(temp, _CharImgBox);
 
             temp = new List<Point>();
-            temp.Add(new Point(HUD.CharImgBox.Boundries[0].X + 10, HUD.CharImgBox.Boundries[0].Y + 10));
-            HUD.CharImg = new HUDObject(temp, player.Image);
+            temp.Add(new Point(CharImgBox.Boundries[0].X + 10, CharImgBox.Boundries[0].Y + 10));
+            CharImg = new HUDObject(temp, player.Image);
 
             temp = new List<Point>();
-            temp.Add(new Point(HUD.CharImgBox.Boundries[1].X, 0));
+            temp.Add(new Point(CharImgBox.Boundries[1].X, 0));
             temp.Add(new Point(temp[0].X + _CharStatBar.Width, temp[0].Y + _CharStatBar.Height));
-            HUD.CharStatBar = new HUDObject(temp, _CharStatBar);
+            CharStatBar = new HUDObject(temp, _CharStatBar);
 
             temp = new List<Point>();
-            temp.Add(new Point(HUD.CharStatBar.FindCenterofBounds().X - 45, HUD.CharStatBar.FindCenterofBounds().Y + 25));
-            HUD.MainHealthBar = new HUDObject(temp, new Bitmap("icons/HUDBars/HealthBar/HealthBar10.png"));
+            temp.Add(new Point(CharStatBar.FindCenterofBounds().X - 45, CharStatBar.FindCenterofBounds().Y + 25));
+            MainHealthBar = new HUDObject(temp, new Bitmap("icons/HUDBars/HealthBar/HealthBar10.png"));
 
             temp = new List<Point>();
-            temp.Add(new Point(HUD.CharStatBar.FindCenterofBounds().X - 45, HUD.CharStatBar.FindCenterofBounds().Y + 40));
-            HUD.MainExpBar = new HUDObject(temp, new Bitmap("icons/HUDBars/ExpBar/ExpBar (10).png"));
+            temp.Add(new Point(CharStatBar.FindCenterofBounds().X - 45, CharStatBar.FindCenterofBounds().Y + 40));
+            MainExpBar = new HUDObject(temp, new Bitmap("icons/HUDBars/ExpBar/ExpBar (10).png"));
 
             temp = new List<Point>();
-            temp.Add(new Point(HUD.MainHealthBar.Boundries[0].X, HUD.MainHealthBar.Boundries[0].Y - 80));
-            HUD.NameLevelString = new HUDObject(temp, null, player.Name + " (" + player.Level + ")");
+            temp.Add(new Point(MainHealthBar.Boundries[0].X, MainHealthBar.Boundries[0].Y - 80));
+            NameLevelString = new HUDObject(temp, null, player.Name + " (" + player.Level + ")");
 
             temp = new List<Point>();
-            temp.Add(new Point(HUD.MainHealthBar.Boundries[0].X, HUD.NameLevelString.Boundries[0].Y + 25));
-            HUD.Class = new HUDObject(temp, null, player.Class);
+            temp.Add(new Point(MainHealthBar.Boundries[0].X, NameLevelString.Boundries[0].Y + 25));
+            Class = new HUDObject(temp, null, player.Class);
 
             temp = new List<Point>();
-            temp.Add(new Point(HUD.MainHealthBar.Boundries[0].X, HUD.NameLevelString.Boundries[0].Y + 45));
-            HUD.Strength = new HUDObject(temp, _strImg, ": " + player.MaximumDamage.ToString());
+            temp.Add(new Point(MainHealthBar.Boundries[0].X, NameLevelString.Boundries[0].Y + 45));
+            Strength = new HUDObject(temp, _strImg, ": " + player.MaximumDamage.ToString());
 
             temp = new List<Point>();
-            temp.Add(new Point(HUD.MainHealthBar.Boundries[0].X + 70, HUD.NameLevelString.Boundries[0].Y + 45));
-            HUD.Defense = new HUDObject(temp, _defImg, ": " + player.MaximumDefense.ToString());
+            temp.Add(new Point(MainHealthBar.Boundries[0].X + 70, NameLevelString.Boundries[0].Y + 45));
+            Defense = new HUDObject(temp, _defImg, ": " + player.MaximumDefense.ToString());
 
             temp = new List<Point>();
             temp.Add(new Point(0, HudForm.Height - 32));
             temp.Add(new Point(32, HudForm.Height));
-            HUD.InventoryButton = new HUDObject(temp, new Bitmap("icons/HUDBars/bagbutton.png"));
-            HUD.InventoryButton.Name = "Bag";
-            HUD.Clickables.Add(HUD.InventoryButton);
+            InventoryButton = new HUDObject(temp, new Bitmap("icons/HUDBars/bagbutton.png"));
+            InventoryButton.Name = "Bag";
+            Clickables.Add(InventoryButton);
 
             temp = new List<Point>();
             temp.Add(new Point(HudForm.Width - 32, HudForm.Height - 32));
             temp.Add(new Point(HudForm.Width, HudForm.Height));
-            HUD.CloseButton = new HUDObject(temp, new Bitmap("icons/HUDBars/exitbutton.png"));
-            HUD.CloseButton.Name = "Close";
-            HUD.Clickables.Add(HUD.CloseButton);
+            CloseButton = new HUDObject(temp, new Bitmap("icons/HUDBars/exitbutton.png"));
+            CloseButton.Name = "Close";
+            Clickables.Add(CloseButton);
 
             temp = new List<Point>();
-            temp.Add(new Point(HUD.InventoryButton.Boundries[0].X, HUD.InventoryButton.Boundries[0].Y - 400));
-            temp.Add(new Point(HUD.InventoryButton.Boundries[0].X + 300, HUD.InventoryButton.Boundries[0].Y));
-            HUD.InventoryBox = new HUDObject(temp, new Bitmap("icons/HUDBars/bagbox.png"));
+            temp.Add(new Point(InventoryButton.Boundries[0].X, InventoryButton.Boundries[0].Y - 400));
+            temp.Add(new Point(InventoryButton.Boundries[0].X + 300, InventoryButton.Boundries[0].Y));
+            InventoryBox = new HUDObject(temp, new Bitmap("icons/HUDBars/bagbox.png"));
 
             temp = new List<Point>();
             temp.Add(new Point(0, 0));
-            HUD.PHealthCombat = new HUDObject(temp);
-            HUD.DHealthCombat = new HUDObject(temp);
+            PHealthCombat = new HUDObject(temp);
+            DHealthCombat = new HUDObject(temp);
         }
 
         public Item ItemByID(int id)
@@ -258,56 +298,6 @@ namespace CsharpRPG.Engine
                 if (item.ID == id)
                 {
                     return item;
-                }
-            }
-
-            return null;
-        }
-
-        public Weapon WeaponByID(int id)
-        {
-            foreach (Weapon weapon in Weapons)
-            {
-                if (weapon.ID == id)
-                {
-                    return weapon;
-                }
-            }
-
-            return null;
-        }
-        public Weapon WeaponByName(string name)
-        {
-            foreach (Weapon weapon in Weapons)
-            {
-                if (weapon.Name == name)
-                {
-                    return weapon;
-                }
-            }
-
-            return null;
-        }
-
-        public Potion PotionByID(int id)
-        {
-            foreach (Potion potion in Potions)
-            {
-                if (potion.ID == id)
-                {
-                    return potion;
-                }
-            }
-
-            return null;
-        }
-        public Potion PotionByName(string name)
-        {
-            foreach (Potion potion in Potions)
-            {
-                if (potion.Name == name)
-                {
-                    return potion;
                 }
             }
 

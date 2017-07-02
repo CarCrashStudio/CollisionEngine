@@ -6,37 +6,6 @@ namespace CsharpRPG.Engine
 {
     public class Hud
     {
-        public List<HUDObject> Clickables { get; set; }
-        public List<HUDObject> InventoryItems { get; set; }
-
-        // HUD STATS
-        public HUDObject CharImgBox { get; set; }
-        public HUDObject CharImg { get; set; }
-        public HUDObject CharStatBar { get; set; }
-        public HUDObject MainHealthBar { get; set; }
-        public HUDObject MainExpBar { get; set; }
-        public HUDObject NameLevelString { get; set; }
-        public HUDObject Class { get; set; }
-        public HUDObject Strength { get; set; }
-        public HUDObject Defense { get; set; }
-        public HUDObject InventoryItem { get; set; }
-        public HUDObject Gold { get; set; }
-
-        // HUD INVENTORIES
-        public HUDObject InventoryBox { get; set; }
-        public HUDObject QuestBox { get; set; }
-
-        // HUD BUTTONS
-        public HUDObject InventoryButton { get; set; }
-        public HUDObject CloseButton { get; set; }
-
-        // COMBAT SCREEN
-        public HUDObject PHealthCombat { get; set; }
-        public HUDObject DHealthCombat { get; set; }
-
-        public Bitmap strImg;
-        public Bitmap defImg;
-
         World world { get; set; }
         public Hud(World _world)
         {
@@ -45,8 +14,8 @@ namespace CsharpRPG.Engine
 
         public void AddCombatHealth()
         {
-            PHealthCombat.Picture = world.combat.PHealth;
-            DHealthCombat.Picture = world.combat.DHealth;
+            world.PHealthCombat.Picture = world.combat.PHealth;
+            world.DHealthCombat.Picture = world.combat.DHealth;
         }
         public void Update()
         {
@@ -60,48 +29,57 @@ namespace CsharpRPG.Engine
 
         void UpdateStats()
         {
-            NameLevelString.Text = world.player.Name + " (" + world.player.Level + ")";
-            Class.Text = world.player.Class;
-            Strength.Text = ": " + world.player.MaximumDamage.ToString();
-            Defense.Text = ": " + world.player.MaximumDefense.ToString();
+            world.NameLevelString.Text = world.player.Name + " (" + world.player.Level + ")";
+            world.Class.Text = world.player.Class;
+            world.Strength.Text = ": " + world.player.MaximumDamage.ToString();
+            world.Defense.Text = ": " + world.player.MaximumDefense.ToString();
 
-            world.HudForm.Image = DrawBars(CharImgBox, world.HudForm);
-            world.HudForm.Image = DrawBars(CharImg, world.HudForm);
-            world.HudForm.Image = DrawBars(CharStatBar, world.HudForm);
-            world.HudForm.Image = DrawBars(NameLevelString, world.HudForm);
-            world.HudForm.Image = DrawBars(Class, world.HudForm);
-            world.HudForm.Image = DrawBars(Strength, world.HudForm);
-            world.HudForm.Image = DrawBars(Defense, world.HudForm);
+            world.HudForm.Image = DrawBars(world.CharImgBox, world.HudForm);
+            world.HudForm.Image = DrawBars(world.CharImg, world.HudForm);
+            world.HudForm.Image = DrawBars(world.CharStatBar, world.HudForm);
+            world.HudForm.Image = DrawBars(world.NameLevelString, world.HudForm);
+            world.HudForm.Image = DrawBars(world.Class, world.HudForm);
+            world.HudForm.Image = DrawBars(world.Strength, world.HudForm);
+            world.HudForm.Image = DrawBars(world.Defense, world.HudForm);
 
-            world.HudForm.Image = DrawBars(InventoryButton, world.HudForm);
-            world.HudForm.Image = DrawBars(CloseButton, world.HudForm);
+            world.HudForm.Image = DrawBars(world.InventoryButton, world.HudForm);
+            world.HudForm.Image = DrawBars(world.CloseButton, world.HudForm);
 
-            DrawHealth(MainHealthBar, world.HudForm, world.player);
-            DrawExp(MainExpBar, world.HudForm, world.player);
+            DrawHealth(world.MainHealthBar, world.HudForm, world.player);
+            DrawExp(world.MainExpBar, world.HudForm, world.player);
         }
         public void UpdateInventory()
         {
+            world.InventoryItems = new List<HUDObject>();
+
+            int increment = 1;
+
             List<Point> temp = new List<Point>();
-            temp.Add(new Point(InventoryBox.Boundries[0].X + 70, InventoryBox.Boundries[0].Y + 15));
-            Gold = new HUDObject(temp, null, "Gold: " + world.player.Gold.ToString());
+            temp.Add(new Point(world.InventoryBox.Boundries[0].X + 80, world.InventoryBox.Boundries[0].Y + 15));
+            world.Gold = new HUDObject(temp, null, "Gold: " + world.player.Gold.ToString());
 
             // Refresh player's inventory list
+            if (world.InventoryBox.Shown)
+            {
+                world.HudForm.Image = DrawBars(world.InventoryBox, world.HudForm);
+            }
             foreach (InventoryItem inventoryItem in world.player.Inventory)
             {
-                int increment = 1;
+                
                 temp = new List<Point>();
-                temp.Add(new Point(InventoryBox.Boundries[0].X + 50, InventoryBox.Boundries[0].Y + (35 * increment)));
-                InventoryItem = new HUDObject(temp, null, inventoryItem.Details.Name);
+                temp.Add(new Point(world.InventoryBox.Boundries[0].X + 50, world.Gold.Boundries[0].Y + (30 * increment)));
+                world.InventoryItem = new HUDObject(temp, null, inventoryItem.Details.Name);
                 if (inventoryItem.Quantity > 0)
                 {
-                    InventoryItem.Text = inventoryItem.Details.Name + "(" + inventoryItem.Quantity.ToString() + ") " + inventoryItem.Details.EquipTag;
+                    world.InventoryItem.Text = inventoryItem.Details.Name + "(" + inventoryItem.Quantity.ToString() + ") " + inventoryItem.Details.EquipTag;
                 }
-                if (InventoryBox.Shown)
+                if (world.InventoryBox.Shown)
                 {
-                    world.HudForm.Image = DrawBars(Gold, world.HudForm);
-                    world.HudForm.Image = DrawBars(InventoryItem, world.HudForm);
+                    world.HudForm.Image = DrawBars(world.Gold, world.HudForm);
+                    world.HudForm.Image = DrawBars(world.InventoryItem, world.HudForm);
                 }
-                InventoryItems.Add(InventoryItem);
+                world.InventoryItems.Add(world.InventoryItem);
+                increment++;
             }
         }
         public void UpdateQuestLog()
@@ -124,7 +102,7 @@ namespace CsharpRPG.Engine
         void UpdatePlayer()
         {
             world.HudForm.Image = world.player.Draw(world.HudForm.Width, world.HudForm.Height, new Point(world.WIDTH / 2, world.HEIGHT / 2), (Bitmap)world.HudForm.Image);
-            //UpdateInventory();
+            UpdateInventory();
             UpdateStats();
         }
         void UpdateWorld()
@@ -141,8 +119,8 @@ namespace CsharpRPG.Engine
         }
         void UpdateCombatScreen()
         {
-            DrawHealth(PHealthCombat, world.combat.PHealth, world.player);
-            DrawHealth(DHealthCombat, world.combat.DHealth, world.player.CurrentLocation.MonsterLivingHere);
+            DrawHealth(world.PHealthCombat, world.combat.PHealth, world.player);
+            DrawHealth(world.DHealthCombat, world.combat.DHealth, world.player.CurrentLocation.MonsterLivingHere);
         }
         public Bitmap DrawBars(HUDObject bar, PictureBox form)
         {
@@ -197,7 +175,7 @@ namespace CsharpRPG.Engine
             Bitmap img = new Bitmap("icons/HUDBars/ExpBar/ExpBar (10).png");
             if (entity != null)
             {
-                double temp = entity.Exp / entity.MaxExp;
+                double temp = (double)entity.Exp / entity.MaxExp;
                 if (temp == 1) { img = new Bitmap("icons/HUDBars/ExpBar/ExpBar (10).png"); }
                 else if (temp >= .9 && temp < 1) { img = new Bitmap("icons/HUDBars/ExpBar/ExpBar (9).png"); }
                 else if (temp >= .8 && temp < .9) { img = new Bitmap("icons/HUDBars/ExpBar/ExpBar (8).png"); }

@@ -16,11 +16,10 @@ namespace CsharpRPG.Engine
         int maxMana;
         int maxDamage;
         int maxDefense;
-        PictureBox HudForm;
 
         Random rand = new Random();
 
-        public Entity(int _id, string _name, Point _location, int _hp, int _maxHp, int _mana, int _maxMana, int _maximumDamage, int _maxDefense, Bitmap _img, PictureBox _HudForm, World _world = null) :
+        public Entity(int _id, string _name, Point _location, int _hp, int _maxHp, int _mana, int _maxMana, int _maximumDamage, int _maxDefense, Bitmap _img, World _world = null) :
             base(_id,_name, _img)
         {
             hp = _hp;
@@ -31,7 +30,6 @@ namespace CsharpRPG.Engine
             maxDefense = _maxDefense;
             location = _location;
             world = _world;
-            HudForm = _HudForm;
             Skills = new List<Skill>();
         }
 

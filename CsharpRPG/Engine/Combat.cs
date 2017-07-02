@@ -60,14 +60,14 @@ namespace CsharpRPG.Engine
         }
         public void DefenderAttack(Skill skill)
         {
-            skill.Use(player);
+            skill.Use(monster, player);
             Output.Text += monster.Name + " used " + skill.Name + " on " + player.Name + "dealing " + skill.Debuffamnt + "damage." + Environment.NewLine;
             world.HUD.Update();
             if (player.isDead()) { Output.Text += Environment.NewLine + Environment.NewLine + "You lose." + Environment.NewLine; Initiated = false; }
         }
         public void PlayerAttack(Skill skill)
         {
-            skill.Use(monster);
+            skill.Use(player, monster);
             world.HUD.Update();
             Output.Text += Environment.NewLine + Environment.NewLine + player.Name + " used " + skill.Name + " on " + monster.Name + "dealing " + skill.Debuffamnt + "damage." + Environment.NewLine;
             CheckDeath();
@@ -127,7 +127,7 @@ namespace CsharpRPG.Engine
                 Initiated = false;
                 world.HudForm.Visible = true;
                 CombatForm.Visible = false;
-                //monster.Location = new Point(11, 11);
+                monster.Location = new Point(11, 11);
                 monster.Health = monster.MaxHealth;
             }
             else

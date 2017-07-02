@@ -10,6 +10,23 @@ namespace CsharpRPG.Engine
         string name;
         string desc;
 
+        public int ID { get { return id; } set { id = value; } }
+        public string Name { get { return name; } set { name = value; } }
+        public string Description { get { return desc; } set { desc = value; } }
+            
+        public Item ItemRequiredToEnter { get; set; }
+        public Quest QuestAvailableHere { get; set; }
+
+        public Monster MonsterLivingHere { get; set; }
+        public List<NPC> NPCsLivingHere { get; set; }
+
+        public List<Transition> Transitions { get; set; }
+
+        public Location LocationToNorth { get; set; }
+        public Location LocationToEast { get; set; }
+        public Location LocationToSouth { get; set; }
+        public Location LocationToWest { get; set; }
+
         public Location(int _id, string _name, string _desc, Item itemReq = null, Item itemRequiredToEnter = null, Quest questAvailableHere = null, Monster monsterLivingHere = null)
         {
             id = _id;
@@ -28,21 +45,6 @@ namespace CsharpRPG.Engine
             QuestAvailableHere = location.QuestAvailableHere;
             MonsterLivingHere = location.MonsterLivingHere;
         }
-
-        public int ID { get { return id; } set { id = value; } }
-        public string Name { get { return name; } set { name = value; } }
-        public string Description { get { return desc; } set { desc = value; } }
-
-        public Item ItemRequiredToEnter { get; set; }
-        public Quest QuestAvailableHere { get; set; }
-        public Monster MonsterLivingHere { get; set; }
-
-        public List<Transition> Transitions { get; set; }
-
-        public Location LocationToNorth { get; set; }
-        public Location LocationToEast { get; set; }
-        public Location LocationToSouth { get; set; }
-        public Location LocationToWest { get; set; }
     }
 
     public class Transition

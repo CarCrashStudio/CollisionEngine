@@ -42,7 +42,6 @@
             this.lblCombatOutput = new System.Windows.Forms.RichTextBox();
             this.wait = new System.Windows.Forms.Timer(this.components);
             this.label1 = new System.Windows.Forms.Label();
-            this.pbGameForm = new System.Windows.Forms.PictureBox();
             this.walkW = new System.Windows.Forms.Timer(this.components);
             this.walkA = new System.Windows.Forms.Timer(this.components);
             this.walkS = new System.Windows.Forms.Timer(this.components);
@@ -53,7 +52,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbPHealth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbDefender)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPlayer)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbGameForm)).BeginInit();
             this.SuspendLayout();
             // 
             // pbMap
@@ -68,9 +66,7 @@
             this.pbMap.Size = new System.Drawing.Size(876, 588);
             this.pbMap.TabIndex = 15;
             this.pbMap.TabStop = false;
-            this.pbMap.Click += new System.EventHandler(this.pbMap_Click);
             this.pbMap.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pbMap_MouseClick);
-            this.pbMap.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbMap_MouseMove);
             // 
             // panCombat
             // 
@@ -202,34 +198,24 @@
             this.label1.TabIndex = 31;
             this.label1.Text = "label1";
             // 
-            // pbGameForm
-            // 
-            this.pbGameForm.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbGameForm.Image = global::CsharpRPG.Properties.Resources._void;
-            this.pbGameForm.Location = new System.Drawing.Point(0, 0);
-            this.pbGameForm.Name = "pbGameForm";
-            this.pbGameForm.Size = new System.Drawing.Size(320, 320);
-            this.pbGameForm.TabIndex = 32;
-            this.pbGameForm.TabStop = false;
-            // 
             // walkW
             // 
-            this.walkW.Interval = 50;
+            this.walkW.Interval = 25;
             this.walkW.Tick += new System.EventHandler(this.walkW_Tick);
             // 
             // walkA
             // 
-            this.walkA.Interval = 50;
+            this.walkA.Interval = 25;
             this.walkA.Tick += new System.EventHandler(this.walkA_Tick);
             // 
             // walkS
             // 
-            this.walkS.Interval = 50;
+            this.walkS.Interval = 25;
             this.walkS.Tick += new System.EventHandler(this.walkS_Tick);
             // 
             // walkD
             // 
-            this.walkD.Interval = 50;
+            this.walkD.Interval = 25;
             this.walkD.Tick += new System.EventHandler(this.walkD_Tick);
             // 
             // MainForm
@@ -241,7 +227,6 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panCombat);
             this.Controls.Add(this.pbMap);
-            this.Controls.Add(this.pbGameForm);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.KeyPreview = true;
             this.Name = "MainForm";
@@ -257,7 +242,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbPHealth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbDefender)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPlayer)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbGameForm)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -277,7 +261,6 @@
         private System.Windows.Forms.RichTextBox lblCombatOutput;
         private System.Windows.Forms.Timer wait;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.PictureBox pbGameForm;
         private System.Windows.Forms.Timer walkW;
         private System.Windows.Forms.Timer walkA;
         private System.Windows.Forms.Timer walkS;

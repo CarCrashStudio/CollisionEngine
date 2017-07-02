@@ -10,23 +10,33 @@ namespace CsharpRPG.Engine
     public class Skill : ScreenObject
     {
         Random rand = new Random();
+        public int buffamnt = 0;
+        public int debuffamnt = 0;
 
-        public int Buffamnt { get; set; }
-        public int Debuffamnt { get; set; }
-        public string TargetVariable { get; set; }
-        public int SkillLevel { get; set; }
-        public int SkillExp { get; set; }
-        public int SkillMaxExp { get; set; }
+        public int Buffamnt { get { return buffamnt * SkillLevel; } } // Amount to buff TargetVariable
+        public int Debuffamnt { get { return debuffamnt * SkillLevel; } } // Amount to Debuff Targe Variable
+        public string TargetVariable { get; set; } // The Target Entity's Health, Strength, Defense, etc. to be buffed or debuffed
+        public int SkillLevel { get; set; } // The level of the skill, incresing buff and debuff amounts
+        public int SkillExp { get; set; } // exp gained by using skill in combat
+        public int SkillMaxExp { get; set; } // amount of exp till level up
 
         public Skill(int id, string name, Bitmap img, string targetVar, int buff, int debuff) : 
             base(id,name,img)
         {
-            Buffamnt = buff;
-            Debuffamnt = debuff;
+            buffamnt = buff;
+            debuffamnt = debuff;
             TargetVariable = targetVar;
             SkillMaxExp = 1000;
         }
-        public void Use(Entity Target)
+        public Skill(Skill skill) :
+            base(skill.ID, skill.Name, skill.Image)
+        {
+            buffamnt = skill.buffamnt;
+            debuffamnt = skill.debuffamnt;
+            TargetVariable = skill.TargetVariable;
+            SkillMaxExp = skill.SkillMaxExp;
+        }
+        public void Use(Entity Caster, Entity Target)
         {
             switch (TargetVariable)
             {
@@ -37,7 +47,7 @@ namespace CsharpRPG.Engine
                     }
                     if(Debuffamnt != 0)
                     {
-                        Target.Health -= Debuffamnt;
+                        Target.Health -= (Debuffamnt * Caster.MaximumDamage) - Target.MaximumDefense;
                     }
                     break;
                 case "Strength":

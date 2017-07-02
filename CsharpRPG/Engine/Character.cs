@@ -28,7 +28,6 @@ namespace CsharpRPG.Engine
         public List<InventoryItem> Inventory { get; set; }
         public List<PlayerQuest> Quests { get; set; }
         
-
         public bool HeadEquipped { get; set; }
         public bool TorsoEquipped { get; set; }
         public bool LegsEquipped { get; set; }
@@ -41,8 +40,8 @@ namespace CsharpRPG.Engine
         public int CountDown { get; set; }
         public int MAX_COUNTDOWN { get { return 100; } }
 
-        public Character(int _id, string _name, string clss, Point _location, int _hp, int _maxHp, int _mana, int _maxMana, int _maximumDamage, int _maxDefense, int _level, int _exp, int _maxExp, int _gold, string slug, Bitmap _img, PictureBox _HudForm) :
-            base(_id, _name, _location, _hp, _maxHp, _mana, _maxMana, _maximumDamage, _maxDefense, _img, _HudForm)
+        public Character(int _id, string _name, string clss, Point _location, int _hp, int _maxHp, int _mana, int _maxMana, int _maximumDamage, int _maxDefense, int _level, int _exp, int _maxExp, int _gold, string slug, Bitmap _img) :
+            base(_id, _name, _location, _hp, _maxHp, _mana, _maxMana, _maximumDamage, _maxDefense, _img)
         {
             level = _level;
             exp = _exp;
@@ -51,8 +50,6 @@ namespace CsharpRPG.Engine
             Slug = slug;
 
             Class = clss;
-
-            //Inventory.Add(new InventoryItem(world.WeaponByID(world.WEAPON_ID_RUSTY_SWORD), 1)); //Give 1 'Rusty Sword' to player
 
             Inventory = new List<InventoryItem>();
             Quests = new List<PlayerQuest>();
@@ -128,8 +125,9 @@ namespace CsharpRPG.Engine
                     int spawn = rand.Next(100) + 1;
                     if (spawn < CurrentLocation.MonsterLivingHere.SpawnChance)
                     {
+                        CurrentLocation.MonsterLivingHere = new Monster(world.MonsterByID(CurrentLocation.MonsterLivingHere.ID));
                         CurrentLocation.MonsterLivingHere.Location = CheckNextTile();
-                        world.combat = new Combat(world.combat.Output, world.combat.CombatForm, this, world.combat.PHealth, world.combat.PImg, CurrentLocation.MonsterLivingHere, world.combat.DHealth, world.combat.DImg, world, world.combat.wait);
+                        world.combat = new Combat(world.combat.Output, world.combat.CombatForm, this, world.combat.PHealth, world.combat.PImg, world.MonsterByLocation(CheckNextTile()), world.combat.DHealth, world.combat.DImg, world, world.combat.wait);
                     }
                     CountDown = rand.Next(MAX_COUNTDOWN);
                 }
@@ -189,8 +187,6 @@ namespace CsharpRPG.Engine
                 maxExp += rand.Next(100, maxExp);
             }
         }
-
-        
 
         public bool HasRequiredItemToEnterThisLocation(Location location)
         {
