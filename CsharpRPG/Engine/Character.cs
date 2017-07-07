@@ -55,63 +55,6 @@ namespace CsharpRPG.Engine
             Quests = new List<PlayerQuest>();
         }
 
-        public void Move(int x, int y)
-        {
-            Location = new Point(Location.X + x, Location.Y + y);
-            switch (Facing)
-            {
-                case "North":
-                    Image = new Bitmap("icons/PlayerStates/PlayerUp.bmp");
-                    break;
-                case "South":
-                    Image = new Bitmap("icons/PlayerStates/PlayerDown.bmp");
-                    break;
-                case "East":
-                    Image = new Bitmap("icons/PlayerStates/PlayerRight.bmp");
-                    break;
-                case "West":
-                    Image = new Bitmap("icons/PlayerStates/PlayerLeft.bmp");
-                    break;
-            }
-            world.HudForm.Image = Draw(world.HudForm.Width, world.HudForm.Height, new Point(world.WIDTH / 2, world.HEIGHT / 2), (Bitmap)world.HudForm.Image);
-        }
-
-        public bool isColliding()
-        {
-            WorldMap map = world.map;
-
-            //If the X Coordinate exceeds 0 or max map size
-            if (CheckNextTile().X == -1 || CheckNextTile().X == (world.MAX_MAP_SIZE + 1))
-            {
-                return true;
-            }
-
-            //If the Y Coordinate exceeds 0 or max map size
-            if (CheckNextTile().Y == -1 || CheckNextTile().Y == (world.MAX_MAP_SIZE + 1))
-            {
-                return true;
-            }
-
-            foreach (Tile tile in map.TilesOnMap)
-            {
-                if (tile.Location == CheckNextTile())
-                {
-                    if (tile.Dense == 1)
-                    {
-                        return true;
-                    }
-                }
-            }
-            if (CurrentLocation.MonsterLivingHere != null)
-            {
-                if (CheckNextTile() == CurrentLocation.MonsterLivingHere.Location)
-                {
-                    world.combat = new Combat(world.combat.Output, world.combat.CombatForm, this, world.combat.PHealth, world.combat.PImg, CurrentLocation.MonsterLivingHere, world.combat.DHealth, world.combat.DImg, world, world.combat.wait);
-                    return true;
-                }
-            }
-            return false;
-        }
         void SpawnMonsterLivingHere()
         {
             if (CurrentLocation.MonsterLivingHere != null)
@@ -127,7 +70,7 @@ namespace CsharpRPG.Engine
                     {
                         CurrentLocation.MonsterLivingHere = new Monster(world.MonsterByID(CurrentLocation.MonsterLivingHere.ID));
                         CurrentLocation.MonsterLivingHere.Location = CheckNextTile();
-                        world.combat = new Combat(world.combat.Output, world.combat.CombatForm, this, world.combat.PHealth, world.combat.PImg, world.MonsterByLocation(CheckNextTile()), world.combat.DHealth, world.combat.DImg, world, world.combat.wait);
+                        world.combat = new Combat(world.combat, CurrentLocation.MonsterLivingHere);
                     }
                     CountDown = rand.Next(MAX_COUNTDOWN);
                 }
@@ -156,22 +99,22 @@ namespace CsharpRPG.Engine
                 switch (Facing)
                 {
                     case "North":
-                        Move(0, -1);
+                        Move(0, -1, "Player");
                         world.map.ShiftMap(0, 1);
                         break;
 
                     case "South":
-                        Move(0, 1);
+                        Move(0, 1, "Player");
                         world.map.ShiftMap(0, -1);
                         break;
 
                     case "East":
-                        Move(1, 0);
+                        Move(1, 0, "Player");
                         world.map.ShiftMap(-1, 0);
                         break;
 
                     case "West":
-                        Move(-1, 0);
+                        Move(-1, 0, "Player");
                         world.map.ShiftMap(1, 0);
                         break;
                 }
@@ -329,10 +272,9 @@ namespace CsharpRPG.Engine
             {
                 if (CheckNextTile() == transition.Location && Facing == transition.RequiredFacingDirection)
                 {
-                    Location = transition.NextLocation.Transitions[0].Location;
+                    Location = transition.TargetTransition;
                     MoveTo(transition.NextLocation);
                 }
-                //world.HUD.Update();
             }
         }
         public void MoveTo(Location newLocation)

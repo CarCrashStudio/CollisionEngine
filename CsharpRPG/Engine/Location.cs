@@ -52,12 +52,14 @@ namespace CsharpRPG.Engine
         public Point Location { get; set; }
         public string RequiredFacingDirection { get; set; }
         public Location NextLocation { get; set; }
+        public Point TargetTransition { get; set; }
 
-        public Transition(Point location, string facing, Location nextLoc)
+        public Transition(Point location, string facing, Location nextLoc, Point target)
         {
             Location = location;
             RequiredFacingDirection = facing;
             NextLocation = nextLoc;
+            TargetTransition = target;
         }
     }
 }

@@ -14,6 +14,7 @@ namespace CsharpRPG
         // Forms
         Journal journal = new Journal();
         CreatorWindow creator;
+        CombatForm combat;
 
         // Object Classes
         Random rand = new Random();
@@ -42,7 +43,7 @@ namespace CsharpRPG
             SQL = new Sql(String.Format(sqlConnString, sqlID, sqlPass));
             Login();
             InitializeScreenControls();
-            world.combat = new Combat(lblCombatOutput, panCombat, world.player, pbPHealth, pbPlayer, world.MonsterByLocation(world.player.NextTile), pbDHealth, pbDefender, world, wait);
+            world.combat = new Combat(combat = new CombatForm(), combat.lblCombatOutput, combat.panCombat, world.player, combat.pbPHealth, combat.pbPlayer, world.MonsterByLocation(world.player.NextTile), combat.pbDHealth, combat.pbDefender, world, combat.wait);
             updateScreen();
         }
 
@@ -470,16 +471,16 @@ namespace CsharpRPG
         }
         private void btnATK_Click(object sender, EventArgs e)
         {
-            lstSkills.Items.Clear();
+            combat.lstSkills.Items.Clear();
             foreach(Skill skill in world.player.Skills)
             {
-                lstSkills.Items.Add(skill.Name);
+                combat.lstSkills.Items.Add(skill.Name);
             }
-            lstSkills.Visible = true;
+            combat.lstSkills.Visible = true;
         }
         private void wait_Tick(object sender, EventArgs e)
         {
-            wait.Enabled = false;
+            combat.wait.Enabled = false;
             world.combat.DefenderAttack(world.player.CurrentLocation.MonsterLivingHere.Skills[rand.Next(world.player.CurrentLocation.MonsterLivingHere.Skills.Count)]);
         }
         private void walkW_Tick(object sender, EventArgs e)
@@ -511,14 +512,14 @@ namespace CsharpRPG
             Skill attackskill = new Skill(10000, "", new Bitmap(1, 1), "", 0, 0);
             foreach (Skill skill in world.player.Skills)
             {
-                if(skill.Name == lstSkills.SelectedItem.ToString())
+                if(skill.Name == combat.lstSkills.SelectedItem.ToString())
                 {
                     attackskill = skill;
                 }
             }
             world.combat.PlayerAttack(attackskill);
-            wait.Enabled = true;
-            lstSkills.Visible = false;
+            combat.wait.Enabled = true;
+            combat.lstSkills.Visible = false;
         }
         #endregion
     }

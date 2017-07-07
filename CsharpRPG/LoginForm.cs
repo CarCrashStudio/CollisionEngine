@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CsharpRPG.Engine;
+using System.Diagnostics;
 
 namespace CsharpRPG
 {
@@ -40,7 +41,7 @@ namespace CsharpRPG
         }
         private void btnClose_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            Environment.Exit(0);
         }
 
         private void btnSubmit_Click(object sender, EventArgs e)
@@ -61,6 +62,11 @@ namespace CsharpRPG
                 txtPass.Clear();
                 txtUser.Clear();
             }            
+        }
+
+        private void btnSite_Click(object sender, EventArgs e)
+        {
+            Process.Start("http://rogueasp.azurewebsites.net/");
         }
     }
 }

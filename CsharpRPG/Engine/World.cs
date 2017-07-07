@@ -162,6 +162,7 @@ namespace CsharpRPG.Engine
         {
             Location homeInside = new Location(LOCATION_ID_HOUSE_INSIDE, "Inside", "You should really clean this place up.");
             homeInside.MonsterLivingHere = null;
+            homeInside.Transitions = new List<Transition>();
 
             Location field = new Location(LOCATION_ID_FIELD, "Fields", "This place is swarmed with spiders");
             field.MonsterLivingHere = MonsterByID(MONSTER_ID_SPIDER);
@@ -180,9 +181,11 @@ namespace CsharpRPG.Engine
             Locations.Add(field);
 
             Locations[2].LocationToSouth = LocationByID(LOCATION_ID_HOUSE);
-            Locations[2].Transitions.Add(new Transition(new Point(5, 10), "South", field.LocationToSouth));
+            Locations[2].Transitions.Add(new Transition(new Point(7, 20), "South", field.LocationToSouth, new Point(5,-1)));
+            Locations[1].Transitions.Add(new Transition(new Point(8, 18), "South", Locations[0], new Point(3, 10)));
             Locations[0].LocationToNorth = LocationByID(LOCATION_ID_FIELD);
-            Locations[0].Transitions.Add(new Transition(new Point(5, -1), "North", home.LocationToNorth));
+            Locations[0].Transitions.Add(new Transition(new Point(7, -1), "North", home.LocationToNorth, new Point(5,10)));
+            Locations[0].Transitions.Add(new Transition(new Point(3, 11), "North", Locations[1], new Point(8, 18)));
         }
         void PopulateMonsters()
         {

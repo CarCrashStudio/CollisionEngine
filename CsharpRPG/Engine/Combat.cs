@@ -13,6 +13,7 @@ namespace CsharpRPG.Engine
     {
         Random rand = new Random();
 
+        public Form combat;
         public Timer wait;
         public RichTextBox Output;
         public Panel CombatForm;
@@ -26,8 +27,9 @@ namespace CsharpRPG.Engine
         public Monster monster;
         public bool Initiated { get; set; }
 
-        public Combat(RichTextBox _output, Panel _CombatForm, Character _player, PictureBox _PHealth, PictureBox _PImg, Monster _monster, PictureBox _DHealth, PictureBox _DImg, World _world, Timer _wait)
+        public Combat(Form _combat, RichTextBox _output, Panel _CombatForm, Character _player, PictureBox _PHealth, PictureBox _PImg, Monster _monster, PictureBox _DHealth, PictureBox _DImg, World _world, Timer _wait)
         {
+            combat = _combat;
             Output = _output;
             CombatForm = _CombatForm;
             player = _player;
@@ -43,19 +45,36 @@ namespace CsharpRPG.Engine
 
             if (!(monster == null)) { InitiateCombat(); }
         }
+        public Combat(Combat combat, Monster _monster)
+        {
+            this.combat = combat.combat;
+            Output = combat.Output;
+            CombatForm = combat.CombatForm;
+            player = combat.player;
+            monster = _monster;
+            world = combat.world;
+
+            PHealth = combat.PHealth;
+            PImg = combat.PImg;
+            DHealth = combat.DHealth;
+            DImg = combat.DImg;
+
+            wait = combat.wait;
+
+            if (!(monster == null)) { InitiateCombat(); }
+        }
 
         void InitiateCombat()
         {
             player.Facing = "South"; // Set the player so you see the front facing image
-            player.Move(0, 0);
-            //player.Draw(world.HudForm.Width, world.HudForm.Height, new Point(world.WIDTH / 2, world.HEIGHT / 2), (Bitmap)world.HudForm.Image); // Draw the front facing image
-
+            player.Move(0, 0, "Player");
+            
             PImg.Image = player.Image;
             DImg.Image = monster.Image;
 
             Initiated = true;
             world.HudForm.Visible = false;
-            CombatForm.Visible = true;
+            combat.Visible = true;
             Output.Text += Environment.NewLine + "Combat initiated";
         }
         public void DefenderAttack(Skill skill)
@@ -126,7 +145,7 @@ namespace CsharpRPG.Engine
                 player.LevelUp();
                 Initiated = false;
                 world.HudForm.Visible = true;
-                CombatForm.Visible = false;
+                combat.Visible = false;
                 monster.Location = new Point(11, 11);
                 monster.Health = monster.MaxHealth;
             }

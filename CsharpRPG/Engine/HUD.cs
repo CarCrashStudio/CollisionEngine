@@ -42,6 +42,11 @@ namespace CsharpRPG.Engine
             world.HudForm.Image = DrawBars(world.Strength, world.HudForm);
             world.HudForm.Image = DrawBars(world.Defense, world.HudForm);
 
+            world.InventoryButton.Boundries[0] = new Point(0, world.HudForm.Height - world.InventoryButton.Image.Height);
+            world.InventoryButton.Boundries[1] = new Point(world.InventoryButton.Image.Width, world.HudForm.Height);
+            world.CloseButton.Boundries[0] = new Point(world.HudForm.Width - world.CloseButton.Image.Width, world.HudForm.Height - world.CloseButton.Image.Height);
+            world.CloseButton.Boundries[1] = new Point(world.HudForm.Width, world.HudForm.Height);
+
             world.HudForm.Image = DrawBars(world.InventoryButton, world.HudForm);
             world.HudForm.Image = DrawBars(world.CloseButton, world.HudForm);
 
