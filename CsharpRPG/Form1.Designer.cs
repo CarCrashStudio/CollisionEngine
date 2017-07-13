@@ -64,7 +64,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pbMap.BackColor = System.Drawing.Color.Black;
             this.pbMap.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbMap.Image = global::CsharpRPG.Properties.Resources._void;
             this.pbMap.Location = new System.Drawing.Point(0, 0);
             this.pbMap.Name = "pbMap";
             this.pbMap.Size = new System.Drawing.Size(876, 588);

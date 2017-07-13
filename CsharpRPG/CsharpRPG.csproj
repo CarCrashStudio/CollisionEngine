@@ -98,6 +98,7 @@
     <Compile Include="Engine\Location.cs" />
     <Compile Include="Engine\Monster.cs" />
     <Compile Include="Engine\NPC.cs" />
+    <Compile Include="Engine\PartyMember.cs" />
     <Compile Include="Engine\Potion.cs" />
     <Compile Include="Engine\Quest.cs" />
     <Compile Include="Engine\ScreenObjects.cs" />

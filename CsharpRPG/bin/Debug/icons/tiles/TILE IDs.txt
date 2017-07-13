@@ -8,9 +8,16 @@
 
 100: WoodFloor
 
+200: WoodFenceGrass
+201: WoodFenceGrassup
+202: WoodFenceGrassCorner
+203: Crop
+
 BUILDINGS
 1000: TownBuilding1
 1001: TownBuilding2
+1002: YourHouse
+1003: Barn
 
 TRANISITIONS
 10000: DirtTransition

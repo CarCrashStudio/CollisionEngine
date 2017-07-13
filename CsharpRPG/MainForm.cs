@@ -43,7 +43,7 @@ namespace CsharpRPG
             SQL = new Sql(String.Format(sqlConnString, sqlID, sqlPass));
             Login();
             InitializeScreenControls();
-            world.combat = new Combat(combat = new CombatForm(), combat.lblCombatOutput, combat.panCombat, world.player, combat.pbPHealth, combat.pbPlayer, world.MonsterByLocation(world.player.NextTile), combat.pbDHealth, combat.pbDefender, world, combat.wait);
+            world.combat = new Combat(combat = new CombatForm(world), world.MonsterByLocation(world.player.NextTile), world, world.player);
             updateScreen();
         }
 
@@ -74,10 +74,11 @@ namespace CsharpRPG
             creator.txtName.Enabled = false;
             creator.ShowDialog();
 
-            InitializePlayer();
+            InitializePlayer(creator.txtName.Text, creator.cmbClass.SelectedItem.ToString(), new Point(0, 9), CalculateMaxHealth(creator.cmbClass.Text), CalculateMaxHealth(creator.cmbClass.Text), CalculateMaxMana(creator.cmbClass.Text), CalculateMaxMana(creator.cmbClass.Text), CalculateMaxDamage(creator.cmbClass.Text), CalculateMaxDefense(creator.cmbClass.Text), 1, 0, 100, 10, "player", world.LOCATION_ID_HOUSE);
 
             creator.Close();
         }
+
         void LoadCharacter(string screename)
         {
             string arg = String.Format("Screenname = '{0}'", screename);
@@ -95,7 +96,8 @@ namespace CsharpRPG
             int locX = int.Parse(SQL.ExecuteSELECTWHERE("LocX", arg, "CharacterData").GetValue(0, 0).ToString());
             int locY = int.Parse(SQL.ExecuteSELECTWHERE("LocY", arg, "CharacterData").GetValue(0, 0).ToString());
             string slug = SQL.ExecuteSELECTWHERE("Slug", arg, "CharacterData").GetValue(0, 0).ToString();
-            world = new World(pbMap, new Bitmap("icons/HUDBars/CharStatBar.png"), new Bitmap("icons/HUDBars/CharImgBox.png"), new Bitmap("icons/HUDBars/strength.png"), new Bitmap("icons/HUDBars/defense.png"), new Character(1, screename, clss, new Point(locX, locY), health, maxhealth, mana, maxmana, damage, defense, level, exp, maxExp, gold, slug, new Bitmap("icons/" + slug + ".png")));
+
+            InitializePlayer(screename, clss, new Point(locX, locY), health, maxhealth, mana, maxmana, damage, defense, level, exp, maxExp, gold, slug, (int)SQL.ExecuteSELECTWHERE("LastLocation", arg, "CharacterData").GetValue(0, 0));
 
             LoadCharacterSkills(screename);
             LoadCharacterInventory(screename);
@@ -153,6 +155,7 @@ namespace CsharpRPG
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
+
         void SaveCharacter(string screenname)
         {
             try
@@ -312,13 +315,14 @@ namespace CsharpRPG
             world.HUD.Update();
         }
 
-        void InitializePlayer()
+        void InitializePlayer(string name, string clss, Point loc, int health, int maxhealth, int mana, int maxmana, int str, int def, int level, int exp, int maxexp, int gold, string slug, int lastlocid)
         {
-            world = new World(pbMap, new Bitmap("icons/HUDBars/CharStatBar.png"), new Bitmap("icons/HUDBars/CharImgBox.png"), new Bitmap("icons/HUDBars/strength.png"), new Bitmap("icons/HUDBars/defense.png"), new Character(1, creator.txtName.Text, creator.cmbClass.SelectedItem.ToString(), new Point(0, 9), CalculateMaxHealth(creator.cmbClass.Text), CalculateMaxHealth(creator.cmbClass.Text), CalculateMaxMana(creator.cmbClass.Text), CalculateMaxMana(creator.cmbClass.Text), CalculateMaxDamage(creator.cmbClass.Text), CalculateMaxDefense(creator.cmbClass.Text), 1, 0, 100, 10, "player", new Bitmap("icons/player.png"))); //You, the player, Character creation will be implemented later
-            world.player.MoveTo(world.LocationByID(world.LOCATION_ID_HOUSE));
-            world.player.Skills.Add(new Skill(world.SkillByID(world.SKILL_ID_ATTACK)));
-            world.player.Inventory.Add(new InventoryItem(world.ItemByID(world.WEAPON_ID_RUSTY_SWORD), 1)); //Give 1 'Rusty Sword' to player
+            world = new World(pbMap, new Bitmap("icons/HUDBars/CharStatBar.png"), new Bitmap("icons/HUDBars/CharImgBox.png"), new Bitmap("icons/HUDBars/strength.png"), new Bitmap("icons/HUDBars/defense.png"), new Character(1, name, clss, loc, health, maxhealth, mana, maxmana, str, def, level, exp, maxexp, gold, slug, new Bitmap("icons/player.png"))); //You, the player, Character creation will be implemented later
+            world.player.MoveTo(world.LocationByID(lastlocid));
+            //world.player.Skills.Add(new Skill(world.SkillByID(world.SKILL_ID_ATTACK)));
+            //world.player.Inventory.Add(new InventoryItem(world.ItemByID(world.WEAPON_ID_RUSTY_SWORD), 1)); //Give 1 'Rusty Sword' to player
         }
+       
         void InitializeScreenControls()
         {
             world.Journal = journal.dgvQuests;
@@ -394,22 +398,9 @@ namespace CsharpRPG
         {
             journal.Show();
         }
-        private void lblNotes_Click(object sender, EventArgs e)
-        {
-            //notebook = new Notebook();
-
-            //notebook.lblTitle.Text = player.Name + "'s Notebook";
-            //notebook.lstNotes.Items.Add("This is a note");
-
-            //notebook.Show();
-        }
         private void MainForm_Load(object sender, EventArgs e)
         {
 
-        }
-        private void lblClose_Click(object sender, EventArgs e)
-        {
-            
         }
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -478,11 +469,6 @@ namespace CsharpRPG
             }
             combat.lstSkills.Visible = true;
         }
-        private void wait_Tick(object sender, EventArgs e)
-        {
-            combat.wait.Enabled = false;
-            world.combat.DefenderAttack(world.player.CurrentLocation.MonsterLivingHere.Skills[rand.Next(world.player.CurrentLocation.MonsterLivingHere.Skills.Count)]);
-        }
         private void walkW_Tick(object sender, EventArgs e)
         {
             walkW.Enabled = false;
@@ -517,7 +503,7 @@ namespace CsharpRPG
                     attackskill = skill;
                 }
             }
-            world.combat.PlayerAttack(attackskill);
+            world.combat.Attack(world.player, world.player.CurrentLocation.MonsterLivingHere, attackskill);
             combat.wait.Enabled = true;
             combat.lstSkills.Visible = false;
         }

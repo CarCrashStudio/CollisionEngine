@@ -11,37 +11,32 @@ namespace CsharpRPG.Engine
 {
     public class Combat
     {
+        World world;
         Random rand = new Random();
 
-        public Form combat;
+        public CombatForm combat;
         public Timer wait;
         public RichTextBox Output;
         public Panel CombatForm;
-        public PictureBox PHealth;
-        public PictureBox DHealth;
-        public PictureBox PImg;
-        public PictureBox DImg;
-
-        World world;
+        
         Character player;
+        Character partyMember1;
+        Character partyMember2;
+        Character partyMember3;
+
         public Monster monster;
+
         public bool Initiated { get; set; }
 
-        public Combat(Form _combat, RichTextBox _output, Panel _CombatForm, Character _player, PictureBox _PHealth, PictureBox _PImg, Monster _monster, PictureBox _DHealth, PictureBox _DImg, World _world, Timer _wait)
+        public Combat(CombatForm _combat, Monster _monster, World _world, Character _player)
         {
             combat = _combat;
-            Output = _output;
-            CombatForm = _CombatForm;
+            Output = _combat.lblCombatOutput;
             player = _player;
             monster = _monster;
             world = _world;
 
-            PHealth = _PHealth;
-            PImg = _PImg;
-            DHealth = _DHealth;
-            DImg = _DImg;
-
-            wait = _wait;
+            wait = _combat.wait;
 
             if (!(monster == null)) { InitiateCombat(); }
         }
@@ -54,11 +49,6 @@ namespace CsharpRPG.Engine
             monster = _monster;
             world = combat.world;
 
-            PHealth = combat.PHealth;
-            PImg = combat.PImg;
-            DHealth = combat.DHealth;
-            DImg = combat.DImg;
-
             wait = combat.wait;
 
             if (!(monster == null)) { InitiateCombat(); }
@@ -69,28 +59,25 @@ namespace CsharpRPG.Engine
             player.Facing = "South"; // Set the player so you see the front facing image
             player.Move(0, 0, "Player");
             
-            PImg.Image = player.Image;
-            DImg.Image = monster.Image;
+            combat.pbCurrentParty.Image = player.Image;
+            //combat.pbCurrentMonster.Image = monster.Image;
 
             Initiated = true;
             world.HudForm.Visible = false;
             combat.Visible = true;
             Output.Text += Environment.NewLine + "Combat initiated";
         }
-        public void DefenderAttack(Skill skill)
+        
+        public void Attack(Entity Attacker, Entity Defender, Skill skill)
         {
-            skill.Use(monster, player);
-            Output.Text += monster.Name + " used " + skill.Name + " on " + player.Name + "dealing " + skill.Debuffamnt + "damage." + Environment.NewLine;
-            world.HUD.Update();
-            if (player.isDead()) { Output.Text += Environment.NewLine + Environment.NewLine + "You lose." + Environment.NewLine; Initiated = false; }
+            int oldHealth = Defender.Health;
+            skill.Use(Attacker, Defender);
+            int newHealth = Defender.Health;
+
+            Output.Text += Attacker.Name + " attacked " + Defender.Name + " for " + (oldHealth - newHealth).ToString() + " damage!" + Environment.NewLine;
+            CheckDeath(Defender);
         }
-        public void PlayerAttack(Skill skill)
-        {
-            skill.Use(player, monster);
-            world.HUD.Update();
-            Output.Text += Environment.NewLine + Environment.NewLine + player.Name + " used " + skill.Name + " on " + monster.Name + "dealing " + skill.Debuffamnt + "damage." + Environment.NewLine;
-            CheckDeath();
-        }
+
         void RewardLoot()
         {
             // Get random loot items from the monster
@@ -132,39 +119,41 @@ namespace CsharpRPG.Engine
                 }
             }
         }
-        void CheckDeath()
+        void CheckDeath(Entity entity)
         {
-            if (monster.isDead())
+            if(entity == monster)
             {
-                Output.Text += Environment.NewLine + "You beat " + monster.Name + ". You earned " + monster.RewardExperiencePoints + " exp and " + monster.RewardGold + " gold.";
-                player.Exp += monster.RewardExperiencePoints;
-                player.Gold += monster.RewardGold;
+                if (entity.isDead())
+                {
+                    Output.Text += Environment.NewLine + "You beat " + entity.Name + ". You earned " + monster.RewardExperiencePoints + " exp and " + monster.RewardGold + " gold.";
+                    player.Exp += monster.RewardExperiencePoints;
+                    player.Gold += monster.RewardGold;
 
-                RewardLoot();
+                    RewardLoot();
 
-                player.LevelUp();
-                Initiated = false;
-                world.HudForm.Visible = true;
-                combat.Visible = false;
-                monster.Location = new Point(11, 11);
-                monster.Health = monster.MaxHealth;
+                    player.LevelUp();
+                    Initiated = false;
+                    world.HudForm.Visible = true;
+                    combat.Visible = false;
+                    monster.Location = new Point(11, 11);
+                    monster.Health = monster.MaxHealth;
+                }
             }
-            else
+            if(entity == player)
             {
-                wait.Enabled = true;
+                if (entity.isDead())
+                {
+                    Initiated = false;
+                    combat.Visible = false;
+                }
             }
-        }
-        int Damage(Entity attacker, Entity defender, int buff, int debuff)
-        {
-            int temp = rand.Next(attacker.MaximumDamage);
-            temp -= rand.Next(defender.MaximumDefense);
-            temp += buff;
-            temp -= debuff;
-            if (temp < 0)
+            if (entity == partyMember1 || entity == partyMember2 || entity == partyMember3)
             {
-                temp = 1;
+                if (entity.isDead())
+                {
+
+                }
             }
-            return temp;
         }
     }
 }

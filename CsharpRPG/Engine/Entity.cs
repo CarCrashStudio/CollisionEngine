@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using System.IO;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace CsharpRPG.Engine
 {
@@ -120,6 +121,12 @@ namespace CsharpRPG.Engine
                 return true;
             }
             else { return false; }
+        }
+        public PropertyInfo FindVariable(string var)
+        {
+            Type mytype = typeof(Entity);
+            PropertyInfo propInfo = mytype.GetProperty(var);
+            return propInfo;
         }
     }
 }

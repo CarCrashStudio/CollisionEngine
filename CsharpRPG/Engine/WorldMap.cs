@@ -13,6 +13,7 @@ namespace CsharpRPG.Engine
         int y = 0; // Tile Coords vars
 
         public List<Tile> TilesOnMap { get; set; } // List of Tiles on map
+        public List<Tile> DecosOnMap { get; set; }
         public PictureBox gameForm { get; set; } // Picture box to display on
         public Point MapLoc { get; set; }
 
@@ -26,55 +27,58 @@ namespace CsharpRPG.Engine
             SetMap();
         }
 
-        void BuildMap() // read through a text file of IDs and places them in the Image bitmap 
+        void ReadTextFile(List<Tile> TileList, string TextFile)
         {
-            MapLoc = new Point(0, 0); // Initialize the Point for the Map Location
-
             int id = 0; // Variable for Tile Id;
             Tile tile; // Blank Tile;
-
-            TilesOnMap = new List<Tile>(); 
+            
             StreamReader reader;
-            reader = File.OpenText("maps/" + Name + ".txt");
+            reader = File.OpenText("maps/" + TextFile + ".txt");
 
             while (!reader.EndOfStream)
             {
                 string currentChar = char.ConvertFromUtf32(reader.Read());
                 while (!currentChar.Contains(" "))
                 {
-                    if(x != world.MAX_MAP_SIZE)
+                    if (!currentChar.Contains(";")) //HERES THE PROBLEM
                     {
-                        if (currentChar.Contains(" "))
-                        {
-                            break;
-                        }
+                        if (currentChar.Contains(" ")) break;
                         else { currentChar += char.ConvertFromUtf32(reader.Read()); }
                     }
-                    else { string temp = char.ConvertFromUtf32(reader.Read()); break; }                    
+                    else { currentChar =currentChar.Remove(currentChar.Length-1); break; }
                 }
-
-                string read = "";
-                read = currentChar;
-                id = int.Parse(read);
+                
+                id = int.Parse(currentChar);
 
                 tile = new Tile(world.TileByID(id));
                 tile.Location = new Point(x, y);
 
-                Image = tile.Draw(world.WIDTH, world.HEIGHT, new Point((tile.Location.X * 32), (tile.Location.Y * 32)), Image);
-                Image.Save(Name + ".png");
+                Image = tile.Draw(world.HudForm.Width, world.HudForm.Height, new Point((tile.Location.X * 32), (tile.Location.Y * 32)), Image);
+                //Image.Save(Name + ".png");
 
-                TilesOnMap.Add(tile);
+                TileList.Add(tile);
                 x++;
                 if (x > world.MAX_MAP_SIZE) { y++; x = 0; }
             }
             reader.Close();
         }
 
+        void BuildMap() // read through a text file of IDs and places them in the Image bitmap 
+        {
+            MapLoc = new Point(0, 0); // Initialize the Point for the Map Location
+
+            TilesOnMap = new List<Tile>();
+            ReadTextFile(TilesOnMap, Name);
+            DrawBuidlings();
+
+            DecosOnMap = new List<Tile>();
+            ReadTextFile(DecosOnMap, Name + "Decos");
+            DrawDecorations();
+        }
         public void ShiftMap(int x, int y)
         {
             MapLoc = new Point(MapLoc.X + x, MapLoc.Y + y);            
         }
-
         void CalibrateMap()
         {
             MapLoc = new Point(
@@ -85,10 +89,29 @@ namespace CsharpRPG.Engine
                     world.CENTER.Y - world.player.Location.Y
                 );
         }
-
         public void SetMap()
         {
             world.HudForm.Image = Draw(world.HudForm.Width, world.HudForm.Height, new Point(MapLoc.X * 32, MapLoc.Y * 32));
+        }
+        void DrawBuidlings()
+        {
+            foreach (Tile tile in TilesOnMap)
+            {
+                if(tile.ID > 999 && tile.ID < 10000)
+                {
+                    Image = tile.Draw(world.HudForm.Width, world.HudForm.Height, new Point(tile.Location.X *32, tile.Location.Y *32), Image);
+                }
+            }
+        }
+        void DrawDecorations()
+        {
+            foreach (Tile tile in DecosOnMap)
+            {
+                if (tile.ID > 199 && tile.ID < 300)
+                {
+                    Image = tile.Draw(world.HudForm.Width, world.HudForm.Height, new Point(tile.Location.X * 32, tile.Location.Y * 32), Image);
+                }
+            }
         }
     } 
     public class Tile : ScreenObject// Class to hold tile information 

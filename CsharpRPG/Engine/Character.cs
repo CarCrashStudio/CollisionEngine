@@ -27,6 +27,7 @@ namespace CsharpRPG.Engine
 
         public List<InventoryItem> Inventory { get; set; }
         public List<PlayerQuest> Quests { get; set; }
+        public List<Character> Party { get; set; }
         
         public bool HeadEquipped { get; set; }
         public bool TorsoEquipped { get; set; }
@@ -53,6 +54,8 @@ namespace CsharpRPG.Engine
 
             Inventory = new List<InventoryItem>();
             Quests = new List<PlayerQuest>();
+            Party = new List<Character>();
+            Party.Add(this);
         }
 
         void SpawnMonsterLivingHere()

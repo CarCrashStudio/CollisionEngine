@@ -14,8 +14,8 @@ namespace CsharpRPG.Engine
 
         public void AddCombatHealth()
         {
-            world.PHealthCombat.Picture = world.combat.PHealth;
-            world.DHealthCombat.Picture = world.combat.DHealth;
+            world.PHealthCombat.Picture = world.combat.combat.pbCurrentHealth;
+            //world.DHealthCombat.Picture = world.combat.combat.pbCurrentMonsterHealth;
         }
         public void Update()
         {
@@ -70,10 +70,10 @@ namespace CsharpRPG.Engine
             }
             foreach (InventoryItem inventoryItem in world.player.Inventory)
             {
-                
                 temp = new List<Point>();
                 temp.Add(new Point(world.InventoryBox.Boundries[0].X + 50, world.Gold.Boundries[0].Y + (30 * increment)));
                 world.InventoryItem = new HUDObject(temp, null, inventoryItem.Details.Name);
+                
                 if (inventoryItem.Quantity > 0)
                 {
                     world.InventoryItem.Text = inventoryItem.Details.Name + "(" + inventoryItem.Quantity.ToString() + ") " + inventoryItem.Details.EquipTag;
@@ -107,7 +107,7 @@ namespace CsharpRPG.Engine
         void UpdatePlayer()
         {
             world.HudForm.Image = world.player.Draw(world.HudForm.Width, world.HudForm.Height, new Point(world.WIDTH / 2, world.HEIGHT / 2), (Bitmap)world.HudForm.Image);
-            UpdateInventory();
+            //UpdateInventory();
             UpdateStats();
         }
         void UpdateWorld()
@@ -124,8 +124,8 @@ namespace CsharpRPG.Engine
         }
         void UpdateCombatScreen()
         {
-            DrawHealth(world.PHealthCombat, world.combat.PHealth, world.player);
-            DrawHealth(world.DHealthCombat, world.combat.DHealth, world.player.CurrentLocation.MonsterLivingHere);
+            DrawHealth(world.PHealthCombat, world.combat.combat.pbCurrentHealth, world.player);
+            //DrawHealth(world.DHealthCombat, world.combat.combat.pbCurrentMonsterHealth, world.player.CurrentLocation.MonsterLivingHere);
         }
         public Bitmap DrawBars(HUDObject bar, PictureBox form)
         {

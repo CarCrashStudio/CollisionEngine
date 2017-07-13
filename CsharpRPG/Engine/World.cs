@@ -34,12 +34,16 @@ namespace CsharpRPG.Engine
         public int LOCATION_ID_FIELD { get { return 2; } }
 
         public int NPC_ID_BUGSQUASHER { get { return 1; } }
+        public int NPC_ID_JOHNRIED { get { return 2; } }
 
         public int TILE_ID_VOID { get { return 0; } }
         public int TILE_ID_GRASS { get { return 1; } }
         public int TILE_ID_DIRT { get { return 2; } }
         public int TILE_ID_WATER { get { return 3; } }
         public int TILE_ID_WOODFLOOR { get { return 100; } }
+        public int TILE_ID_CROP { get { return 203; } }
+        public int TILE_ID_YOURHOUSE { get { return 1002; } }
+        public int TILE_ID_BARN { get { return 1003; } }
 
         public int SKILL_ID_ATTACK { get { return 0; } }
         public int SKILL_ID_BURN { get { return 1; } }
@@ -90,7 +94,7 @@ namespace CsharpRPG.Engine
         public int ICON_SIZE { get { return 32; } }
         public int WIDTH { get { return (MAX_MAP_SIZE + 1) * ICON_SIZE; } }
         public int HEIGHT { get { return (MAX_MAP_SIZE + 1) * ICON_SIZE; } }
-        public Point CENTER
+        public Point CENTER 
         {
             get
             {
@@ -155,8 +159,11 @@ namespace CsharpRPG.Engine
         }
         void PopulateNPCs()
         {
-            NPC bugSquasher = new NPC(NPC_ID_BUGSQUASHER, "Bug Squasher", new System.Drawing.Bitmap("icons/NPC.bmp"), new System.Drawing.Point(0, 0), new Quest(QuestByID(QUEST_ID_BUGSQUASHING)), this);
+            NPC bugSquasher = new NPC(NPC_ID_BUGSQUASHER, "Bug Squasher", new System.Drawing.Bitmap("icons/Entities/NPC.bmp"), new System.Drawing.Point(0, 0), new Quest(QuestByID(QUEST_ID_BUGSQUASHING)), this);
             NPCs.Add(bugSquasher);
+
+            NPC JohnRied = new NPC(NPC_ID_JOHNRIED, "John Ried", new Bitmap(1, 1), new Point(), null, this);
+            NPCs.Add(JohnRied);
         }
         void PopulateLocations()
         {
@@ -181,30 +188,33 @@ namespace CsharpRPG.Engine
             Locations.Add(field);
 
             Locations[2].LocationToSouth = LocationByID(LOCATION_ID_HOUSE);
-            Locations[2].Transitions.Add(new Transition(new Point(7, 20), "South", field.LocationToSouth, new Point(5,-1)));
-            Locations[1].Transitions.Add(new Transition(new Point(8, 18), "South", Locations[0], new Point(3, 10)));
+            Locations[2].Transitions.Add(new Transition(new Point(6, 20), "South", field.LocationToSouth, new Point(6,-1)));
+            Locations[1].Transitions.Add(new Transition(new Point(6, 18), "South", Locations[0], new Point(3, 8)));
             Locations[0].LocationToNorth = LocationByID(LOCATION_ID_FIELD);
-            Locations[0].Transitions.Add(new Transition(new Point(7, -1), "North", home.LocationToNorth, new Point(5,10)));
-            Locations[0].Transitions.Add(new Transition(new Point(3, 11), "North", Locations[1], new Point(8, 18)));
+            Locations[0].Transitions.Add(new Transition(new Point(6, -1), "North", home.LocationToNorth, new Point(6,20)));
+            Locations[0].Transitions.Add(new Transition(new Point(3, 8), "North", Locations[1], new Point(6, 18)));
         }
         void PopulateMonsters()
         {
             
-            Monster spider = new Monster(MONSTER_ID_SPIDER, "Spider", new System.Drawing.Point(6, 5), 10, 10, 0, 0, 5, 5, 10, 5, 50, new System.Drawing.Bitmap("icons/spider.png"), this, this.HudForm);
+            Monster spider = new Monster(MONSTER_ID_SPIDER, "Spider", new System.Drawing.Point(6, 5), 10, 10, 0, 0, 5, 5, 10, 5, 50, new System.Drawing.Bitmap("icons/Entities/spider.png"), this, this.HudForm);
             spider.LootTable.Add(new LootItem(ItemByID(ITEM_ID_SPIDER_SILK), 100, true));
-
-            
 
             Monsters.Add(spider);
         }
         void PopulateTiles()
         {
-            Tile grass = new Tile(TILE_ID_GRASS, "Grass", 0, new Point(0, 0), new Bitmap("icons/grass.bmp"));
-            Tile dirt = new Tile(TILE_ID_DIRT, "Dirt", 0, new Point(0, 0), new Bitmap("icons/dirt.bmp"));
-            Tile water = new Tile(TILE_ID_WATER, "Water", 1, new Point(0, 0), new Bitmap("icons/water.bmp"));
-            Tile blank = new Tile(TILE_ID_VOID, "Void", 1, new Point(0, 0), new Bitmap("icons/void.bmp"));
+            Tile grass = new Tile(TILE_ID_GRASS, "Grass", 0, new Point(0, 0), new Bitmap("icons/tiles/grass.bmp"));
+            Tile dirt = new Tile(TILE_ID_DIRT, "Dirt", 0, new Point(0, 0), new Bitmap("icons/tiles/dirt.bmp"));
+            Tile water = new Tile(TILE_ID_WATER, "Water", 1, new Point(0, 0), new Bitmap("icons/tiles/water.bmp"));
+            Tile blank = new Tile(TILE_ID_VOID, "Void", 1, new Point(0, 0), new Bitmap("icons/tiles/void.bmp"));
 
-            Tile woodFloor = new Tile(TILE_ID_WOODFLOOR, "Floor", 0, new Point(0, 0), new Bitmap("icons/woodfloor.bmp"));
+            Tile woodFloor = new Tile(TILE_ID_WOODFLOOR, "Floor", 0, new Point(0, 0), new Bitmap("icons/tiles/woodfloor.bmp"));
+
+            Tile crop = new Tile(TILE_ID_CROP, "Crop", 1, new Point(), new Bitmap("icons/tiles/crop.png"));
+
+            Tile YourHouse = new Tile(TILE_ID_YOURHOUSE, "YourHouse", 1, new Point(0, 0), new Bitmap("icons/tiles/YourHouse.png"));
+            Tile barn = new Tile(TILE_ID_BARN, "Barn", 1, new Point(), new Bitmap("icons/tiles/Barn.png"));
 
             Tiles.Add(grass);
             Tiles.Add(dirt);
@@ -212,13 +222,18 @@ namespace CsharpRPG.Engine
             Tiles.Add(blank);
 
             Tiles.Add(woodFloor);
+
+            Tiles.Add(crop);
+
+            Tiles.Add(YourHouse);
+            Tiles.Add(barn);
         }
         void PopulateSkills()
         {
             Skills = new List<Skill>();
 
-            Debuff Attack = new Debuff(SKILL_ID_ATTACK, "Attack", new Bitmap(32, 32), "Health", 5);
-            Debuff Burn = new Debuff(SKILL_ID_BURN, "Burn", new Bitmap(32, 32), "Health", 5);
+            Skill Attack = new Skill(SKILL_ID_ATTACK, "Attack", new Bitmap(32, 32), "Health", 0, 0);
+            Skill Burn = new Skill(SKILL_ID_BURN, "Burn", new Bitmap(32, 32), "Health", -5, 2);
 
             Skills.Add(Attack);
             Skills.Add(Burn);
