@@ -105,6 +105,13 @@ namespace CsharpRPG.Engine
                 else { return new Point(HudForm.Width / 2, HudForm.Height / 2); }
             }
         }
+        public enum TileType
+        {
+            Ground = 0,
+            Path = 1,
+            Building = 2,
+            Deco = 3
+        }
 
         public World(PictureBox _HudForm, Bitmap _CharStatBar, Bitmap _CharImgBox, Bitmap _strImg, Bitmap _defImg, Character _player)
         {
@@ -204,17 +211,17 @@ namespace CsharpRPG.Engine
         }
         void PopulateTiles()
         {
-            Tile grass = new Tile(TILE_ID_GRASS, "Grass", 0, new Point(0, 0), new Bitmap("icons/tiles/grass.bmp"));
-            Tile dirt = new Tile(TILE_ID_DIRT, "Dirt", 0, new Point(0, 0), new Bitmap("icons/tiles/dirt.bmp"));
-            Tile water = new Tile(TILE_ID_WATER, "Water", 1, new Point(0, 0), new Bitmap("icons/tiles/water.bmp"));
-            Tile blank = new Tile(TILE_ID_VOID, "Void", 1, new Point(0, 0), new Bitmap("icons/tiles/void.bmp"));
+            Tile grass = new Tile(TILE_ID_GRASS, "Grass", 0, new Point(0, 0), new Bitmap("icons/tiles/grass.bmp"), TileType.Ground.ToString());
+            Tile dirt = new Tile(TILE_ID_DIRT, "Dirt", 0, new Point(0, 0), new Bitmap("icons/tiles/dirt.bmp"), TileType.Path.ToString());
+            Tile water = new Tile(TILE_ID_WATER, "Water", 1, new Point(0, 0), new Bitmap("icons/tiles/water.bmp"), TileType.Ground.ToString());
+            Tile blank = new Tile(TILE_ID_VOID, "Void", 1, new Point(0, 0), new Bitmap("icons/tiles/void.bmp"), TileType.Ground.ToString());
 
-            Tile woodFloor = new Tile(TILE_ID_WOODFLOOR, "Floor", 0, new Point(0, 0), new Bitmap("icons/tiles/woodfloor.bmp"));
+            Tile woodFloor = new Tile(TILE_ID_WOODFLOOR, "Floor", 0, new Point(0, 0), new Bitmap("icons/tiles/woodfloor.bmp"), TileType.Ground.ToString());
 
-            Tile crop = new Tile(TILE_ID_CROP, "Crop", 1, new Point(), new Bitmap("icons/tiles/crop.png"));
+            Tile crop = new Tile(TILE_ID_CROP, "Crop", 1, new Point(), new Bitmap("icons/tiles/crop.png"), TileType.Deco.ToString());
 
-            Tile YourHouse = new Tile(TILE_ID_YOURHOUSE, "YourHouse", 1, new Point(0, 0), new Bitmap("icons/tiles/YourHouse.png"));
-            Tile barn = new Tile(TILE_ID_BARN, "Barn", 1, new Point(), new Bitmap("icons/tiles/Barn.png"));
+            Tile YourHouse = new Tile(TILE_ID_YOURHOUSE, "YourHouse", 1, new Point(0, 0), new Bitmap("icons/tiles/YourHouse.png"), TileType.Building.ToString());
+            Tile barn = new Tile(TILE_ID_BARN, "Barn", 1, new Point(), new Bitmap("icons/tiles/Barn.png"), TileType.Building.ToString());
 
             Tiles.Add(grass);
             Tiles.Add(dirt);

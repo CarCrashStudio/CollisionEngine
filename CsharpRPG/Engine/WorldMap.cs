@@ -123,18 +123,21 @@ namespace CsharpRPG.Engine
 
         public int Dense { get { return dense; } set { dense = value; } } // Tile Density (Can you walk over it or not)
         public Point Location { get { return location; } set { location = value; } } // Tile Point
+        public string Type { get; set; }
 
-        public Tile(int _id, string _name, int _dense, Point _location, Bitmap _img) :
+        public Tile(int _id, string _name, int _dense, Point _location, Bitmap _img, string type) :
             base(_id, _name, _img)
         {
             dense = _dense;
             location = _location;
+            Type = type;
         }
         public Tile(Tile tile) : 
             base(tile.ID, tile.Name, tile.Image)
         {
             dense = tile.Dense;
             location = tile.Location;
+            Type = tile.Type;
         }
     } 
 }

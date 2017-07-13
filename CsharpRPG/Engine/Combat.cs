@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
-using System.IO;
 using System.Windows.Forms;
 
 namespace CsharpRPG.Engine
@@ -38,6 +34,22 @@ namespace CsharpRPG.Engine
 
             wait = _combat.wait;
 
+            try
+            {
+                partyMember1 = (Character)player.Party[1];
+            }
+            catch { partyMember1 = null; }
+            try
+            {
+                partyMember2 = (Character)player.Party[2];
+            }
+            catch { partyMember2 = null; }
+            try
+            {
+                partyMember3 = (Character)player.Party[3];
+            }
+            catch { partyMember3 = null; }
+            
             if (!(monster == null)) { InitiateCombat(); }
         }
         public Combat(Combat combat, Monster _monster)
@@ -51,6 +63,22 @@ namespace CsharpRPG.Engine
 
             wait = combat.wait;
 
+            try
+            {
+                partyMember1 = (Character)player.Party[1];
+            }
+            catch { partyMember1 = null; }
+            try
+            {
+                partyMember2 = (Character)player.Party[2];
+            }
+            catch { partyMember2 = null; }
+            try
+            {
+                partyMember3 = (Character)player.Party[3];
+            }
+            catch { partyMember3 = null; }
+
             if (!(monster == null)) { InitiateCombat(); }
         }
 
@@ -60,14 +88,65 @@ namespace CsharpRPG.Engine
             player.Move(0, 0, "Player");
             
             combat.pbCurrentParty.Image = player.Image;
-            //combat.pbCurrentMonster.Image = monster.Image;
+            combat.pbCurrentMonster.Image = monster.Image;
 
             Initiated = true;
             world.HudForm.Visible = false;
-            combat.Visible = true;
+            combat.Show();
             Output.Text += Environment.NewLine + "Combat initiated";
         }
         
+        public void SelectSkills(string PlayerSkill, string PartySkill1 = null, string PartySkill2 = null, string PartySkill3 = null)
+        {
+            Skill skll = new Skill();
+            foreach (Skill skill in world.player.Skills)
+            {
+                if(skill.Name == PlayerSkill)
+                {
+                    skll = skill;
+                    break;
+                }
+            }
+            Attack(player, monster.Party[0], skll);
+            if(partyMember1 != null)
+            {
+                foreach (Skill skill in partyMember1.Skills)
+                {
+                    if (skill.Name == PartySkill1)
+                    {
+                        skll = skill;
+                    }
+                }
+                Attack(partyMember1, monster.Party[0], skll);
+            }
+            if (partyMember2 != null)
+            {
+                foreach (Skill skill in partyMember2.Skills)
+                {
+                    if (skill.Name == PartySkill2)
+                    {
+                        skll = skill;
+                    }
+                }
+                Attack(partyMember2, monster.Party[0], skll);
+            }
+            if (partyMember3 != null)
+            {
+                foreach (Skill skill in partyMember3.Skills)
+                {
+                    if (skill.Name == PartySkill3)
+                    {
+                        skll = skill;
+                    }
+                }
+                Attack(partyMember3, monster.Party[0], skll);
+            }
+
+            if (Initiated)
+            {
+                wait.Enabled = true;
+            }
+        }
         public void Attack(Entity Attacker, Entity Defender, Skill skill)
         {
             int oldHealth = Defender.Health;
@@ -125,6 +204,8 @@ namespace CsharpRPG.Engine
             {
                 if (entity.isDead())
                 {
+                    monster.KillPartyMember(entity);
+
                     Output.Text += Environment.NewLine + "You beat " + entity.Name + ". You earned " + monster.RewardExperiencePoints + " exp and " + monster.RewardGold + " gold.";
                     player.Exp += monster.RewardExperiencePoints;
                     player.Gold += monster.RewardGold;
@@ -144,14 +225,15 @@ namespace CsharpRPG.Engine
                 if (entity.isDead())
                 {
                     Initiated = false;
-                    combat.Visible = false;
+                    combat.Hide();
+                    MessageBox.Show("You Lose!");
                 }
             }
             if (entity == partyMember1 || entity == partyMember2 || entity == partyMember3)
             {
                 if (entity.isDead())
                 {
-
+                    player.KillPartyMember(entity);
                 }
             }
         }

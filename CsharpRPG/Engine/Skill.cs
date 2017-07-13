@@ -41,6 +41,10 @@ namespace CsharpRPG.Engine
             TargetVariable = skill.TargetVariable;
             SkillMaxExp = skill.SkillMaxExp;
         }
+        public Skill() : base(100000, "", new Bitmap(1, 1))
+        {
+
+        }
 
         public void Use(Entity Caster, Entity Target)
         {

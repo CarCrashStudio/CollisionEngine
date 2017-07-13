@@ -19,6 +19,7 @@ namespace CsharpRPG.Engine
         Random rand = new Random();
 
         public Location CurrentLocation { get { return currentLocation; } set { currentLocation = value; } }
+        public Tile CurrentTile { get; set; }
         public int Level { get { return level; } set { level = value; } }
         public int Exp { get { return exp; } set { exp = value; } }
         public int MaxExp { get { return maxExp; } set { maxExp = value; } }
@@ -27,7 +28,6 @@ namespace CsharpRPG.Engine
 
         public List<InventoryItem> Inventory { get; set; }
         public List<PlayerQuest> Quests { get; set; }
-        public List<Character> Party { get; set; }
         
         public bool HeadEquipped { get; set; }
         public bool TorsoEquipped { get; set; }
@@ -54,28 +54,29 @@ namespace CsharpRPG.Engine
 
             Inventory = new List<InventoryItem>();
             Quests = new List<PlayerQuest>();
-            Party = new List<Character>();
-            Party.Add(this);
         }
 
         void SpawnMonsterLivingHere()
         {
-            if (CurrentLocation.MonsterLivingHere != null)
+            if(CurrentTile.Type != World.TileType.Path.ToString())
             {
-                if (CountDown != 0)
+                if (CurrentLocation.MonsterLivingHere != null)
                 {
-                    CountDown--;
-                }
-                if (CountDown == 0)
-                {
-                    int spawn = rand.Next(100) + 1;
-                    if (spawn < CurrentLocation.MonsterLivingHere.SpawnChance)
+                    if (CountDown != 0)
                     {
-                        CurrentLocation.MonsterLivingHere = new Monster(world.MonsterByID(CurrentLocation.MonsterLivingHere.ID));
-                        CurrentLocation.MonsterLivingHere.Location = CheckNextTile();
-                        world.combat = new Combat(world.combat, CurrentLocation.MonsterLivingHere);
+                        CountDown--;
                     }
-                    CountDown = rand.Next(MAX_COUNTDOWN);
+                    if (CountDown == 0)
+                    {
+                        int spawn = rand.Next(100) + 1;
+                        if (spawn < CurrentLocation.MonsterLivingHere.SpawnChance)
+                        {
+                            CurrentLocation.MonsterLivingHere = new Monster(world.MonsterByID(CurrentLocation.MonsterLivingHere.ID));
+                            CurrentLocation.MonsterLivingHere.Location = CheckNextTile();
+                            world.combat = new Combat(world.combat, CurrentLocation.MonsterLivingHere);
+                        }
+                        CountDown = rand.Next(MAX_COUNTDOWN);
+                    }
                 }
             }
         }
@@ -121,6 +122,7 @@ namespace CsharpRPG.Engine
                         world.map.ShiftMap(1, 0);
                         break;
                 }
+                CheckCurrentTile();
                 SpawnMonsterLivingHere();
             }
         }
@@ -277,6 +279,16 @@ namespace CsharpRPG.Engine
                 {
                     Location = transition.TargetTransition;
                     MoveTo(transition.NextLocation);
+                }
+            }
+        }
+        void CheckCurrentTile()
+        {
+            foreach (Tile tile in world.map.TilesOnMap)
+            {
+                if(tile.Location == this.Location)
+                {
+                    this.CurrentTile = tile;
                 }
             }
         }

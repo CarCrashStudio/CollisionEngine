@@ -125,7 +125,7 @@ namespace CsharpRPG.Engine
         void UpdateCombatScreen()
         {
             DrawHealth(world.PHealthCombat, world.combat.combat.pbCurrentHealth, world.player);
-            //DrawHealth(world.DHealthCombat, world.combat.combat.pbCurrentMonsterHealth, world.player.CurrentLocation.MonsterLivingHere);
+            DrawHealth(world.DHealthCombat, world.combat.combat.pbCurrentMonsterHealth, world.player.CurrentLocation.MonsterLivingHere);
         }
         public Bitmap DrawBars(HUDObject bar, PictureBox form)
         {

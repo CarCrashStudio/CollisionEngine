@@ -26,6 +26,8 @@ namespace CsharpRPG.Engine
         public int MaxMana { get { return maxMana; } set { maxMana = value; } }
         public Point Location { get { return location; } set { location = value; } }
         public List<Skill> Skills { get; set; }
+        public List<Entity> Party { get; set; }
+        public List<Entity> PartyDead { get; set; }
 
         public World world { get; set; }
 
@@ -47,6 +49,10 @@ namespace CsharpRPG.Engine
             location = _location;
             world = _world;
             Skills = new List<Skill>();
+            Party = new List<Entity>();
+            PartyDead = new List<Entity>();
+
+            Party.Add(this);
         }
         
         public Point CheckNextTile()
@@ -127,6 +133,11 @@ namespace CsharpRPG.Engine
             Type mytype = typeof(Entity);
             PropertyInfo propInfo = mytype.GetProperty(var);
             return propInfo;
+        }
+        public void KillPartyMember(Entity partymember)
+        {
+            Party.Remove(partymember);
+            PartyDead.Add(partymember);
         }
     }
 }

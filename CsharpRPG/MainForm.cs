@@ -313,6 +313,7 @@ namespace CsharpRPG
         void updateScreen()
         {
             world.HUD.Update();
+            label1.Text = world.player.CountDown.ToString();
         }
 
         void InitializePlayer(string name, string clss, Point loc, int health, int maxhealth, int mana, int maxmana, int str, int def, int level, int exp, int maxexp, int gold, string slug, int lastlocid)
@@ -462,12 +463,7 @@ namespace CsharpRPG
         }
         private void btnATK_Click(object sender, EventArgs e)
         {
-            combat.lstSkills.Items.Clear();
-            foreach(Skill skill in world.player.Skills)
-            {
-                combat.lstSkills.Items.Add(skill.Name);
-            }
-            combat.lstSkills.Visible = true;
+           
         }
         private void walkW_Tick(object sender, EventArgs e)
         {
