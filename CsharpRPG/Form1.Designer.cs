@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.walkW = new System.Windows.Forms.Timer(this.components);
             this.walkA = new System.Windows.Forms.Timer(this.components);
             this.walkS = new System.Windows.Forms.Timer(this.components);
@@ -64,10 +65,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pbMap.BackColor = System.Drawing.Color.Black;
-            this.pbMap.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbMap.Image = ((System.Drawing.Image)(resources.GetObject("pbMap.Image")));
             this.pbMap.Location = new System.Drawing.Point(0, 0);
             this.pbMap.Name = "pbMap";
-            this.pbMap.Size = new System.Drawing.Size(876, 588);
+            this.pbMap.Size = new System.Drawing.Size(1280, 1280);
             this.pbMap.TabIndex = 15;
             this.pbMap.TabStop = false;
             this.pbMap.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pbMap_MouseClick);
@@ -85,6 +86,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(876, 587);
             this.ControlBox = false;
             this.Controls.Add(this.label1);

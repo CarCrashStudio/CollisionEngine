@@ -31,8 +31,8 @@ namespace CsharpRPG.Engine
 
         public World world { get; set; }
 
-        public int MaximumDamage { get { return maxDamage; } set { maxDamage = value; } }
-        public int MaximumDefense { get { return maxDefense; } set { maxDefense = value; } }
+        public int Strength { get { return maxDamage; } set { maxDamage = value; } }
+        public int Defense { get { return maxDefense; } set { maxDefense = value; } }
 
         public string Facing { get; set; } // The direction the player is facing (North, South, East, West)
         public Point NextTile { get; set; } //THe coordinate of the tile in front of the player

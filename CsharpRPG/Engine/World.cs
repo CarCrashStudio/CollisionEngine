@@ -47,6 +47,7 @@ namespace CsharpRPG.Engine
 
         public int SKILL_ID_ATTACK { get { return 0; } }
         public int SKILL_ID_BURN { get { return 1; } }
+        public int SKILL_ID_WEAKNESS { get { return 3; } }
 
         public PictureBox HudForm { get; set; }
         public WorldMap map { get; set; }
@@ -90,10 +91,11 @@ namespace CsharpRPG.Engine
         public Bitmap strImg;
         public Bitmap defImg;
 
-        public int MAX_MAP_SIZE { get { return 19; } }
+        public int MAX_MAP_SIZE { get { return 39; } }
         public int ICON_SIZE { get { return 32; } }
         public int WIDTH { get { return (MAX_MAP_SIZE + 1) * ICON_SIZE; } }
         public int HEIGHT { get { return (MAX_MAP_SIZE + 1) * ICON_SIZE; } }
+        public static int fontSize { get { return 16; } }
         public Point CENTER 
         {
             get
@@ -112,12 +114,17 @@ namespace CsharpRPG.Engine
             Building = 2,
             Deco = 3
         }
+        int PbOffset = 0;
 
-        public World(PictureBox _HudForm, Bitmap _CharStatBar, Bitmap _CharImgBox, Bitmap _strImg, Bitmap _defImg, Character _player)
+        Screen screen = Screen.PrimaryScreen;
+
+        public World(PictureBox _HudForm, Bitmap _CharStatBar, Bitmap _CharImgBox, Bitmap _strImg, Bitmap _defImg, Character _player, int pboffset)
         {
             HudForm = _HudForm;
             player = _player;
             player.world = this;
+
+            PbOffset = pboffset;
 
             PopulateItems();
             PopulateWeapons();
@@ -129,6 +136,8 @@ namespace CsharpRPG.Engine
             PopulateLocations();
             PopulateTiles();
             PopulateHUDObjects(_CharStatBar, _CharImgBox, _strImg, _defImg);
+
+            map = new WorldMap("worldmap", this);
         }
 
         void PopulateItems()
@@ -181,7 +190,9 @@ namespace CsharpRPG.Engine
             Location field = new Location(LOCATION_ID_FIELD, "Fields", "This place is swarmed with spiders");
             field.MonsterLivingHere = MonsterByID(MONSTER_ID_SPIDER);
 
-            field.NPCsLivingHere = new List<NPC>();
+            field.Boundries.Add(new Point(0, 0));
+            field.Boundries.Add(new Point(19, 19));
+
             field.NPCsLivingHere.Add(new NPC(NPCByID(NPC_ID_BUGSQUASHER)));
 
             field.Transitions = new List<Transition>();
@@ -189,6 +200,9 @@ namespace CsharpRPG.Engine
             Location home = new Location(LOCATION_ID_HOUSE, "Your House", "You live here but now you should go adventuring");
             home.MonsterLivingHere = null;
             home.Transitions = new List<Transition>();
+            home.Boundries.Add(new Point(0, 20));
+            home.Boundries.Add(new Point(19, 39));
+
 
             Locations.Add(home);
             Locations.Add(homeInside);
@@ -241,19 +255,20 @@ namespace CsharpRPG.Engine
 
             Skill Attack = new Skill(SKILL_ID_ATTACK, "Attack", new Bitmap(32, 32), "Health", 0, 0);
             Skill Burn = new Skill(SKILL_ID_BURN, "Burn", new Bitmap(32, 32), "Health", -5, 2);
+            Skill Weakness = new Skill(SKILL_ID_WEAKNESS, "Weakness", new Bitmap(32, 32), "Strength", -5, (int)Skill.Types.Debuff);
 
             Skills.Add(Attack);
             Skills.Add(Burn);
+            Skills.Add(Weakness);
         }
         void PopulateHUDObjects(Bitmap _CharStatBar, Bitmap _CharImgBox, Bitmap _strImg, Bitmap _defImg)
-        {            
-            HUD = new Hud(this);
-
+        {
+            HUD = new Hud(this, PbOffset);
             Clickables = new List<HUDObject>();
             InventoryItems = new List<HUDObject>();
 
             List<Point> temp = new List<Point>();
-            temp.Add(new Point(0, 0));
+            temp.Add(new Point(0, PbOffset));
             temp.Add(new Point(temp[0].X + _CharImgBox.Width, temp[0].Y + _CharImgBox.Height));
 
             CharImgBox = new HUDObject(temp, _CharImgBox);
@@ -263,16 +278,16 @@ namespace CsharpRPG.Engine
             CharImg = new HUDObject(temp, player.Image);
 
             temp = new List<Point>();
-            temp.Add(new Point(CharImgBox.Boundries[1].X, 0));
+            temp.Add(new Point(CharImgBox.Boundries[1].X, PbOffset));
             temp.Add(new Point(temp[0].X + _CharStatBar.Width, temp[0].Y + _CharStatBar.Height));
             CharStatBar = new HUDObject(temp, _CharStatBar);
 
             temp = new List<Point>();
-            temp.Add(new Point(CharStatBar.FindCenterofBounds().X - 45, CharStatBar.FindCenterofBounds().Y + 25));
+            temp.Add(new Point(CharStatBar.FindCenterofBounds().X - 45, (CharStatBar.Boundries[1].Y - 40)));
             MainHealthBar = new HUDObject(temp, new Bitmap("icons/HUDBars/HealthBar/HealthBar10.png"));
 
             temp = new List<Point>();
-            temp.Add(new Point(CharStatBar.FindCenterofBounds().X - 45, CharStatBar.FindCenterofBounds().Y + 40));
+            temp.Add(new Point(CharStatBar.FindCenterofBounds().X - 45, CharStatBar.Boundries[1].Y - 25));
             MainExpBar = new HUDObject(temp, new Bitmap("icons/HUDBars/ExpBar/ExpBar (10).png"));
 
             temp = new List<Point>();
@@ -285,22 +300,22 @@ namespace CsharpRPG.Engine
 
             temp = new List<Point>();
             temp.Add(new Point(MainHealthBar.Boundries[0].X, NameLevelString.Boundries[0].Y + 45));
-            Strength = new HUDObject(temp, _strImg, ": " + player.MaximumDamage.ToString());
+            Strength = new HUDObject(temp, _strImg, ": " + player.Strength.ToString());
 
             temp = new List<Point>();
             temp.Add(new Point(MainHealthBar.Boundries[0].X + 70, NameLevelString.Boundries[0].Y + 45));
-            Defense = new HUDObject(temp, _defImg, ": " + player.MaximumDefense.ToString());
+            Defense = new HUDObject(temp, _defImg, ": " + player.Defense.ToString());
 
             temp = new List<Point>();
-            temp.Add(new Point(0, HudForm.Height - 32));
-            temp.Add(new Point(32, HudForm.Height));
+            temp.Add(new Point(0, (screen.Bounds.Height - 32) + PbOffset));
+            temp.Add(new Point(32, screen.Bounds.Height));
             InventoryButton = new HUDObject(temp, new Bitmap("icons/HUDBars/bagbutton.png"));
             InventoryButton.Name = "Bag";
             Clickables.Add(InventoryButton);
 
             temp = new List<Point>();
-            temp.Add(new Point(HudForm.Width - 32, HudForm.Height - 32));
-            temp.Add(new Point(HudForm.Width, HudForm.Height));
+            temp.Add(new Point(screen.Bounds.Width - 32, (screen.Bounds.Height - 32) - PbOffset));
+            temp.Add(new Point(screen.Bounds.Width, screen.Bounds.Height - PbOffset));
             CloseButton = new HUDObject(temp, new Bitmap("icons/HUDBars/exitbutton.png"));
             CloseButton.Name = "Close";
             Clickables.Add(CloseButton);

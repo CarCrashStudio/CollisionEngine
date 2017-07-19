@@ -37,12 +37,34 @@ namespace CsharpRPG.Engine
         public bool OffHandEquipped { get; set; }
 
         public string Class { get; set; }
+        public bool StatsChanged { get; set; }
 
         public int CountDown { get; set; }
         public int MAX_COUNTDOWN { get { return 100; } }
 
-        public Character(int _id, string _name, string clss, Point _location, int _hp, int _maxHp, int _mana, int _maxMana, int _maximumDamage, int _maxDefense, int _level, int _exp, int _maxExp, int _gold, string slug, Bitmap _img) :
-            base(_id, _name, _location, _hp, _maxHp, _mana, _maxMana, _maximumDamage, _maxDefense, _img)
+        /*
+         * Character()
+         * Initializes a new Character
+         * Used for Party Members and Players
+         */
+        public Character(
+            int _id, // The ID used to Identify the Player
+            string _name, 
+            string clss, 
+            Point _location, 
+            int _hp, 
+            int _maxHp, 
+            int _mana, 
+            int _maxMana, 
+            int _maximumDamage, 
+            int _maxDefense, 
+            int _level, 
+            int _exp, 
+            int _maxExp, 
+            int _gold, 
+            string slug, 
+            Bitmap _img
+            ) : base(_id, _name, _location, _hp, _maxHp, _mana, _maxMana, _maximumDamage, _maxDefense, _img)
         {
             level = _level;
             exp = _exp;
@@ -51,6 +73,7 @@ namespace CsharpRPG.Engine
             Slug = slug;
 
             Class = clss;
+            StatsChanged = true;
 
             Inventory = new List<InventoryItem>();
             Quests = new List<PlayerQuest>();
@@ -97,7 +120,7 @@ namespace CsharpRPG.Engine
                     Facing = "East";
                     break;
             }
-            CheckCurrentLocation();
+            //CheckCurrentLocation();
             if (!isColliding())
             {
                 switch (Facing)
@@ -291,6 +314,23 @@ namespace CsharpRPG.Engine
                     this.CurrentTile = tile;
                 }
             }
+
+            if(CurrentTile.Location.X > CurrentLocation.Boundries[1].X)
+            {
+                MoveTo(CurrentLocation.LocationToEast);
+            }
+            if (CurrentTile.Location.X < CurrentLocation.Boundries[0].X)
+            {
+                MoveTo(CurrentLocation.LocationToWest);
+            }
+            if (CurrentTile.Location.Y < CurrentLocation.Boundries[0].Y)
+            {
+                MoveTo(CurrentLocation.LocationToNorth);
+            }
+            if (CurrentTile.Location.Y > CurrentLocation.Boundries[1].Y)
+            {
+                MoveTo(CurrentLocation.LocationToSouth);
+            }
         }
         public void MoveTo(Location newLocation)
         {
@@ -326,8 +366,7 @@ namespace CsharpRPG.Engine
             catch { CurrentLocation.MonsterLivingHere = null; }
 
             CountDown = MAX_COUNTDOWN; //Countdown resets upon entering a new location
-
-            world.map = new WorldMap(CurrentLocation.Name, world);
+            //world.HUD.UpdateNPCs();
         }
         public void RecieveQuest(NPC npc)
         {

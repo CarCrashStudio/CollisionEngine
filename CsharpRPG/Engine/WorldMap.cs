@@ -26,12 +26,49 @@ namespace CsharpRPG.Engine
             CalibrateMap();
             SetMap();
         }
+        
+        public void ShiftMap(int x, int y)
+        {
+            MapLoc = new Point(MapLoc.X + x, MapLoc.Y + y);            
+        }
+        public void SetMap()
+        {
+            world.HudForm.Image = Draw(world.HudForm.Width, world.HudForm.Height, new Point(MapLoc.X * 32, (MapLoc.Y - 10) * 32));
+        }
 
+        /* BuildMap()
+         * Create a new Map Location Point
+         * Create a New Image of the map
+         */
+        void BuildMap() 
+        {
+            MapLoc = new Point(0, 0); // Initialize the Point for the Map Location
+            Image = new Bitmap("maps/worldmap.png");
+            Image = Draw(world.HudForm.Width, world.HudForm.Height, new Point(0, 0));
+
+            TilesOnMap = new List<Tile>();
+            ReadTextFile(TilesOnMap, Name);
+            DrawBuidlings();
+
+            DecosOnMap = new List<Tile>();
+            ReadTextFile(DecosOnMap, Name + "Decos");
+            DrawDecorations();
+        }
+        void CalibrateMap()
+        {
+            MapLoc = new Point(
+                    // X Coordinate
+                    world.CENTER.X - world.player.Location.X,
+
+                    // Y Coordinate
+                    world.CENTER.Y - world.player.Location.Y
+                );
+        }
         void ReadTextFile(List<Tile> TileList, string TextFile)
         {
             int id = 0; // Variable for Tile Id;
             Tile tile; // Blank Tile;
-            
+
             StreamReader reader;
             reader = File.OpenText("maps/" + TextFile + ".txt");
 
@@ -45,53 +82,19 @@ namespace CsharpRPG.Engine
                         if (currentChar.Contains(" ")) break;
                         else { currentChar += char.ConvertFromUtf32(reader.Read()); }
                     }
-                    else { currentChar =currentChar.Remove(currentChar.Length-1); break; }
+                    else { currentChar = currentChar.Remove(currentChar.Length - 1); break; }
                 }
-                
+
                 id = int.Parse(currentChar);
 
                 tile = new Tile(world.TileByID(id));
                 tile.Location = new Point(x, y);
 
-                Image = tile.Draw(world.HudForm.Width, world.HudForm.Height, new Point((tile.Location.X * 32), (tile.Location.Y * 32)), Image);
-                //Image.Save(Name + ".png");
-
                 TileList.Add(tile);
                 x++;
-                if (x > world.MAX_MAP_SIZE) { y++; x = 0; }
+                if (x > (world.WIDTH / 32) - 1) { y++; x = 0; }
             }
             reader.Close();
-        }
-
-        void BuildMap() // read through a text file of IDs and places them in the Image bitmap 
-        {
-            MapLoc = new Point(0, 0); // Initialize the Point for the Map Location
-
-            TilesOnMap = new List<Tile>();
-            ReadTextFile(TilesOnMap, Name);
-            DrawBuidlings();
-
-            DecosOnMap = new List<Tile>();
-            ReadTextFile(DecosOnMap, Name + "Decos");
-            DrawDecorations();
-        }
-        public void ShiftMap(int x, int y)
-        {
-            MapLoc = new Point(MapLoc.X + x, MapLoc.Y + y);            
-        }
-        void CalibrateMap()
-        {
-            MapLoc = new Point(
-                    // X Coordinate
-                    world.CENTER.X - world.player.Location.X,
-
-                    // Y Coordinate
-                    world.CENTER.Y - world.player.Location.Y
-                );
-        }
-        public void SetMap()
-        {
-            world.HudForm.Image = Draw(world.HudForm.Width, world.HudForm.Height, new Point(MapLoc.X * 32, MapLoc.Y * 32));
         }
         void DrawBuidlings()
         {

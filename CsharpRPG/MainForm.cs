@@ -19,6 +19,7 @@ namespace CsharpRPG
         // Object Classes
         Random rand = new Random();
 
+        int offset;
         // Variables
         string sqlID = "treyhall";
         string sqlPass = "web.56066";
@@ -40,10 +41,12 @@ namespace CsharpRPG
         }
         void SetupGame()
         {
+            offset = -(pbMap.Location.Y);
             SQL = new Sql(String.Format(sqlConnString, sqlID, sqlPass));
             Login();
             InitializeScreenControls();
             world.combat = new Combat(combat = new CombatForm(world), world.MonsterByLocation(world.player.NextTile), world, world.player);
+            world.HUD.UpdateScreenSize();
             updateScreen();
         }
 
@@ -168,8 +171,8 @@ namespace CsharpRPG
                 SQL.ExecuteUPDATE("CharacterData", "Screenname = '" + screenname + "'", "MaxHealth = '" + world.player.MaxHealth + "'");
                 SQL.ExecuteUPDATE("CharacterData", "Screenname = '" + screenname + "'", "Mana = '" + world.player.Mana + "'");
                 SQL.ExecuteUPDATE("CharacterData", "Screenname = '" + screenname + "'", "MaxMana = '" + world.player.MaxMana + "'");
-                SQL.ExecuteUPDATE("CharacterData", "Screenname = '" + screenname + "'", "Damage = '" + world.player.MaximumDamage + "'");
-                SQL.ExecuteUPDATE("CharacterData", "Screenname = '" + screenname + "'", "Defense = '" + world.player.MaximumDefense + "'");
+                SQL.ExecuteUPDATE("CharacterData", "Screenname = '" + screenname + "'", "Damage = '" + world.player.Strength + "'");
+                SQL.ExecuteUPDATE("CharacterData", "Screenname = '" + screenname + "'", "Defense = '" + world.player.Defense + "'");
                 SQL.ExecuteUPDATE("CharacterData", "Screenname = '" + screenname + "'", "Exp = '" + world.player.Exp + "'");
                 SQL.ExecuteUPDATE("CharacterData", "Screenname = '" + screenname + "'", "MaxExp = '" + world.player.MaxExp + "'");
                 SQL.ExecuteUPDATE("CharacterData", "Screenname = '" + screenname + "'", "Level = '" + world.player.Level + "'");
@@ -313,14 +316,14 @@ namespace CsharpRPG
         void updateScreen()
         {
             world.HUD.Update();
-            label1.Text = world.player.CountDown.ToString();
+            label1.Text = world.player.CurrentLocation.Name;
         }
 
         void InitializePlayer(string name, string clss, Point loc, int health, int maxhealth, int mana, int maxmana, int str, int def, int level, int exp, int maxexp, int gold, string slug, int lastlocid)
         {
-            world = new World(pbMap, new Bitmap("icons/HUDBars/CharStatBar.png"), new Bitmap("icons/HUDBars/CharImgBox.png"), new Bitmap("icons/HUDBars/strength.png"), new Bitmap("icons/HUDBars/defense.png"), new Character(1, name, clss, loc, health, maxhealth, mana, maxmana, str, def, level, exp, maxexp, gold, slug, new Bitmap("icons/player.png"))); //You, the player, Character creation will be implemented later
+            world = new World(pbMap, new Bitmap("icons/HUDBars/CharStatBar.png"), new Bitmap("icons/HUDBars/CharImgBox.png"), new Bitmap("icons/HUDBars/strength.png"), new Bitmap("icons/HUDBars/defense.png"), new Character(1, name, clss, loc, health, maxhealth, mana, maxmana, str, def, level, exp, maxexp, gold, slug, new Bitmap("icons/player.png")), offset); //You, the player, Character creation will be implemented later
             world.player.MoveTo(world.LocationByID(lastlocid));
-            //world.player.Skills.Add(new Skill(world.SkillByID(world.SKILL_ID_ATTACK)));
+            //world.player.Skills.Add(new Skill(world.SkillByID(world.SKILL_ID_WEAKNESS)));
             //world.player.Inventory.Add(new InventoryItem(world.ItemByID(world.WEAPON_ID_RUSTY_SWORD), 1)); //Give 1 'Rusty Sword' to player
         }
        
@@ -461,10 +464,6 @@ namespace CsharpRPG
                 }
             }
         }
-        private void btnATK_Click(object sender, EventArgs e)
-        {
-           
-        }
         private void walkW_Tick(object sender, EventArgs e)
         {
             walkW.Enabled = false;
@@ -488,20 +487,6 @@ namespace CsharpRPG
             walkD.Enabled = false;
             world.player.MovePlayer("D");
             updateScreen();
-        }
-        private void lstSkills_DoubleClick(object sender, EventArgs e)
-        {
-            Skill attackskill = new Skill(10000, "", new Bitmap(1, 1), "", 0, 0);
-            foreach (Skill skill in world.player.Skills)
-            {
-                if(skill.Name == combat.lstSkills.SelectedItem.ToString())
-                {
-                    attackskill = skill;
-                }
-            }
-            world.combat.Attack(world.player, world.player.CurrentLocation.MonsterLivingHere, attackskill);
-            combat.wait.Enabled = true;
-            combat.lstSkills.Visible = false;
         }
         #endregion
     }

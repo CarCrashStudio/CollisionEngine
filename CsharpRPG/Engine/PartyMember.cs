@@ -5,7 +5,7 @@ namespace CsharpRPG.Engine
     public class PartyMember : Entity
     {
         public PartyMember(PartyMember member) : 
-            base(member.ID, member.Name, member.Location, member.Health, member.MaxHealth, member.Mana, member.MaxMana, member.MaximumDamage, member.MaximumDefense, member.Image, member.world)
+            base(member.ID, member.Name, member.Location, member.Health, member.MaxHealth, member.Mana, member.MaxMana, member.Strength, member.Defense, member.Image, member.world)
         {
 
         }

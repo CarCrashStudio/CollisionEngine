@@ -32,8 +32,23 @@ namespace CsharpRPG.Engine
             var graphics = Graphics.FromImage(bitmap);
 
             //graphics.SmoothingMode = SmoothingMode.AntiAlias;
-            graphics.DrawImage(Image, drawLoc);
+            graphics.DrawImageUnscaled(Image, drawLoc);
 
+            return bitmap;
+        }
+        public Bitmap DrawText(string str, int imgWidth, int imgHeight, Point drawLoc, Bitmap img = null)
+        {
+            Font font = new Font("Arial", World.fontSize);
+            Brush brush = new SolidBrush(Color.Black);
+            var bitmap = new Bitmap(imgWidth, imgHeight);
+            if (img != null)
+            {
+               bitmap = new Bitmap(img, imgWidth, imgHeight);
+            }
+             
+            var graphics = Graphics.FromImage(bitmap);
+
+            graphics.DrawString(str, font, brush, drawLoc);
             return bitmap;
         }
         

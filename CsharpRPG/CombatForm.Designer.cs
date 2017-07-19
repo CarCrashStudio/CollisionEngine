@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panCombat = new System.Windows.Forms.Panel();
+            this.pbMonsterParty3Health = new System.Windows.Forms.PictureBox();
             this.lstParty3 = new System.Windows.Forms.ListBox();
             this.lstParty2 = new System.Windows.Forms.ListBox();
             this.lstParty1 = new System.Windows.Forms.ListBox();
@@ -54,8 +55,8 @@
             this.btnATK = new System.Windows.Forms.Label();
             this.lblCombatOutput = new System.Windows.Forms.RichTextBox();
             this.wait = new System.Windows.Forms.Timer(this.components);
-            this.pbMonsterParty3Health = new System.Windows.Forms.PictureBox();
             this.panCombat.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMonsterParty3Health)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbMonsterParty3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbMonsterParty2Health)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbMonsterParty2)).BeginInit();
@@ -71,7 +72,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbCurrentParty)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPartyHealth1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPartySlot1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMonsterParty3Health)).BeginInit();
             this.SuspendLayout();
             // 
             // panCombat
@@ -108,6 +108,15 @@
             this.panCombat.Size = new System.Drawing.Size(1083, 761);
             this.panCombat.TabIndex = 31;
             // 
+            // pbMonsterParty3Health
+            // 
+            this.pbMonsterParty3Health.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pbMonsterParty3Health.Location = new System.Drawing.Point(985, 385);
+            this.pbMonsterParty3Health.Name = "pbMonsterParty3Health";
+            this.pbMonsterParty3Health.Size = new System.Drawing.Size(95, 16);
+            this.pbMonsterParty3Health.TabIndex = 52;
+            this.pbMonsterParty3Health.TabStop = false;
+            // 
             // lstParty3
             // 
             this.lstParty3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -119,6 +128,7 @@
             this.lstParty3.Size = new System.Drawing.Size(257, 154);
             this.lstParty3.TabIndex = 51;
             this.lstParty3.Visible = false;
+            this.lstParty3.SelectedIndexChanged += new System.EventHandler(this.lstParty3_SelectedIndexChanged);
             this.lstParty3.DoubleClick += new System.EventHandler(this.lstParty3_DoubleClick);
             // 
             // lstParty2
@@ -348,15 +358,6 @@
             this.wait.Interval = 350;
             this.wait.Tick += new System.EventHandler(this.wait_Tick);
             // 
-            // pbMonsterParty3Health
-            // 
-            this.pbMonsterParty3Health.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pbMonsterParty3Health.Location = new System.Drawing.Point(985, 385);
-            this.pbMonsterParty3Health.Name = "pbMonsterParty3Health";
-            this.pbMonsterParty3Health.Size = new System.Drawing.Size(95, 16);
-            this.pbMonsterParty3Health.TabIndex = 52;
-            this.pbMonsterParty3Health.TabStop = false;
-            // 
             // CombatForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -369,6 +370,7 @@
             this.Text = "CombatForm";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.panCombat.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbMonsterParty3Health)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbMonsterParty3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbMonsterParty2Health)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbMonsterParty2)).EndInit();
@@ -384,7 +386,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbCurrentParty)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPartyHealth1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPartySlot1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMonsterParty3Health)).EndInit();
             this.ResumeLayout(false);
 
         }

@@ -21,6 +21,7 @@ namespace CsharpRPG.Engine
         public List<NPC> NPCsLivingHere { get; set; }
 
         public List<Transition> Transitions { get; set; }
+        public List<Point> Boundries { get; set; }
 
         public Location LocationToNorth { get; set; }
         public Location LocationToEast { get; set; }
@@ -35,6 +36,8 @@ namespace CsharpRPG.Engine
             ItemRequiredToEnter = itemRequiredToEnter;
             QuestAvailableHere = questAvailableHere;
             MonsterLivingHere = monsterLivingHere;
+            Boundries = new List<Point>();
+            NPCsLivingHere = new List<NPC>();
         }
         public Location(Location location) //Overload For location class
         {
@@ -44,6 +47,16 @@ namespace CsharpRPG.Engine
             ItemRequiredToEnter = location.ItemRequiredToEnter;
             QuestAvailableHere = location.QuestAvailableHere;
             MonsterLivingHere = location.MonsterLivingHere;
+
+            NPCsLivingHere = new List<NPC>();
+            foreach (NPC npc in location.NPCsLivingHere)
+            {
+                NPCsLivingHere.Add(npc);
+            }
+
+            Boundries = new List<Point>();
+            Boundries.Add(location.Boundries[0]);
+            Boundries.Add(location.Boundries[1]);
         }
     }
 

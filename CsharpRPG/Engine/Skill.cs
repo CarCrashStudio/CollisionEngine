@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -40,6 +41,7 @@ namespace CsharpRPG.Engine
             buffamnt = skill.buffamnt;
             TargetVariable = skill.TargetVariable;
             SkillMaxExp = skill.SkillMaxExp;
+            SkillType = skill.SkillType;
         }
         public Skill() : base(100000, "", new Bitmap(1, 1))
         {
@@ -54,7 +56,10 @@ namespace CsharpRPG.Engine
             }
             else
             {
-                Target.FindVariable(TargetVariable).SetValue(Target.FindVariable(TargetVariable), (int)Target.FindVariable(TargetVariable).GetValue(Target.FindVariable(TargetVariable)) + Buffamnt);
+
+                PropertyInfo var = Target.FindVariable("Strength");
+                //int str = (int)var.GetValue();
+                //Target.FindVariable("Strength").SetValue(var, str + Buffamnt);
             }
             SkillExp += rand.Next(100);
             if(SkillExp >= SkillMaxExp)
@@ -74,8 +79,8 @@ namespace CsharpRPG.Engine
         }
         int Damage(Entity attacker, Entity defender)
         {
-            int temp = rand.Next(attacker.MaximumDamage);
-            temp -= rand.Next(defender.MaximumDefense);
+            int temp = rand.Next(attacker.Strength);
+            temp -= rand.Next(defender.Defense);
             if (temp < 0)
             {
                 temp = 1;

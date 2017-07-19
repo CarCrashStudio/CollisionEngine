@@ -29,7 +29,7 @@ namespace CsharpRPG.Engine
             SpawnChance = _spawnChance;
         }
         public Monster(Monster monster) :
-            base(monster.ID, monster.Name, monster.Location, monster.Health, monster.MaxHealth, monster.Mana, monster.MaxMana, monster.MaximumDamage, monster.MaximumDefense, monster.Image, monster.world)
+            base(monster.ID, monster.Name, monster.Location, monster.Health, monster.MaxHealth, monster.Mana, monster.MaxMana, monster.Strength, monster.Defense, monster.Image, monster.world)
         {
             rewardExp = monster.rewardExp;
             rewardGold = monster.RewardGold;

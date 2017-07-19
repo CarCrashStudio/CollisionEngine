@@ -95,5 +95,10 @@ namespace CsharpRPG
             }
             lstSkills.Visible = true;
         }
+
+        private void lstParty3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
