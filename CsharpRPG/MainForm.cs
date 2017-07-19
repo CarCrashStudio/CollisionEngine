@@ -37,6 +37,7 @@ namespace CsharpRPG
         public MainForm()
         {
             InitializeComponent();
+            Bounds = Screen.PrimaryScreen.Bounds;
             SetupGame();
         }
         void SetupGame()
@@ -47,6 +48,7 @@ namespace CsharpRPG
             InitializeScreenControls();
             world.combat = new Combat(combat = new CombatForm(world), world.MonsterByLocation(world.player.NextTile), world, world.player);
             world.HUD.UpdateScreenSize();
+            updateScreen();
             updateScreen();
         }
 
@@ -316,7 +318,7 @@ namespace CsharpRPG
         void updateScreen()
         {
             world.HUD.Update();
-            label1.Text = world.player.CurrentLocation.Name;
+            label1.Text = world.player.CurrentLocation.Name + " " + world.player.CountDown;
         }
 
         void InitializePlayer(string name, string clss, Point loc, int health, int maxhealth, int mana, int maxmana, int str, int def, int level, int exp, int maxexp, int gold, string slug, int lastlocid)
@@ -333,11 +335,13 @@ namespace CsharpRPG
         }
         void OpenBag()
         {
+            world.player.StatsChanged = true;
             world.InventoryBox.Shown = true;
             updateScreen();
         }
         void CloseBag()
         {
+            world.player.StatsChanged = true;
             world.InventoryBox.Shown = false;
             updateScreen();
         }
@@ -416,26 +420,19 @@ namespace CsharpRPG
         {
             if (world.InventoryBox.Shown)
             {
-                if (e.Location.X > world.InventoryBox.Boundries[0].X && e.Location.X < world.InventoryBox.Boundries[1].X)
+                if (world.InventoryBox.IsInBounds(e))
                 {
-                    if (e.Location.Y > world.InventoryBox.Boundries[0].Y && e.Location.Y < world.InventoryBox.Boundries[1].Y)
+                    foreach (HUDObject item in world.InventoryItems)
                     {
-                        foreach (HUDObject item in world.InventoryItems)
+                        if (item.IsInBounds(e))
                         {
-                            if (e.Location.X > item.Boundries[0].X && e.Location.X < item.Boundries[1].X)
-                            {
-                                if (e.Location.Y > item.Boundries[0].Y && e.Location.Y < item.Boundries[1].Y)
-                                {
-                                    MessageBox.Show(item.Text + " was clicked");
-                                }
-                            }
+                            MessageBox.Show(item.Text + " was clicked");
                         }
                     }
                 }
                 else
                 {
-                    world.InventoryBox.Shown = true;
-                    updateScreen();
+                    CloseBag();
                 }
 
             }
@@ -443,22 +440,19 @@ namespace CsharpRPG
             {
                 foreach (HUDObject button in world.Clickables)
                 {
-                    if (e.Location.X > button.Boundries[0].X && e.Location.X < button.Boundries[1].X)
+                    if (button.IsInBounds(e))
                     {
-                        if (e.Location.Y > button.Boundries[0].Y && e.Location.Y < button.Boundries[1].Y)
+                        switch (button.Name)
                         {
-                            switch (button.Name)
-                            {
-                                case "Close":
-                                    if (MessageBox.Show("Are you sure you want to quit?", "Are you sure?", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                                    {
-                                        Close();
-                                    }
-                                    break;
-                                case "Bag":
-                                    OpenBag();
-                                    break;
-                            }
+                            case "Close":
+                                if (MessageBox.Show("Are you sure you want to quit?", "Are you sure?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                                {
+                                    Close();
+                                }
+                                break;
+                            case "Bag":
+                                OpenBag();
+                                break;
                         }
                     }
                 }

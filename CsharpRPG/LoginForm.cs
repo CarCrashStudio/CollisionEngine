@@ -68,5 +68,10 @@ namespace CsharpRPG
         {
             Process.Start("http://rogueasp.azurewebsites.net/");
         }
+
+        private void btnRegister_Click(object sender, EventArgs e)
+        {
+            Process.Start("http://rogueasp.azurewebsites.net/register.aspx");
+        }
     }
 }

@@ -31,17 +31,13 @@ namespace CsharpRPG.Engine
         {
             UpdateWorld();
             UpdatePlayer();
-            UpdateButtons();
-
             if (world.player.StatsChanged)
             {
                 UpdateStats();
+                UpdateInventory();
                 world.player.StatsChanged = false;
             }
-            if (world.InventoryBox.Shown)
-            {
-                UpdateInventory();
-            }
+            UpdateButtons();
             world.HudForm.Image = DrawHud();
             if (world.combat.Initiated)
             {
@@ -51,7 +47,7 @@ namespace CsharpRPG.Engine
 
         public void UpdateScreenSize()
         {
-            // world.HudForm.Size = new Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
+            world.HudForm.Size = new Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
         }
         public void UpdateButtons()
         {
@@ -212,7 +208,7 @@ namespace CsharpRPG.Engine
             {
                 if (bar.Image != null)
                 {
-                    HudImg = bar.Draw(form.Width, form.Height, new Point(bar.Image.Width, bar.Boundries[0].Y), HudImg);
+                    HudImg = bar.DrawText(bar.Text, form.Width, form.Height, new Point(bar.Boundries[0].X + bar.Image.Width + 5, bar.Boundries[0].Y), HudImg);
                 }
                 else
                 {
@@ -299,6 +295,17 @@ namespace CsharpRPG.Engine
         {
             Point tempPoint = new Point((Boundries[1].X) / 2, (Boundries[1].Y) / 2);
             return tempPoint;
+        }
+        public bool IsInBounds(MouseEventArgs e)
+        {
+            if (e.Location.X > Boundries[0].X && e.Location.X < Boundries[1].X)
+            {
+                if (e.Location.Y > Boundries[0].Y && e.Location.Y < Boundries[1].Y)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
