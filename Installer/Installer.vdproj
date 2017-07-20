@@ -15,6 +15,12 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_05D9C46AFB824BA584433782FFF9C4F8"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_0663FD1E75A9429C9E9947B436E744C7"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -87,6 +93,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_1E8DEB3110364E21A6FBA60611C7A836"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_1F3E08E5E622431ABC99402BEBB00FAA"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -94,12 +106,6 @@
         "Entry"
         {
         "MsmKey" = "8:_25F447D98AEC402DA8FF15BC2F8F770F"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_2E4C76FDD28D4270B1FF09B3EA4DE6FC"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -129,20 +135,8 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_42873C507DC444E1A5CB8E525DDB11B3"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_43EECD514AC4B824486FC8606D92023F"
-        "OwnerKey" = "8:_42873C507DC444E1A5CB8E525DDB11B3"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_46C312349D1640B7AB3E9F596320079D"
-        "OwnerKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_B1C5BE1FAAD748CAB12AA8DFBB78B9CB"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -184,6 +178,12 @@
         "Entry"
         {
         "MsmKey" = "8:_62F838863E804E7D9954BC30FC4F5E4E"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_6423DF8113CC4D93A4BF0211A0A5E7E0"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -231,6 +231,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_7A76D09341BD4EEAB2CB5BE78DF28506"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_7B0F008DA6F7401AA480896234F67F89"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -262,6 +268,12 @@
         "Entry"
         {
         "MsmKey" = "8:_92D3C9F816C04870ACB25CD5BF39FBEF"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_94005B85186D48C3A57CBCD74EFE4B95"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -303,6 +315,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_9EF0CDB1B1D14EDF94F49E3FCE6E3892"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_9FD0973357E94932B55E00E197873C7E"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -315,13 +333,25 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_A7EC0E40778B4FF48FE77C0CEAD5D80D"
+        "MsmKey" = "8:_A60765B3AF2F4748985E26C1C82FE9BC"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_AD8AC7C0B94A42ABA3C9C522A3973A90"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_B1C5BE1FAAD748CAB12AA8DFBB78B9CB"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_B3F02F3DCA5C40FDAA32BBCEB70F4943"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -369,6 +399,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_DD29E484B44B422FBE3A82B2546042BF"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_E10EE093CA104E2BBA72ECA3A666BD40"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -411,6 +447,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_FB773EF6C58D4690856690EAE68FF34D"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_FFBF1FA98F8A4759995C899324F11F63"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -418,7 +460,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_42873C507DC444E1A5CB8E525DDB11B3"
+        "OwnerKey" = "8:_B1C5BE1FAAD748CAB12AA8DFBB78B9CB"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -452,6 +494,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.1"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.6.1 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.6.1"
+                    }
+                }
             }
         }
         "Release"
@@ -476,6 +526,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.1"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.6.1 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.6.1"
+                    }
+                }
             }
         }
     }
@@ -506,6 +564,26 @@
         }
         "File"
         {
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_05D9C46AFB824BA584433782FFF9C4F8"
+            {
+            "SourcePath" = "8:..\\CsharpRPG\\bin\\Debug\\maps\\InsideDecos.txt"
+            "TargetName" = "8:InsideDecos.txt"
+            "Tag" = "8:"
+            "Folder" = "8:_EBFFD50D6158459FA512BFF2768DB23E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0663FD1E75A9429C9E9947B436E744C7"
             {
             "SourcePath" = "8:..\\CsharpRPG\\bin\\Debug\\icons\\HUDBars\\HealthBar\\HealthBar5.png"
@@ -746,6 +824,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1E8DEB3110364E21A6FBA60611C7A836"
+            {
+            "SourcePath" = "8:..\\CsharpRPG\\bin\\Debug\\maps\\Inside.txt"
+            "TargetName" = "8:Inside.txt"
+            "Tag" = "8:"
+            "Folder" = "8:_EBFFD50D6158459FA512BFF2768DB23E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1F3E08E5E622431ABC99402BEBB00FAA"
             {
             "SourcePath" = "8:..\\CsharpRPG\\bin\\Debug\\icons\\HUDBars\\HealthBar\\HealthBar9.png"
@@ -772,26 +870,6 @@
             "TargetName" = "8:grass.bmp"
             "Tag" = "8:"
             "Folder" = "8:_1A107E00E5F042D0A8F990E8BE486E6E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2E4C76FDD28D4270B1FF09B3EA4DE6FC"
-            {
-            "SourcePath" = "8:..\\CsharpRPG\\bin\\Debug\\maps\\Your House.txt"
-            "TargetName" = "8:Your House.txt"
-            "Tag" = "8:"
-            "Folder" = "8:_EBFFD50D6158459FA512BFF2768DB23E"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -915,26 +993,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_46C312349D1640B7AB3E9F596320079D"
-            {
-            "SourcePath" = "8:..\\CsharpRPG\\bin\\Debug\\maps\\Inside.txt"
-            "TargetName" = "8:Inside.txt"
-            "Tag" = "8:"
-            "Folder" = "8:_EBFFD50D6158459FA512BFF2768DB23E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4A4CAA24FE864218BEDF750EA79B9014"
@@ -1063,6 +1121,26 @@
             "TargetName" = "8:HealthBar6.png"
             "Tag" = "8:"
             "Folder" = "8:_3EBC0153B64B43A7827051D170B2ED1D"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6423DF8113CC4D93A4BF0211A0A5E7E0"
+            {
+            "SourcePath" = "8:..\\CsharpRPG\\bin\\Debug\\maps\\Your House.txt"
+            "TargetName" = "8:Your House.txt"
+            "Tag" = "8:"
+            "Folder" = "8:_EBFFD50D6158459FA512BFF2768DB23E"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1217,6 +1295,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7A76D09341BD4EEAB2CB5BE78DF28506"
+            {
+            "SourcePath" = "8:..\\CsharpRPG\\bin\\Debug\\maps\\worldmap.txt"
+            "TargetName" = "8:worldmap.txt"
+            "Tag" = "8:"
+            "Folder" = "8:_EBFFD50D6158459FA512BFF2768DB23E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7B0F008DA6F7401AA480896234F67F89"
             {
             "SourcePath" = "8:..\\CsharpRPG\\bin\\Debug\\icons\\HUDBars\\CharStatBar.png"
@@ -1323,6 +1421,26 @@
             "TargetName" = "8:dirt.bmp"
             "Tag" = "8:"
             "Folder" = "8:_1A107E00E5F042D0A8F990E8BE486E6E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_94005B85186D48C3A57CBCD74EFE4B95"
+            {
+            "SourcePath" = "8:..\\CsharpRPG\\bin\\Debug\\maps\\worldmapDecos.txt"
+            "TargetName" = "8:worldmapDecos.txt"
+            "Tag" = "8:"
+            "Folder" = "8:_EBFFD50D6158459FA512BFF2768DB23E"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1457,6 +1575,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9EF0CDB1B1D14EDF94F49E3FCE6E3892"
+            {
+            "SourcePath" = "8:..\\CsharpRPG\\bin\\Debug\\maps\\worldmap.png"
+            "TargetName" = "8:worldmap.png"
+            "Tag" = "8:"
+            "Folder" = "8:_EBFFD50D6158459FA512BFF2768DB23E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9FD0973357E94932B55E00E197873C7E"
             {
             "SourcePath" = "8:..\\CsharpRPG\\bin\\Debug\\icons\\HUDBars\\HealthBar\\HealthBar2.png"
@@ -1497,10 +1635,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A7EC0E40778B4FF48FE77C0CEAD5D80D"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A60765B3AF2F4748985E26C1C82FE9BC"
             {
-            "SourcePath" = "8:..\\CsharpRPG\\bin\\Debug\\maps\\Fields.txt"
-            "TargetName" = "8:Fields.txt"
+            "SourcePath" = "8:..\\CsharpRPG\\bin\\Debug\\maps\\Grss.txt"
+            "TargetName" = "8:Grss.txt"
             "Tag" = "8:"
             "Folder" = "8:_EBFFD50D6158459FA512BFF2768DB23E"
             "Condition" = "8:"
@@ -1523,6 +1661,26 @@
             "TargetName" = "8:HealthBar8.png"
             "Tag" = "8:"
             "Folder" = "8:_3EBC0153B64B43A7827051D170B2ED1D"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B3F02F3DCA5C40FDAA32BBCEB70F4943"
+            {
+            "SourcePath" = "8:..\\CsharpRPG\\bin\\Debug\\maps\\Fields.txt"
+            "TargetName" = "8:Fields.txt"
+            "Tag" = "8:"
+            "Folder" = "8:_EBFFD50D6158459FA512BFF2768DB23E"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1677,6 +1835,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_DD29E484B44B422FBE3A82B2546042BF"
+            {
+            "SourcePath" = "8:..\\CsharpRPG\\bin\\Debug\\maps\\Your HouseDecos.txt"
+            "TargetName" = "8:Your HouseDecos.txt"
+            "Tag" = "8:"
+            "Folder" = "8:_EBFFD50D6158459FA512BFF2768DB23E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E10EE093CA104E2BBA72ECA3A666BD40"
             {
             "SourcePath" = "8:..\\CsharpRPG\\bin\\Debug\\icons\\HUDBars\\ExpBar\\ExpBarEmpty.bmp"
@@ -1817,6 +1995,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FB773EF6C58D4690856690EAE68FF34D"
+            {
+            "SourcePath" = "8:..\\CsharpRPG\\bin\\Debug\\maps\\FieldsDecos.txt"
+            "TargetName" = "8:FieldsDecos.txt"
+            "Tag" = "8:"
+            "Folder" = "8:_EBFFD50D6158459FA512BFF2768DB23E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FFBF1FA98F8A4759995C899324F11F63"
             {
             "SourcePath" = "8:..\\CsharpRPG\\bin\\Debug\\icons\\HUDBars\\HealthBar\\HealthBarEmpty.bmp"
@@ -1845,7 +2043,7 @@
         {
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_2367A19BF9054C88AC7CCA9C841D0C2F"
             {
-            "DefaultLocation" = "8:[ProgramFilesFolder]\\[ProductName]"
+            "DefaultLocation" = "8:[ProgramFilesFolder]\\Rogue"
             "Name" = "8:#1925"
             "AlwaysCreate" = "11:TRUE"
             "Condition" = "8:"
@@ -2154,7 +2352,7 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_42873C507DC444E1A5CB8E525DDB11B3"
+            "Target" = "8:"
             "Folder" = "8:_C1ABB1C73BEA46838251B76670B080BE"
             "WorkingFolder" = "8:_2367A19BF9054C88AC7CCA9C841D0C2F"
             "Icon" = "8:_4FA040B760444DB998EDA5CD986B56D0"
@@ -2573,7 +2771,7 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_42873C507DC444E1A5CB8E525DDB11B3"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_B1C5BE1FAAD748CAB12AA8DFBB78B9CB"
             {
             "SourcePath" = "8:..\\CsharpRPG\\obj\\Debug\\CsharpRPG.exe"
             "TargetName" = "8:"

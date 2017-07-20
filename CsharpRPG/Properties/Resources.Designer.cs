@@ -22,7 +22,7 @@ namespace CsharpRPG.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace CsharpRPG.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CsharpRPG.Properties.Resources", typeof(Resources).Assembly);
@@ -51,12 +51,633 @@ namespace CsharpRPG.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap _void {
+            get {
+                object obj = ResourceManager.GetObject("_void", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap bagbox {
+            get {
+                object obj = ResourceManager.GetObject("bagbox", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap bagbutton {
+            get {
+                object obj = ResourceManager.GetObject("bagbutton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Barn {
+            get {
+                object obj = ResourceManager.GetObject("Barn", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Basic_Health_Potion {
+            get {
+                object obj = ResourceManager.GetObject("Basic_Health_Potion", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Best_Health_Potion {
+            get {
+                object obj = ResourceManager.GetObject("Best_Health_Potion", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Better_Health_Potion {
+            get {
+                object obj = ResourceManager.GetObject("Better_Health_Potion", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap CharImgBox {
+            get {
+                object obj = ResourceManager.GetObject("CharImgBox", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap CharStatBar {
+            get {
+                object obj = ResourceManager.GetObject("CharStatBar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Crop {
+            get {
+                object obj = ResourceManager.GetObject("Crop", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Crude_Ax {
+            get {
+                object obj = ResourceManager.GetObject("Crude_Ax", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap defense {
+            get {
+                object obj = ResourceManager.GetObject("defense", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap dirt {
+            get {
+                object obj = ResourceManager.GetObject("dirt", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap exitbutton {
+            get {
+                object obj = ResourceManager.GetObject("exitbutton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap ExpBar__1_ {
+            get {
+                object obj = ResourceManager.GetObject("ExpBar__1_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap ExpBar__10_ {
+            get {
+                object obj = ResourceManager.GetObject("ExpBar__10_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap ExpBar__2_ {
+            get {
+                object obj = ResourceManager.GetObject("ExpBar__2_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap ExpBar__3_ {
+            get {
+                object obj = ResourceManager.GetObject("ExpBar__3_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap ExpBar__4_ {
+            get {
+                object obj = ResourceManager.GetObject("ExpBar__4_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap ExpBar__5_ {
+            get {
+                object obj = ResourceManager.GetObject("ExpBar__5_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap ExpBar__6_ {
+            get {
+                object obj = ResourceManager.GetObject("ExpBar__6_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap ExpBar__7_ {
+            get {
+                object obj = ResourceManager.GetObject("ExpBar__7_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap ExpBar__8_ {
+            get {
+                object obj = ResourceManager.GetObject("ExpBar__8_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap ExpBar__9_ {
+            get {
+                object obj = ResourceManager.GetObject("ExpBar__9_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap ExpBarEmpty {
+            get {
+                object obj = ResourceManager.GetObject("ExpBarEmpty", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 203 203 203 203 203 203 2 1 1 1 1 1 1 1003 0 0 0 0 0 0;203 203 203 203 203 203 2 1 1 1 1 1 1 0 0 0 0 0 0 0;203 203 203 203 203 203 2 1 1 1 1 1 1 0 0 0 0 0 0 0;203 203 203 203 203 203 2 1 1 1 1 1 1 0 0 0 0 0 0 0;203 203 203 203 203 203 2 1 1 1 1 1 1 0 0 0 0 0 0 0;203 203 203 203 203 203 2 1 1 1 1 1 1 0 0 0 0 0 0 0;203 203 203 203 203 203 2 1 1 1 1 1 1 0 0 0 0 0 0 0;203 203 203 203 203 203 2 1 1 1 1 1 1 0 0 0 0 0 0 0;203 203 203 203 203 203 2 1 1 1 1 1 1 0 0 0 0 0 0 0;2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2;2 [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string Fields {
+            get {
+                return ResourceManager.GetString("Fields", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000;
+        ///000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000;
+        ///000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000;
+        ///000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000;
+        ///000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000;
+        ///000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000;
+        ///000 000 000 000 000  [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string FieldsDecos {
+            get {
+                return ResourceManager.GetString("FieldsDecos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap flowers {
+            get {
+                object obj = ResourceManager.GetObject("flowers", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap grass {
+            get {
+                object obj = ResourceManager.GetObject("grass", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap HealthBar1 {
+            get {
+                object obj = ResourceManager.GetObject("HealthBar1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap HealthBar10 {
+            get {
+                object obj = ResourceManager.GetObject("HealthBar10", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap HealthBar2 {
+            get {
+                object obj = ResourceManager.GetObject("HealthBar2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap HealthBar3 {
+            get {
+                object obj = ResourceManager.GetObject("HealthBar3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap HealthBar4 {
+            get {
+                object obj = ResourceManager.GetObject("HealthBar4", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap HealthBar5 {
+            get {
+                object obj = ResourceManager.GetObject("HealthBar5", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap HealthBar6 {
+            get {
+                object obj = ResourceManager.GetObject("HealthBar6", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap HealthBar7 {
+            get {
+                object obj = ResourceManager.GetObject("HealthBar7", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap HealthBar8 {
+            get {
+                object obj = ResourceManager.GetObject("HealthBar8", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap HealthBar9 {
+            get {
+                object obj = ResourceManager.GetObject("HealthBar9", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap HealthBarEmpty {
+            get {
+                object obj = ResourceManager.GetObject("HealthBarEmpty", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;0 0 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 0 0;0 0 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 0 0;0 0 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 0 0;0 0 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 0 0;0 0 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 0 0;0 0 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 0 0; [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string Inside {
+            get {
+                return ResourceManager.GetString("Inside", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000;
+        ///000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000;
+        ///000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000;
+        ///000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000;
+        ///000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000;
+        ///000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000;
+        ///000 000 000 000 000  [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string InsideDecos {
+            get {
+                return ResourceManager.GetString("InsideDecos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap NPC {
+            get {
+                object obj = ResourceManager.GetObject("NPC", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap PlayerDown {
+            get {
+                object obj = ResourceManager.GetObject("PlayerDown", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap PlayerLeft {
+            get {
+                object obj = ResourceManager.GetObject("PlayerLeft", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap PlayerRight {
+            get {
+                object obj = ResourceManager.GetObject("PlayerRight", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap PlayerUp {
+            get {
+                object obj = ResourceManager.GetObject("PlayerUp", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Rusty_Sword {
+            get {
+                object obj = ResourceManager.GetObject("Rusty_Sword", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap spider {
+            get {
+                object obj = ResourceManager.GetObject("spider", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Spider_Silk {
+            get {
+                object obj = ResourceManager.GetObject("Spider_Silk", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap strength {
+            get {
+                object obj = ResourceManager.GetObject("strength", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap water {
+            get {
+                object obj = ResourceManager.GetObject("water", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap woodfloor {
+            get {
+                object obj = ResourceManager.GetObject("woodfloor", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap worldmap {
+            get {
+                object obj = ResourceManager.GetObject("worldmap", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000;
+        ///000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000;
+        ///000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000;
+        ///000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000;
+        ///000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000;
+        ///000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000;
+        ///000 000 000 000 000  [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string worldmapDecos {
+            get {
+                return ResourceManager.GetString("worldmapDecos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 203 203 203 203 203 203 2 1 1 1 1 1 1 1003 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1;
+        ///203 203 203 203 203 203 2 1 1 1 1 1 1 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1;
+        ///203 203 203 203 203 203 2 1 1 1 1 1 1 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1;
+        ///203 203 203 203 203 203 2 1 1 1 1 1 1 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1;
+        ///203 203 203 203 203 203 2 1 1 1 1 1 1 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1;
+        ///203 203 203 203 203 203 2 1 1 1 1 1 1 0 [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string worldmapText {
+            get {
+                return ResourceManager.GetString("worldmapText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1002 0 0 0 0 0 2 1 1 1 1 1 1 1 1 1 1 1 1 1;
+        ///0 0 0 0 0 0 2 1 1 1 1 1 1 1 1 1 1 1 1 1;
+        ///0 0 0 0 0 0 2 1 1 1 1 1 1 1 1 1 1 1 1 1;
+        ///0 0 0 0 0 0 2 1 1 1 1 1 1 1 1 1 1 1 1 1;
+        ///0 0 0 0 0 0 2 1 1 1 1 1 1 1 1 1 1 1 1 1;
+        ///0 0 0 0 0 0 2 1 1 1 1 1 1 1 1 1 1 1 1 1;
+        ///0 0 0 0 0 0 2 1 1 1 1 1 1 1 1 1 1 1 1 1;
+        ///0 0 0 0 0 0 2 1 1 1 1 1 1 1 1 1 1 1 1 1;
+        ///0 0 0 0 0 0 2 1 1 1 1 1 1 1 1 1 1 1 1 1;
+        ///0 0 0 0 0 0 2 1 1 1 1 1 1 1 1 1 1 1 1 1;
+        ///2 2 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1;2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1;2 1 1 1 1 [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string Your_House {
+            get {
+                return ResourceManager.GetString("Your_House", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000;
+        ///000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000;
+        ///000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000;
+        ///000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000;
+        ///000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000;
+        ///000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000;
+        ///000 000 000 000 000  [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string Your_HouseDecos {
+            get {
+                return ResourceManager.GetString("Your_HouseDecos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap YourHouse {
+            get {
+                object obj = ResourceManager.GetObject("YourHouse", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

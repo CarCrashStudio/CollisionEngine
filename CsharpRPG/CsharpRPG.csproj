@@ -23,12 +23,13 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>http://rogueasp.azurewebsites.net/Files/GameFiles/</InstallUrl>
+    <InstallUrl>http://roguerpg.azurewebsites.net/</InstallUrl>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationRevision>4</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -143,7 +144,7 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -183,6 +184,183 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\maps\worldmap.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\Entities\NPC.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\Entities\spider.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\HUDBars\ExpBar\ExpBar %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\HUDBars\ExpBar\ExpBar %282%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\HUDBars\ExpBar\ExpBar %283%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\HUDBars\ExpBar\ExpBar %284%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\HUDBars\ExpBar\ExpBar %285%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\HUDBars\ExpBar\ExpBar %286%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\HUDBars\ExpBar\ExpBar %287%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\HUDBars\ExpBar\ExpBar %288%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\HUDBars\ExpBar\ExpBar %289%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\HUDBars\ExpBar\ExpBar %2810%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\HUDBars\ExpBar\ExpBarEmpty.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\HUDBars\HealthBar\HealthBar1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\HUDBars\HealthBar\HealthBar2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\HUDBars\HealthBar\HealthBar3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\HUDBars\HealthBar\HealthBar4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\HUDBars\HealthBar\HealthBar5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\HUDBars\HealthBar\HealthBar6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\HUDBars\HealthBar\HealthBar7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\HUDBars\HealthBar\HealthBar8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\HUDBars\HealthBar\HealthBar9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\HUDBars\HealthBar\HealthBar10.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\HUDBars\HealthBar\HealthBarEmpty.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\HUDBars\bagbox.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\HUDBars\bagbutton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\HUDBars\CharImgBox.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\HUDBars\CharStatBar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\HUDBars\defense.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\HUDBars\exitbutton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\HUDBars\strength.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\items\Basic Health Potion.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\items\Best Health Potion.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\items\Better Health Potion.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\items\Crude Ax.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\items\Rusty Sword.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\items\Spider Silk.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\PlayerStates\PlayerDown.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\PlayerStates\PlayerLeft.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\PlayerStates\PlayerRight.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\PlayerStates\PlayerUp.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\tiles\Barn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\tiles\Crop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\tiles\dirt.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\tiles\flowers.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\tiles\grass.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\tiles\void.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\tiles\water.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\tiles\woodfloor.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\tiles\YourHouse.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\maps\Fields.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\maps\FieldsDecos.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\maps\Inside.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\maps\InsideDecos.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\maps\worldmap.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\maps\worldmapDecos.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\maps\Your House.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\maps\Your HouseDecos.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

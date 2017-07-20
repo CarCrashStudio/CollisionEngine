@@ -223,20 +223,20 @@ namespace CsharpRPG.Engine
         }
         public void DrawHealth(HUDObject health, PictureBox form, Entity entity)
         {
-            Bitmap img = new Bitmap("icons/HUDBars/HealthBar/HealthBar10.png");
+            Bitmap img = new Bitmap(Properties.Resources.HealthBar10);
             if (entity != null)
             {
                 double temp = (double)entity.Health / entity.MaxHealth;
-                if (temp == 1) { img = new Bitmap("icons/HUDBars/HealthBar/HealthBar10.png"); }
-                else if (temp >= .9 && temp < 1) { img = new Bitmap("icons/HUDBars/HealthBar/HealthBar9.png"); }
-                else if (temp >= .8 && temp < .9) { img = new Bitmap("icons/HUDBars/HealthBar/HealthBar8.png"); }
-                else if (temp >= .7 && temp < .8) { img = new Bitmap("icons/HUDBars/HealthBar/HealthBar7.png"); }
-                else if (temp >= .6 && temp < .7) { img = new Bitmap("icons/HUDBars/HealthBar/HealthBar6.png"); }
-                else if (temp >= .5 && temp < .6) { img = new Bitmap("icons/HUDBars/HealthBar/HealthBar5.png"); }
-                else if (temp >= .4 && temp < .5) { img = new Bitmap("icons/HUDBars/HealthBar/HealthBar4.png"); }
-                else if (temp >= .3 && temp < .4) { img = new Bitmap("icons/HUDBars/HealthBar/HealthBar3.png"); }
-                else if (temp >= .2 && temp < .3) { img = new Bitmap("icons/HUDBars/HealthBar/HealthBar2.png"); }
-                else if (temp >= .1 && temp < .2) { img = new Bitmap("icons/HUDBars/HealthBar/HealthBar1.png"); }
+                if (temp == 1) { img = new Bitmap(Properties.Resources.HealthBar10); }
+                else if (temp >= .9 && temp < 1) { img = new Bitmap(Properties.Resources.HealthBar9); }
+                else if (temp >= .8 && temp < .9) { img = new Bitmap(Properties.Resources.HealthBar8); }
+                else if (temp >= .7 && temp < .8) { img = new Bitmap(Properties.Resources.HealthBar7); }
+                else if (temp >= .6 && temp < .7) { img = new Bitmap(Properties.Resources.HealthBar6); }
+                else if (temp >= .5 && temp < .6) { img = new Bitmap(Properties.Resources.HealthBar5); }
+                else if (temp >= .4 && temp < .5) { img = new Bitmap(Properties.Resources.HealthBar4); }
+                else if (temp >= .3 && temp < .4) { img = new Bitmap(Properties.Resources.HealthBar3); }
+                else if (temp >= .2 && temp < .3) { img = new Bitmap(Properties.Resources.HealthBar2); }
+                else if (temp >= .1 && temp < .2) { img = new Bitmap(Properties.Resources.HealthBar1); }
             }
             health.Image = img;
             HudImg = health.Draw(world.HudForm.Width, world.HudForm.Height, health.Boundries[0], HudImg);
@@ -244,21 +244,21 @@ namespace CsharpRPG.Engine
         public void DrawExp(HUDObject exp, PictureBox form, Character entity)
         {
 
-            Bitmap img = new Bitmap("icons/HUDBars/ExpBar/ExpBar (10).png");
+            Bitmap img = new Bitmap(Properties.Resources.ExpBar__10_);
             if (entity != null)
             {
                 double temp = (double)entity.Exp / entity.MaxExp;
-                if (temp == 1) { img = new Bitmap("icons/HUDBars/ExpBar/ExpBar (10).png"); }
-                else if (temp >= .9 && temp < 1) { img = new Bitmap("icons/HUDBars/ExpBar/ExpBar (9).png"); }
-                else if (temp >= .8 && temp < .9) { img = new Bitmap("icons/HUDBars/ExpBar/ExpBar (8).png"); }
-                else if (temp >= .7 && temp < .8) { img = new Bitmap("icons/HUDBars/ExpBar/ExpBar (7).png"); }
-                else if (temp >= .6 && temp < .7) { img = new Bitmap("icons/HUDBars/ExpBar/ExpBar (6).png"); }
-                else if (temp >= .5 && temp < .6) { img = new Bitmap("icons/HUDBars/ExpBar/ExpBar (5).png"); }
-                else if (temp >= .4 && temp < .5) { img = new Bitmap("icons/HUDBars/ExpBar/ExpBar (4).png"); }
-                else if (temp >= .3 && temp < .4) { img = new Bitmap("icons/HUDBars/ExpBar/ExpBar (3).png"); }
-                else if (temp >= .2 && temp < .3) { img = new Bitmap("icons/HUDBars/ExpBar/ExpBar (2).png"); }
-                else if (temp >= .1 && temp < .2) { img = new Bitmap("icons/HUDBars/ExpBar/ExpBar (1).png"); }
-                else { img = new Bitmap("icons/HUDBars/ExpBar/ExpBarEmpty.bmp"); }
+                if (temp == 1) { img = new Bitmap(Properties.Resources.ExpBar__10_); }
+                else if (temp >= .9 && temp < 1) { img = new Bitmap(Properties.Resources.ExpBar__9_); }
+                else if (temp >= .8 && temp < .9) { img = new Bitmap(Properties.Resources.ExpBar__8_); }
+                else if (temp >= .7 && temp < .8) { img = new Bitmap(Properties.Resources.ExpBar__7_); }
+                else if (temp >= .6 && temp < .7) { img = new Bitmap(Properties.Resources.ExpBar__6_); }
+                else if (temp >= .5 && temp < .6) { img = new Bitmap(Properties.Resources.ExpBar__5_); }
+                else if (temp >= .4 && temp < .5) { img = new Bitmap(Properties.Resources.ExpBar__4_); }
+                else if (temp >= .3 && temp < .4) { img = new Bitmap(Properties.Resources.ExpBar__3_); }
+                else if (temp >= .2 && temp < .3) { img = new Bitmap(Properties.Resources.ExpBar__2_); }
+                else if (temp >= .1 && temp < .2) { img = new Bitmap(Properties.Resources.ExpBar__1_); }
+                else { img = new Bitmap(Properties.Resources.ExpBarEmpty); }
             }
             exp.Image = img;
             HudImg = exp.Draw(world.HudForm.Width, world.HudForm.Height, exp.Boundries[0], HudImg);

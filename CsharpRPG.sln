@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.7
+VisualStudioVersion = 15.0.26430.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CsharpRPG", "CsharpRPG\CsharpRPG.csproj", "{461F3083-D4B5-4210-8E9D-C803A068CF3A}"
 EndProject
@@ -18,6 +18,7 @@ Global
 		{461F3083-D4B5-4210-8E9D-C803A068CF3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{461F3083-D4B5-4210-8E9D-C803A068CF3A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5F3A55A0-6F33-4E5A-A2A7-7CFF758CD86F}.Debug|Any CPU.ActiveCfg = Debug
+		{5F3A55A0-6F33-4E5A-A2A7-7CFF758CD86F}.Debug|Any CPU.Build.0 = Debug
 		{5F3A55A0-6F33-4E5A-A2A7-7CFF758CD86F}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution

@@ -6,6 +6,9 @@ namespace CsharpRPG.Engine
 {
     public class World
     {
+        public string FilePath = "[ProgramFilesFolder]\\Rogue\\Input\\";
+
+
         public List<Item> Items = new List<Item>();
         public List<Monster> Monsters = new List<Monster>();
         public List<Quest> Quests = new List<Quest>();
@@ -142,23 +145,23 @@ namespace CsharpRPG.Engine
 
         void PopulateItems()
         {
-            Item spiderSilk = new Item(ITEM_ID_SPIDER_SILK, "Spider Silk", "Spider Silk", 5, new Bitmap("icons/items/Spider Silk.png"));
+            Item spiderSilk = new Item(ITEM_ID_SPIDER_SILK, "Spider Silk", "Spider Silk", 5, new Bitmap(Properties.Resources.Spider_Silk));
 
             Items.Add(spiderSilk);  
         }
         void PopulateWeapons()
         {
-            Weapon rustySword = new Weapon(WEAPON_ID_RUSTY_SWORD, "Rusty Sword", "Rusty Swords", 1, 5, 5, true, false, new Bitmap("icons/items/Rusty Sword.png"));
-            Weapon crudeAx = new Weapon(WEAPON_ID_CRUDE_AX, "Crude Ax", "Crude Axes", 1, 7, 10, true, false, new Bitmap("icons/items/Crude Ax.png"));
+            Weapon rustySword = new Weapon(WEAPON_ID_RUSTY_SWORD, "Rusty Sword", "Rusty Swords", 1, 5, 5, true, false, new Bitmap(Properties.Resources.Rusty_Sword));
+            Weapon crudeAx = new Weapon(WEAPON_ID_CRUDE_AX, "Crude Ax", "Crude Axes", 1, 7, 10, true, false, new Bitmap(Properties.Resources.Crude_Ax));
 
             Items.Add(rustySword);
             Items.Add(crudeAx);
         }
         void PopulatePotions()
         {
-            Potion basicHealthPotion = new Potion(POTION_ID_BASIC_HEALTH, "Basic Health Potion", "Basic Health Potions", 15, 30, new Bitmap("icons/items/Basic Health Potion.png"));
-            Potion medHealthPotion = new Potion(POTION_ID_BASIC_HEALTH, "Better Health Potion", "Better Health Potions", 30, 60, new Bitmap("icons/items/Better Health Potion.png"));
-            Potion HighHealthPotion = new Potion(POTION_ID_BASIC_HEALTH, "Best Health Potion", "Best Health Potions", 45, 90, new Bitmap("icons/items/Best Health Potion.png"));
+            Potion basicHealthPotion = new Potion(POTION_ID_BASIC_HEALTH, "Basic Health Potion", "Basic Health Potions", 15, 30, new Bitmap(Properties.Resources.Basic_Health_Potion));
+            Potion medHealthPotion = new Potion(POTION_ID_BASIC_HEALTH, "Better Health Potion", "Better Health Potions", 30, 60, new Bitmap(Properties.Resources.Better_Health_Potion));
+            Potion HighHealthPotion = new Potion(POTION_ID_BASIC_HEALTH, "Best Health Potion", "Best Health Potions", 45, 90, new Bitmap(Properties.Resources.Best_Health_Potion));
 
             Items.Add(basicHealthPotion);
             Items.Add(medHealthPotion);
@@ -175,7 +178,7 @@ namespace CsharpRPG.Engine
         }
         void PopulateNPCs()
         {
-            NPC bugSquasher = new NPC(NPC_ID_BUGSQUASHER, "Bug Squasher", new System.Drawing.Bitmap("icons/Entities/NPC.bmp"), new System.Drawing.Point(0, 0), new Quest(QuestByID(QUEST_ID_BUGSQUASHING)), this);
+            NPC bugSquasher = new NPC(NPC_ID_BUGSQUASHER, "Bug Squasher", new System.Drawing.Bitmap(Properties.Resources.NPC), new System.Drawing.Point(0, 0), new Quest(QuestByID(QUEST_ID_BUGSQUASHING)), this);
             NPCs.Add(bugSquasher);
 
             NPC JohnRied = new NPC(NPC_ID_JOHNRIED, "John Ried", new Bitmap(1, 1), new Point(), null, this);
@@ -218,24 +221,24 @@ namespace CsharpRPG.Engine
         void PopulateMonsters()
         {
             
-            Monster spider = new Monster(MONSTER_ID_SPIDER, "Spider", new System.Drawing.Point(6, 5), 10, 10, 0, 0, 5, 5, 10, 5, 50, new System.Drawing.Bitmap("icons/Entities/spider.png"), this, this.HudForm);
+            Monster spider = new Monster(MONSTER_ID_SPIDER, "Spider", new System.Drawing.Point(6, 5), 10, 10, 0, 0, 5, 5, 10, 5, 50, new System.Drawing.Bitmap(Properties.Resources.spider), this, this.HudForm);
             spider.LootTable.Add(new LootItem(ItemByID(ITEM_ID_SPIDER_SILK), 100, true));
 
             Monsters.Add(spider);
         }
         void PopulateTiles()
         {
-            Tile grass = new Tile(TILE_ID_GRASS, "Grass", 0, new Point(0, 0), new Bitmap("icons/tiles/grass.bmp"), TileType.Ground.ToString());
-            Tile dirt = new Tile(TILE_ID_DIRT, "Dirt", 0, new Point(0, 0), new Bitmap("icons/tiles/dirt.bmp"), TileType.Path.ToString());
-            Tile water = new Tile(TILE_ID_WATER, "Water", 1, new Point(0, 0), new Bitmap("icons/tiles/water.bmp"), TileType.Ground.ToString());
-            Tile blank = new Tile(TILE_ID_VOID, "Void", 1, new Point(0, 0), new Bitmap("icons/tiles/void.bmp"), TileType.Ground.ToString());
+            Tile grass = new Tile(TILE_ID_GRASS, "Grass", 0, new Point(0, 0), new Bitmap(CsharpRPG.Properties.Resources.grass), TileType.Ground.ToString());
+            Tile dirt = new Tile(TILE_ID_DIRT, "Dirt", 0, new Point(0, 0), new Bitmap(Properties.Resources.dirt), TileType.Path.ToString());
+            Tile water = new Tile(TILE_ID_WATER, "Water", 1, new Point(0, 0), new Bitmap(Properties.Resources.water), TileType.Ground.ToString());
+            Tile blank = new Tile(TILE_ID_VOID, "Void", 1, new Point(0, 0), new Bitmap(Properties.Resources._void), TileType.Ground.ToString());
 
-            Tile woodFloor = new Tile(TILE_ID_WOODFLOOR, "Floor", 0, new Point(0, 0), new Bitmap("icons/tiles/woodfloor.bmp"), TileType.Ground.ToString());
+            Tile woodFloor = new Tile(TILE_ID_WOODFLOOR, "Floor", 0, new Point(0, 0), new Bitmap(Properties.Resources.woodfloor), TileType.Ground.ToString());
 
-            Tile crop = new Tile(TILE_ID_CROP, "Crop", 1, new Point(), new Bitmap("icons/tiles/crop.png"), TileType.Deco.ToString());
+            Tile crop = new Tile(TILE_ID_CROP, "Crop", 1, new Point(), new Bitmap(Properties.Resources.Crop), TileType.Deco.ToString());
 
-            Tile YourHouse = new Tile(TILE_ID_YOURHOUSE, "YourHouse", 1, new Point(0, 0), new Bitmap("icons/tiles/YourHouse.png"), TileType.Building.ToString());
-            Tile barn = new Tile(TILE_ID_BARN, "Barn", 1, new Point(), new Bitmap("icons/tiles/Barn.png"), TileType.Building.ToString());
+            Tile YourHouse = new Tile(TILE_ID_YOURHOUSE, "YourHouse", 1, new Point(0, 0), new Bitmap(Properties.Resources.YourHouse), TileType.Building.ToString());
+            Tile barn = new Tile(TILE_ID_BARN, "Barn", 1, new Point(), new Bitmap(Properties.Resources.Barn), TileType.Building.ToString());
 
             Tiles.Add(grass);
             Tiles.Add(dirt);
@@ -284,11 +287,11 @@ namespace CsharpRPG.Engine
 
             temp = new List<Point>();
             temp.Add(new Point(CharStatBar.FindCenterofBounds().X - 45, (CharStatBar.Boundries[1].Y - 40)));
-            MainHealthBar = new HUDObject(temp, new Bitmap("icons/HUDBars/HealthBar/HealthBar10.png"));
+            MainHealthBar = new HUDObject(temp, new Bitmap(Properties.Resources.HealthBar10));
 
             temp = new List<Point>();
             temp.Add(new Point(CharStatBar.FindCenterofBounds().X - 45, CharStatBar.Boundries[1].Y - 25));
-            MainExpBar = new HUDObject(temp, new Bitmap("icons/HUDBars/ExpBar/ExpBar (10).png"));
+            MainExpBar = new HUDObject(temp, new Bitmap(Properties.Resources.ExpBar__10_));
 
             temp = new List<Point>();
             temp.Add(new Point(MainHealthBar.Boundries[0].X, MainHealthBar.Boundries[0].Y - 80));
@@ -309,21 +312,21 @@ namespace CsharpRPG.Engine
             temp = new List<Point>();
             temp.Add(new Point(0, (screen.Bounds.Height - 32) + PbOffset));
             temp.Add(new Point(32, screen.Bounds.Height));
-            InventoryButton = new HUDObject(temp, new Bitmap("icons/HUDBars/bagbutton.png"));
+            InventoryButton = new HUDObject(temp, new Bitmap(Properties.Resources.bagbutton));
             InventoryButton.Name = "Bag";
             Clickables.Add(InventoryButton);
 
             temp = new List<Point>();
             temp.Add(new Point(screen.Bounds.Width - 32, (screen.Bounds.Height - 32) - PbOffset));
             temp.Add(new Point(screen.Bounds.Width, screen.Bounds.Height - PbOffset));
-            CloseButton = new HUDObject(temp, new Bitmap("icons/HUDBars/exitbutton.png"));
+            CloseButton = new HUDObject(temp, new Bitmap(Properties.Resources.exitbutton));
             CloseButton.Name = "Close";
             Clickables.Add(CloseButton);
 
             temp = new List<Point>();
             temp.Add(new Point(InventoryButton.Boundries[0].X, InventoryButton.Boundries[0].Y - 400));
             temp.Add(new Point(InventoryButton.Boundries[0].X + 300, InventoryButton.Boundries[0].Y));
-            InventoryBox = new HUDObject(temp, new Bitmap("icons/HUDBars/bagbox.png"));
+            InventoryBox = new HUDObject(temp, new Bitmap(Properties.Resources.bagbox));
 
             temp = new List<Point>();
             temp.Add(new Point(0, 0));

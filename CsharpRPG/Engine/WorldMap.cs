@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
+using System.Reflection;
 
 namespace CsharpRPG.Engine
 {
@@ -43,11 +44,11 @@ namespace CsharpRPG.Engine
         void BuildMap() 
         {
             MapLoc = new Point(0, 0); // Initialize the Point for the Map Location
-            Image = new Bitmap("maps/worldmap.png");
+            Image = new Bitmap((Bitmap)Properties.Resources.ResourceManager.GetObject(Name, Properties.Resources.Culture));
             Image = Draw(world.HudForm.Width, world.HudForm.Height, new Point(0, 0));
 
             TilesOnMap = new List<Tile>();
-            ReadTextFile(TilesOnMap, Name);
+            ReadTextFile(TilesOnMap, Name + "Text");
             DrawBuidlings();
 
             DecosOnMap = new List<Tile>();
@@ -69,18 +70,18 @@ namespace CsharpRPG.Engine
             int id = 0; // Variable for Tile Id;
             Tile tile; // Blank Tile;
 
-            StreamReader reader;
-            reader = File.OpenText("maps/" + TextFile + ".txt");
+            string str = Properties.Resources.ResourceManager.GetObject(TextFile, Properties.Resources.Culture).ToString();
 
-            while (!reader.EndOfStream)
+            for (int i = 0; i < str.Length;)
             {
-                string currentChar = char.ConvertFromUtf32(reader.Read());
+                string currentChar = str[i].ToString();
+                i++;
                 while (!currentChar.Contains(" "))
                 {
                     if (!currentChar.Contains(";")) //HERES THE PROBLEM
                     {
                         if (currentChar.Contains(" ")) break;
-                        else { currentChar += char.ConvertFromUtf32(reader.Read()); }
+                        else { currentChar += str[i]; i++; }
                     }
                     else { currentChar = currentChar.Remove(currentChar.Length - 1); break; }
                 }
@@ -94,7 +95,6 @@ namespace CsharpRPG.Engine
                 x++;
                 if (x > (world.WIDTH / 32) - 1) { y++; x = 0; }
             }
-            reader.Close();
         }
         void DrawBuidlings()
         {

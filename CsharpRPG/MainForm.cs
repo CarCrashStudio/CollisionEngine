@@ -323,7 +323,7 @@ namespace CsharpRPG
 
         void InitializePlayer(string name, string clss, Point loc, int health, int maxhealth, int mana, int maxmana, int str, int def, int level, int exp, int maxexp, int gold, string slug, int lastlocid)
         {
-            world = new World(pbMap, new Bitmap("icons/HUDBars/CharStatBar.png"), new Bitmap("icons/HUDBars/CharImgBox.png"), new Bitmap("icons/HUDBars/strength.png"), new Bitmap("icons/HUDBars/defense.png"), new Character(1, name, clss, loc, health, maxhealth, mana, maxmana, str, def, level, exp, maxexp, gold, slug, new Bitmap("icons/player.png")), offset); //You, the player, Character creation will be implemented later
+            world = new World(pbMap, new Bitmap(Properties.Resources.CharStatBar), new Bitmap(Properties.Resources.CharImgBox), new Bitmap(Properties.Resources.strength), new Bitmap(Properties.Resources.defense), new Character(1, name, clss, loc, health, maxhealth, mana, maxmana, str, def, level, exp, maxexp, gold, slug, new Bitmap(Properties.Resources.PlayerDown)), offset); //You, the player, Character creation will be implemented later
             world.player.MoveTo(world.LocationByID(lastlocid));
             //world.player.Skills.Add(new Skill(world.SkillByID(world.SKILL_ID_WEAKNESS)));
             //world.player.Inventory.Add(new InventoryItem(world.ItemByID(world.WEAPON_ID_RUSTY_SWORD), 1)); //Give 1 'Rusty Sword' to player

@@ -58,17 +58,17 @@
             // 
             // wbUpdates
             // 
-            this.wbUpdates.Location = new System.Drawing.Point(12, 36);
+            this.wbUpdates.Location = new System.Drawing.Point(6, 36);
             this.wbUpdates.MinimumSize = new System.Drawing.Size(20, 20);
             this.wbUpdates.Name = "wbUpdates";
-            this.wbUpdates.Size = new System.Drawing.Size(655, 300);
+            this.wbUpdates.Size = new System.Drawing.Size(667, 300);
             this.wbUpdates.TabIndex = 7;
             this.wbUpdates.Url = new System.Uri("http://rogueasp.azurewebsites.net/updates.aspx", System.UriKind.Absolute);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(90, 12);
+            this.label4.Location = new System.Drawing.Point(80, 12);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(40, 13);
             this.label4.TabIndex = 9;
@@ -78,7 +78,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(12, 4);
+            this.label5.Location = new System.Drawing.Point(2, 4);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(72, 24);
             this.label5.TabIndex = 8;
@@ -103,9 +103,9 @@
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.txtUser);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(12, 342);
+            this.panel1.Location = new System.Drawing.Point(6, 342);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(661, 73);
+            this.panel1.Size = new System.Drawing.Size(667, 73);
             this.panel1.TabIndex = 11;
             // 
             // btnSubmit
@@ -116,6 +116,7 @@
             this.btnSubmit.TabIndex = 11;
             this.btnSubmit.Text = "Submit";
             this.btnSubmit.UseVisualStyleBackColor = true;
+            this.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
             // 
             // label3
             // 
@@ -175,7 +176,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(215)))), ((int)(((byte)(215)))));
-            this.ClientSize = new System.Drawing.Size(679, 454);
+            this.ClientSize = new System.Drawing.Size(679, 451);
             this.Controls.Add(this.btnRegister);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnSite);

@@ -81,16 +81,16 @@ namespace CsharpRPG.Engine
             switch (Facing)
             {
                 case "North":
-                    Image = new Bitmap("icons/" + Entity + "States/" + Entity + "Up.bmp");
+                    Image = new Bitmap((Bitmap)Properties.Resources.ResourceManager.GetObject(Entity + "Up", Properties.Resources.Culture));
                     break;
                 case "South":
-                    Image = new Bitmap("icons/" + Entity + "States/" + Entity + "Down.bmp");
+                    Image = new Bitmap((Bitmap)Properties.Resources.ResourceManager.GetObject(Entity + "Down", Properties.Resources.Culture));
                     break;
                 case "East":
-                    Image = new Bitmap("icons/" + Entity + "States/" + Entity + "Right.bmp");
+                    Image = new Bitmap((Bitmap)Properties.Resources.ResourceManager.GetObject(Entity + "Right", Properties.Resources.Culture));
                     break;
                 case "West":
-                    Image = new Bitmap("icons/" + Entity + "States/" + Entity + "Left.bmp");
+                    Image = new Bitmap((Bitmap)Properties.Resources.ResourceManager.GetObject(Entity + "Left", Properties.Resources.Culture));
                     break;
             }           
         }
