@@ -52,6 +52,7 @@ namespace CsharpRPG.Engine
         public void UpdateButtons()
         {
             DrawBars(world.InventoryButton, world.HudForm);
+            DrawBars(world.StatsButon, world.HudForm);
             DrawBars(world.CloseButton, world.HudForm);
         }
         public void UpdateInventory()

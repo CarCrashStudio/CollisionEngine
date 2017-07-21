@@ -119,180 +119,165 @@
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="bagbox" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\icons\HUDBars\bagbox.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\icons\HUDBars\bagbox.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="bagbutton" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\icons\HUDBars\bagbutton.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\icons\HUDBars\bagbutton.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Barn" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\icons\tiles\Barn.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\icons\tiles\Barn.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Basic_Health_Potion" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\icons\items\Basic Health Potion.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\icons\items\Basic Health Potion.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Best_Health_Potion" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\icons\items\Best Health Potion.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\icons\items\Best Health Potion.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Better_Health_Potion" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\icons\items\Better Health Potion.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\icons\items\Better Health Potion.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="CharImgBox" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\icons\HUDBars\CharImgBox.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\icons\HUDBars\CharImgBox.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="CharStatBar" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\icons\HUDBars\CharStatBar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\icons\HUDBars\CharStatBar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Crop" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\icons\tiles\Crop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\icons\tiles\Crop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Crude_Ax" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\icons\items\Crude Ax.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\icons\items\Crude Ax.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="defense" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\icons\HUDBars\defense.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\icons\HUDBars\defense.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="dirt" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\icons\tiles\dirt.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\icons\tiles\dirt.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="exitbutton" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\icons\HUDBars\exitbutton.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\icons\HUDBars\exitbutton.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ExpBarEmpty" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\icons\HUDBars\ExpBar\ExpBarEmpty.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\icons\HUDBars\ExpBar\ExpBarEmpty.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ExpBar__10_" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\icons\HUDBars\ExpBar\ExpBar (10).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\icons\HUDBars\ExpBar\ExpBar (10).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ExpBar__1_" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\icons\HUDBars\ExpBar\ExpBar (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\icons\HUDBars\ExpBar\ExpBar (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ExpBar__2_" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\icons\HUDBars\ExpBar\ExpBar (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\icons\HUDBars\ExpBar\ExpBar (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ExpBar__3_" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\icons\HUDBars\ExpBar\ExpBar (3).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\icons\HUDBars\ExpBar\ExpBar (3).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ExpBar__4_" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\icons\HUDBars\ExpBar\ExpBar (4).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\icons\HUDBars\ExpBar\ExpBar (4).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ExpBar__5_" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\icons\HUDBars\ExpBar\ExpBar (5).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\icons\HUDBars\ExpBar\ExpBar (5).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ExpBar__6_" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\icons\HUDBars\ExpBar\ExpBar (6).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\icons\HUDBars\ExpBar\ExpBar (6).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ExpBar__7_" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\icons\HUDBars\ExpBar\ExpBar (7).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\icons\HUDBars\ExpBar\ExpBar (7).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ExpBar__8_" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\icons\HUDBars\ExpBar\ExpBar (8).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\icons\HUDBars\ExpBar\ExpBar (8).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ExpBar__9_" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\icons\HUDBars\ExpBar\ExpBar (9).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Fields" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\maps\Fields.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="FieldsDecos" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\maps\FieldsDecos.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+    <value>..\Resources\icons\HUDBars\ExpBar\ExpBar (9).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="flowers" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\icons\tiles\flowers.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\icons\tiles\flowers.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="grass" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\icons\tiles\grass.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\icons\tiles\grass.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="HealthBar1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\icons\HUDBars\HealthBar\HealthBar1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\icons\HUDBars\HealthBar\HealthBar1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="HealthBar10" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\icons\HUDBars\HealthBar\HealthBar10.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\icons\HUDBars\HealthBar\HealthBar10.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="HealthBar2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\icons\HUDBars\HealthBar\HealthBar2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\icons\HUDBars\HealthBar\HealthBar2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="HealthBar3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\icons\HUDBars\HealthBar\HealthBar3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\icons\HUDBars\HealthBar\HealthBar3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="HealthBar4" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\icons\HUDBars\HealthBar\HealthBar4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\icons\HUDBars\HealthBar\HealthBar4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="HealthBar5" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\icons\HUDBars\HealthBar\HealthBar5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\icons\HUDBars\HealthBar\HealthBar5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="HealthBar6" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\icons\HUDBars\HealthBar\HealthBar6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\icons\HUDBars\HealthBar\HealthBar6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="HealthBar7" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\icons\HUDBars\HealthBar\HealthBar7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\icons\HUDBars\HealthBar\HealthBar7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="HealthBar8" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\icons\HUDBars\HealthBar\HealthBar8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\icons\HUDBars\HealthBar\HealthBar8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="HealthBar9" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\icons\HUDBars\HealthBar\HealthBar9.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\icons\HUDBars\HealthBar\HealthBar9.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="HealthBarEmpty" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\icons\HUDBars\HealthBar\HealthBarEmpty.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Inside" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\maps\Inside.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="InsideDecos" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\maps\InsideDecos.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+    <value>..\Resources\icons\HUDBars\HealthBar\HealthBarEmpty.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="NPC" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\icons\Entities\NPC.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\icons\Entities\NPC.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="PlayerDown" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\icons\PlayerStates\PlayerDown.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\icons\PlayerStates\PlayerDown.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="PlayerLeft" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\icons\PlayerStates\PlayerLeft.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\icons\PlayerStates\PlayerLeft.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="PlayerRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\icons\PlayerStates\PlayerRight.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\icons\PlayerStates\PlayerRight.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="PlayerUp" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\icons\PlayerStates\PlayerUp.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\icons\PlayerStates\PlayerUp.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Rusty_Sword" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\icons\items\Rusty Sword.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\icons\items\Rusty Sword.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="spider" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\icons\Entities\spider.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\icons\Entities\spider.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Spider_Silk" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\icons\items\Spider Silk.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\icons\items\Spider Silk.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="statbutton" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons\HUDBars\statbutton.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="strength" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\icons\HUDBars\strength.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\icons\HUDBars\strength.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="water" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\icons\tiles\water.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\icons\tiles\water.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="woodfloor" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\icons\tiles\woodfloor.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\icons\tiles\woodfloor.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="worldmap" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\maps\worldmap.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="worldmapText" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\maps\worldmap.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+    <value>..\resources\maps\worldmap.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="worldmapDecos" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\maps\worldmapDecos.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+    <value>..\resources\maps\worldmapdecos.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="worldmapText" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\maps\worldmap.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="YourHouse" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\icons\tiles\YourHouse.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Your_House" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\maps\Your House.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="Your_HouseDecos" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\maps\Your HouseDecos.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+    <value>..\Resources\icons\tiles\YourHouse.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="_void" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\icons\tiles\void.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\icons\tiles\void.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

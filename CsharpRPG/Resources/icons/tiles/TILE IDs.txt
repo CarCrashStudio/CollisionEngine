@@ -1,0 +1,29 @@
+0: Void
+1: Grass
+2: Dirt
+3: Water
+4: Cobble
+5: Sidewalk
+6: Gravel
+
+100: WoodFloor
+
+200: WoodFenceGrass
+201: WoodFenceGrassup
+202: WoodFenceGrassCorner
+203: Crop
+
+BUILDINGS
+1000: TownBuilding1
+1001: TownBuilding2
+1002: YourHouse
+1003: Barn
+
+TRANISITIONS
+10000: DirtTransition
+10001: CobbleTransition
+10002: GravelTransition
+10003: WoodDoor (Can be unlocked easily)
+10004: SteelDoor (Cannot be unlocked)
+10005: CellDoor-Unlocked (One Way Lock)
+10006: CellDoor-Locked (Other half of One Way Lock)

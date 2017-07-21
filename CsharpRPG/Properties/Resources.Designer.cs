@@ -311,30 +311,6 @@ namespace CsharpRPG.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 203 203 203 203 203 203 2 1 1 1 1 1 1 1003 0 0 0 0 0 0;203 203 203 203 203 203 2 1 1 1 1 1 1 0 0 0 0 0 0 0;203 203 203 203 203 203 2 1 1 1 1 1 1 0 0 0 0 0 0 0;203 203 203 203 203 203 2 1 1 1 1 1 1 0 0 0 0 0 0 0;203 203 203 203 203 203 2 1 1 1 1 1 1 0 0 0 0 0 0 0;203 203 203 203 203 203 2 1 1 1 1 1 1 0 0 0 0 0 0 0;203 203 203 203 203 203 2 1 1 1 1 1 1 0 0 0 0 0 0 0;203 203 203 203 203 203 2 1 1 1 1 1 1 0 0 0 0 0 0 0;203 203 203 203 203 203 2 1 1 1 1 1 1 0 0 0 0 0 0 0;2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2;2 [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string Fields {
-            get {
-                return ResourceManager.GetString("Fields", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000;
-        ///000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000;
-        ///000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000;
-        ///000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000;
-        ///000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000;
-        ///000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000;
-        ///000 000 000 000 000  [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string FieldsDecos {
-            get {
-                return ResourceManager.GetString("FieldsDecos", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap flowers {
@@ -465,30 +441,6 @@ namespace CsharpRPG.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;0 0 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 0 0;0 0 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 0 0;0 0 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 0 0;0 0 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 0 0;0 0 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 0 0;0 0 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 0 0; [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string Inside {
-            get {
-                return ResourceManager.GetString("Inside", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000;
-        ///000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000;
-        ///000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000;
-        ///000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000;
-        ///000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000;
-        ///000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000;
-        ///000 000 000 000 000  [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string InsideDecos {
-            get {
-                return ResourceManager.GetString("InsideDecos", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap NPC {
@@ -571,6 +523,16 @@ namespace CsharpRPG.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap statbutton {
+            get {
+                object obj = ResourceManager.GetObject("statbutton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap strength {
             get {
                 object obj = ResourceManager.GetObject("strength", resourceCulture);
@@ -624,50 +586,11 @@ namespace CsharpRPG.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 203 203 203 203 203 203 2 1 1 1 1 1 1 1003 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1;
-        ///203 203 203 203 203 203 2 1 1 1 1 1 1 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1;
-        ///203 203 203 203 203 203 2 1 1 1 1 1 1 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1;
-        ///203 203 203 203 203 203 2 1 1 1 1 1 1 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1;
-        ///203 203 203 203 203 203 2 1 1 1 1 1 1 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1;
-        ///203 203 203 203 203 203 2 1 1 1 1 1 1 0 [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to 203 203 203 203 203 203 2 1 1 1 1 1 1 1003 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1;203 203 203 203 203 203 2 1 1 1 1 1 1 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1;203 203 203 203 203 203 2 1 1 1 1 1 1 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1;203 203 203 203 203 203 2 1 1 1 1 1 1 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1;203 203 203 203 203 203 2 1 1 1 1 1 1 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1;203 203 203 203 203 203 2 1 1 1 1 1 1 0 0 0 0 0 0 [rest of string was truncated]&quot;;.
         /// </summary>
         public static string worldmapText {
             get {
                 return ResourceManager.GetString("worldmapText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 1002 0 0 0 0 0 2 1 1 1 1 1 1 1 1 1 1 1 1 1;
-        ///0 0 0 0 0 0 2 1 1 1 1 1 1 1 1 1 1 1 1 1;
-        ///0 0 0 0 0 0 2 1 1 1 1 1 1 1 1 1 1 1 1 1;
-        ///0 0 0 0 0 0 2 1 1 1 1 1 1 1 1 1 1 1 1 1;
-        ///0 0 0 0 0 0 2 1 1 1 1 1 1 1 1 1 1 1 1 1;
-        ///0 0 0 0 0 0 2 1 1 1 1 1 1 1 1 1 1 1 1 1;
-        ///0 0 0 0 0 0 2 1 1 1 1 1 1 1 1 1 1 1 1 1;
-        ///0 0 0 0 0 0 2 1 1 1 1 1 1 1 1 1 1 1 1 1;
-        ///0 0 0 0 0 0 2 1 1 1 1 1 1 1 1 1 1 1 1 1;
-        ///0 0 0 0 0 0 2 1 1 1 1 1 1 1 1 1 1 1 1 1;
-        ///2 2 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1;2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1;2 1 1 1 1 [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string Your_House {
-            get {
-                return ResourceManager.GetString("Your_House", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000;
-        ///000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000;
-        ///000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000;
-        ///000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000;
-        ///000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000;
-        ///000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000;
-        ///000 000 000 000 000  [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string Your_HouseDecos {
-            get {
-                return ResourceManager.GetString("Your_HouseDecos", resourceCulture);
             }
         }
         

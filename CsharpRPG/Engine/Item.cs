@@ -18,6 +18,7 @@ namespace CsharpRPG.Engine
         public int Cost { get { return cost; } set { cost = value; } }
 
         public string EquipTag { get; set; }
+        public bool Equipable { get; set; }
     }
     public class InventoryItem
     {

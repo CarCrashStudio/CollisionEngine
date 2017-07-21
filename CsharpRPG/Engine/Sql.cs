@@ -15,6 +15,7 @@ namespace CsharpRPG.Engine
         string INSERT5string = "INSERT INTO {0} VALUES ('{1}', '{2}', '{3}', '{4}','{5}');";
         string INSERT4string = "INSERT INTO {0} VALUES ('{1}', '{2}', '{3}', '{4}');";
         string INSERT3string = "INSERT INTO {0} VALUES ('{1}', '{2}', '{3}');";
+        string DELETEWHEREstring = "DELETE FROM {0} WHERE {1};";
 
         SqlConnection Connection;
         SqlCommand Command;
@@ -131,6 +132,12 @@ namespace CsharpRPG.Engine
         public void ExecuteINSERT3(string table, object arg1, object arg2, object arg3)
         {
             string query = String.Format(INSERT3string, table, arg1, arg2, arg3);
+            Command = new SqlCommand(query, Connection);
+            Command.ExecuteNonQuery();
+        }
+        public void ExecuteDELETEWHERE(string table, string condition)
+        {
+            string query = String.Format(DELETEWHEREstring, table, condition);
             Command = new SqlCommand(query, Connection);
             Command.ExecuteNonQuery();
         }

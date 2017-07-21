@@ -1,5 +1,6 @@
 ﻿using CsharpRPG.Engine;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -12,13 +13,18 @@ namespace CsharpRPG
         Sql SQL;
 
         // Forms
-        Journal journal = new Journal();
-        CreatorWindow creator;
+        CharacterForm charSheet;
+        InventoryForm inventory;
+        CreatorForm creator;
         CombatForm combat;
 
         // Object Classes
         Random rand = new Random();
+        List<PictureBox> InventorySlots;
 
+
+        bool mouseHold;
+        
         int offset;
         // Variables
         string sqlID = "treyhall";
@@ -74,7 +80,7 @@ namespace CsharpRPG
         }
         void CreateCharacter(string screenname)
         {
-            creator = new CreatorWindow();
+            creator = new CreatorForm();
             creator.txtName.Text = screenname;
             creator.txtName.Enabled = false;
             creator.ShowDialog();
@@ -107,6 +113,7 @@ namespace CsharpRPG
             LoadCharacterSkills(screename);
             LoadCharacterInventory(screename);
             LoadCharacterQuests(screename);
+            LoadCharacterEquipment(screename);
 
             world.player.MoveTo(world.LocationByID(int.Parse(SQL.ExecuteSELECTWHERE("LastLocation", arg, "CharacterData").GetValue(0, 0).ToString())));
         }
@@ -155,6 +162,23 @@ namespace CsharpRPG
                     if (query[i, 1] != null)
                     {
                         world.player.Quests.Add(new PlayerQuest(world.QuestByID(int.Parse(query[i, 1].ToString())), query[i, 2].ToString()));
+                    }
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+        }
+        void LoadCharacterEquipment(string screenname)
+        {
+            try
+            {
+                string arg = String.Format("Screenname = '{0}'", screenname);
+                object[,] query = SQL.ExecuteSELECTWHERE("*", arg, "CharacterEquipment");
+                for (int i = 0; i < query.Length / 4; i++)
+                {
+                    if (query[i, 1] != null)
+                    {
+                        world.player.Equipped.Add(new Equipable((Equipable)world.ItemByID(int.Parse(query[i, 1].ToString()))));
+                        UpdateEquipment(world.player.Equipped[i]);
                     }
                 }
             }
@@ -213,14 +237,18 @@ namespace CsharpRPG
         {
             try
             {
-                SQL.Open();                
+                SQL.Open();
+                SQL.ExecuteDELETEWHERE("CharacterInventory", "Screenname = '" + screenname + "'");
                 foreach (InventoryItem item in world.player.Inventory)
                 {
                     object[,] obj = SQL.ExecuteSELECTWHEREAND("Quantity", "Screenname = '" + screenname + "'", "Id = " + item.Details.ID, "CharacterInventory");
                     if(obj[0,0] == null)
                     {
                         obj = SQL.ExecuteSELECTWHEREAND("RowNumber", "Screenname = '" + screenname + "'", "Id = " + item.Details.ID, "CharacterInventory");
-                        SQL.ExecuteINSERT4("CharacterInventory", screenname, item.Details.ID, item.Quantity, ((int)obj[obj.Length, 0]) + 1);
+                        if(obj[0,0] == null)
+                            SQL.ExecuteINSERT4("CharacterInventory", screenname, item.Details.ID, item.Quantity, 1);
+                        else
+                            SQL.ExecuteINSERT4("CharacterInventory", screenname, item.Details.ID, item.Quantity, ((int)obj[obj.Length, 0]) + 1);
                     }
                     else
                     {
@@ -247,6 +275,32 @@ namespace CsharpRPG
                     else
                     {
                         SQL.ExecuteUPDATEAND("CharacterQuests", "Screenname = '" + screenname + "'", "Id = " + quest.Details.ID, "Completed = '" + quest.IsCompleted + "'");
+                    }
+                }
+                SQL.Close();
+            }
+            catch { }
+        }
+        void SaveCharacterEquipment(string screenname)
+        {
+            try
+            {
+                SQL.Open();
+                SQL.ExecuteDELETEWHERE("CharacterEquipment", "Screenname = '" + screenname + "'");
+                foreach (Equipable item in world.player.Equipped)
+                {
+                    object[,] obj = SQL.ExecuteSELECTWHERE("ID", "Screenname = '" + screenname + "'", "CharacterEquipment");
+                    if (obj[0, 0] == null)
+                    {
+                        obj = SQL.ExecuteSELECTWHEREAND("RowNumber", "Screenname = '" + screenname + "'", "Id = " + item.ID, "CharacterEquipment");
+                        if (obj[0, 0] == null)
+                            SQL.ExecuteINSERT3("CharacterEquipment", screenname, item.ID, 1);
+                        else
+                            SQL.ExecuteINSERT3("CharacterEquipment", screenname, item.ID, ((int)obj[obj.Length, 0]) + 1);
+                    }
+                    else
+                    {
+                        SQL.ExecuteUPDATE("CharacterEquipment", "Screenname = '" + screenname + "'", "Id = '" + item.ID + "'");
                     }
                 }
                 SQL.Close();
@@ -331,21 +385,154 @@ namespace CsharpRPG
        
         void InitializeScreenControls()
         {
-            world.Journal = journal.dgvQuests;
+            //world.Journal = charSheet.dgvQuests;
+        }
+        void UpdateEquipment(Equipable equ)
+        {
+            world.player.Equipped.Add(equ);
+            switch (equ.Slot)
+            {
+                case (int)Character.Slot.Head:
+                    world.player.Head = equ;
+                    break;
+                case (int)Character.Slot.Torso:
+                    world.player.Torso = equ;
+                    break;
+                case (int)Character.Slot.Legs:
+                    world.player.Legs = equ;
+                    break;
+                case (int)Character.Slot.Feet:
+                    world.player.Feet = equ;
+                    break;
+                case (int)Character.Slot.MainHand:
+                    world.player.MainHand = equ;
+                    break;
+                case (int)Character.Slot.OffHand:
+                    world.player.OffHand = equ;
+                    break;
+            }
+            
         }
         void OpenBag()
         {
-            world.player.StatsChanged = true;
-            world.InventoryBox.Shown = true;
-            updateScreen();
+            int padding = 10;
+            int i = 0;
+            inventory = new InventoryForm();
+            InventorySlots = new List<PictureBox>();
+            for (int y = 0; y < 7; y++)
+            {
+                for (int x = 0; x < 7; x++)
+                {
+                    PictureBox temp = new PictureBox();
+                    Label lbl = new Label();
+
+                    temp.Size = new Size(48, 48);
+                    temp.Location = new Point((x * temp.Size.Width) + (padding * (x + 1)), (y * temp.Size.Width) + (padding * (y + 1)));
+                    temp.BackgroundImage = Properties.Resources.CharImgBox;
+                    temp.BackgroundImageLayout = ImageLayout.Stretch;
+                    temp.DoubleClick += delegate
+                    {
+                        if(temp.Name != "")
+                        {
+                            InventoryItem ii = world.player.ItemByName(temp.Name);
+                            if (ii.Details.Equipable)
+                            {
+                                world.player.Inventory.Remove(ii);
+                                Equipable equ = (Equipable)ii.Details;
+                                temp.Name = "";
+                                temp.Image = null;
+                                UpdateEquipment(equ);
+                                UpdateStats();
+                            }
+                        }
+                    };
+                    temp.Visible = true;                                    
+
+                    lbl.Text = "0";
+                    lbl.Size = new Size(13, 13);
+                    lbl.AutoSize = true;
+                    lbl.BorderStyle = BorderStyle.FixedSingle;
+                    lbl.Location = new Point(temp.Width - lbl.Width, temp.Height - lbl.Height);
+                    lbl.Visible = true;
+
+                    try
+                    {
+                        temp.Image = world.player.Inventory[i].Details.Draw(48, 48, new Point((48 / 2) - (world.player.Inventory[i].Details.Image.Width / 2), (48 / 2) - (world.player.Inventory[i].Details.Image.Height / 2)));
+                        temp.Name = world.player.Inventory[i].Details.Name;
+                        lbl.Text = world.player.Inventory[i].Quantity.ToString();
+                        if (world.player.Inventory[i].Quantity > 1)
+                            lbl.Visible = true;
+                    }
+                    catch { }
+
+                    temp.Controls.Add(lbl);
+                    inventory.pnlSlotPanel.Controls.Add(temp);
+                    i++;
+                }
+            }
+
+            
+            inventory.Show();        
         }
+
         void CloseBag()
         {
             world.player.StatsChanged = true;
             world.InventoryBox.Shown = false;
             updateScreen();
         }
-        
+        void UpdateStats()
+        {
+            charSheet = new CharacterForm();
+            charSheet.lblName.Text = "Name: " + world.player.Name;
+            charSheet.lblClassLevel.Text = "Class (Level): " + world.player.Class + " (" + world.player.Level + ")";
+            charSheet.lblStr.Text = "Strength: " + world.player.Strength.ToString();
+            charSheet.lblDefense.Text = "Defense: " + world.player.Defense.ToString();
+
+            try
+            {
+                charSheet.pbHead.Image = world.player.Head.Draw(charSheet.pbCharImg.Width, charSheet.pbCharImg.Height, new Point((charSheet.pbHead.Width / 2) - world.player.Head.Image.Width / 2, (charSheet.pbHead.Height / 2) - world.player.Head.Image.Height / 2));
+
+            }
+            catch { }
+            try
+            {
+                charSheet.pbTorso.Image = world.player.Torso.Draw(charSheet.pbCharImg.Width, charSheet.pbCharImg.Height, new Point((charSheet.pbTorso.Width / 2) - world.player.Torso.Image.Width / 2, (charSheet.pbTorso.Height / 2) - world.player.Torso.Image.Height / 2));
+
+            }
+            catch { }
+            try
+            {
+                charSheet.pbHead.Image = world.player.Legs.Draw(charSheet.pbCharImg.Width, charSheet.pbCharImg.Height, new Point((charSheet.pbLegs.Width / 2) - world.player.Legs.Image.Width / 2, (charSheet.pbLegs.Height / 2) - world.player.Legs.Image.Height / 2));
+
+            }
+            catch { }
+            try
+            {
+                charSheet.pbBoots.Image = world.player.Feet.Draw(charSheet.pbCharImg.Width, charSheet.pbCharImg.Height, new Point((charSheet.pbBoots.Width / 2) - world.player.Feet.Image.Width / 2, (charSheet.pbBoots.Height / 2) - world.player.Feet.Image.Height / 2));
+
+            }
+            catch { }
+            try
+            {
+                charSheet.pbRightHand.Image = world.player.MainHand.Draw(charSheet.pbCharImg.Width, charSheet.pbCharImg.Height, new Point((charSheet.pbRightHand.Width / 2) - world.player.MainHand.Image.Width / 2, (charSheet.pbRightHand.Height / 2) - world.player.MainHand.Image.Height / 2));
+
+            }
+            catch { }
+            try
+            {
+                charSheet.pbLeftHand.Image = world.player.OffHand.Draw(charSheet.pbCharImg.Width, charSheet.pbCharImg.Height, new Point((charSheet.pbLeftHand.Width / 2) - world.player.OffHand.Image.Width / 2, (charSheet.pbLeftHand.Height / 2) - world.player.OffHand.Image.Height / 2));
+
+            }
+            catch { }
+            charSheet.pbCharImg.Image = world.player.Draw(charSheet.pbCharImg.Width, charSheet.pbCharImg.Height, new Point((charSheet.pbCharImg.Width / 2) - world.player.Image.Width / 2, (charSheet.pbCharImg.Height / 2) - world.player.Image.Height / 2));
+
+        }
+        void OpenStats()
+        {
+            UpdateStats();
+            charSheet.Show();
+        }
         #region EventHandlers
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
@@ -402,10 +589,6 @@ namespace CsharpRPG
                     break;
             }
         }
-        private void lblJournal_Click(object sender, EventArgs e)
-        {
-            journal.Show();
-        }
         private void MainForm_Load(object sender, EventArgs e)
         {
 
@@ -415,6 +598,7 @@ namespace CsharpRPG
             SaveCharacter(world.player.Name);
             SaveCharacterSkills(world.player.Name);
             SaveCharacterInventory(world.player.Name);
+            SaveCharacterEquipment(world.player.Name);
         }
         private void pbMap_MouseClick(object sender, MouseEventArgs e)
         {
@@ -452,6 +636,9 @@ namespace CsharpRPG
                                 break;
                             case "Bag":
                                 OpenBag();
+                                break;
+                            case "Stats":
+                                OpenStats();
                                 break;
                         }
                     }

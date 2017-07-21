@@ -86,6 +86,7 @@ namespace CsharpRPG.Engine
         // HUD BUTTONS
         public HUDObject InventoryButton { get; set; }
         public HUDObject CloseButton { get; set; }
+        public HUDObject StatsButon { get; set; }
 
         // COMBAT SCREEN
         public HUDObject PHealthCombat { get; set; }
@@ -151,8 +152,8 @@ namespace CsharpRPG.Engine
         }
         void PopulateWeapons()
         {
-            Weapon rustySword = new Weapon(WEAPON_ID_RUSTY_SWORD, "Rusty Sword", "Rusty Swords", 1, 5, 5, true, false, new Bitmap(Properties.Resources.Rusty_Sword));
-            Weapon crudeAx = new Weapon(WEAPON_ID_CRUDE_AX, "Crude Ax", "Crude Axes", 1, 7, 10, true, false, new Bitmap(Properties.Resources.Crude_Ax));
+            Weapon rustySword = new Weapon(WEAPON_ID_RUSTY_SWORD, "Rusty Sword", "Rusty Swords", 1, 5, 5, (int)Character.Slot.MainHand, new Bitmap(Properties.Resources.Rusty_Sword));
+            Weapon crudeAx = new Weapon(WEAPON_ID_CRUDE_AX, "Crude Ax", "Crude Axes", 1, 7, 10, (int)Character.Slot.MainHand, new Bitmap(Properties.Resources.Crude_Ax));
 
             Items.Add(rustySword);
             Items.Add(crudeAx);
@@ -317,6 +318,13 @@ namespace CsharpRPG.Engine
             Clickables.Add(InventoryButton);
 
             temp = new List<Point>();
+            temp.Add(new Point(InventoryButton.Boundries[1].X, (screen.Bounds.Height - 32) + PbOffset));
+            temp.Add(new Point(temp[0].X + 32, screen.Bounds.Height));
+            StatsButon = new HUDObject(temp, new Bitmap(Properties.Resources.statbutton));
+            StatsButon.Name = "Stats";
+            Clickables.Add(StatsButon);
+
+            temp = new List<Point>();
             temp.Add(new Point(screen.Bounds.Width - 32, (screen.Bounds.Height - 32) - PbOffset));
             temp.Add(new Point(screen.Bounds.Width, screen.Bounds.Height - PbOffset));
             CloseButton = new HUDObject(temp, new Bitmap(Properties.Resources.exitbutton));
@@ -339,6 +347,18 @@ namespace CsharpRPG.Engine
             foreach (Item item in Items)
             {
                 if (item.ID == id)
+                {
+                    return item;
+                }
+            }
+
+            return null;
+        }
+        public Item ItemByName(string name)
+        {
+            foreach (Item item in Items)
+            {
+                if (item.Name == name)
                 {
                     return item;
                 }

@@ -84,11 +84,11 @@
     <Compile Include="CombatForm.Designer.cs">
       <DependentUpon>CombatForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="CreatorWindow.cs">
+    <Compile Include="CreatorForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CreatorWindow.Designer.cs">
-      <DependentUpon>CreatorWindow.cs</DependentUpon>
+    <Compile Include="CreatorForm.Designer.cs">
+      <DependentUpon>CreatorForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Engine\Biome.cs" />
     <Compile Include="Engine\Character.cs" />
@@ -105,14 +105,20 @@
     <Compile Include="Engine\ScreenObjects.cs" />
     <Compile Include="Engine\Skill.cs" />
     <Compile Include="Engine\Sql.cs" />
-    <Compile Include="Engine\Weapon.cs" />
+    <Compile Include="Engine\Equipable.cs" />
     <Compile Include="Engine\World.cs" />
     <Compile Include="Engine\WorldMap.cs" />
-    <Compile Include="Journal.cs">
+    <Compile Include="CharacterForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Journal.Designer.cs">
-      <DependentUpon>Journal.cs</DependentUpon>
+    <Compile Include="CharacterForm.Designer.cs">
+      <DependentUpon>CharacterForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InventoryForm.Designer.cs">
+      <DependentUpon>InventoryForm.cs</DependentUpon>
     </Compile>
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
@@ -127,15 +133,23 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\AssemblyInfo.cs" />
     <EmbeddedResource Include="CombatForm.resx">
       <DependentUpon>CombatForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CreatorWindow.resx">
-      <DependentUpon>CreatorWindow.cs</DependentUpon>
+    <EmbeddedResource Include="CreatorForm.resx">
+      <DependentUpon>CreatorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Journal.resx">
-      <DependentUpon>Journal.cs</DependentUpon>
+    <EmbeddedResource Include="CharacterForm.resx">
+      <DependentUpon>CharacterForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InventoryForm.resx">
+      <DependentUpon>InventoryForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
@@ -145,14 +159,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="CsharpRPG_TemporaryKey.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -166,9 +175,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="bin\Debug\icons\void.bmp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="bin\Debug\TempImg.png" />
@@ -186,7 +192,184 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\maps\worldmap.png" />
+    <None Include="Resources\maps\worldmap.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\Entities\NPC.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\Entities\spider.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\HUDBars\ExpBar\ExpBar %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\HUDBars\ExpBar\ExpBar %282%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\HUDBars\ExpBar\ExpBar %283%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\HUDBars\ExpBar\ExpBar %284%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\HUDBars\ExpBar\ExpBar %285%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\HUDBars\ExpBar\ExpBar %286%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\HUDBars\ExpBar\ExpBar %287%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\HUDBars\ExpBar\ExpBar %288%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\HUDBars\ExpBar\ExpBar %289%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\HUDBars\ExpBar\ExpBar %2810%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\HUDBars\ExpBar\ExpBarEmpty.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\HUDBars\HealthBar\HealthBar1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\HUDBars\HealthBar\HealthBar2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\HUDBars\HealthBar\HealthBar3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\HUDBars\HealthBar\HealthBar4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\HUDBars\HealthBar\HealthBar5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\HUDBars\HealthBar\HealthBar6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\HUDBars\HealthBar\HealthBar7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\HUDBars\HealthBar\HealthBar8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\HUDBars\HealthBar\HealthBar9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\HUDBars\HealthBar\HealthBar10.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\HUDBars\HealthBar\HealthBarEmpty.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\HUDBars\bagbox.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\HUDBars\bagbutton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\HUDBars\CharImgBox.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\HUDBars\CharStatBar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\HUDBars\defense.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\HUDBars\exitbutton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\HUDBars\strength.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\items\Basic Health Potion.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\items\Best Health Potion.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\items\Better Health Potion.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\items\Crude Ax.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\items\Rusty Sword.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\items\Spider Silk.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\PlayerStates\PlayerDown.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\PlayerStates\PlayerLeft.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\PlayerStates\PlayerRight.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\PlayerStates\PlayerUp.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\tiles\Barn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\tiles\Crop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\tiles\dirt.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\tiles\flowers.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\tiles\grass.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\tiles\void.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\tiles\water.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\tiles\woodfloor.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\tiles\YourHouse.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\maps\Fields.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\maps\FieldsDecos.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\maps\Inside.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\maps\InsideDecos.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\maps\worldmap.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\maps\worldmapDecos.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\maps\Your House.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\maps\Your HouseDecos.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\HUDBars\statbutton.bmp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="bin\Debug\icons\Entities\NPC.bmp" />
@@ -195,7 +378,28 @@
     <None Include="bin\Debug\icons\Entities\spider.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="bin\Debug\icons\HUDBars\bagbox.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\HUDBars\bagbutton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\HUDBars\CharImgBox.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\HUDBars\CharStatBar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\HUDBars\defense.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\HUDBars\exitbutton.png" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="bin\Debug\icons\HUDBars\ExpBar\ExpBar %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\HUDBars\ExpBar\ExpBar %2810%29.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="bin\Debug\icons\HUDBars\ExpBar\ExpBar %282%29.png" />
@@ -222,13 +426,13 @@
     <None Include="bin\Debug\icons\HUDBars\ExpBar\ExpBar %289%29.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\icons\HUDBars\ExpBar\ExpBar %2810%29.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="bin\Debug\icons\HUDBars\ExpBar\ExpBarEmpty.bmp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="bin\Debug\icons\HUDBars\HealthBar\HealthBar1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\icons\HUDBars\HealthBar\HealthBar10.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="bin\Debug\icons\HUDBars\HealthBar\HealthBar2.png" />
@@ -255,28 +459,10 @@
     <None Include="bin\Debug\icons\HUDBars\HealthBar\HealthBar9.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\icons\HUDBars\HealthBar\HealthBar10.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="bin\Debug\icons\HUDBars\HealthBar\HealthBarEmpty.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\icons\HUDBars\bagbox.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="bin\Debug\icons\HUDBars\bagbutton.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="bin\Debug\icons\HUDBars\CharImgBox.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="bin\Debug\icons\HUDBars\CharStatBar.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="bin\Debug\icons\HUDBars\defense.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="bin\Debug\icons\HUDBars\exitbutton.png" />
+    <None Include="bin\Debug\icons\HUDBars\statbutton.bmp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="bin\Debug\icons\HUDBars\strength.png" />
@@ -349,6 +535,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="bin\Debug\maps\InsideDecos.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\maps\worldmap.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="bin\Debug\maps\worldmap.txt" />

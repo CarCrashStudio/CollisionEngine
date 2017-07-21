@@ -3,7 +3,7 @@
   <asmv1:assemblyIdentity name="CsharpRPG.exe" version="1.0.0.4" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="CsharpRPG" version="1.11.0.0" language="neutral" processorArchitecture="msil" />
+    <assemblyIdentity name="CsharpRPG" version="1.1.0.0" language="neutral" processorArchitecture="msil" />
     <commandLine file="CsharpRPG.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="CsharpRPG.exe" size="389064">
-      <assemblyIdentity name="CsharpRPG" version="1.11.0.0" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="CsharpRPG.exe" size="397768">
+      <assemblyIdentity name="CsharpRPG" version="1.1.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>guWkn3C1PwBfbKrl9d7UWzGQrBJBqlR87oiXIkuSCDU=</dsig:DigestValue>
+        <dsig:DigestValue>H1crx/7mnLXkOrf+Raq8owZPoO2otSsDtN4KXsjSEhg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
