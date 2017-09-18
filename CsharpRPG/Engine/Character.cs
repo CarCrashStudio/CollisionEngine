@@ -27,7 +27,7 @@ namespace CsharpRPG.Engine
         public string Slug { get; set; }
 
         public List<InventoryItem> Inventory { get; set; }
-        public List<Equipable> Equipped { get; set; }
+        public List<Equipment> Equipped { get; set; }
         public List<PlayerQuest> Quests { get; set; }
 
         public enum Slot
@@ -39,12 +39,12 @@ namespace CsharpRPG.Engine
             MainHand = 4,
             OffHand = 5
         }
-        public Equipable Head { get; set; }
-        public Equipable Torso { get; set; }
-        public Equipable Legs { get; set; }
-        public Equipable Feet { get; set; }
-        public Equipable MainHand { get; set; }
-        public Equipable OffHand { get; set; }
+        public Equipment Head { get; set; }
+        public Equipment Torso { get; set; }
+        public Equipment Legs { get; set; }
+        public Equipment Feet { get; set; }
+        public Equipment MainHand { get; set; }
+        public Equipment OffHand { get; set; }
 
         public string Class { get; set; }
         public bool StatsChanged { get; set; }
@@ -86,7 +86,7 @@ namespace CsharpRPG.Engine
             StatsChanged = true;
 
             Inventory = new List<InventoryItem>();
-            Equipped = new List<Equipable>();
+            Equipped = new List<Equipment>();
             Quests = new List<PlayerQuest>();
         }
 
@@ -546,6 +546,17 @@ namespace CsharpRPG.Engine
                 if(ii.Details.Name == name)
                 {
                     return ii;
+                }
+            }
+            return null;
+        }
+        public Equipment EquipmentByName(string name)
+        {
+            foreach (Equipment equ in Equipped)
+            {
+                if (equ.Name == name)
+                {
+                    return equ;
                 }
             }
             return null;

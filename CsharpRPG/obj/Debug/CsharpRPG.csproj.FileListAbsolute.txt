@@ -96,3 +96,4 @@ C:\Users\linki\Desktop\Repos\RogueRPG\CsharpRPG\obj\Debug\CsharpRPG.csprojResolv
 C:\Users\linki\Desktop\Repos\RogueRPG\CsharpRPG\obj\Debug\CsharpRPG.CreatorForm.resources
 C:\Users\linki\Desktop\Repos\RogueRPG\CsharpRPG\obj\Debug\CsharpRPG.CharacterForm.resources
 C:\Users\linki\Desktop\Repos\RogueRPG\CsharpRPG\obj\Debug\CsharpRPG.InventoryForm.resources
+C:\Users\linki\Desktop\Repos\RogueRPG\CsharpRPG\obj\Debug\CsharpRPG.csproj.CoreCompileInputs.cache

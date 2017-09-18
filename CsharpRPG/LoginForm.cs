@@ -52,8 +52,8 @@ namespace CsharpRPG
 
             if (IsValidated(arg))
             {
-                Form.CheckForProfile(arg);
                 SQL.Close();
+                Form.Online = new Online(SQL, Form.world, Form, arg, "UserData", "CharacterInventory", "CharacterEquipment", "CharacterSkills", "CharacterQuests");
                 Hide();
             }
             else
@@ -72,6 +72,17 @@ namespace CsharpRPG
         private void btnRegister_Click(object sender, EventArgs e)
         {
             Process.Start("http://rogueasp.azurewebsites.net/register.aspx");
+        }
+
+        private void btnOnline_Click(object sender, EventArgs e)
+        {
+            pnlPlayStyle.Visible = false;
+            pnlLogin.Visible = true;
+        }
+
+        private void btnLocal_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -33,7 +33,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.btnSite = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.pnlLogin = new System.Windows.Forms.Panel();
             this.btnSubmit = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.txtPass = new System.Windows.Forms.TextBox();
@@ -41,7 +41,11 @@
             this.txtUser = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnRegister = new System.Windows.Forms.Button();
-            this.panel1.SuspendLayout();
+            this.pnlPlayStyle = new System.Windows.Forms.Panel();
+            this.btnOnline = new System.Windows.Forms.Button();
+            this.btnLocal = new System.Windows.Forms.Button();
+            this.pnlLogin.SuspendLayout();
+            this.pnlPlayStyle.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnClose
@@ -94,19 +98,20 @@
             this.btnSite.UseVisualStyleBackColor = true;
             this.btnSite.Click += new System.EventHandler(this.btnSite_Click);
             // 
-            // panel1
+            // pnlLogin
             // 
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.btnSubmit);
-            this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.txtPass);
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.txtUser);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(6, 342);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(667, 73);
-            this.panel1.TabIndex = 11;
+            this.pnlLogin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlLogin.Controls.Add(this.btnRegister);
+            this.pnlLogin.Controls.Add(this.btnSubmit);
+            this.pnlLogin.Controls.Add(this.label3);
+            this.pnlLogin.Controls.Add(this.txtPass);
+            this.pnlLogin.Controls.Add(this.label2);
+            this.pnlLogin.Controls.Add(this.txtUser);
+            this.pnlLogin.Controls.Add(this.label1);
+            this.pnlLogin.Location = new System.Drawing.Point(6, 366);
+            this.pnlLogin.Name = "pnlLogin";
+            this.pnlLogin.Size = new System.Drawing.Size(667, 73);
+            this.pnlLogin.TabIndex = 11;
             // 
             // btnSubmit
             // 
@@ -163,7 +168,7 @@
             // 
             // btnRegister
             // 
-            this.btnRegister.Location = new System.Drawing.Point(507, 421);
+            this.btnRegister.Location = new System.Drawing.Point(496, 3);
             this.btnRegister.Name = "btnRegister";
             this.btnRegister.Size = new System.Drawing.Size(166, 23);
             this.btnRegister.TabIndex = 12;
@@ -171,14 +176,45 @@
             this.btnRegister.UseVisualStyleBackColor = true;
             this.btnRegister.Click += new System.EventHandler(this.btnRegister_Click);
             // 
+            // pnlPlayStyle
+            // 
+            this.pnlPlayStyle.Controls.Add(this.btnLocal);
+            this.pnlPlayStyle.Controls.Add(this.btnOnline);
+            this.pnlPlayStyle.Location = new System.Drawing.Point(6, 343);
+            this.pnlPlayStyle.Name = "pnlPlayStyle";
+            this.pnlPlayStyle.Size = new System.Drawing.Size(667, 100);
+            this.pnlPlayStyle.TabIndex = 12;
+            // 
+            // btnOnline
+            // 
+            this.btnOnline.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOnline.Location = new System.Drawing.Point(364, 3);
+            this.btnOnline.Name = "btnOnline";
+            this.btnOnline.Size = new System.Drawing.Size(299, 93);
+            this.btnOnline.TabIndex = 11;
+            this.btnOnline.Text = "Play Online";
+            this.btnOnline.UseVisualStyleBackColor = true;
+            this.btnOnline.Click += new System.EventHandler(this.btnOnline_Click);
+            // 
+            // btnLocal
+            // 
+            this.btnLocal.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLocal.Location = new System.Drawing.Point(3, 4);
+            this.btnLocal.Name = "btnLocal";
+            this.btnLocal.Size = new System.Drawing.Size(299, 93);
+            this.btnLocal.TabIndex = 12;
+            this.btnLocal.Text = "Play Locally";
+            this.btnLocal.UseVisualStyleBackColor = true;
+            this.btnLocal.Click += new System.EventHandler(this.btnLocal_Click);
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(215)))), ((int)(((byte)(215)))));
             this.ClientSize = new System.Drawing.Size(679, 451);
-            this.Controls.Add(this.btnRegister);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.pnlPlayStyle);
+            this.Controls.Add(this.pnlLogin);
             this.Controls.Add(this.btnSite);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label5);
@@ -188,8 +224,9 @@
             this.Name = "LoginForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "LoginForm";
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.pnlLogin.ResumeLayout(false);
+            this.pnlLogin.PerformLayout();
+            this.pnlPlayStyle.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -201,7 +238,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnSite;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel pnlLogin;
         private System.Windows.Forms.Button btnSubmit;
         private System.Windows.Forms.Label label3;
         public System.Windows.Forms.TextBox txtPass;
@@ -209,5 +246,8 @@
         public System.Windows.Forms.TextBox txtUser;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnRegister;
+        private System.Windows.Forms.Panel pnlPlayStyle;
+        private System.Windows.Forms.Button btnLocal;
+        private System.Windows.Forms.Button btnOnline;
     }
 }

@@ -115,7 +115,6 @@
             this.pbHeadPiece.Size = new System.Drawing.Size(60, 60);
             this.pbHeadPiece.TabIndex = 24;
             this.pbHeadPiece.TabStop = false;
-            this.pbHeadPiece.Click += new System.EventHandler(this.pbClick);
             // 
             // lblName
             // 
@@ -263,6 +262,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Journal";
+            this.TopMost = true;
             ((System.ComponentModel.ISupportInitialize)(this.dgvQuests)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbHeadPiece)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbCharImg)).EndInit();
