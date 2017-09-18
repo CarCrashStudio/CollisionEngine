@@ -34,7 +34,6 @@ namespace CsharpRPG.Engine
             if (world.player.StatsChanged)
             {
                 UpdateStats();
-                UpdateInventory();
                 world.player.StatsChanged = false;
             }
             UpdateButtons();
@@ -51,44 +50,9 @@ namespace CsharpRPG.Engine
         }
         public void UpdateButtons()
         {
-            DrawBars(world.InventoryButton, world.HudForm);
-            DrawBars(world.StatsButon, world.HudForm);
-            DrawBars(world.CloseButton, world.HudForm);
-        }
-        public void UpdateInventory()
-        {
-            world.InventoryItems = new List<HUDObject>();
-
-            int increment = 1;
-
-            List<Point> temp = new List<Point>();
-            temp.Add(new Point(world.InventoryBox.Boundries[0].X + 80, world.InventoryBox.Boundries[0].Y + 15));
-            world.Gold = new HUDObject(temp, null, "Gold: " + world.player.Gold.ToString());
-
-            // Refresh player's inventory list
-            if (world.InventoryBox.Shown)
-            {
-                DrawBars(world.InventoryBox, world.HudForm);
-            }
-            foreach (InventoryItem inventoryItem in world.player.Inventory)
-            {
-                temp = new List<Point>();
-                temp.Add(new Point(world.InventoryBox.Boundries[0].X + 50, world.Gold.Boundries[0].Y + (30 * increment)));
-                
-                world.InventoryItem = new HUDObject(temp, null, inventoryItem.Details.Name);
-                world.InventoryItem.Boundries.Add(new Point(world.InventoryBox.Boundries[1].X, world.InventoryItem.Boundries[0].Y + World.fontSize));
-                if (inventoryItem.Quantity > 0)
-                {
-                    world.InventoryItem.Text = inventoryItem.Details.Name + "(" + inventoryItem.Quantity.ToString() + ") " + inventoryItem.Details.EquipTag;
-                }
-                if (world.InventoryBox.Shown)
-                {
-                    DrawBars(world.Gold, world.HudForm);
-                    DrawBars(world.InventoryItem, world.HudForm);
-                }
-                world.InventoryItems.Add(world.InventoryItem);
-                increment++;
-            }
+            DrawBars(world.Clickables[0], world.HudForm);
+            DrawBars(world.Clickables[1], world.HudForm);
+            DrawBars(world.Clickables[2], world.HudForm);
         }
         public void UpdateQuestLog()
         {
@@ -163,21 +127,22 @@ namespace CsharpRPG.Engine
         void UpdateStats()
         {
             HudImg = new Bitmap(world.HudForm.Width, world.HudForm.Height);
-            world.NameLevelString.Text = world.player.Name + " (" + world.player.Level + ")";
-            world.Class.Text = world.player.Class;
-            world.Strength.Text = ": " + world.player.Strength.ToString();
-            world.Defense.Text = ": " + world.player.Defense.ToString();
 
-            DrawBars(world.CharImgBox, world.HudForm);
-            DrawBars(world.CharImg, world.HudForm);
-            DrawBars(world.CharStatBar, world.HudForm);
-            DrawBars(world.NameLevelString, world.HudForm);
-            DrawBars(world.Class, world.HudForm);
-            DrawBars(world.Strength, world.HudForm);
-            DrawBars(world.Defense, world.HudForm);
+            world.HUDObjects[5].Text = world.player.Name + " (" + world.player.Level + ")"; // NameLevelString
+            world.HUDObjects[6].Text = world.player.Class; // Class
+            world.HUDObjects[7].Text = ": " + world.player.Strength.ToString(); // Strength
+            world.HUDObjects[8].Text = ": " + world.player.Defense.ToString(); // Defense
 
-            DrawHealth(world.MainHealthBar, world.HudForm, world.player);
-            DrawExp(world.MainExpBar, world.HudForm, world.player);
+            DrawBars(world.HUDObjects[0], world.HudForm); // CharImgBox
+            DrawBars(world.HUDObjects[1], world.HudForm); // CharImg
+            DrawBars(world.HUDObjects[2], world.HudForm); // CharStatsBar
+            DrawBars(world.HUDObjects[5], world.HudForm); // NameLevelString
+            DrawBars(world.HUDObjects[6], world.HudForm); // Class
+            DrawBars(world.HUDObjects[7], world.HudForm); // Strength
+            DrawBars(world.HUDObjects[8], world.HudForm); // Defense
+
+            DrawHealth(world.HUDObjects[3], world.HudForm, world.player); // MainHealthBar
+            DrawExp(world.HUDObjects[5], world.HudForm, world.player); // MainExpBar
         }
         void UpdatePlayer()
         {

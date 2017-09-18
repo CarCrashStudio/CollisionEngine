@@ -304,12 +304,7 @@ namespace CsharpRPG
             if (keyPressed == "W" || keyPressed == "S" || keyPressed == "A" || keyPressed == "D")
             {
                 if (!world.combat.Initiated)
-                {
-                    if(world.InventoryBox.Shown)
-                    {
-                        
-                    }                    
-
+                {              
                     switch (keyPressed)
                     {
                         case "W":
@@ -367,44 +362,24 @@ namespace CsharpRPG
         }
         private void pbMap_MouseClick(object sender, MouseEventArgs e)
         {
-            if (world.InventoryBox.Shown)
+            foreach (HUDObject button in world.Clickables)
             {
-                if (world.InventoryBox.IsInBounds(e))
+                if (button.IsInBounds(e))
                 {
-                    foreach (HUDObject item in world.InventoryItems)
+                    switch (button.Name)
                     {
-                        if (item.IsInBounds(e))
-                        {
-                            MessageBox.Show(item.Text + " was clicked");
-                        }
-                    }
-                }
-                else
-                {
-                }
-
-            }
-            else
-            {
-                foreach (HUDObject button in world.Clickables)
-                {
-                    if (button.IsInBounds(e))
-                    {
-                        switch (button.Name)
-                        {
-                            case "Close":
-                                if (MessageBox.Show("Are you sure you want to quit?", "Are you sure?", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                                {
-                                    Close();
-                                }
-                                break;
-                            case "Bag":
-                                OpenBag();
-                                break;
-                            case "Stats":
-                                OpenStats();
-                                break;
-                        }
+                        case "Close":
+                            if (MessageBox.Show("Are you sure you want to quit?", "Are you sure?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                            {
+                                Close();
+                            }
+                            break;
+                        case "Bag":
+                            OpenBag();
+                            break;
+                        case "Stats":
+                            OpenStats();
+                            break;
                     }
                 }
             }

@@ -8,7 +8,6 @@ namespace CsharpRPG.Engine
     {
         public string FilePath = "[ProgramFilesFolder]\\Rogue\\Input\\";
 
-
         public List<Item> Items = new List<Item>();
         public List<Monster> Monsters = new List<Monster>();
         public List<Quest> Quests = new List<Quest>();
@@ -17,6 +16,7 @@ namespace CsharpRPG.Engine
         public List<Tile> Tiles = new List<Tile>();
         public List<Biome> Biomes = new List<Biome>();
         public List<HUDObject> HUDObjects = new List<HUDObject>();
+        public List<HUDObject> Clickables = new List<HUDObject>();
         public List<Skill> Skills = new List<Skill>();
 
         public int WEAPON_ID_RUSTY_SWORD { get { return 1; } }
@@ -62,31 +62,6 @@ namespace CsharpRPG.Engine
         public Label Stats { get; set; }
         public ListBox Inventory { get; set; }
         public DataGridView Journal { get; set; }
-
-        public List<HUDObject> Clickables { get; set; }
-        public List<HUDObject> InventoryItems { get; set; }
-
-        // HUD STATS
-        public HUDObject CharImgBox { get; set; }
-        public HUDObject CharImg { get; set; }
-        public HUDObject CharStatBar { get; set; }
-        public HUDObject MainHealthBar { get; set; }
-        public HUDObject MainExpBar { get; set; }
-        public HUDObject NameLevelString { get; set; }
-        public HUDObject Class { get; set; }
-        public HUDObject Strength { get; set; }
-        public HUDObject Defense { get; set; }
-        public HUDObject InventoryItem { get; set; }
-        public HUDObject Gold { get; set; }
-
-        // HUD INVENTORIES
-        public HUDObject InventoryBox { get; set; }
-        public HUDObject QuestBox { get; set; }
-
-        // HUD BUTTONS
-        public HUDObject InventoryButton { get; set; }
-        public HUDObject CloseButton { get; set; }
-        public HUDObject StatsButon { get; set; }
 
         // COMBAT SCREEN
         public HUDObject PHealthCombat { get; set; }
@@ -268,73 +243,77 @@ namespace CsharpRPG.Engine
         void PopulateHUDObjects(Bitmap _CharStatBar, Bitmap _CharImgBox, Bitmap _strImg, Bitmap _defImg)
         {
             HUD = new Hud(this, PbOffset);
-            Clickables = new List<HUDObject>();
-            InventoryItems = new List<HUDObject>();
 
             List<Point> temp = new List<Point>();
             temp.Add(new Point(0, PbOffset));
             temp.Add(new Point(temp[0].X + _CharImgBox.Width, temp[0].Y + _CharImgBox.Height));
 
-            CharImgBox = new HUDObject(temp, _CharImgBox);
+            HUDObject CharImgBox = new HUDObject(temp, _CharImgBox);
 
             temp = new List<Point>();
             temp.Add(new Point(CharImgBox.Boundries[0].X + 10, CharImgBox.Boundries[0].Y + 10));
-            CharImg = new HUDObject(temp, player.Image);
+            HUDObject CharImg = new HUDObject(temp, player.Image);
 
             temp = new List<Point>();
             temp.Add(new Point(CharImgBox.Boundries[1].X, PbOffset));
             temp.Add(new Point(temp[0].X + _CharStatBar.Width, temp[0].Y + _CharStatBar.Height));
-            CharStatBar = new HUDObject(temp, _CharStatBar);
+            HUDObject CharStatBar = new HUDObject(temp, _CharStatBar);
 
             temp = new List<Point>();
             temp.Add(new Point(CharStatBar.FindCenterofBounds().X - 45, (CharStatBar.Boundries[1].Y - 40)));
-            MainHealthBar = new HUDObject(temp, new Bitmap(Properties.Resources.HealthBar10));
+            HUDObject MainHealthBar = new HUDObject(temp, new Bitmap(Properties.Resources.HealthBar10));
 
             temp = new List<Point>();
             temp.Add(new Point(CharStatBar.FindCenterofBounds().X - 45, CharStatBar.Boundries[1].Y - 25));
-            MainExpBar = new HUDObject(temp, new Bitmap(Properties.Resources.ExpBar__10_));
+            HUDObject MainExpBar = new HUDObject(temp, new Bitmap(Properties.Resources.ExpBar__10_));
 
             temp = new List<Point>();
             temp.Add(new Point(MainHealthBar.Boundries[0].X, MainHealthBar.Boundries[0].Y - 80));
-            NameLevelString = new HUDObject(temp, null, player.Name + " (" + player.Level + ")");
+            HUDObject NameLevelString = new HUDObject(temp, null, player.Name + " (" + player.Level + ")");
 
             temp = new List<Point>();
             temp.Add(new Point(MainHealthBar.Boundries[0].X, NameLevelString.Boundries[0].Y + 25));
-            Class = new HUDObject(temp, null, player.Class);
+            HUDObject Class = new HUDObject(temp, null, player.Class);
 
             temp = new List<Point>();
             temp.Add(new Point(MainHealthBar.Boundries[0].X, NameLevelString.Boundries[0].Y + 45));
-            Strength = new HUDObject(temp, _strImg, ": " + player.Strength.ToString());
+            HUDObject Strength = new HUDObject(temp, _strImg, ": " + player.Strength.ToString());
 
             temp = new List<Point>();
             temp.Add(new Point(MainHealthBar.Boundries[0].X + 70, NameLevelString.Boundries[0].Y + 45));
-            Defense = new HUDObject(temp, _defImg, ": " + player.Defense.ToString());
+            HUDObject Defense = new HUDObject(temp, _defImg, ": " + player.Defense.ToString());
 
-            temp = new List<Point>();
+            HUDObjects.Add(CharImgBox);
+            HUDObjects.Add(CharImg);
+            HUDObjects.Add(CharStatBar);
+            HUDObjects.Add(MainHealthBar);
+            HUDObjects.Add(MainExpBar);
+            HUDObjects.Add(NameLevelString);
+            HUDObjects.Add(Class);
+            HUDObjects.Add(Strength);
+            HUDObjects.Add(Defense);
+
+    // Clickables
+    temp = new List<Point>();
             temp.Add(new Point(0, (screen.Bounds.Height - 32) + PbOffset));
             temp.Add(new Point(32, screen.Bounds.Height));
-            InventoryButton = new HUDObject(temp, new Bitmap(Properties.Resources.bagbutton));
+            HUDObject InventoryButton = new HUDObject(temp, new Bitmap(Properties.Resources.bagbutton));
             InventoryButton.Name = "Bag";
             Clickables.Add(InventoryButton);
 
             temp = new List<Point>();
             temp.Add(new Point(InventoryButton.Boundries[1].X, (screen.Bounds.Height - 32) + PbOffset));
             temp.Add(new Point(temp[0].X + 32, screen.Bounds.Height));
-            StatsButon = new HUDObject(temp, new Bitmap(Properties.Resources.statbutton));
+            HUDObject StatsButon = new HUDObject(temp, new Bitmap(Properties.Resources.statbutton));
             StatsButon.Name = "Stats";
             Clickables.Add(StatsButon);
 
             temp = new List<Point>();
             temp.Add(new Point(screen.Bounds.Width - 32, (screen.Bounds.Height - 32) - PbOffset));
             temp.Add(new Point(screen.Bounds.Width, screen.Bounds.Height - PbOffset));
-            CloseButton = new HUDObject(temp, new Bitmap(Properties.Resources.exitbutton));
+            HUDObject CloseButton = new HUDObject(temp, new Bitmap(Properties.Resources.exitbutton));
             CloseButton.Name = "Close";
             Clickables.Add(CloseButton);
-
-            temp = new List<Point>();
-            temp.Add(new Point(InventoryButton.Boundries[0].X, InventoryButton.Boundries[0].Y - 400));
-            temp.Add(new Point(InventoryButton.Boundries[0].X + 300, InventoryButton.Boundries[0].Y));
-            InventoryBox = new HUDObject(temp, new Bitmap(Properties.Resources.bagbox));
 
             temp = new List<Point>();
             temp.Add(new Point(0, 0));
