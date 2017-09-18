@@ -239,6 +239,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(554, 395);
+            this.ControlBox = false;
             this.Controls.Add(this.pbBoots);
             this.Controls.Add(this.pbLeftHand);
             this.Controls.Add(this.pbBracers);
@@ -261,7 +262,7 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Journal";
+            this.Text = "Stats";
             this.TopMost = true;
             ((System.ComponentModel.ISupportInitialize)(this.dgvQuests)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbHeadPiece)).EndInit();

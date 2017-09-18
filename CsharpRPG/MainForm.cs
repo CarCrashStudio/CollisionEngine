@@ -22,11 +22,13 @@ namespace CsharpRPG
         // Object Classes
         Random rand = new Random();
         
-        int offset;
         // Variables
-        string sqlID = "treyhall";
-        string sqlPass = "web.56066";
-        string sqlConnString =
+        int offset;
+
+        // Constants
+        const string sqlID = "treyhall";
+        const string sqlPass = "web.56066";
+        const string sqlConnString =
             "Server=tcp:roguedatabase.database.windows.net,1433;" +
             "Initial Catalog=rogueDB;" +
             "Persist Security Info=False;" +
@@ -57,7 +59,6 @@ namespace CsharpRPG
             updateScreen();
             updateScreen();
         }
-
 
         #region OnlineMultiplayer
         void Login()
@@ -147,7 +148,7 @@ namespace CsharpRPG
         }
         public void UpdateEquipment(Equipment equ)
         {
-            //world.player.Equipped.Add(equ);
+            world.player.Equipped.Add(equ);
             switch (equ.Slot)
             {
                 case (int)Character.Slot.Head:
@@ -248,7 +249,7 @@ namespace CsharpRPG
                 }
             }
         }
-        void UpdateStats()
+        public void UpdateStats()
         {
             
             charSheet.lblName.Text = "Name: " + world.player.Name;

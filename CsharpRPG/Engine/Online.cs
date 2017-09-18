@@ -15,7 +15,7 @@ namespace CsharpRPG.Engine
         World world;
         MainForm form;
 
-        string Table_UserData;
+        string Table_CharacterData;
         string Table_UserInventory;
         string Table_UserEquipment;
         string Table_UserSkills;
@@ -43,13 +43,13 @@ namespace CsharpRPG.Engine
             AutoSave.Interval = 1000000;
             AutoSave.Tick += delegate { SaveGame(); };
 
-            Table_UserData = _userData;
+            Table_CharacterData = _userData;
             Table_UserInventory = _userInvent;
             Table_UserEquipment = _userEquip;
             Table_UserSkills = _userSkill;
             Table_UserQuests = _userQuest;
 
-            CheckForProfile(arg, Table_UserData);
+            CheckForProfile(arg, "UserData");
         }
         
         /// <summary>
@@ -64,12 +64,12 @@ namespace CsharpRPG.Engine
             string screen = obj[0, 0].ToString();
 
             arg = String.Format("Screenname = '{0}'", screen);
-            obj = SQL.ExecuteSELECTWHERE("Screenname", arg, Table_UserData);
+            obj = SQL.ExecuteSELECTWHERE("Screenname", arg, Table_CharacterData);
             string str = obj[0, 0].ToString();
             if (str == string.Empty)
             {
                 CreateCharacter(screen);
-                SQL.ExecuteINSERT(Table_UserData, world.player.Name + ", " + world.player.Class + ", " + world.player.Health + ", " + world.player.Exp + ", " + world.player.MaxExp + ", " + world.player.Level + ", " + world.player.Gold + ", " + world.player.Location.X + ", " + world.player.Location.Y + ", " + world.player.CurrentLocation.ID);
+                SQL.ExecuteINSERT(Table_CharacterData, world.player.Name + ", " + world.player.Class + ", " + world.player.Health + ", " + world.player.Exp + ", " + world.player.MaxExp + ", " + world.player.Level + ", " + world.player.Gold + ", " + world.player.Location.X + ", " + world.player.Location.Y + ", " + world.player.CurrentLocation.ID);
             }
             else { SQL.Close(); LoadCharacter(screen); }
         }
@@ -89,21 +89,21 @@ namespace CsharpRPG.Engine
         {
             SQL.Open();
             string arg = String.Format("Screenname = '{0}'", screename);
-            string clss = SQL.ExecuteSELECTWHERE("Class", arg, Table_UserData).GetValue(0, 0).ToString();
-            int health = int.Parse(SQL.ExecuteSELECTWHERE("Health", arg, Table_UserData).GetValue(0, 0).ToString());
-            int maxhealth = int.Parse(SQL.ExecuteSELECTWHERE("MaxHealth", arg, Table_UserData).GetValue(0, 0).ToString());
-            int mana = int.Parse(SQL.ExecuteSELECTWHERE("Mana", arg, Table_UserData).GetValue(0, 0).ToString());
-            int maxmana = int.Parse(SQL.ExecuteSELECTWHERE("MaxMana", arg, Table_UserData).GetValue(0, 0).ToString());
-            int damage = int.Parse(SQL.ExecuteSELECTWHERE("Damage", arg, Table_UserData).GetValue(0, 0).ToString());
-            int defense = int.Parse(SQL.ExecuteSELECTWHERE("Defense", arg, Table_UserData).GetValue(0, 0).ToString());
-            int level = int.Parse(SQL.ExecuteSELECTWHERE("Level", arg, Table_UserData).GetValue(0, 0).ToString());
-            int exp = int.Parse(SQL.ExecuteSELECTWHERE("Exp", arg, Table_UserData).GetValue(0, 0).ToString());
-            int gold = int.Parse(SQL.ExecuteSELECTWHERE("Gold", arg, Table_UserData).GetValue(0, 0).ToString());
-            int maxExp = int.Parse(SQL.ExecuteSELECTWHERE("MaxExp", arg, Table_UserData).GetValue(0, 0).ToString());
-            int locX = int.Parse(SQL.ExecuteSELECTWHERE("LocX", arg, Table_UserData).GetValue(0, 0).ToString());
-            int locY = int.Parse(SQL.ExecuteSELECTWHERE("LocY", arg, Table_UserData).GetValue(0, 0).ToString());
-            string slug = SQL.ExecuteSELECTWHERE("Slug", arg, Table_UserData).GetValue(0, 0).ToString();
-            int lastLoc = (int)SQL.ExecuteSELECTWHERE("LastLocation", arg, Table_UserData).GetValue(0, 0);
+            string clss = SQL.ExecuteSELECTWHERE("Class", arg, Table_CharacterData).GetValue(0, 0).ToString();
+            int health = int.Parse(SQL.ExecuteSELECTWHERE("Health", arg, Table_CharacterData).GetValue(0, 0).ToString());
+            int maxhealth = int.Parse(SQL.ExecuteSELECTWHERE("MaxHealth", arg, Table_CharacterData).GetValue(0, 0).ToString());
+            int mana = int.Parse(SQL.ExecuteSELECTWHERE("Mana", arg, Table_CharacterData).GetValue(0, 0).ToString());
+            int maxmana = int.Parse(SQL.ExecuteSELECTWHERE("MaxMana", arg, Table_CharacterData).GetValue(0, 0).ToString());
+            int damage = int.Parse(SQL.ExecuteSELECTWHERE("Damage", arg, Table_CharacterData).GetValue(0, 0).ToString());
+            int defense = int.Parse(SQL.ExecuteSELECTWHERE("Defense", arg, Table_CharacterData).GetValue(0, 0).ToString());
+            int level = int.Parse(SQL.ExecuteSELECTWHERE("Level", arg, Table_CharacterData).GetValue(0, 0).ToString());
+            int exp = int.Parse(SQL.ExecuteSELECTWHERE("Exp", arg, Table_CharacterData).GetValue(0, 0).ToString());
+            int gold = int.Parse(SQL.ExecuteSELECTWHERE("Gold", arg, Table_CharacterData).GetValue(0, 0).ToString());
+            int maxExp = int.Parse(SQL.ExecuteSELECTWHERE("MaxExp", arg, Table_CharacterData).GetValue(0, 0).ToString());
+            int locX = int.Parse(SQL.ExecuteSELECTWHERE("LocX", arg, Table_CharacterData).GetValue(0, 0).ToString());
+            int locY = int.Parse(SQL.ExecuteSELECTWHERE("LocY", arg, Table_CharacterData).GetValue(0, 0).ToString());
+            string slug = SQL.ExecuteSELECTWHERE("Slug", arg, Table_CharacterData).GetValue(0, 0).ToString();
+            int lastLoc = (int)SQL.ExecuteSELECTWHERE("LastLocation", arg, Table_CharacterData).GetValue(0, 0);
 
             SQL.Close();
 
@@ -184,8 +184,7 @@ namespace CsharpRPG.Engine
                 {
                     if (query[i, 1] != null)
                     {
-                        world.player.Equipped.Add(new Equipment((Equipment)world.ItemByID(int.Parse(query[i, 1].ToString()))));
-                        form.UpdateEquipment(world.player.Equipped[i]);
+                        form.UpdateEquipment(new Equipment((Equipment)world.ItemByID(int.Parse(query[i, 1].ToString()))));
                     }
                 }
                 SQL.Close();
@@ -199,20 +198,20 @@ namespace CsharpRPG.Engine
             {
                 SQL.Open();
 
-                SQL.ExecuteUPDATE(Table_UserData, "Screenname = '" + screenname + "'", "Class = '" + world.player.Class + "'");
-                SQL.ExecuteUPDATE(Table_UserData, "Screenname = '" + screenname + "'", "Gold = '" + world.player.Gold + "'");
-                SQL.ExecuteUPDATE(Table_UserData, "Screenname = '" + screenname + "'", "Health = '" + world.player.Health + "'");
-                SQL.ExecuteUPDATE(Table_UserData, "Screenname = '" + screenname + "'", "MaxHealth = '" + world.player.MaxHealth + "'");
-                SQL.ExecuteUPDATE(Table_UserData, "Screenname = '" + screenname + "'", "Mana = '" + world.player.Mana + "'");
-                SQL.ExecuteUPDATE(Table_UserData, "Screenname = '" + screenname + "'", "MaxMana = '" + world.player.MaxMana + "'");
-                SQL.ExecuteUPDATE(Table_UserData, "Screenname = '" + screenname + "'", "Damage = '" + world.player.Strength + "'");
-                SQL.ExecuteUPDATE(Table_UserData, "Screenname = '" + screenname + "'", "Defense = '" + world.player.Defense + "'");
-                SQL.ExecuteUPDATE(Table_UserData, "Screenname = '" + screenname + "'", "Exp = '" + world.player.Exp + "'");
-                SQL.ExecuteUPDATE(Table_UserData, "Screenname = '" + screenname + "'", "MaxExp = '" + world.player.MaxExp + "'");
-                SQL.ExecuteUPDATE(Table_UserData, "Screenname = '" + screenname + "'", "Level = '" + world.player.Level + "'");
-                SQL.ExecuteUPDATE(Table_UserData, "Screenname = '" + screenname + "'", "LocX = '" + world.player.Location.X + "'");
-                SQL.ExecuteUPDATE(Table_UserData, "Screenname = '" + screenname + "'", "LocY = '" + world.player.Location.Y + "'");
-                SQL.ExecuteUPDATE(Table_UserData, "Screenname = '" + screenname + "'", "LastLocation = '" + world.player.CurrentLocation.ID + "'");
+                SQL.ExecuteUPDATE(Table_CharacterData, "Screenname = '" + screenname + "'", "Class = '" + world.player.Class + "'");
+                SQL.ExecuteUPDATE(Table_CharacterData, "Screenname = '" + screenname + "'", "Gold = '" + world.player.Gold + "'");
+                SQL.ExecuteUPDATE(Table_CharacterData, "Screenname = '" + screenname + "'", "Health = '" + world.player.Health + "'");
+                SQL.ExecuteUPDATE(Table_CharacterData, "Screenname = '" + screenname + "'", "MaxHealth = '" + world.player.MaxHealth + "'");
+                SQL.ExecuteUPDATE(Table_CharacterData, "Screenname = '" + screenname + "'", "Mana = '" + world.player.Mana + "'");
+                SQL.ExecuteUPDATE(Table_CharacterData, "Screenname = '" + screenname + "'", "MaxMana = '" + world.player.MaxMana + "'");
+                SQL.ExecuteUPDATE(Table_CharacterData, "Screenname = '" + screenname + "'", "Damage = '" + world.player.Strength + "'");
+                SQL.ExecuteUPDATE(Table_CharacterData, "Screenname = '" + screenname + "'", "Defense = '" + world.player.Defense + "'");
+                SQL.ExecuteUPDATE(Table_CharacterData, "Screenname = '" + screenname + "'", "Exp = '" + world.player.Exp + "'");
+                SQL.ExecuteUPDATE(Table_CharacterData, "Screenname = '" + screenname + "'", "MaxExp = '" + world.player.MaxExp + "'");
+                SQL.ExecuteUPDATE(Table_CharacterData, "Screenname = '" + screenname + "'", "Level = '" + world.player.Level + "'");
+                SQL.ExecuteUPDATE(Table_CharacterData, "Screenname = '" + screenname + "'", "LocX = '" + world.player.Location.X + "'");
+                SQL.ExecuteUPDATE(Table_CharacterData, "Screenname = '" + screenname + "'", "LocY = '" + world.player.Location.Y + "'");
+                SQL.ExecuteUPDATE(Table_CharacterData, "Screenname = '" + screenname + "'", "LastLocation = '" + world.player.CurrentLocation.ID + "'");
 
                 SQL.Close();
             }

@@ -53,7 +53,7 @@ namespace CsharpRPG
             if (IsValidated(arg))
             {
                 SQL.Close();
-                Form.Online = new Online(SQL, Form.world, Form, arg, "UserData", "CharacterInventory", "CharacterEquipment", "CharacterSkills", "CharacterQuests");
+                Form.Online = new Online(SQL, Form.world, Form, arg, "CharacterData", "CharacterInventory", "CharacterEquipment", "CharacterSkills", "CharacterQuests");
                 Hide();
             }
             else

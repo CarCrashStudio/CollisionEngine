@@ -29,36 +29,17 @@
         private void InitializeComponent()
         {
             this.pnlSlotPanel = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
             this.btnClose = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // pnlSlotPanel
             // 
             this.pnlSlotPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlSlotPanel.Location = new System.Drawing.Point(13, 54);
+            this.pnlSlotPanel.Location = new System.Drawing.Point(13, 14);
             this.pnlSlotPanel.Name = "pnlSlotPanel";
-            this.pnlSlotPanel.Size = new System.Drawing.Size(428, 428);
+            this.pnlSlotPanel.Size = new System.Drawing.Size(428, 468);
             this.pnlSlotPanel.TabIndex = 0;
             this.pnlSlotPanel.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pnlSlotPanel_MouseClick);
-            // 
-            // panel1
-            // 
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Location = new System.Drawing.Point(1, 2);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(20, 19);
-            this.panel1.TabIndex = 1;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(93, 38);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(13, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "0";
             // 
             // btnClose
             // 
@@ -74,28 +55,24 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(453, 509);
+            this.ClientSize = new System.Drawing.Size(453, 525);
+            this.ControlBox = false;
             this.Controls.Add(this.btnClose);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.pnlSlotPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "InventoryForm";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "InventoryForm";
+            this.Text = "Inventory";
             this.TopMost = true;
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
         public System.Windows.Forms.Panel pnlSlotPanel;
-        public System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnClose;
     }
 }

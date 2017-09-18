@@ -1,11 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using CsharpRPG.Engine;
 
@@ -39,10 +33,6 @@ namespace CsharpRPG
             {
                 pb.DoubleClick += delegate
                 {
-                    MessageBox.Show(pb.Name);
-
-                    world.player.Equipped.Remove(world.player.EquipmentByName(pb.Name));
-                    world.player.Inventory.Add(new InventoryItem(world.ItemByName(pb.Name), 1));
                     if (world.player.EquipmentByName(pb.Name) != null)
                     {
                         switch (world.player.EquipmentByName(pb.Name).Slot)
@@ -66,6 +56,8 @@ namespace CsharpRPG
                                 world.player.OffHand = null;
                                 break;
                         }
+                        world.player.Equipped.Remove(world.player.EquipmentByName(pb.Name));
+                        world.player.Inventory.Add(new InventoryItem(world.ItemByName(pb.Name), 1));
                         mainForm.UpdateBag();
                         pb.Name = null;
                         pb.Image = null;
