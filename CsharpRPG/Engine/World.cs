@@ -154,10 +154,10 @@ namespace CsharpRPG.Engine
         }
         void PopulateNPCs()
         {
-            NPC bugSquasher = new NPC(NPC_ID_BUGSQUASHER, "Bug Squasher", new System.Drawing.Bitmap(Properties.Resources.NPC), new System.Drawing.Point(0, 0), new Quest(QuestByID(QUEST_ID_BUGSQUASHING)), this);
+            NPC bugSquasher = new NPC(NPC_ID_BUGSQUASHER, "Bug Squasher", new System.Drawing.Bitmap(Properties.Resources.NPC), new System.Drawing.Point(7, 2), new Quest(QuestByID(QUEST_ID_BUGSQUASHING)), null, this);
             NPCs.Add(bugSquasher);
 
-            NPC JohnRied = new NPC(NPC_ID_JOHNRIED, "John Ried", new Bitmap(1, 1), new Point(), null, this);
+            NPC JohnRied = new NPC(NPC_ID_JOHNRIED, "John Ried", new Bitmap(1, 1), new Point(), null, null, this);
             NPCs.Add(JohnRied);
         }
         void PopulateLocations()

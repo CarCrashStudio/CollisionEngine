@@ -325,6 +325,25 @@ namespace CsharpRPG
                     }
                 }
             }
+            if(keyPressed == "Return")
+            {
+                foreach(NPC npc in world.HUD.NpcsHere)
+                {
+                    // check if the player is facing and standing next to an npc
+                    if(npc.Location == world.player.CheckNextTile())
+                    {
+                        // Check if its a shop keeper or questgiver
+                        if(npc.QuestAvailableHere != null)
+                        {
+
+                        }
+                        if(npc.ShopAvailibleHere != null)
+                        {
+
+                        }
+                    }
+                }
+            }
         }
         private void MainForm_KeyUp(object sender, KeyEventArgs e)
         {

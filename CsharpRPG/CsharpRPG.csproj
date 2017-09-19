@@ -105,6 +105,7 @@
     <Compile Include="Engine\Consumable.cs" />
     <Compile Include="Engine\Quest.cs" />
     <Compile Include="Engine\ScreenObjects.cs" />
+    <Compile Include="Engine\Shop.cs" />
     <Compile Include="Engine\Skill.cs" />
     <Compile Include="Engine\Sql.cs" />
     <Compile Include="Engine\Equipment.cs" />

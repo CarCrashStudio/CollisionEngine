@@ -9,6 +9,8 @@ namespace CsharpRPG.Engine
         World world { get; set; }
         int offset = 0;
         Bitmap HudImg;
+        public 
+            List<NPC> NpcsHere;
         public Hud(World _world, int offset)
         {
             world = _world;
@@ -31,6 +33,7 @@ namespace CsharpRPG.Engine
         {
             UpdateWorld();
             UpdatePlayer();
+            UpdateNPCs();
             if (world.player.StatsChanged)
             {
                 UpdateStats();
@@ -73,8 +76,8 @@ namespace CsharpRPG.Engine
         }
         public void UpdateNPCs()
         {
-            world.map.Image = new Bitmap("maps/worldmap.png");
-            List<NPC> NpcsHere = new List<NPC>();
+            // world.map.Image = new Bitmap("maps/worldmap.png");
+            NpcsHere = new List<NPC>();
             try
             {
                 foreach (NPC npc in world.player.CurrentLocation.NPCsLivingHere)
@@ -118,10 +121,7 @@ namespace CsharpRPG.Engine
 
             foreach (NPC npc in NpcsHere)
             {
-                if (npc != null)
-                {
-                    world.map.Image = npc.Draw(world.WIDTH, world.HEIGHT, new Point(npc.Location.X * 32, npc.Location.Y * 32), (Bitmap)world.HudForm.Image);
-                }
+               world.HudForm.Image = npc.Draw(world.HudForm.Image.Width, world.HudForm.Image.Height, new Point((npc.Location.X + world.map.MapLoc.X) * 32, (npc.Location.Y + (world.map.MapLoc.Y - 10)) * 32), (Bitmap)world.HudForm.Image);
             }
         }
         void UpdateStats()
@@ -142,7 +142,7 @@ namespace CsharpRPG.Engine
             DrawBars(world.HUDObjects[8], world.HudForm); // Defense
 
             DrawHealth(world.HUDObjects[3], world.HudForm, world.player); // MainHealthBar
-            DrawExp(world.HUDObjects[5], world.HudForm, world.player); // MainExpBar
+            DrawExp(world.HUDObjects[4], world.HudForm, world.player); // MainExpBar
         }
         void UpdatePlayer()
         {

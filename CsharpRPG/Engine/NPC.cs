@@ -12,14 +12,16 @@ namespace CsharpRPG.Engine
     {
         public Point Location { get; set; }
         public Quest QuestAvailableHere { get; set; }
+        public Shop ShopAvailibleHere { get; set; }
 
         public World world { get; set; }
 
-        public NPC(int _id, string _name, Bitmap _img, Point _location, Quest _questAvailibleHere, World _world) : 
+        public NPC(int _id, string _name, Bitmap _img, Point _location, Quest _questAvailibleHere, Shop _shopAvailibleHere, World _world) : 
             base(_id, _name, _img)
         {
             Location = _location;
             QuestAvailableHere = _questAvailibleHere;
+            ShopAvailibleHere = _shopAvailibleHere;
             world = _world;
 
             Draw(world.HudForm.Width, world.HudForm.Height, new Point(Location.X * 32, Location.Y * 32), (Bitmap)world.HudForm.Image);
@@ -29,6 +31,7 @@ namespace CsharpRPG.Engine
         {
             Location = npc.Location;
             QuestAvailableHere = npc.QuestAvailableHere;
+            ShopAvailibleHere = npc.ShopAvailibleHere;
             world = npc.world;
 
             Draw(world.HudForm.Width, world.HudForm.Height, new Point(Location.X * 32, Location.Y * 32), (Bitmap)world.HudForm.Image);

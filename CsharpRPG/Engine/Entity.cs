@@ -92,7 +92,26 @@ namespace CsharpRPG.Engine
                 case "West":
                     Image = new Bitmap((Bitmap)Properties.Resources.ResourceManager.GetObject(Entity + "Left", Properties.Resources.Culture));
                     break;
-            }           
+            }
+            //foreach(NPC npc in world.HUD.NpcsHere)
+            //{
+            //    switch (Facing)
+            //    {
+            //        case "North":
+            //            npc.Location = new Point(npc.Location.X, npc.Location.Y + 1);
+            //            break;
+            //        case "South":
+            //            npc.Location = new Point(npc.Location.X, npc.Location.Y - 1);
+            //            break;
+            //        case "East":
+            //            npc.Location = new Point(npc.Location.X - 1, npc.Location.Y);
+            //            break;
+            //        case "West":
+            //            npc.Location = new Point(npc.Location.X + 1, npc.Location.Y);
+            //            break;
+            //    }
+            //}
+            //world.HUD.UpdateNPCs();
         }
         public bool isColliding()
         {
@@ -116,6 +135,13 @@ namespace CsharpRPG.Engine
                     {
                         return true;
                     }
+                }
+            }
+            foreach(NPC npc in world.HUD.NpcsHere)
+            {
+                if(npc.Location == CheckNextTile())
+                {
+                    return true;
                 }
             }
             return false;
