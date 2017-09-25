@@ -34,6 +34,7 @@ namespace CsharpRPG.Engine
             UpdateWorld();
             UpdatePlayer();
             UpdateNPCs();
+            UpdateQuestLog();
             if (world.player.StatsChanged)
             {
                 UpdateStats();
@@ -123,6 +124,181 @@ namespace CsharpRPG.Engine
             {
                world.HudForm.Image = npc.Draw(world.HudForm.Image.Width, world.HudForm.Image.Height, new Point((npc.Location.X + world.map.MapLoc.X) * 32, (npc.Location.Y + (world.map.MapLoc.Y - 10)) * 32), (Bitmap)world.HudForm.Image);
             }
+        }
+        public void UpdateBag(InventoryForm inventory)
+        {
+            int padding = 10;
+            int i = 0;
+            inventory.pnlSlotPanel.Controls.Clear();
+            inventory.lblGold.Text = world.player.Gold.ToString();
+            for (int y = 0; y < 7; y++)
+            {
+                for (int x = 0; x < 7; x++)
+                {
+                    PictureBox temp = new PictureBox();
+                    Label lbl = new Label();
+
+                    temp.Size = new Size(48, 48);
+                    temp.Location = new Point((x * temp.Size.Width) + (padding * (x + 1)), (y * temp.Size.Width) + (padding * (y + 1)));
+                    temp.BackgroundImage = Properties.Resources.CharImgBox;
+                    temp.BackgroundImageLayout = ImageLayout.Stretch;
+                    temp.DoubleClick += delegate
+                    {
+                        if (temp.Name != "")
+                        {
+                            Form frm = new Form();
+                            frm.Size = new Size(100, 100);
+                            frm.FormBorderStyle = FormBorderStyle.None;
+                            frm.Location = Cursor.Position;
+
+                            ListBox lstOptions = new ListBox();
+                            lstOptions.Size = new Size(100, 100);
+
+                            frm.Controls.Add(lstOptions);
+
+                            InventoryItem ii = world.player.ItemByName(temp.Name);
+                            if (ii.Details.Equipable)
+                            {
+                                lstOptions.Items.Add("Equip");
+                            }
+                            if (ii.Details.Consumable)
+                            {
+                                lstOptions.Items.Add("Consume");
+                            }
+                            if(ii.Details.Recipe != null) //.count == 0
+                            {
+                                lstOptions.Items.Add("Craft");
+                            }
+                            frm.Show();
+                            lstOptions.DoubleClick += delegate
+                            {
+                                if (lstOptions.SelectedItem.ToString() == "Equip")
+                                {
+                                    if (ii.Details.Equip(ii))
+                                    {
+                                        temp.Name = "";
+                                        temp.Image = null;
+                                        temp.Controls[0].Text = "0";
+                                        temp.Controls[0].Visible = false;
+                                    }
+                                }
+                                if (lstOptions.SelectedItem.ToString() == "Consume")
+                                {
+                                    ii.Details.Consume(ii);
+                                }
+                                if (lstOptions.SelectedItem.ToString() == "Craft")
+                                {
+                                    ii.Details.Craft(ii);
+                                }
+                                frm.Close();
+                                UpdateBag(world.inventory);
+                            };
+
+                        }
+                    };
+                    temp.Visible = true;
+
+                    lbl.Text = "0";
+                    lbl.Size = new Size(13, 13);
+                    lbl.AutoSize = true;
+                    lbl.BorderStyle = BorderStyle.FixedSingle;
+                    lbl.Location = new Point(temp.Width - lbl.Width, temp.Height - lbl.Height);
+                    lbl.Visible = false;
+
+                    try
+                    {
+                        temp.Image = world.player.Inventory[i].Details.Draw(48, 48, new Point((48 / 2) - (world.player.Inventory[i].Details.Image.Width / 2), (48 / 2) - (world.player.Inventory[i].Details.Image.Height / 2)));
+                        temp.Name = world.player.Inventory[i].Details.Name;
+                        lbl.Text = world.player.Inventory[i].Quantity.ToString();
+                        if (world.player.Inventory[i].Quantity > 1)
+                            lbl.Visible = true;
+                    }
+                    catch { }
+
+                    temp.Controls.Add(lbl);
+                    inventory.pnlSlotPanel.Controls.Add(temp);
+                    i++;
+                }
+            }
+        }
+        public void UpdateCharSheet(CharacterForm charSheet)
+        {
+
+            charSheet.lblName.Text = "Name: " + world.player.Name;
+            charSheet.lblClassLevel.Text = "Class (Level): " + world.player.Class + " (" + world.player.Level + ")";
+            charSheet.lblStr.Text = "Strength: " + world.player.Strength.ToString();
+            charSheet.lblDefense.Text = "Defense: " + world.player.Defense.ToString();
+
+            try
+            {
+                charSheet.pbHead.Image = world.player.Head.Draw(charSheet.pbCharImg.Width, charSheet.pbCharImg.Height, new Point((charSheet.pbHead.Width / 2) - world.player.Head.Image.Width / 2, (charSheet.pbHead.Height / 2) - world.player.Head.Image.Height / 2));
+
+            }
+            catch { }
+            try
+            {
+                charSheet.pbTorso.Image = world.player.Torso.Draw(charSheet.pbCharImg.Width, charSheet.pbCharImg.Height, new Point((charSheet.pbTorso.Width / 2) - world.player.Torso.Image.Width / 2, (charSheet.pbTorso.Height / 2) - world.player.Torso.Image.Height / 2));
+
+            }
+            catch { }
+            try
+            {
+                charSheet.pbHead.Image = world.player.Legs.Draw(charSheet.pbCharImg.Width, charSheet.pbCharImg.Height, new Point((charSheet.pbLegs.Width / 2) - world.player.Legs.Image.Width / 2, (charSheet.pbLegs.Height / 2) - world.player.Legs.Image.Height / 2));
+
+            }
+            catch { }
+            try
+            {
+                charSheet.pbBoots.Image = world.player.Feet.Draw(charSheet.pbCharImg.Width, charSheet.pbCharImg.Height, new Point((charSheet.pbBoots.Width / 2) - world.player.Feet.Image.Width / 2, (charSheet.pbBoots.Height / 2) - world.player.Feet.Image.Height / 2));
+
+            }
+            catch { }
+            try
+            {
+                charSheet.pbRightHand.Image = world.player.MainHand.Draw(charSheet.pbCharImg.Width, charSheet.pbCharImg.Height, new Point((charSheet.pbRightHand.Width / 2) - world.player.MainHand.Image.Width / 2, (charSheet.pbRightHand.Height / 2) - world.player.MainHand.Image.Height / 2));
+
+            }
+            catch { }
+            try
+            {
+                charSheet.pbLeftHand.Image = world.player.OffHand.Draw(charSheet.pbCharImg.Width, charSheet.pbCharImg.Height, new Point((charSheet.pbLeftHand.Width / 2) - world.player.OffHand.Image.Width / 2, (charSheet.pbLeftHand.Height / 2) - world.player.OffHand.Image.Height / 2));
+
+            }
+            catch { }
+            charSheet.pbCharImg.Image = world.player.Draw(charSheet.pbCharImg.Width, charSheet.pbCharImg.Height, new Point((charSheet.pbCharImg.Width / 2) - world.player.Image.Width / 2, (charSheet.pbCharImg.Height / 2) - world.player.Image.Height / 2));
+
+        }
+        public void UpdateEquipment(Equipment equ, CharacterForm charSheet)
+        {
+            world.player.Equipped.Add(equ);
+            switch (equ.Slot)
+            {
+                case (int)Character.Slot.Head:
+                    world.player.Head = equ;
+                    charSheet.Slots[1].Name = equ.Name;
+                    break;
+                case (int)Character.Slot.Torso:
+                    world.player.Torso = equ;
+                    charSheet.Slots[2].Name = equ.Name;
+                    break;
+                case (int)Character.Slot.Legs:
+                    world.player.Legs = equ;
+                    charSheet.Slots[3].Name = equ.Name;
+                    break;
+                case (int)Character.Slot.Feet:
+                    world.player.Feet = equ;
+                    charSheet.Slots[4].Name = equ.Name;
+                    break;
+                case (int)Character.Slot.MainHand:
+                    world.player.MainHand = equ;
+                    charSheet.Slots[7].Name = equ.Name;
+                    break;
+                case (int)Character.Slot.OffHand:
+                    world.player.OffHand = equ;
+                    charSheet.Slots[6].Name = equ.Name;
+                    break;
+            }
+
         }
         void UpdateStats()
         {

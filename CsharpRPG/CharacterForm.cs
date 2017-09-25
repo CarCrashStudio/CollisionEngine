@@ -58,7 +58,7 @@ namespace CsharpRPG
                         }
                         world.player.Equipped.Remove(world.player.EquipmentByName(pb.Name));
                         world.player.Inventory.Add(new InventoryItem(world.ItemByName(pb.Name), 1));
-                        mainForm.UpdateBag();
+                        world.HUD.UpdateBag(world.inventory);
                         pb.Name = null;
                         pb.Image = null;
                     }

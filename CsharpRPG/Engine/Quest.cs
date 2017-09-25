@@ -21,6 +21,7 @@ namespace CsharpRPG.Engine
             desc = _desc;
             rewardExp = _rewardExp;
             rewardGold = _rewardGold;
+
         }
         public Quest(Quest quest)
         {
@@ -29,6 +30,8 @@ namespace CsharpRPG.Engine
             desc = quest.Description;
             rewardExp = quest.RewardExperiencePoints;
             rewardGold = quest.RewardGold;
+            QuestCompletionItems = quest.QuestCompletionItems;
+            RewardItem = quest.RewardItem;
         }
 
         public int ID { get {return id; } set {id = value; } }

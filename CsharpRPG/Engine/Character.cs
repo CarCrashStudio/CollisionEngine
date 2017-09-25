@@ -131,28 +131,28 @@ namespace CsharpRPG.Engine
                     Facing = "East";
                     break;
             }
-            //CheckCurrentLocation();
+            SwitchFacing("Player");
             if (!isColliding())
             {
                 switch (Facing)
                 {
                     case "North":
-                        Move(0, -1, "Player");
+                        Move(0, -1);
                         world.map.ShiftMap(0, 1);
                         break;
 
                     case "South":
-                        Move(0, 1, "Player");
+                        Move(0, 1);
                         world.map.ShiftMap(0, -1);
                         break;
 
                     case "East":
-                        Move(1, 0, "Player");
+                        Move(1, 0);
                         world.map.ShiftMap(-1, 0);
                         break;
 
                     case "West":
-                        Move(-1, 0, "Player");
+                        Move(-1, 0);
                         world.map.ShiftMap(1, 0);
                         break;
                 }
@@ -285,7 +285,10 @@ namespace CsharpRPG.Engine
                 {
                     // They have the item in their inventory, so increase the quantity by one
                     ii.Quantity--;
-
+                    if(ii.Quantity <= 0)
+                    {
+                        Inventory.Remove(ii);
+                    }
                     return; // We added the item, and are done, so get out of this function
                 }
             }
@@ -394,6 +397,7 @@ namespace CsharpRPG.Engine
                     if (playerQuest.IsCompleted)
                     {
                         playerAlreadyCompletedQuest = true;
+                        world.HUD.UpdateQuestLog();
                     }
                 }
             }
@@ -448,8 +452,8 @@ namespace CsharpRPG.Engine
                     if (playerHasAllItemsToCompleteQuest)
                     {
                         // Display message
-                        world.Output.Text += Environment.NewLine;
-                        world.Output.Text += "You complete the '" + npc.QuestAvailableHere.Name + "' quest." + Environment.NewLine;
+                        // world.Output.Text += Environment.NewLine;
+                        // world.Output.Text += "You complete the '" + npc.QuestAvailableHere.Name + "' quest." + Environment.NewLine;
 
                         // Remove quest items from inventory
                         foreach (QuestCompletionItem qci in npc.QuestAvailableHere.QuestCompletionItems)
@@ -515,7 +519,7 @@ namespace CsharpRPG.Engine
             else
             {
                 // The player does not already have the quest
-
+                StatsChanged = true;
                 // Display the messages
                 world.Output.Text += "You receive the " + npc.QuestAvailableHere.Name + " quest." + Environment.NewLine;
                 world.Output.Text += npc.QuestAvailableHere.Description + Environment.NewLine;

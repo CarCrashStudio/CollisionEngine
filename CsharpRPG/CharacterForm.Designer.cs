@@ -31,7 +31,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnClose = new System.Windows.Forms.Button();
             this.dgvQuests = new System.Windows.Forms.DataGridView();
-            this.lblQuestDesc = new System.Windows.Forms.Label();
             this.pbHeadPiece = new System.Windows.Forms.PictureBox();
             this.lblName = new System.Windows.Forms.Label();
             this.lblClassLevel = new System.Windows.Forms.Label();
@@ -45,6 +44,7 @@
             this.pbLeftHand = new System.Windows.Forms.PictureBox();
             this.pbBracers = new System.Windows.Forms.PictureBox();
             this.pbLegs = new System.Windows.Forms.PictureBox();
+            this.rtbOutput = new System.Windows.Forms.RichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvQuests)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbHeadPiece)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbCharImg)).BeginInit();
@@ -96,15 +96,6 @@
             this.dgvQuests.Size = new System.Drawing.Size(201, 149);
             this.dgvQuests.TabIndex = 22;
             this.dgvQuests.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvQuests_CellMouseClick);
-            // 
-            // lblQuestDesc
-            // 
-            this.lblQuestDesc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblQuestDesc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblQuestDesc.Location = new System.Drawing.Point(347, 194);
-            this.lblQuestDesc.Name = "lblQuestDesc";
-            this.lblQuestDesc.Size = new System.Drawing.Size(201, 151);
-            this.lblQuestDesc.TabIndex = 23;
             // 
             // pbHeadPiece
             // 
@@ -233,6 +224,14 @@
             this.pbLegs.TabIndex = 33;
             this.pbLegs.TabStop = false;
             // 
+            // rtbOutput
+            // 
+            this.rtbOutput.Location = new System.Drawing.Point(347, 194);
+            this.rtbOutput.Name = "rtbOutput";
+            this.rtbOutput.Size = new System.Drawing.Size(201, 148);
+            this.rtbOutput.TabIndex = 37;
+            this.rtbOutput.Text = "";
+            // 
             // CharacterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -240,6 +239,7 @@
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(554, 395);
             this.ControlBox = false;
+            this.Controls.Add(this.rtbOutput);
             this.Controls.Add(this.pbBoots);
             this.Controls.Add(this.pbLeftHand);
             this.Controls.Add(this.pbBracers);
@@ -252,7 +252,6 @@
             this.Controls.Add(this.lblClassLevel);
             this.Controls.Add(this.lblName);
             this.Controls.Add(this.pbHeadPiece);
-            this.Controls.Add(this.lblQuestDesc);
             this.Controls.Add(this.dgvQuests);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.label1);
@@ -283,7 +282,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnClose;
         public System.Windows.Forms.DataGridView dgvQuests;
-        private System.Windows.Forms.Label lblQuestDesc;
         public System.Windows.Forms.PictureBox pbHeadPiece;
         public System.Windows.Forms.Label lblName;
         public System.Windows.Forms.Label lblClassLevel;
@@ -297,5 +295,6 @@
         public System.Windows.Forms.PictureBox pbLeftHand;
         public System.Windows.Forms.PictureBox pbBracers;
         public System.Windows.Forms.PictureBox pbLegs;
+        public System.Windows.Forms.RichTextBox rtbOutput;
     }
 }

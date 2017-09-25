@@ -15,8 +15,8 @@ namespace CsharpRPG
         Sql SQL;
 
         // Forms
-        CharacterForm charSheet;
-        InventoryForm inventory;
+        public CharacterForm charSheet;
+        public InventoryForm inventory;
         CombatForm combat;
 
         // Object Classes
@@ -53,7 +53,6 @@ namespace CsharpRPG
             SQL = new Sql(String.Format(sqlConnString, sqlID, sqlPass));
             Login();
             charSheet.world = world;
-            InitializeScreenControls();
             world.combat = new Combat(combat = new CombatForm(world), world.MonsterByLocation(world.player.NextTile), world, world.player);
             world.HUD.UpdateScreenSize();
             updateScreen();
@@ -136,171 +135,26 @@ namespace CsharpRPG
 
         public void InitializePlayer(string name, string clss, Point loc, int health, int maxhealth, int mana, int maxmana, int str, int def, int level, int exp, int maxexp, int gold, string slug, int lastlocid)
         {
-            world = new World(pbMap, new Bitmap(Properties.Resources.CharStatBar), new Bitmap(Properties.Resources.CharImgBox), new Bitmap(Properties.Resources.strength), new Bitmap(Properties.Resources.defense), new Character(1, name, clss, loc, health, maxhealth, mana, maxmana, str, def, level, exp, maxexp, gold, slug, new Bitmap(Properties.Resources.PlayerDown)), offset); //You, the player, Character creation will be implemented later
+            world = new World(charSheet.dgvQuests, charSheet.rtbOutput, inventory, charSheet, pbMap, new Bitmap(Properties.Resources.CharStatBar), new Bitmap(Properties.Resources.CharImgBox), new Bitmap(Properties.Resources.strength), new Bitmap(Properties.Resources.defense), new Character(1, name, clss, loc, health, maxhealth, mana, maxmana, str, def, level, exp, maxexp, gold, slug, new Bitmap(Properties.Resources.PlayerDown)), offset); //You, the player, Character creation will be implemented later
             world.player.MoveTo(world.LocationByID(lastlocid));
-            //world.player.Skills.Add(new Skill(world.SkillByID(world.SKILL_ID_WEAKNESS)));
-            //world.player.Inventory.Add(new InventoryItem(world.ItemByID(world.WEAPON_ID_RUSTY_SWORD), 1)); //Give 1 'Rusty Sword' to player
         }
-       
-        void InitializeScreenControls()
-        {
-            //world.Journal = charSheet.dgvQuests;
-        }
-        public void UpdateEquipment(Equipment equ)
-        {
-            world.player.Equipped.Add(equ);
-            switch (equ.Slot)
-            {
-                case (int)Character.Slot.Head:
-                    world.player.Head = equ;
-                    charSheet.Slots[1].Name = equ.Name;
-                    break;
-                case (int)Character.Slot.Torso:
-                    world.player.Torso = equ;
-                    charSheet.Slots[2].Name = equ.Name;
-                    break;
-                case (int)Character.Slot.Legs:
-                    world.player.Legs = equ;
-                    charSheet.Slots[3].Name = equ.Name;
-                    break;
-                case (int)Character.Slot.Feet:
-                    world.player.Feet = equ;
-                    charSheet.Slots[4].Name = equ.Name;
-                    break;
-                case (int)Character.Slot.MainHand:
-                    world.player.MainHand = equ;
-                    charSheet.Slots[7].Name = equ.Name;
-                    break;
-                case (int)Character.Slot.OffHand:
-                    world.player.OffHand = equ;
-                    charSheet.Slots[6].Name = equ.Name;
-                    break;
-            }
-            
-        }
-
+        
         void OpenBag()
         {
-            UpdateBag();
+            world.HUD.UpdateBag(world.inventory);
             inventory.Show();        
         }
         void OpenStats()
         {
-            UpdateStats();
+            world.HUD.UpdateCharSheet(charSheet);
             charSheet.Show();
         }
 
-        public void UpdateBag()
-        {
-            int padding = 10;
-            int i = 0;
-            inventory.pnlSlotPanel.Controls.Clear();
-            for (int y = 0; y < 7; y++)
-            {
-                for (int x = 0; x < 7; x++)
-                {
-                    PictureBox temp = new PictureBox();
-                    Label lbl = new Label();
-
-                    temp.Size = new Size(48, 48);
-                    temp.Location = new Point((x * temp.Size.Width) + (padding * (x + 1)), (y * temp.Size.Width) + (padding * (y + 1)));
-                    temp.BackgroundImage = Properties.Resources.CharImgBox;
-                    temp.BackgroundImageLayout = ImageLayout.Stretch;
-                    temp.DoubleClick += delegate
-                    {
-                        if (temp.Name != "")
-                        {
-                            InventoryItem ii = world.player.ItemByName(temp.Name);
-                            if (ii.Details.Equipable)
-                            {
-                                world.player.Inventory.Remove(ii);
-                                Equipment equ = (Equipment)ii.Details;
-                                temp.Name = "";
-                                temp.Image = null;
-                                temp.Controls[0].Text = "0";
-                                temp.Controls[0].Visible = false;
-                                UpdateEquipment(equ);
-                                UpdateStats();
-                            }
-                        }
-                    };
-                    temp.Visible = true;
-
-                    lbl.Text = "0";
-                    lbl.Size = new Size(13, 13);
-                    lbl.AutoSize = true;
-                    lbl.BorderStyle = BorderStyle.FixedSingle;
-                    lbl.Location = new Point(temp.Width - lbl.Width, temp.Height - lbl.Height);
-                    lbl.Visible = false;
-
-                    try
-                    {
-                        temp.Image = world.player.Inventory[i].Details.Draw(48, 48, new Point((48 / 2) - (world.player.Inventory[i].Details.Image.Width / 2), (48 / 2) - (world.player.Inventory[i].Details.Image.Height / 2)));
-                        temp.Name = world.player.Inventory[i].Details.Name;
-                        lbl.Text = world.player.Inventory[i].Quantity.ToString();
-                        if (world.player.Inventory[i].Quantity > 1)
-                            lbl.Visible = true;
-                    }
-                    catch { }
-
-                    temp.Controls.Add(lbl);
-                    inventory.pnlSlotPanel.Controls.Add(temp);
-                    i++;
-                }
-            }
-        }
-        public void UpdateStats()
-        {
-            
-            charSheet.lblName.Text = "Name: " + world.player.Name;
-            charSheet.lblClassLevel.Text = "Class (Level): " + world.player.Class + " (" + world.player.Level + ")";
-            charSheet.lblStr.Text = "Strength: " + world.player.Strength.ToString();
-            charSheet.lblDefense.Text = "Defense: " + world.player.Defense.ToString();
-
-            try
-            {
-                charSheet.pbHead.Image = world.player.Head.Draw(charSheet.pbCharImg.Width, charSheet.pbCharImg.Height, new Point((charSheet.pbHead.Width / 2) - world.player.Head.Image.Width / 2, (charSheet.pbHead.Height / 2) - world.player.Head.Image.Height / 2));
-
-            }
-            catch { }
-            try
-            {
-                charSheet.pbTorso.Image = world.player.Torso.Draw(charSheet.pbCharImg.Width, charSheet.pbCharImg.Height, new Point((charSheet.pbTorso.Width / 2) - world.player.Torso.Image.Width / 2, (charSheet.pbTorso.Height / 2) - world.player.Torso.Image.Height / 2));
-
-            }
-            catch { }
-            try
-            {
-                charSheet.pbHead.Image = world.player.Legs.Draw(charSheet.pbCharImg.Width, charSheet.pbCharImg.Height, new Point((charSheet.pbLegs.Width / 2) - world.player.Legs.Image.Width / 2, (charSheet.pbLegs.Height / 2) - world.player.Legs.Image.Height / 2));
-
-            }
-            catch { }
-            try
-            {
-                charSheet.pbBoots.Image = world.player.Feet.Draw(charSheet.pbCharImg.Width, charSheet.pbCharImg.Height, new Point((charSheet.pbBoots.Width / 2) - world.player.Feet.Image.Width / 2, (charSheet.pbBoots.Height / 2) - world.player.Feet.Image.Height / 2));
-
-            }
-            catch { }
-            try
-            {
-                charSheet.pbRightHand.Image = world.player.MainHand.Draw(charSheet.pbCharImg.Width, charSheet.pbCharImg.Height, new Point((charSheet.pbRightHand.Width / 2) - world.player.MainHand.Image.Width / 2, (charSheet.pbRightHand.Height / 2) - world.player.MainHand.Image.Height / 2));
-
-            }
-            catch { }
-            try
-            {
-                charSheet.pbLeftHand.Image = world.player.OffHand.Draw(charSheet.pbCharImg.Width, charSheet.pbCharImg.Height, new Point((charSheet.pbLeftHand.Width / 2) - world.player.OffHand.Image.Width / 2, (charSheet.pbLeftHand.Height / 2) - world.player.OffHand.Image.Height / 2));
-
-            }
-            catch { }
-            charSheet.pbCharImg.Image = world.player.Draw(charSheet.pbCharImg.Width, charSheet.pbCharImg.Height, new Point((charSheet.pbCharImg.Width / 2) - world.player.Image.Width / 2, (charSheet.pbCharImg.Height / 2) - world.player.Image.Height / 2));
-
-        }
-        
         #region EventHandlers
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
             string keyPressed = e.KeyCode.ToString();
+            // MessageBox.Show(keyPressed);
             if (keyPressed == "W" || keyPressed == "S" || keyPressed == "A" || keyPressed == "D")
             {
                 if (!world.combat.Initiated)
@@ -335,11 +189,13 @@ namespace CsharpRPG
                         // Check if its a shop keeper or questgiver
                         if(npc.QuestAvailableHere != null)
                         {
-
+                            MessageBox.Show("I have a Quest");
+                            world.player.RecieveQuest(npc);
                         }
                         if(npc.ShopAvailibleHere != null)
                         {
-
+                            MessageBox.Show("I run a shop");
+                            npc.ShopAvailibleHere.Open();
                         }
                     }
                 }

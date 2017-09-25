@@ -75,9 +75,12 @@ namespace CsharpRPG.Engine
             }
             return new Point(0, 0);
         }
-        public void Move(int x, int y, string Entity)
+        public void Move(int x, int y)
         {
             Location = new Point(Location.X + x, Location.Y + y);
+        }
+        public void SwitchFacing(string Entity)
+        {
             switch (Facing)
             {
                 case "North":
@@ -93,25 +96,6 @@ namespace CsharpRPG.Engine
                     Image = new Bitmap((Bitmap)Properties.Resources.ResourceManager.GetObject(Entity + "Left", Properties.Resources.Culture));
                     break;
             }
-            //foreach(NPC npc in world.HUD.NpcsHere)
-            //{
-            //    switch (Facing)
-            //    {
-            //        case "North":
-            //            npc.Location = new Point(npc.Location.X, npc.Location.Y + 1);
-            //            break;
-            //        case "South":
-            //            npc.Location = new Point(npc.Location.X, npc.Location.Y - 1);
-            //            break;
-            //        case "East":
-            //            npc.Location = new Point(npc.Location.X - 1, npc.Location.Y);
-            //            break;
-            //        case "West":
-            //            npc.Location = new Point(npc.Location.X + 1, npc.Location.Y);
-            //            break;
-            //    }
-            //}
-            //world.HUD.UpdateNPCs();
         }
         public bool isColliding()
         {

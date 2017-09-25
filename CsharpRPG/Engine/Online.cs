@@ -184,7 +184,7 @@ namespace CsharpRPG.Engine
                 {
                     if (query[i, 1] != null)
                     {
-                        form.UpdateEquipment(new Equipment((Equipment)world.ItemByID(int.Parse(query[i, 1].ToString()))));
+                        world.HUD.UpdateEquipment(new Equipment((Equipment)world.ItemByID(int.Parse(query[i, 1].ToString()))), form.charSheet);
                     }
                 }
                 SQL.Close();

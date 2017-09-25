@@ -85,7 +85,7 @@ namespace CsharpRPG.Engine
         void InitiateCombat()
         {
             player.Facing = "South"; // Set the player so you see the front facing image
-            player.Move(0, 0, "Player");
+            player.SwitchFacing("Player");
             
             combat.pbCurrentParty.Image = player.Image;
             combat.pbCurrentMonster.Image = monster.Image;
