@@ -67,6 +67,8 @@ namespace CsharpRPG.Engine
         }
         void ReadTextFile(List<Tile> TileList, string TextFile)
         {
+            x = 0;
+            y = 0;
             int id = 0; // Variable for Tile Id;
             Tile tile; // Blank Tile;
 

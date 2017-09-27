@@ -29,6 +29,7 @@ namespace CsharpRPG.Engine
         public List<InventoryItem> Inventory { get; set; }
         public List<Equipment> Equipped { get; set; }
         public List<PlayerQuest> Quests { get; set; }
+        
 
         public enum Slot
         {
@@ -256,6 +257,52 @@ namespace CsharpRPG.Engine
                     {
                         // Subtract the quantity from the player's inventory that was needed to complete the quest
                         ii.Quantity -= qci.Quantity;
+                        break;
+                    }
+                }
+            }
+        }
+        public bool HasAllCraftingRecipeItems(Item craft)
+        {
+            // See if the player has all the items needed to complete the quest here
+            foreach (CraftingItem ci in craft.Recipe)
+            {
+                bool foundItemInPlayersInventory = false;
+
+                // Check each item in the player's inventory, to see if they have it, and enough of it
+                foreach (InventoryItem ii in Inventory)
+                {
+                    if (ii.Details.ID == ci.Details.ID) // The player has the item in their inventory
+                    {
+                        foundItemInPlayersInventory = true;
+
+                        if (ii.Quantity < ci.Quantity) // The player does not have enough of this item to complete the quest
+                        {
+                            return false;
+                        }
+                    }
+                }
+
+                // The player does not have any of this quest completion item in their inventory
+                if (!foundItemInPlayersInventory)
+                {
+                    return false;
+                }
+            }
+
+            // If we got here, then the player must have all the required items, and enough of them, to complete the quest.
+            return true;
+        }
+        public void RemoveCraftingRecipeItems(Item craft)
+        {
+            foreach (CraftingItem ci in craft.Recipe)
+            {
+                foreach (InventoryItem ii in Inventory)
+                {
+                    if (ii.Details.ID == ci.Details.ID)
+                    {
+                        // Subtract the quantity from the player's inventory that was needed to complete the quest
+                        ii.Quantity -= ci.Quantity;
                         break;
                     }
                 }

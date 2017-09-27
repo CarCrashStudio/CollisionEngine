@@ -82,7 +82,7 @@ namespace CsharpRPG
 
         private void btnLocal_Click(object sender, EventArgs e)
         {
-
+            Form.Local = new Local("ThinkLink99", Form.world, Form);
         }
     }
 }

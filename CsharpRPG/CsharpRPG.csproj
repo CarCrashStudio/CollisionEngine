@@ -65,6 +65,9 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LitJson">
+      <HintPath>bin\Debug\Plugins\LitJson.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -83,6 +86,12 @@
     </Compile>
     <Compile Include="CombatForm.Designer.cs">
       <DependentUpon>CombatForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CraftingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CraftingForm.Designer.cs">
+      <DependentUpon>CraftingForm.cs</DependentUpon>
     </Compile>
     <Compile Include="CreatorForm.cs">
       <SubType>Form</SubType>
@@ -144,6 +153,9 @@
     <Compile Include="Resources\AssemblyInfo.cs" />
     <EmbeddedResource Include="CombatForm.resx">
       <DependentUpon>CombatForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CraftingForm.resx">
+      <DependentUpon>CraftingForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CreatorForm.resx">
       <DependentUpon>CreatorForm.cs</DependentUpon>
@@ -553,6 +565,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="bin\Debug\maps\Your HouseDecos.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Bow.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Stick.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Workbench.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

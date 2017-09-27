@@ -121,7 +121,19 @@ namespace CsharpRPG.Engine
                     }
                 }
             }
-            foreach(NPC npc in world.HUD.NpcsHere)
+
+            foreach (Tile tile in world.map.DecosOnMap)
+            {
+                if (tile.Location == CheckNextTile())
+                {
+                    if (tile.Dense == 1)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            foreach (NPC npc in world.HUD.NpcsHere)
             {
                 if(npc.Location == CheckNextTile())
                 {

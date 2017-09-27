@@ -181,6 +181,17 @@ namespace CsharpRPG
             }
             if(keyPressed == "Return")
             {
+                foreach(Tile tile in world.map.DecosOnMap)
+                {
+                    if(tile.Location == world.player.CheckNextTile())
+                        if(tile.ID == world.TILE_ID_WORKBENCH)
+                        {
+                            CraftingForm cf = new CraftingForm(world);
+                            cf.Show();
+                        }
+                            
+                    
+                }
                 foreach(NPC npc in world.HUD.NpcsHere)
                 {
                     // check if the player is facing and standing next to an npc
