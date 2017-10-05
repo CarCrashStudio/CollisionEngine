@@ -511,6 +511,15 @@ namespace CsharpRPG.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string Savefile1 {
+            get {
+                return ResourceManager.GetString("Savefile1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap spider {
@@ -601,13 +610,9 @@ namespace CsharpRPG.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000;
-        ///000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000;
-        ///000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000;
-        ///000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000;
-        ///000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000;
-        ///000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000;
-        ///000 000 000 000 000  [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999;
+        ///9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999;
+        ///9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 999 [rest of string was truncated]&quot;;.
         /// </summary>
         public static string worldmapDecos {
             get {

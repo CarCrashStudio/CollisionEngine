@@ -98,3 +98,4 @@ C:\Users\linki\Desktop\Repos\RogueRPG\CsharpRPG\obj\Debug\CsharpRPG.CharacterFor
 C:\Users\linki\Desktop\Repos\RogueRPG\CsharpRPG\obj\Debug\CsharpRPG.InventoryForm.resources
 C:\Users\linki\Desktop\Repos\RogueRPG\CsharpRPG\obj\Debug\CsharpRPG.csproj.CoreCompileInputs.cache
 C:\Users\linki\Desktop\Repos\RogueRPG\CsharpRPG\obj\Debug\CsharpRPG.CraftingForm.resources
+C:\Users\linki\Desktop\Repos\RogueRPG\CsharpRPG\bin\Debug\LitJson.dll

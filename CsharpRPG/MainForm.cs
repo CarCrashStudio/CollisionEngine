@@ -245,6 +245,10 @@ namespace CsharpRPG
             {
                 Online.SaveGame();
             }
+            if(Local != null)
+            {
+                Local.SaveLocal(Application.StartupPath + "\\Saves\\" + world.player.Name + ".txt");
+            }
         }
         private void pbMap_MouseClick(object sender, MouseEventArgs e)
         {

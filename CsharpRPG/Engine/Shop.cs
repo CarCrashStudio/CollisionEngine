@@ -44,7 +44,11 @@ namespace CsharpRPG.Engine
                     else { break; }
                 }
                 int cost = world.ItemByName(temp).Cost;
-                world.player.Gold -= cost;
+
+                // Make sure the player doesnt have negative gold
+                if (world.player.Gold >= cost)
+                    world.player.Gold -= cost;
+
                 Inventory[inventory.SelectedIndex].Quantity -= 1;
                 world.player.AddItemToInventory(Inventory[inventory.SelectedIndex].Details);
                 Open();
