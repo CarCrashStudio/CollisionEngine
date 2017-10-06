@@ -184,7 +184,7 @@ namespace CsharpRPG.Engine
                                 }
                                 if (lstOptions.SelectedItem.ToString() == "Consume")
                                 {
-                                    ii.Details.Consume(ii);
+                                    ii.Details.Consume(ii, world.player);
                                 }
                                 if (lstOptions.SelectedItem.ToString() == "Craft")
                                 {

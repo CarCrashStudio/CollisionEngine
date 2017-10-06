@@ -52,15 +52,15 @@ namespace CsharpRPG.Engine
             }
             
         }
-        public void Consume (InventoryItem ii)
+        public void Consume (InventoryItem ii, Entity target)
         {
             Potion con = (Potion)ii.Details;
 
             world.player.RemoveItemFromInventory(ii.Details);
-            world.player.Health += con.AmountToBuff;
-            if (world.player.Health > world.player.MaxHealth)
+            target.Health += con.AmountToBuff;
+            if (target.Health > target.MaxHealth)
             {
-                world.player.Health = world.player.MaxHealth;
+                target.Health = target.MaxHealth;
             }
         }
         public void Craft(InventoryItem ii)

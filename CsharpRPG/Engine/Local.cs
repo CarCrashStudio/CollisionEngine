@@ -153,6 +153,45 @@ namespace CsharpRPG.Engine
             }
 
         }
+        void ReadSkills(string file)
+        {
+            reader = File.OpenText(file);
+            while (!reader.EndOfStream)
+            {
+                string line = "";
+                for (int i = 0; i < 3; i++)
+                {
+                    while (line != "-----")
+                    {
+                        line = reader.ReadLine();
+                    }
+                    line = reader.ReadLine();
+                }
+
+                while (line != "-----")
+                {
+                    if (line != null)
+                    {
+                        line = reader.ReadLine();
+                        if (line != "-----" && line != "")
+                        {
+                            string[] temp = line.Split(',');
+                            Skill skl = new Skill(world.SkillByID(int.Parse(temp[0])));
+                            skl.SkillLevel = int.Parse(temp[1]);
+                            skl.SkillExp = int.Parse(temp[2]);
+                            skl.SkillMaxExp = int.Parse(temp[3]);
+                            world.player.Skills.Add(skl);
+                        }
+                    }
+
+                    else { break; }
+                }
+
+                reader.Close();
+                break;
+            }
+
+        }
 
         void SaveCharacterData(string file)
         {
@@ -208,6 +247,17 @@ namespace CsharpRPG.Engine
             foreach (Equipment equ in form.world.player.Equipped)
             {
                 writer.WriteLine(equ.ID);
+            }
+            writer.WriteLine("-----");
+            writer.WriteLine();
+            writer.Close();
+        }
+        void SaveSkills(string file)
+        {
+            StreamWriter writer = File.AppendText(file);
+            foreach (Skill skl in form.world.player.Skills)
+            {
+                writer.WriteLine(skl.ID + "," + skl.SkillLevel + "," + skl.SkillExp + "," + skl.SkillMaxExp);
             }
             writer.WriteLine("-----");
             writer.WriteLine();

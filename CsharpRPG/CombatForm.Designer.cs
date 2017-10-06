@@ -31,9 +31,6 @@
             this.components = new System.ComponentModel.Container();
             this.panCombat = new System.Windows.Forms.Panel();
             this.pbMonsterParty3Health = new System.Windows.Forms.PictureBox();
-            this.lstParty3 = new System.Windows.Forms.ListBox();
-            this.lstParty2 = new System.Windows.Forms.ListBox();
-            this.lstParty1 = new System.Windows.Forms.ListBox();
             this.pbMonsterParty3 = new System.Windows.Forms.PictureBox();
             this.pbMonsterParty2Health = new System.Windows.Forms.PictureBox();
             this.pbMonsterParty2 = new System.Windows.Forms.PictureBox();
@@ -55,6 +52,7 @@
             this.btnATK = new System.Windows.Forms.Label();
             this.lblCombatOutput = new System.Windows.Forms.RichTextBox();
             this.wait = new System.Windows.Forms.Timer(this.components);
+            this.lstItems = new System.Windows.Forms.ListBox();
             this.panCombat.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbMonsterParty3Health)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbMonsterParty3)).BeginInit();
@@ -80,9 +78,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panCombat.Controls.Add(this.pbMonsterParty3Health);
-            this.panCombat.Controls.Add(this.lstParty3);
-            this.panCombat.Controls.Add(this.lstParty2);
-            this.panCombat.Controls.Add(this.lstParty1);
+            this.panCombat.Controls.Add(this.lstItems);
             this.panCombat.Controls.Add(this.pbMonsterParty3);
             this.panCombat.Controls.Add(this.pbMonsterParty2Health);
             this.panCombat.Controls.Add(this.pbMonsterParty2);
@@ -116,46 +112,6 @@
             this.pbMonsterParty3Health.Size = new System.Drawing.Size(95, 16);
             this.pbMonsterParty3Health.TabIndex = 52;
             this.pbMonsterParty3Health.TabStop = false;
-            // 
-            // lstParty3
-            // 
-            this.lstParty3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lstParty3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lstParty3.FormattingEnabled = true;
-            this.lstParty3.ItemHeight = 25;
-            this.lstParty3.Location = new System.Drawing.Point(812, 392);
-            this.lstParty3.Name = "lstParty3";
-            this.lstParty3.Size = new System.Drawing.Size(257, 154);
-            this.lstParty3.TabIndex = 51;
-            this.lstParty3.Visible = false;
-            this.lstParty3.SelectedIndexChanged += new System.EventHandler(this.lstParty3_SelectedIndexChanged);
-            this.lstParty3.DoubleClick += new System.EventHandler(this.lstParty3_DoubleClick);
-            // 
-            // lstParty2
-            // 
-            this.lstParty2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lstParty2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lstParty2.FormattingEnabled = true;
-            this.lstParty2.ItemHeight = 25;
-            this.lstParty2.Location = new System.Drawing.Point(812, 392);
-            this.lstParty2.Name = "lstParty2";
-            this.lstParty2.Size = new System.Drawing.Size(257, 154);
-            this.lstParty2.TabIndex = 50;
-            this.lstParty2.Visible = false;
-            this.lstParty2.DoubleClick += new System.EventHandler(this.lstParty2_DoubleClick);
-            // 
-            // lstParty1
-            // 
-            this.lstParty1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lstParty1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lstParty1.FormattingEnabled = true;
-            this.lstParty1.ItemHeight = 25;
-            this.lstParty1.Location = new System.Drawing.Point(812, 392);
-            this.lstParty1.Name = "lstParty1";
-            this.lstParty1.Size = new System.Drawing.Size(257, 154);
-            this.lstParty1.TabIndex = 49;
-            this.lstParty1.Visible = false;
-            this.lstParty1.DoubleClick += new System.EventHandler(this.lstParty1_DoubleClick);
             // 
             // pbMonsterParty3
             // 
@@ -328,6 +284,7 @@
             this.btnITEM.TabIndex = 29;
             this.btnITEM.Text = "ITEM";
             this.btnITEM.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnITEM.Click += new System.EventHandler(this.btnITEM_Click);
             // 
             // btnATK
             // 
@@ -357,6 +314,19 @@
             // 
             this.wait.Interval = 350;
             this.wait.Tick += new System.EventHandler(this.wait_Tick);
+            // 
+            // lstItems
+            // 
+            this.lstItems.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lstItems.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lstItems.FormattingEnabled = true;
+            this.lstItems.ItemHeight = 25;
+            this.lstItems.Location = new System.Drawing.Point(812, 392);
+            this.lstItems.Name = "lstItems";
+            this.lstItems.Size = new System.Drawing.Size(257, 154);
+            this.lstItems.TabIndex = 49;
+            this.lstItems.Visible = false;
+            this.lstItems.SelectedIndexChanged += new System.EventHandler(this.lstItems_SelectedIndexChanged);
             // 
             // CombatForm
             // 
@@ -414,9 +384,7 @@
         public System.Windows.Forms.PictureBox pbPartySlot2;
         public System.Windows.Forms.PictureBox pbCurrentHealth;
         public System.Windows.Forms.PictureBox pbCurrentParty;
-        public System.Windows.Forms.ListBox lstParty3;
-        public System.Windows.Forms.ListBox lstParty2;
-        public System.Windows.Forms.ListBox lstParty1;
         public System.Windows.Forms.PictureBox pbMonsterParty3Health;
+        public System.Windows.Forms.ListBox lstItems;
     }
 }

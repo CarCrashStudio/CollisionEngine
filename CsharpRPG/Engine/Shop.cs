@@ -27,7 +27,8 @@ namespace CsharpRPG.Engine
             ListBox inventory = new ListBox();
             foreach(InventoryItem ii in Inventory)
             {
-                inventory.Items.Add(ii.Details.Name + "(" + ii.Quantity + ")" + " ---- " + ii.Details.Cost + "G");
+                if(ii.Quantity != 0)
+                    inventory.Items.Add(ii.Details.Name + "(" + ii.Quantity + ")" + " ---- " + ii.Details.Cost + "G");
             }
             inventory.Size = new System.Drawing.Size(shop.Size.Width, shop.Size.Height - 32);
             inventory.Font = new System.Drawing.Font(System.Drawing.FontFamily.GenericSansSerif.Name, 16);
@@ -46,12 +47,14 @@ namespace CsharpRPG.Engine
                 int cost = world.ItemByName(temp).Cost;
 
                 // Make sure the player doesnt have negative gold
-                if (world.player.Gold >= cost)
+                if (world.player.Gold >= cost && Inventory[inventory.SelectedIndex].Quantity > 0)
+                {
                     world.player.Gold -= cost;
-
-                Inventory[inventory.SelectedIndex].Quantity -= 1;
-                world.player.AddItemToInventory(Inventory[inventory.SelectedIndex].Details);
-                Open();
+                    Inventory[inventory.SelectedIndex].Quantity -= 1;
+                    world.player.AddItemToInventory(Inventory[inventory.SelectedIndex].Details);
+                    Open();
+                }
+                    
                 shop.Close();
             };
 

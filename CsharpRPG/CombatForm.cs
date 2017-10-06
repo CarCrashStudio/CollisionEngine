@@ -21,75 +21,48 @@ namespace CsharpRPG
             this.world = world;
         }
 
-        public string skill1;
-        public string skill2;
-        public string skill3;
-        public string skill4;
+        public string skill1 = "", skill2 = "", skill3 = "", skill4 = "";
+        public bool Party1IsAttacking = false, Party2IsAttacking = false, Party3IsAttacking = false, Party4IsAttacking = false;
+
+       
+
+        int currentPartyMember = 0;
 
         private void wait_Tick(object sender, EventArgs e)
         {
             wait.Enabled = false;
-            world.combat.Attack(world.combat.monster.Party[0], world.player.Party[0], world.combat.monster.Party[0].Skills[rand.Next(world.combat.monster.Party[0].Skills.Count)]);
-            if (world.combat.monster.Party.Count > 1) { world.combat.Attack(world.combat.monster.Party[1], world.player.Party[0], world.combat.monster.Party[1].Skills[rand.Next(world.combat.monster.Party[1].Skills.Count)]); }
-            if (world.combat.monster.Party.Count > 2) { world.combat.Attack(world.combat.monster.Party[2], world.player.Party[0], world.combat.monster.Party[2].Skills[rand.Next(world.combat.monster.Party[2].Skills.Count)]); }
-            if (world.combat.monster.Party.Count > 3) { world.combat.Attack(world.combat.monster.Party[3], world.player.Party[0], world.combat.monster.Party[3].Skills[rand.Next(world.combat.monster.Party[3].Skills.Count)]); }
+
         }
 
         private void lstSkills_DoubleClick(object sender, EventArgs e)
         {
-            skill1 = lstSkills.SelectedItem.ToString();
-            if (world.player.Party.Count > 1)
+            switch (currentPartyMember)
             {
-                lstParty1.Items.Clear();
-                foreach (Skill skill in world.player.Party[1].Skills)
-                {
-                    lstParty1.Items.Add(skill.Name);
-                }
-                lstParty1.Visible = true;
-                lstSkills.Visible = false;
+                case 0:
+                    skill1 = lstSkills.SelectedItem.ToString();
+                    Party1IsAttacking = true;
+                    break;
+                case 1:
+                    skill2 = lstSkills.SelectedItem.ToString();
+                    Party2IsAttacking = true;
+                    break;
+                case 2:
+                    skill3 = lstSkills.SelectedItem.ToString();
+                    Party3IsAttacking = true;
+                    break;
+                case 3:
+                    skill4 = lstSkills.SelectedItem.ToString();
+                    Party4IsAttacking = true;
+                    break;
             }
-            else { world.combat.SelectSkills(skill1); }
-        }
-        private void lstParty1_DoubleClick(object sender, EventArgs e)
-        {
-            skill2 = lstParty1.SelectedItem.ToString();
-            if (world.player.Party.Count > 2)
-            {
-                lstParty2.Items.Clear();
-                foreach (Skill skill in world.player.Party[2].Skills)
-                {
-                    lstParty2.Items.Add(skill.Name);
-                }
-                lstParty2.Visible = true;
-                lstParty1.Visible = false;
-            }
-            else { world.combat.SelectSkills(skill1, skill2); }
-        }
-        private void lstParty2_DoubleClick(object sender, EventArgs e)
-        {
-            skill3 = lstParty2.SelectedItem.ToString();
-            if (world.player.Party.Count > 3)
-            {
-                lstParty3.Items.Clear();
-                foreach (Skill skill in world.player.Party[3].Skills)
-                {
-                    lstParty3.Items.Add(skill.Name);
-                }
-                lstParty3.Visible = true;
-                lstParty2.Visible = false;
-            }
-            else { world.combat.SelectSkills(skill1, skill2, skill3); }
-        }
-        private void lstParty3_DoubleClick(object sender, EventArgs e)
-        {
-            skill4 = lstSkills.SelectedItem.ToString();
-            world.combat.SelectSkills(skill1, skill2, skill3, skill4);
+            
         }
 
         private void btnATK_Click(object sender, EventArgs e)
         {
             lstSkills.Items.Clear();
-            foreach (Skill skill in world.player.Skills)
+            
+            foreach (Skill skill in world.player.Party[currentPartyMember].Skills)
             {
                 lstSkills.Items.Add(skill.Name);
             }
@@ -99,6 +72,39 @@ namespace CsharpRPG
         private void lstParty3_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnITEM_Click(object sender, EventArgs e)
+        {
+            lstItems.Items.Clear();
+            foreach(InventoryItem ii in world.player.Inventory)
+            {
+                lstItems.Items.Add(ii.Details.Name);
+            }
+            lstItems.Visible = true;
+        }
+        private void lstItems_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            InventoryItem ii = world.player.ItemByName(lstItems.SelectedItem.ToString());
+            switch (currentPartyMember)
+            {
+                case 0:
+                    ii.Details.Consume(ii, world.player.Party[currentPartyMember]);
+                    Party1IsAttacking = false;
+                    break;
+                case 1:
+                    ii.Details.Consume(ii, world.player.Party[currentPartyMember]);
+                    Party2IsAttacking = false;
+                    break;
+                case 2:
+                    ii.Details.Consume(ii, world.player.Party[currentPartyMember]);
+                    Party3IsAttacking = false;
+                    break;
+                case 3:
+                    ii.Details.Consume(ii, world.player.Party[currentPartyMember]);
+                    Party4IsAttacking = false;
+                    break;
+            }
         }
     }
 }

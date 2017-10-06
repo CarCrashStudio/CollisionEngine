@@ -157,6 +157,12 @@ namespace CsharpRPG.Engine
             CheckDeath(Defender);
         }
 
+        public void UseItem(Character target, InventoryItem Item)
+        {
+            Potion pot = (Potion)Item.Details;
+            pot.Consume(Item, target);
+        }
+
         void RewardLoot()
         {
             // Get random loot items from the monster
