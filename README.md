@@ -4,7 +4,7 @@ An RPG Engine built from scratch in C#
 - Started in August 2016
 - Added to personal Git in June 2017
 
-#Features
+# Features
 - 2D top-down, image rendering
 - Quests
 - Inventory
