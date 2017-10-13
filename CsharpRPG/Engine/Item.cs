@@ -3,16 +3,18 @@ using System.Drawing;
 
 namespace CsharpRPG.Engine
 {
-    public class Item : ScreenObject
+    public class Item
     {
-        World world;
+        public World world;
         string namePlural;
         int cost;
 
-        public Item(int _id, string _name, string _namePlural, int _cost, Bitmap _img, World world) :
-            base(_id, _name, _img)
+        public Item(int _id, string _name, string _namePlural, int _cost, Bitmap _img, World world)
         {
+            ID = _id;
+            Name = _name;
             namePlural = _namePlural;
+            Image = _img;
             cost = _cost;
 
             Recipe = new List<CraftingItem>();
@@ -20,7 +22,10 @@ namespace CsharpRPG.Engine
             this.world = world;
         }
 
+        public int ID { get; set; }
+        public string Name { get; set; }
         public string NamePlural { get { return namePlural; } set { namePlural = value; } }
+        public Bitmap Image { get; set; }
         public int Cost { get { return cost; } set { cost = value; } }
 
         public string EquipTag { get; set; }

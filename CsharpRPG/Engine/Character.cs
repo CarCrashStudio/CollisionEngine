@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Drawing;
-using System.Windows.Forms;
 using System.Collections.Generic;
-using System.IO;
 
 namespace CsharpRPG.Engine
-{ 
+{
     public class Character : Entity
     {
         //const int STEP_SIZE = 8;    
@@ -58,24 +56,8 @@ namespace CsharpRPG.Engine
          * Initializes a new Character
          * Used for Party Members and Players
          */
-        public Character(
-            int _id, // The ID used to Identify the Player
-            string _name, 
-            string clss, 
-            Point _location, 
-            int _hp, 
-            int _maxHp, 
-            int _mana, 
-            int _maxMana, 
-            int _maximumDamage, 
-            int _maxDefense, 
-            int _level, 
-            int _exp, 
-            int _maxExp, 
-            int _gold, 
-            string slug, 
-            Bitmap _img
-            ) : base(_id, _name, _location, _hp, _maxHp, _mana, _maxMana, _maximumDamage, _maxDefense, _img)
+        public Character(int _id, string _name, string clss, Point _location, int _hp, int _maxHp, int _mana, int _maxMana, int _maximumDamage, int _maxDefense, int _level, int _exp, int _maxExp, int _gold, string slug, Bitmap _img) : 
+            base(_id, _name, _location, _hp, _maxHp, _mana, _maxMana, _maximumDamage, _maxDefense, _img)
         {
             level = _level;
             exp = _exp;

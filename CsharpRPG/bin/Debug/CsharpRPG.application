@@ -11,17 +11,17 @@
     <deploymentProvider codebase="http://treyslaptop/CsharpRPG/CsharpRPG.application" />
   </deployment>
   <compatibleFrameworks xmlns="urn:schemas-microsoft-com:clickonce.v2">
-    <framework targetVersion="4.5.2" profile="Full" supportedRuntime="4.0.30319" />
+    <framework targetVersion="4.6.1" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="CsharpRPG.exe.manifest" size="4097">
+    <dependentAssembly dependencyType="install" codebase="CsharpRPG.exe.manifest" size="4752">
       <assemblyIdentity name="CsharpRPG.exe" version="1.0.0.5" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>EXlHNprSjioKYZvpbVIYZLJWzvCxiTBMG8r7sRrAGc4=</dsig:DigestValue>
+        <dsig:DigestValue>bKSBPLowcrf8h0ioFoEGAwMwcdYyMIJLK438SxLnZ3w=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

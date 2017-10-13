@@ -3,10 +3,11 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
 using System.Reflection;
+using _2D_Graphics_Engine.Engine;
 
 namespace CsharpRPG.Engine
 {
-    public class WorldMap : ScreenObject // Class holding the play area and tiles inside
+    public class WorldMap // Class holding the play area and tiles inside
     {
         World world;
 
@@ -16,12 +17,15 @@ namespace CsharpRPG.Engine
         public List<Tile> TilesOnMap { get; set; } // List of Tiles on map
         public List<Tile> DecosOnMap { get; set; }
         public PictureBox gameForm { get; set; } // Picture box to display on
+        public Bitmap Image { get; set; }
+        public string Name { get; set; }
         public Point MapLoc { get; set; }
 
-        public WorldMap(string _name, World _world) : 
-            base(0, _name, new Bitmap(_world.WIDTH, _world.HEIGHT))
+        public WorldMap(string _name, World _world)
         {
             world = _world;
+            Name = _name;
+            Image = new Bitmap(world.WIDTH, world.HEIGHT);
 
             BuildMap();
             CalibrateMap();
@@ -34,7 +38,7 @@ namespace CsharpRPG.Engine
         }
         public void SetMap()
         {
-            world.HudForm.Image = Draw(world.HudForm.Width, world.HudForm.Height, new Point(MapLoc.X * 32, (MapLoc.Y - 10) * 32));
+            world.HudForm.Image = ScreenObject.Draw(world.HudForm.Width, world.HudForm.Height, new Point(MapLoc.X * 32, (MapLoc.Y - 10) * 32), Image);
         }
 
         /* BuildMap()
@@ -45,7 +49,7 @@ namespace CsharpRPG.Engine
         {
             MapLoc = new Point(0, 0); // Initialize the Point for the Map Location
             Image = new Bitmap((Bitmap)Properties.Resources.ResourceManager.GetObject(Name, Properties.Resources.Culture));
-            Image = Draw(world.HudForm.Width, world.HudForm.Height, new Point(0, 0));
+            Image = ScreenObject.Draw(world.HudForm.Width, world.HudForm.Height, new Point(0, 0), Image);
 
             TilesOnMap = new List<Tile>();
             ReadTextFile(TilesOnMap, Name + "Text");
@@ -104,7 +108,7 @@ namespace CsharpRPG.Engine
             {
                 if(tile.ID > 999 && tile.ID < 10000)
                 {
-                    Image = tile.Draw(world.HudForm.Width, world.HudForm.Height, new Point(tile.Location.X *32, tile.Location.Y *32), Image);
+                    Image = ScreenObject.Draw(world.HudForm.Width, world.HudForm.Height, new Point(tile.Location.X *32, tile.Location.Y *32), tile.Image, Image);
                 }
             }
         }
@@ -114,32 +118,39 @@ namespace CsharpRPG.Engine
             {
                 if (tile.ID > 199 && tile.ID < 300)
                 {
-                    Image = tile.Draw(world.HudForm.Width, world.HudForm.Height, new Point(tile.Location.X * 32, tile.Location.Y * 32), Image);
+                    Image = ScreenObject.Draw(world.HudForm.Width, world.HudForm.Height, new Point(tile.Location.X * 32, tile.Location.Y * 32), tile.Image, Image);
                 }
             }
         }
     } 
-    public class Tile : ScreenObject// Class to hold tile information 
+    public class Tile// Class to hold tile information 
     {
         const int ICON_SIZE = 32; // 32x32 icons
 
         int dense;
         Point location;
 
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public Bitmap Image { get; set; }
         public int Dense { get { return dense; } set { dense = value; } } // Tile Density (Can you walk over it or not)
         public Point Location { get { return location; } set { location = value; } } // Tile Point
         public string Type { get; set; }
 
-        public Tile(int _id, string _name, int _dense, Point _location, Bitmap _img, string type) :
-            base(_id, _name, _img)
+        public Tile(int _id, string _name, int _dense, Point _location, Bitmap _img, string type)
         {
+            ID = _id;
+            Name = _name;
+            Image = _img;
             dense = _dense;
             location = _location;
             Type = type;
         }
-        public Tile(Tile tile) : 
-            base(tile.ID, tile.Name, tile.Image)
+        public Tile(Tile tile)
         {
+            ID = tile.ID;
+            Name = tile.Name;
+            Image = tile.Image;
             dense = tile.Dense;
             location = tile.Location;
             Type = tile.Type;

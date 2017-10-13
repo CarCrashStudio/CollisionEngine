@@ -66,9 +66,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pbMap.BackColor = System.Drawing.Color.Black;
             this.pbMap.Image = ((System.Drawing.Image)(resources.GetObject("pbMap.Image")));
-            this.pbMap.Location = new System.Drawing.Point(0, 0);
+            this.pbMap.Location = new System.Drawing.Point(-2, 0);
             this.pbMap.Name = "pbMap";
-            this.pbMap.Size = new System.Drawing.Size(1280, 1280);
+            this.pbMap.Size = new System.Drawing.Size(1282, 1280);
             this.pbMap.TabIndex = 15;
             this.pbMap.TabStop = false;
             this.pbMap.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pbMap_MouseClick);

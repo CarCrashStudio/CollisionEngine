@@ -5,14 +5,18 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using _2D_Graphics_Engine.Engine;
 
 namespace CsharpRPG.Engine
 {
-    public class Skill : ScreenObject
+    public class Skill
     {
         Random rand = new Random();
         public int buffamnt = 0;
 
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public Bitmap Image { get; set; }
         public int Buffamnt { get { return buffamnt * SkillLevel; } } // Amount to buff TargetVariable
         public string TargetVariable { get; set; } // The Target Entity's Health, Strength, Defense, etc. to be buffed or debuffed
         public int SkillLevel { get; set; } // The level of the skill, incresing buff and debuff amounts
@@ -26,24 +30,28 @@ namespace CsharpRPG.Engine
             Debuff=2,
         }
 
-        public Skill(int id, string name, Bitmap img, string targetVar, int buff, int type) : 
-            base(id,name,img)
+        public Skill(int id, string name, Bitmap img, string targetVar, int buff, int type)
         {
+            ID = id;
+            Name = name;
+            Image = img;
             buffamnt = buff;
             TargetVariable = targetVar;
             SkillMaxExp = 1000;
 
             SkillType = type;
         }
-        public Skill(Skill skill) :
-            base(skill.ID, skill.Name, skill.Image)
+        public Skill(Skill skill)
         {
+            ID = skill.ID;
+            Name = skill.Name;
+            Image = skill.Image;
             buffamnt = skill.buffamnt;
             TargetVariable = skill.TargetVariable;
             SkillMaxExp = skill.SkillMaxExp;
             SkillType = skill.SkillType;
         }
-        public Skill() : base(100000, "", new Bitmap(1, 1))
+        public Skill()
         {
 
         }

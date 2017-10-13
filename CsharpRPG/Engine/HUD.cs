@@ -1,3 +1,4 @@
+using _2D_Graphics_Engine.Engine;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
@@ -122,7 +123,7 @@ namespace CsharpRPG.Engine
 
             foreach (NPC npc in NpcsHere)
             {
-               world.HudForm.Image = npc.Draw(world.HudForm.Image.Width, world.HudForm.Image.Height, new Point((npc.Location.X + world.map.MapLoc.X) * 32, (npc.Location.Y + (world.map.MapLoc.Y - 10)) * 32), (Bitmap)world.HudForm.Image);
+               world.HudForm.Image = ScreenObject.Draw(world.HudForm.Image.Width, world.HudForm.Image.Height, new Point((npc.Location.X + world.map.MapLoc.X) * 32, (npc.Location.Y + (world.map.MapLoc.Y - 10)) * 32), npc.Image, (Bitmap)world.HudForm.Image);
             }
         }
         public void UpdateBag(InventoryForm inventory)
@@ -207,7 +208,7 @@ namespace CsharpRPG.Engine
 
                     try
                     {
-                        temp.Image = world.player.Inventory[i].Details.Draw(48, 48, new Point((48 / 2) - (world.player.Inventory[i].Details.Image.Width / 2), (48 / 2) - (world.player.Inventory[i].Details.Image.Height / 2)));
+                        temp.Image = ScreenObject.Draw(48, 48, new Point((48 / 2) - (world.player.Inventory[i].Details.Image.Width / 2), (48 / 2) - (world.player.Inventory[i].Details.Image.Height / 2)), world.player.Inventory[i].Details.Image);
                         temp.Name = world.player.Inventory[i].Details.Name;
                         lbl.Text = world.player.Inventory[i].Quantity.ToString();
                         if (world.player.Inventory[i].Quantity > 1)
@@ -231,41 +232,41 @@ namespace CsharpRPG.Engine
 
             try
             {
-                charSheet.pbHead.Image = world.player.Head.Draw(charSheet.pbCharImg.Width, charSheet.pbCharImg.Height, new Point((charSheet.pbHead.Width / 2) - world.player.Head.Image.Width / 2, (charSheet.pbHead.Height / 2) - world.player.Head.Image.Height / 2));
+                charSheet.pbHead.Image = ScreenObject.Draw(charSheet.pbCharImg.Width, charSheet.pbCharImg.Height, new Point((charSheet.pbHead.Width / 2) - world.player.Head.Image.Width / 2, (charSheet.pbHead.Height / 2) - world.player.Head.Image.Height / 2), world.player.Head.Image);
 
             }
             catch { }
             try
             {
-                charSheet.pbTorso.Image = world.player.Torso.Draw(charSheet.pbCharImg.Width, charSheet.pbCharImg.Height, new Point((charSheet.pbTorso.Width / 2) - world.player.Torso.Image.Width / 2, (charSheet.pbTorso.Height / 2) - world.player.Torso.Image.Height / 2));
+                charSheet.pbTorso.Image = ScreenObject.Draw(charSheet.pbCharImg.Width, charSheet.pbCharImg.Height, new Point((charSheet.pbTorso.Width / 2) - world.player.Torso.Image.Width / 2, (charSheet.pbTorso.Height / 2) - world.player.Torso.Image.Height / 2), world.player.Torso.Image);
 
             }
             catch { }
             try
             {
-                charSheet.pbHead.Image = world.player.Legs.Draw(charSheet.pbCharImg.Width, charSheet.pbCharImg.Height, new Point((charSheet.pbLegs.Width / 2) - world.player.Legs.Image.Width / 2, (charSheet.pbLegs.Height / 2) - world.player.Legs.Image.Height / 2));
+                charSheet.pbHead.Image = ScreenObject.Draw(charSheet.pbCharImg.Width, charSheet.pbCharImg.Height, new Point((charSheet.pbLegs.Width / 2) - world.player.Legs.Image.Width / 2, (charSheet.pbLegs.Height / 2) - world.player.Legs.Image.Height / 2), world.player.Legs.Image);
 
             }
             catch { }
             try
             {
-                charSheet.pbBoots.Image = world.player.Feet.Draw(charSheet.pbCharImg.Width, charSheet.pbCharImg.Height, new Point((charSheet.pbBoots.Width / 2) - world.player.Feet.Image.Width / 2, (charSheet.pbBoots.Height / 2) - world.player.Feet.Image.Height / 2));
+                charSheet.pbBoots.Image = ScreenObject.Draw(charSheet.pbCharImg.Width, charSheet.pbCharImg.Height, new Point((charSheet.pbBoots.Width / 2) - world.player.Feet.Image.Width / 2, (charSheet.pbBoots.Height / 2) - world.player.Feet.Image.Height / 2), world.player.Feet.Image);
 
             }
             catch { }
             try
             {
-                charSheet.pbRightHand.Image = world.player.MainHand.Draw(charSheet.pbCharImg.Width, charSheet.pbCharImg.Height, new Point((charSheet.pbRightHand.Width / 2) - world.player.MainHand.Image.Width / 2, (charSheet.pbRightHand.Height / 2) - world.player.MainHand.Image.Height / 2));
+                charSheet.pbRightHand.Image = ScreenObject.Draw(charSheet.pbCharImg.Width, charSheet.pbCharImg.Height, new Point((charSheet.pbRightHand.Width / 2) - world.player.MainHand.Image.Width / 2, (charSheet.pbRightHand.Height / 2) - world.player.MainHand.Image.Height / 2), world.player.MainHand.Image);
 
             }
             catch { }
             try
             {
-                charSheet.pbLeftHand.Image = world.player.OffHand.Draw(charSheet.pbCharImg.Width, charSheet.pbCharImg.Height, new Point((charSheet.pbLeftHand.Width / 2) - world.player.OffHand.Image.Width / 2, (charSheet.pbLeftHand.Height / 2) - world.player.OffHand.Image.Height / 2));
+                charSheet.pbLeftHand.Image = ScreenObject.Draw(charSheet.pbCharImg.Width, charSheet.pbCharImg.Height, new Point((charSheet.pbLeftHand.Width / 2) - world.player.OffHand.Image.Width / 2, (charSheet.pbLeftHand.Height / 2) - world.player.OffHand.Image.Height / 2), world.player.OffHand.Image);
 
             }
             catch { }
-            charSheet.pbCharImg.Image = world.player.Draw(charSheet.pbCharImg.Width, charSheet.pbCharImg.Height, new Point((charSheet.pbCharImg.Width / 2) - world.player.Image.Width / 2, (charSheet.pbCharImg.Height / 2) - world.player.Image.Height / 2));
+            charSheet.pbCharImg.Image = ScreenObject.Draw(charSheet.pbCharImg.Width, charSheet.pbCharImg.Height, new Point((charSheet.pbCharImg.Width / 2) - world.player.Image.Width / 2, (charSheet.pbCharImg.Height / 2) - world.player.Image.Height / 2), world.player.Image);
 
         }
         public void UpdateEquipment(Equipment equ, CharacterForm charSheet)
@@ -322,7 +323,7 @@ namespace CsharpRPG.Engine
         }
         void UpdatePlayer()
         {
-            world.HudForm.Image = world.player.Draw(world.HudForm.Width, world.HudForm.Height, new Point(world.WIDTH / 2, (world.HEIGHT / 2) - 320), (Bitmap)world.HudForm.Image);
+            world.HudForm.Image = ScreenObject.Draw(world.HudForm.Width, world.HudForm.Height, new Point(world.WIDTH / 2, (world.HEIGHT / 2) - 320), world.player.Image, (Bitmap)world.HudForm.Image);
             //UpdateInventory();
             
         }
@@ -335,7 +336,7 @@ namespace CsharpRPG.Engine
             Monster MonsterLivingHere = world.player.CurrentLocation.MonsterLivingHere;
             if (MonsterLivingHere != null)
             {
-                world.HudForm.Image = MonsterLivingHere.Draw(world.WIDTH, world.HEIGHT, new Point(MonsterLivingHere.Location.X * 32, MonsterLivingHere.Location.Y * 32), (Bitmap)world.HudForm.Image);
+                world.HudForm.Image = ScreenObject.Draw(world.WIDTH, world.HEIGHT, new Point(MonsterLivingHere.Location.X * 32, MonsterLivingHere.Location.Y * 32), MonsterLivingHere.Image, (Bitmap)world.HudForm.Image);
             }
         }
         void UpdateCombatScreen()
@@ -350,17 +351,17 @@ namespace CsharpRPG.Engine
             {
                 if (bar.Image != null)
                 {
-                    HudImg = bar.DrawText(bar.Text, form.Width, form.Height, new Point(bar.Boundries[0].X + bar.Image.Width + 5, bar.Boundries[0].Y), HudImg);
+                    HudImg = ScreenObject.DrawText(bar.Text, World.fontSize, form.Width, form.Height, new Point(bar.Boundries[0].X + bar.Image.Width + 5, bar.Boundries[0].Y), HudImg);
                 }
                 else
                 {
-                    HudImg = bar.DrawText(bar.Text, form.Width, form.Height, bar.Boundries[0], HudImg);
+                    HudImg = ScreenObject.DrawText(bar.Text, World.fontSize, form.Width, form.Height, bar.Boundries[0], HudImg);
 
                 }
             }
             if(bar.Image != null)
             {
-                HudImg = bar.Draw(form.Width, form.Height, bar.Boundries[0], HudImg);
+                HudImg = ScreenObject.Draw(form.Width, form.Height, bar.Boundries[0], bar.Image, HudImg);
             }
         }
         public void DrawHealth(HUDObject health, PictureBox form, Entity entity)
@@ -381,7 +382,7 @@ namespace CsharpRPG.Engine
                 else if (temp >= .1 && temp < .2) { img = new Bitmap(Properties.Resources.HealthBar1); }
             }
             health.Image = img;
-            HudImg = health.Draw(world.HudForm.Width, world.HudForm.Height, health.Boundries[0], HudImg);
+            HudImg = ScreenObject.Draw(world.HudForm.Width, world.HudForm.Height, health.Boundries[0], health.Image, HudImg);
         }
         public void DrawExp(HUDObject exp, PictureBox form, Character entity)
         {
@@ -403,7 +404,7 @@ namespace CsharpRPG.Engine
                 else { img = new Bitmap(Properties.Resources.ExpBarEmpty); }
             }
             exp.Image = img;
-            HudImg = exp.Draw(world.HudForm.Width, world.HudForm.Height, exp.Boundries[0], HudImg);
+            HudImg = ScreenObject.Draw(world.HudForm.Width, world.HudForm.Height, exp.Boundries[0], exp.Image, HudImg);
         }
         public Bitmap DrawHud()
         {
@@ -419,15 +420,17 @@ namespace CsharpRPG.Engine
             return new Point(e.Location.X, e.Location.Y);
         }
     }
-    public class HUDObject : ScreenObject
+    public class HUDObject
     {
+        public int ID { get; set; }
+        public string Name { get; set; }
         public bool Shown = false;
         public List<Point> Boundries { get; set; }
         public PictureBox Picture { get; set; }
         public string Text { get; set; }
+        public Bitmap Image { get; set; }
 
-        public HUDObject(List<Point> _Boundries, Bitmap _Image = null, string _Text = null) : 
-            base(1000,"HUDObject",_Image)
+        public HUDObject(List<Point> _Boundries, Bitmap _Image = null, string _Text = null)
         {
             Boundries = _Boundries;
             Image = _Image;

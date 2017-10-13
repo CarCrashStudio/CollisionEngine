@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using _2D_Graphics_Engine.Engine;
 
 namespace CsharpRPG
 {
@@ -200,6 +201,8 @@ namespace CsharpRPG
                         // Check if its a shop keeper or questgiver
                         if(npc.QuestAvailableHere != null)
                         {
+                            //ScreenText text = new ScreenText(0, npc.Name, npc.QuestAvailableHere.Description, Properties.Resources.CharStatBar, this);
+                            //text.Draw();
                             MessageBox.Show("I have a Quest");
                             world.player.RecieveQuest(npc);
                         }

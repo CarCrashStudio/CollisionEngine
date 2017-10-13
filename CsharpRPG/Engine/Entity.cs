@@ -1,16 +1,16 @@
 ﻿using System.Drawing;
-using System.Windows.Forms;
-using System.IO;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
 
 namespace CsharpRPG.Engine
 {
-    public class Entity : ScreenObject
+    public class Entity
     {
         Point location;
-        
+        Bitmap img;
+        int id;
+        string name;
         int hp;
         int maxHp;
         int mana;
@@ -20,6 +20,11 @@ namespace CsharpRPG.Engine
 
         Random rand = new Random();
 
+        public Bitmap Image { get { return img; } set { img = value; } }
+        public int ID { get { return id; } set { id = value; } }
+        public string Name { get { return name; } set { name = value; } }
+        public string Facing { get; set; } // The direction the player is facing (North, South, East, West)
+        public Point NextTile { get; set; } //THe coordinate of the tile in front of the player
         public int Health { get { return hp; } set { hp = value; } }
         public int MaxHealth { get { return maxHp; } set { maxHp = value; } }
         public int Mana { get { return mana; } set { mana = value; } }
@@ -34,12 +39,11 @@ namespace CsharpRPG.Engine
         public int Strength { get { return maxDamage; } set { maxDamage = value; } }
         public int Defense { get { return maxDefense; } set { maxDefense = value; } }
 
-        public string Facing { get; set; } // The direction the player is facing (North, South, East, West)
-        public Point NextTile { get; set; } //THe coordinate of the tile in front of the player
-
-        public Entity(int _id, string _name, Point _location, int _hp, int _maxHp, int _mana, int _maxMana, int _maximumDamage, int _maxDefense, Bitmap _img, World _world = null) :
-            base(_id,_name, _img)
+        public Entity(int _id, string _name, Point _location, int _hp, int _maxHp, int _mana, int _maxMana, int _maximumDamage, int _maxDefense, Bitmap _img, World _world = null)
         {
+            id = _id;
+            name = _name;
+            img = _img;
             hp = _hp;
             maxHp = _maxHp;
             mana = _mana;
@@ -54,7 +58,7 @@ namespace CsharpRPG.Engine
 
             Party.Add(this);
         }
-        
+
         public Point CheckNextTile()
         {
             Point tempNextTile;
@@ -75,10 +79,6 @@ namespace CsharpRPG.Engine
             }
             return new Point(0, 0);
         }
-        public void Move(int x, int y)
-        {
-            Location = new Point(Location.X + x, Location.Y + y);
-        }
         public void SwitchFacing(string Entity)
         {
             switch (Facing)
@@ -96,6 +96,10 @@ namespace CsharpRPG.Engine
                     Image = new Bitmap((Bitmap)Properties.Resources.ResourceManager.GetObject(Entity + "Left", Properties.Resources.Culture));
                     break;
             }
+        }
+        public void Move(int x, int y)
+        {
+            Location = new Point(Location.X + x, Location.Y + y);
         }
         public bool isColliding()
         {

@@ -4,8 +4,6 @@ namespace CsharpRPG.Engine
 {
     public class Equipment : Item
     {
-        World world;
-
         public int MinimumDamage { get; set; }
         public int MaximumDamage { get; set; }
         public int MaximumDefense { get; set; }
@@ -31,9 +29,6 @@ namespace CsharpRPG.Engine
     }
     public class Weapon : Equipment
     {
-        int minimumDamage;
-        int maximumDamage;
-
         public Weapon(int _id, string _name, string _namePlural, int _minDamage, int _maxDamage, int _cost, int slot,  Bitmap _img, World world) :
             base(_id, _name, _namePlural, _cost, _img, world)
         {
