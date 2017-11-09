@@ -10,16 +10,16 @@ namespace RPG.Engine
         public int MinimumDefense { get; set; }
 
         public int Slot { get; set; }
-        public bool isEquipped { get; set; }
+        public bool IsEquipped { get; set; }
 
-        public Equipment(int _id, string _name, string _namePlural, int _cost, Bitmap _img, World world) :
-            base(_id, _name, _namePlural, _cost, _img, world)
+        public Equipment(int _id, string _name, string _namePlural, int _cost, Bitmap _img) :
+            base(_id, _name, _namePlural, _cost, _img)
         {
             Equipable = true;
             
         }
         public Equipment(Equipment equ) :
-            base(equ.ID, equ.Name, equ.NamePlural, equ.Cost, equ.Image, equ.world)
+            base(equ.ID, equ.Name, equ.NamePlural, equ.Cost, equ.Image)
         {
             Equipable = true;
             Slot = equ.Slot;
@@ -29,8 +29,8 @@ namespace RPG.Engine
     }
     public class Weapon : Equipment
     {
-        public Weapon(int _id, string _name, string _namePlural, int _minDamage, int _maxDamage, int _cost, int slot,  Bitmap _img, World world) :
-            base(_id, _name, _namePlural, _cost, _img, world)
+        public Weapon(int _id, string _name, string _namePlural, int _minDamage, int _maxDamage, int _cost, int slot,  Bitmap _img) :
+            base(_id, _name, _namePlural, _cost, _img)
         {
             MinimumDamage = _minDamage;
             MaximumDamage = _maxDamage;
@@ -43,8 +43,8 @@ namespace RPG.Engine
     }
     public class Armor : Equipment
     {
-        public Armor(int _id, string _name, string _namePlural, int _maxDefense, int _minDefense, int _cost, int slot, Bitmap _img, World world) :
-            base(_id, _name, _namePlural, _cost, _img, world)
+        public Armor(int _id, string _name, string _namePlural, int _maxDefense, int _minDefense, int _cost, int slot, Bitmap _img) :
+            base(_id, _name, _namePlural, _cost, _img)
         {
             MaximumDefense = _maxDefense;
             MinimumDefense = _minDefense;

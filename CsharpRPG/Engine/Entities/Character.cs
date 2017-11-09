@@ -297,7 +297,6 @@ namespace RPG.Engine
                 if (!playerHasRequiredItem)
                 {
                     // We didn't find the required item in their inventory, so display a message and stop trying to move
-                    world.Output.Text += "You must have a " + newLocation.ItemRequiredToEnter.Name + " to enter this location." + Environment.NewLine;
                     return;
                 }
             }
@@ -310,7 +309,7 @@ namespace RPG.Engine
             catch { CurrentLocation.MonsterLivingHere = null; }
 
             CountDown = MAX_COUNTDOWN; //Countdown resets upon entering a new location
-            //world.HUD.UpdateNPCs();
+            //World.HUD.UpdateNPCs();
         }
         public void RecieveQuest(NPC npc)
         {
@@ -381,8 +380,8 @@ namespace RPG.Engine
                     if (playerHasAllItemsToCompleteQuest)
                     {
                         // Display message
-                        // world.Output.Text += Environment.NewLine;
-                        // world.Output.Text += "You complete the '" + npc.QuestAvailableHere.Name + "' quest." + Environment.NewLine;
+                        // World.Output.Text += Environment.NewLine;
+                        // World.Output.Text += "You complete the '" + npc.QuestAvailableHere.Name + "' quest." + Environment.NewLine;
 
                         // Remove quest items from inventory
                         foreach (QuestCompletionItem qci in npc.QuestAvailableHere.QuestCompletionItems)
@@ -399,12 +398,6 @@ namespace RPG.Engine
                         }
 
                         // Give quest rewards
-                        world.Output.Text += "You receive: " + Environment.NewLine;
-                        world.Output.Text += npc.QuestAvailableHere.RewardExperiencePoints.ToString() + " experience points" + Environment.NewLine;
-                        world.Output.Text += npc.QuestAvailableHere.RewardGold.ToString() + " gold" + Environment.NewLine;
-                        world.Output.Text += npc.QuestAvailableHere.RewardItem.Name + Environment.NewLine;
-                        world.Output.Text += Environment.NewLine;
-
                         Exp += npc.QuestAvailableHere.RewardExperiencePoints;
                         Gold += npc.QuestAvailableHere.RewardGold;
 
@@ -449,27 +442,11 @@ namespace RPG.Engine
             {
                 // The player does not already have the quest
                 StatsChanged = true;
-                // Display the messages
-                world.Output.Text += "You receive the " + npc.QuestAvailableHere.Name + " quest." + Environment.NewLine;
-                world.Output.Text += npc.QuestAvailableHere.Description + Environment.NewLine;
-                world.Output.Text += "To complete it, return with:" + Environment.NewLine;
-                foreach (QuestCompletionItem qci in npc.QuestAvailableHere.QuestCompletionItems)
-                {
-                    if (qci.Quantity == 1)
-                    {
-                        world.Output.Text += qci.Quantity.ToString() + " " + qci.Details.Name + Environment.NewLine;
-                    }
-                    else
-                    {
-                        world.Output.Text += qci.Quantity.ToString() + " " + qci.Details.NamePlural + Environment.NewLine;
-                    }
-                }
-                world.Output.Text += Environment.NewLine;
 
                 // Add the quest to the player's quest list
                 Quests.Add(new PlayerQuest(npc.QuestAvailableHere));
             }
-            //world.HUD.Update();
+            //World.HUD.Update();
         }
 
         public InventoryItem ItemByName(string name)

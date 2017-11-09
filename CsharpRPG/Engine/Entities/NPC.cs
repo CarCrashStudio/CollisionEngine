@@ -11,9 +11,7 @@ namespace RPG.Engine
         public Shop ShopAvailibleHere { get; set; }
         public Bitmap Image { get; set; }
 
-        public World world { get; set; }
-
-        public NPC(int _id, string _name, Bitmap _img, Point _location, Quest _questAvailibleHere, Shop _shopAvailibleHere, World _world)
+        public NPC(int _id, string _name, Bitmap _img, Point _location, Quest _questAvailibleHere, Shop _shopAvailibleHere)
         {
             ID = _id;
             Name = _name;
@@ -21,7 +19,6 @@ namespace RPG.Engine
             Location = _location;
             QuestAvailableHere = _questAvailibleHere;
             ShopAvailibleHere = _shopAvailibleHere;
-            world = _world;
         }
         public NPC(NPC npc)
         {
@@ -31,7 +28,6 @@ namespace RPG.Engine
             Location = npc.Location;
             QuestAvailableHere = npc.QuestAvailableHere;
             ShopAvailibleHere = npc.ShopAvailibleHere;
-            world = npc.world;
         }
     }
 }

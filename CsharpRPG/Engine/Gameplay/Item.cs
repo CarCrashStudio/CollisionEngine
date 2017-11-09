@@ -4,12 +4,11 @@ using System.Drawing;
 namespace RPG.Engine
 {
     public class Item
-    {
-        public World world;
+    { 
         string namePlural;
         int cost;
 
-        public Item(int _id, string _name, string _namePlural, int _cost, Bitmap _img, World world)
+        public Item(int _id, string _name, string _namePlural, int _cost, Bitmap _img)
         {
             ID = _id;
             Name = _name;
@@ -18,8 +17,6 @@ namespace RPG.Engine
             cost = _cost;
 
             Recipe = new List<CraftingItem>();
-
-            this.world = world;
         }
 
         public int ID { get; set; }

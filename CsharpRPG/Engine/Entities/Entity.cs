@@ -34,12 +34,10 @@ namespace RPG.Engine
         public List<Entity> Party { get; set; }
         public List<Entity> PartyDead { get; set; }
 
-        public World world { get; set; }
-
         public int Strength { get { return maxDamage; } set { maxDamage = value; } }
         public int Defense { get { return maxDefense; } set { maxDefense = value; } }
 
-        public Entity(int _id, string _name, int _hp, int _maxHp, int _mana, int _maxMana, int _maximumDamage, int _maxDefense, World _world = null)
+        public Entity(int _id, string _name, int _hp, int _maxHp, int _mana, int _maxMana, int _maximumDamage, int _maxDefense)
         {
             id = _id;
             name = _name;
@@ -49,7 +47,6 @@ namespace RPG.Engine
             maxMana = _maxMana;
             maxDamage = _maximumDamage;
             maxDefense = _maxDefense;
-            world = _world;
             Skills = new List<Skill>();
             Party = new List<Entity>();
             PartyDead = new List<Entity>();
@@ -57,7 +54,7 @@ namespace RPG.Engine
             Party.Add(this);
         }
 
-        public bool isDead()
+        public bool IsDead()
         {
             if (hp <= 0)
             {
