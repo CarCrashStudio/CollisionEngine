@@ -1,0 +1,10 @@
+C:\Users\linki\Desktop\Repos\RogueRPG\CsharpRPG\obj\Debug\RPG.csprojResolveAssemblyReference.cache
+C:\Users\linki\Desktop\Repos\RogueRPG\CsharpRPG\obj\Debug\CsharpRPG.Properties.Resources.resources
+C:\Users\linki\Desktop\Repos\RogueRPG\CsharpRPG\obj\Debug\RPG.csproj.GenerateResource.Cache
+C:\Users\linki\Desktop\Repos\RogueRPG\CsharpRPG\obj\Debug\RPG.csproj.CoreCompileInputs.cache
+C:\Users\linki\Desktop\Repos\RogueRPG\CsharpRPG\bin\Debug\RPG.dll.config
+C:\Users\linki\Desktop\Repos\RogueRPG\CsharpRPG\bin\Debug\RPG.dll
+C:\Users\linki\Desktop\Repos\RogueRPG\CsharpRPG\bin\Debug\RPG.pdb
+C:\Users\linki\Desktop\Repos\RogueRPG\CsharpRPG\bin\Debug\LitJson.dll
+C:\Users\linki\Desktop\Repos\RogueRPG\CsharpRPG\obj\Debug\RPG.dll
+C:\Users\linki\Desktop\Repos\RogueRPG\CsharpRPG\obj\Debug\RPG.pdb

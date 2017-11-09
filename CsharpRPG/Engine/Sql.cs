@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Windows.Forms;
 
-namespace CsharpRPG.Engine
+namespace RPG.Engine
 {
     public class Sql
     {
