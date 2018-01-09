@@ -1,4 +1,3 @@
-C:\Users\linki\Desktop\Repos\RogueRPG\CsharpRPG\obj\Debug\RPG.csprojResolveAssemblyReference.cache
 C:\Users\linki\Desktop\Repos\RogueRPG\CsharpRPG\obj\Debug\RPG.csproj.CoreCompileInputs.cache
 C:\Users\linki\Desktop\Repos\RogueRPG\CsharpRPG\bin\Debug\RPG.dll.config
 C:\Users\linki\Desktop\Repos\RogueRPG\CsharpRPG\bin\Debug\RPG.dll

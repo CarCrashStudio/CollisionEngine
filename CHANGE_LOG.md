@@ -1,4 +1,9 @@
 # CHANGE LOG
+- v1.0.5
+  - Added SceenObject render to project
+  - Added HUD render to project
+  - Removed Garbage files
+  - Added AssemblyInfo File
 - v1.0.4
   - Removed UnityEngine Library
   - Removed LitJSON Library
