@@ -1,18 +1,17 @@
-﻿using System.Drawing;
-
-namespace RPG.Engine
+﻿namespace RPG.Engine
 {
     public class Potion : Item
     {
         int amountToHeal;
 
-        public Potion(int _id, string _name, string _namePlural, int _amountToHeal, int _cost, Bitmap _img) :
-            base(_id, _name, _namePlural, _cost, _img)
+        public Potion(int _id, string _name, string _namePlural, int _amountToHeal, int _cost) :
+            base(_id, _name, _namePlural, _cost)
         {
             Consumable = true;
             amountToHeal = _amountToHeal;
         }
-     
+
         public int AmountToBuff { get { return amountToHeal; } set { amountToHeal = value; } }
+        public string VariableToBuff { get; set; }
     }
 }

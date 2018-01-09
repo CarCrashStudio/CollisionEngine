@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-
-namespace RPG.Engine
+﻿namespace RPG.Engine
 {
     public class PartyMember : Entity
     {

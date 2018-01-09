@@ -1,22 +1,22 @@
-﻿using System.Drawing;
-
-namespace RPG.Engine
+﻿namespace RPG.Engine
 {
     public class NPC
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        public Point Location { get; set; }
+
+        public int X { get; set; }
+        public int Y { get; set; }
+
         public Quest QuestAvailableHere { get; set; }
         public Shop ShopAvailibleHere { get; set; }
-        public Bitmap Image { get; set; }
 
-        public NPC(int _id, string _name, Bitmap _img, Point _location, Quest _questAvailibleHere, Shop _shopAvailibleHere)
+        public NPC(int _id, string _name, int x, int y, Quest _questAvailibleHere, Shop _shopAvailibleHere)
         {
             ID = _id;
             Name = _name;
-            Image = _img;
-            Location = _location;
+            X = x;
+            Y = y;
             QuestAvailableHere = _questAvailibleHere;
             ShopAvailibleHere = _shopAvailibleHere;
         }
@@ -24,8 +24,6 @@ namespace RPG.Engine
         {
             ID = npc.ID;
             Name = npc.Name;
-            Image = npc.Image;
-            Location = npc.Location;
             QuestAvailableHere = npc.QuestAvailableHere;
             ShopAvailibleHere = npc.ShopAvailibleHere;
         }

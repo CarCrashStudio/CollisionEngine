@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Drawing;
 
 namespace RPG.Engine
 {
@@ -8,12 +7,11 @@ namespace RPG.Engine
         string namePlural;
         int cost;
 
-        public Item(int _id, string _name, string _namePlural, int _cost, Bitmap _img)
+        public Item(int _id, string _name, string _namePlural, int _cost)
         {
             ID = _id;
             Name = _name;
             namePlural = _namePlural;
-            Image = _img;
             cost = _cost;
 
             Recipe = new List<CraftingItem>();
@@ -22,7 +20,6 @@ namespace RPG.Engine
         public int ID { get; set; }
         public string Name { get; set; }
         public string NamePlural { get { return namePlural; } set { namePlural = value; } }
-        public Bitmap Image { get; set; }
         public int Cost { get { return cost; } set { cost = value; } }
 
         public string EquipTag { get; set; }
@@ -30,6 +27,29 @@ namespace RPG.Engine
         public bool Consumable { get; set; }
 
         public List<CraftingItem> Recipe;
+        
+        public void Use(Character player)
+        {
+            Potion pot = (Potion)this;
+
+            switch (pot.VariableToBuff)
+            {
+                case "Health":
+                    player.Health += pot.AmountToBuff;
+                    break;
+                case "Strength":
+                    player.Strength += pot.AmountToBuff;
+                    break;
+                case "Defense":
+                    player.Defense += pot.AmountToBuff;
+                    break;
+
+            }
+        }
+        public void Equip()
+        {
+
+        }
     }
     public class InventoryItem
     {

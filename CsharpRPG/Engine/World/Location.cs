@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Drawing;
 
 namespace RPG.Engine
 {
@@ -12,6 +11,11 @@ namespace RPG.Engine
         public int ID { get { return id; } set { id = value; } }
         public string Name { get { return name; } set { name = value; } }
         public string Description { get { return desc; } set { desc = value; } }
+
+        public int Length { get; set; }
+        public int Width { get; set; } 
+
+        public List<Tile> Tiles { get; set; }
             
         public Item ItemRequiredToEnter { get; set; }
         public Quest QuestAvailableHere { get; set; }
@@ -20,7 +24,6 @@ namespace RPG.Engine
         public List<NPC> NPCsLivingHere { get; set; }
 
         public List<Transition> Transitions { get; set; }
-        public List<Point> Boundries { get; set; }
 
         public Location LocationToNorth { get; set; }
         public Location LocationToEast { get; set; }
@@ -35,8 +38,18 @@ namespace RPG.Engine
             ItemRequiredToEnter = itemRequiredToEnter;
             QuestAvailableHere = questAvailableHere;
             MonsterLivingHere = monsterLivingHere;
-            Boundries = new List<Point>();
             NPCsLivingHere = new List<NPC>();
+            Tiles = new List<Tile>();
+        }
+        public Location (int _id, string _name, string _desc, int width, int length)
+        {
+            ID = _id;
+            Name = _name;
+            Description = _desc;
+            Width = width;
+            Length = length;
+            NPCsLivingHere = new List<NPC>();
+            Tiles = new List<Tile>();
         }
         public Location(Location location) //Overload For location class
         {
@@ -48,30 +61,29 @@ namespace RPG.Engine
             MonsterLivingHere = location.MonsterLivingHere;
 
             NPCsLivingHere = new List<NPC>();
+            Tiles = new List<Tile>();
             foreach (NPC npc in location.NPCsLivingHere)
             {
                 NPCsLivingHere.Add(npc);
             }
-
-            Boundries = new List<Point>();
-            Boundries.Add(location.Boundries[0]);
-            Boundries.Add(location.Boundries[1]);
         }
     }
-
-    public class Transition
+    public class Transition : Tile
     {
-        public Point Location { get; set; }
         public string RequiredFacingDirection { get; set; }
         public Location NextLocation { get; set; }
-        public Point TargetTransition { get; set; }
 
-        public Transition(Point location, string facing, Location nextLoc, Point target)
+        public Transition(int id, string name, int dense, int x, int y, string type, string facing, Location nextLoc) :
+            base(id, name, dense, x, y, type)
         {
-            Location = location;
             RequiredFacingDirection = facing;
             NextLocation = nextLoc;
-            TargetTransition = target;
+        }
+        public Transition(Tile tile, string facing, Location nextLoc) :
+            base(tile.ID, tile.Name, tile.Dense, tile.X, tile.Y, tile.Type)
+        {
+            RequiredFacingDirection = facing;
+            NextLocation = nextLoc;
         }
     }
 }

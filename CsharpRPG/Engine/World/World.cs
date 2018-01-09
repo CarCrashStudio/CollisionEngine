@@ -1,14 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Drawing;
-using System.Windows.Forms;
-
 
 namespace RPG.Engine
 {
     public static class World
     {
-        public static string FilePath = "[ProgramFilesFolder]\\Rogue\\Input\\";
-
         public static List<Item> Items = new List<Item>();
         public static List<Monster> Monsters = new List<Monster>();
         public static List<Quest> Quests = new List<Quest>();
@@ -21,20 +16,6 @@ namespace RPG.Engine
 
         public static WorldMap Map { get; set; }
         public static Character Player { get; set; }
-
-        public static short MAX_MAP_SIZE { get { return 39; } }
-        public static short ICON_SIZE { get { return 32; } }
-        public static int WIDTH { get { return (MAX_MAP_SIZE + 1) * ICON_SIZE; } }
-        public static int HEIGHT { get { return (MAX_MAP_SIZE + 1) * ICON_SIZE; } }
-        public static int Font_Size { get { return 16; } }
-
-        public enum TileType
-        {
-            Ground = 0,
-            Path = 1,
-            Building = 2,
-            Deco = 3
-        }
 
         public static Item ItemByID(int id)
         {
@@ -66,18 +47,6 @@ namespace RPG.Engine
             foreach (Monster monster in Monsters)
             {
                 if (monster.ID == id)
-                {
-                    return monster;
-                }
-            }
-
-            return null;
-        }
-        public static Monster MonsterByLocation(Point location)
-        {
-            foreach (Monster monster in Monsters)
-            {
-                if (monster.Location == location)
                 {
                     return monster;
                 }

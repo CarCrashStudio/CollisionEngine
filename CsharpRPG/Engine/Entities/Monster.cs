@@ -1,6 +1,4 @@
-﻿using System.Windows.Forms;
-using System.Drawing;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace RPG.Engine
 {
@@ -16,7 +14,7 @@ namespace RPG.Engine
 
         public int SpawnChance { get; set; }
 
-        public Monster(int _id, string _name, Point _location, int _hp, int _maxHp, int _mana, int _maxMana, int _maximumDamage, int _maxDefense, int _rewardExp, int _rewardGold, int _spawnChance, Bitmap _img) :
+        public Monster(int _id, string _name, int _hp, int _maxHp, int _mana, int _maxMana, int _maximumDamage, int _maxDefense, int _rewardExp, int _rewardGold, int _spawnChance) :
             base(_id, _name, _hp, _maxHp, _mana, _maxMana, _maximumDamage, _maxDefense)
         {
             rewardExp = _rewardExp;
@@ -24,7 +22,6 @@ namespace RPG.Engine
 
             LootTable = new List<LootItem>();
 
-            // Skills.Add(new Skill(World.SkillByID(World.SKILL_ID_ATTACK)));
             SpawnChance = _spawnChance;
         }
         public Monster(Monster monster) :
@@ -35,7 +32,6 @@ namespace RPG.Engine
 
             LootTable = new List<LootItem>();
 
-            // Skills.Add(new Skill(World.SkillByID(World.SKILL_ID_ATTACK)));
             SpawnChance = monster.SpawnChance;
         }
     }

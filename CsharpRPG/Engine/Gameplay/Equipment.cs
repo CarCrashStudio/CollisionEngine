@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-
-namespace RPG.Engine
+﻿namespace RPG.Engine
 {
     public class Equipment : Item
     {
@@ -12,14 +10,14 @@ namespace RPG.Engine
         public int Slot { get; set; }
         public bool IsEquipped { get; set; }
 
-        public Equipment(int _id, string _name, string _namePlural, int _cost, Bitmap _img) :
-            base(_id, _name, _namePlural, _cost, _img)
+        public Equipment(int _id, string _name, string _namePlural, int _cost) :
+            base(_id, _name, _namePlural, _cost)
         {
             Equipable = true;
             
         }
         public Equipment(Equipment equ) :
-            base(equ.ID, equ.Name, equ.NamePlural, equ.Cost, equ.Image)
+            base(equ.ID, equ.Name, equ.NamePlural, equ.Cost)
         {
             Equipable = true;
             Slot = equ.Slot;
@@ -29,8 +27,8 @@ namespace RPG.Engine
     }
     public class Weapon : Equipment
     {
-        public Weapon(int _id, string _name, string _namePlural, int _minDamage, int _maxDamage, int _cost, int slot,  Bitmap _img) :
-            base(_id, _name, _namePlural, _cost, _img)
+        public Weapon(int _id, string _name, string _namePlural, int _minDamage, int _maxDamage, int _cost, int slot) :
+            base(_id, _name, _namePlural, _cost)
         {
             MinimumDamage = _minDamage;
             MaximumDamage = _maxDamage;
@@ -43,8 +41,8 @@ namespace RPG.Engine
     }
     public class Armor : Equipment
     {
-        public Armor(int _id, string _name, string _namePlural, int _maxDefense, int _minDefense, int _cost, int slot, Bitmap _img) :
-            base(_id, _name, _namePlural, _cost, _img)
+        public Armor(int _id, string _name, string _namePlural, int _maxDefense, int _minDefense, int _cost, int slot) :
+            base(_id, _name, _namePlural, _cost)
         {
             MaximumDefense = _maxDefense;
             MinimumDefense = _minDefense;

@@ -77,7 +77,6 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="UnityEngine">
@@ -87,7 +86,7 @@
   <ItemGroup>
     <Compile Include="Engine\World\Biome.cs" />
     <Compile Include="Engine\Gameplay\Item.cs" />
-    <Compile Include="Engine\Gameplay\Location.cs" />
+    <Compile Include="Engine\World\Location.cs" />
     <Compile Include="Engine\Entities\NPC.cs" />
     <Compile Include="Engine\Gameplay\Consumable.cs" />
     <Compile Include="Engine\Gameplay\Quest.cs" />

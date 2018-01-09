@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing;
 using System.Reflection;
 
 namespace RPG.Engine
@@ -11,13 +10,15 @@ namespace RPG.Engine
 
         public int ID { get; set; }
         public string Name { get; set; }
-        public Bitmap Image { get; set; }
-        public int Buffamnt { get { return buffamnt * SkillLevel; } } // Amount to buff TargetVariable
+
+        public int BuffAmount { get { return buffamnt * SkillLevel; } } // Amount to buff TargetVariable
         public string TargetVariable { get; set; } // The Target Entity's Health, Strength, Defense, etc. to be buffed or debuffed
+
         public int SkillLevel { get; set; } // The level of the skill, incresing buff and debuff amounts
         public int SkillExp { get; set; } // exp gained by using skill in combat
         public int SkillMaxExp { get; set; } // amount of exp till level up
         public int SkillType { get; set; }
+
         public enum Types
         {
             Attack=0,
@@ -25,11 +26,10 @@ namespace RPG.Engine
             Debuff=2,
         }
 
-        public Skill(int id, string name, Bitmap img, string targetVar, int buff, int type)
+        public Skill(int id, string name, string targetVar, int buff, int type)
         {
             ID = id;
             Name = name;
-            Image = img;
             buffamnt = buff;
             TargetVariable = targetVar;
             SkillMaxExp = 1000;
@@ -40,7 +40,6 @@ namespace RPG.Engine
         {
             ID = skill.ID;
             Name = skill.Name;
-            Image = skill.Image;
             buffamnt = skill.buffamnt;
             TargetVariable = skill.TargetVariable;
             SkillMaxExp = skill.SkillMaxExp;
@@ -51,6 +50,11 @@ namespace RPG.Engine
 
         }
 
+        /// <summary>
+        /// Target a variable on he Entity class and buff it
+        /// </summary>
+        /// <param name="Caster">Entity using the skill</param>
+        /// <param name="Target">The Target of the skill</param>
         public void Use(Entity Caster, Entity Target)
         {
             if(SkillType == (int)Types.Attack)
@@ -59,27 +63,33 @@ namespace RPG.Engine
             }
             else
             {
-
-                PropertyInfo var = Target.FindVariable("Strength");
-                //int str = (int)var.GetValue();
-                //Target.FindVariable("Strength").SetValue(var, str + Buffamnt);
+                var property = typeof(Entity).GetProperty(TargetVariable);
+                var value = (int)property.GetValue(property, null);
+                property.SetValue(Target, value + BuffAmount, null);
             }
+
             SkillExp += rand.Next(100);
             if(SkillExp >= SkillMaxExp)
             {
                 LevelUp();
             }           
         }
-        //void CalculateMaxExp()
-        //{
-        //    SkillMaxExp *= SkillLevel;
-        //}
+
+        /// <summary>
+        /// Level up the skill
+        /// </summary>
         void LevelUp()
         {
             SkillLevel++;
             SkillExp = 0;
-            //CalculateMaxExp();
         }
+
+        /// <summary>
+        /// Calculate the amount of damage to deal in an attack
+        /// </summary>
+        /// <param name="attacker">The Entity dealing the attack</param>
+        /// <param name="defender">The Entity defenging itself</param>
+        /// <returns>Damgae value</returns>
         int Damage(Entity attacker, Entity defender)
         {
             int temp = rand.Next(attacker.Strength);

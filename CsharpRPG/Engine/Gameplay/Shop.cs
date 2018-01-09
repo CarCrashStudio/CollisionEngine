@@ -16,7 +16,6 @@ namespace RPG.Engine
         {
             Form shop = new Form
             {
-                Size = new System.Drawing.Size(240, 480),
                 SizeGripStyle = SizeGripStyle.Hide,
                 FormBorderStyle = FormBorderStyle.None
             };
@@ -27,8 +26,7 @@ namespace RPG.Engine
                 if(ii.Quantity != 0)
                     inventory.Items.Add(ii.Details.Name + "(" + ii.Quantity + ")" + " ---- " + ii.Details.Cost + "G");
             }
-            inventory.Size = new System.Drawing.Size(shop.Size.Width, shop.Size.Height - 32);
-            inventory.Font = new System.Drawing.Font(System.Drawing.FontFamily.GenericSansSerif.Name, 16);
+
             inventory.DoubleClick += delegate
             {
                 string item = inventory.SelectedItem.ToString();
@@ -60,7 +58,6 @@ namespace RPG.Engine
                 AutoSize = true,
                 Text = "Close"
             };
-            close.Location = new System.Drawing.Point(shop.Size.Width - close.Width, shop.Size.Height - close.Height);
             close.Click += delegate { shop.Close(); };
 
             shop.Controls.Add(inventory);

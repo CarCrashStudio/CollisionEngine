@@ -1,6 +1,4 @@
-﻿using System;
-using System.Drawing;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace RPG.Engine
 {
@@ -304,7 +302,6 @@ namespace RPG.Engine
             try
             {
                 CurrentLocation.MonsterLivingHere = newLocation.MonsterLivingHere;
-                CurrentLocation.MonsterLivingHere.Location = new Point(11, 11);
             }
             catch { CurrentLocation.MonsterLivingHere = null; }
 
