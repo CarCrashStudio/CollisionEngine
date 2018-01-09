@@ -1,6 +1,11 @@
 # CHANGE LOG
-- Current Update v1.0.3
+- v1.0.4
+  - Removed UnityEngine Library
+  - Removed LitJSON Library
+  - Added more comments
+- v1.0.3
   - Removed Executable file
+  - Removed Sustem.Drawing library
   - Switched to complete Library build
   - Added Rogue-Like Dungeon Procedural generation (UNTESTED)
   - Added this handy change log :)

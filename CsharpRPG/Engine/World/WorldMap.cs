@@ -16,9 +16,8 @@ namespace RPG.Engine
 
         void BuildMap(string name)
         {
-
+            
         }
-
 
         // Indicies for Biome Lists
         // --- South Facing Wall Tile [0]
@@ -29,7 +28,21 @@ namespace RPG.Engine
         // --- South Facing Door Tile [5]
         // --- North Facing Door Tile [6]
         // --- EastWest Facing Door Tile [7]
-        void ProceduralGeneration (Biome biome, int id, string name, string desc, int width, int length, int playerX, int playerY, string playerFacing)
+
+        /// <summary>
+        /// Create a Procedurally generated location
+        /// </summary>
+        /// <param name="biome"> The biome type to use, this is what defines the tiles to use</param>
+        /// <param name="id">ID of the location to create</param>
+        /// <param name="name">Name of the location to create</param>
+        /// <param name="desc">Description of the location to create</param>
+        /// <param name="width">The width of the location</param>
+        /// <param name="length">the length of the location</param>
+        /// <param name="playerX">the last x coordinate of the player</param>
+        /// <param name="playerY">the last y coordinate of the player</param>
+        /// <param name="playerFacing">the last direction the player was facing</param>
+        /// <returns>Void</returns>
+        public void ProceduralGeneration (Biome biome, int id, string name, string desc, int width, int length, int playerX, int playerY, string playerFacing)
         {
             bool containsLoot = false, hasMonster = false, hasDoor = false;
 
