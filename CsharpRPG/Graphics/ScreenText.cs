@@ -5,19 +5,17 @@ namespace RPG.Rendering
 {
     public static class ScreenText
     {
-        static Bitmap BackgroundImage;
         static PictureBox Canvas;
-        static string Text;
         static Form form;
 
-        public static void Draw()
+        public static void Draw(string Text)
         {
             Bitmap Image = ScreenObject.DrawText(Text, 16, Canvas.Width, Canvas.Height, new Point(Canvas.Width, Canvas.Height), null);
             Canvas.Image = ScreenObject.Draw(Canvas.Width, Canvas.Height, new Point((Canvas.Width / 2) - (Image.Width / 2), Canvas.Height / 2), null);
             form.ShowDialog();
         }
 
-        static void CreateNewCanvas(Form parent)
+        static void CreateNewCanvas(Form parent, Bitmap BackgroundImage)
         {
             int width = 400;
             int height = 200;

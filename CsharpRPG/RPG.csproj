@@ -73,14 +73,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Engine\World\Tile.cs" />
     <Compile Include="Engine\World\Biome.cs" />
     <Compile Include="Engine\Gameplay\Item.cs" />
     <Compile Include="Engine\World\Location.cs" />
@@ -89,14 +86,13 @@
     <Compile Include="Engine\Gameplay\Quest.cs" />
     <Compile Include="Engine\Gameplay\Shop.cs" />
     <Compile Include="Engine\Gameplay\Skill.cs" />
-    <Compile Include="Engine\Sql.cs" />
     <Compile Include="Engine\Gameplay\Equipment.cs" />
     <Compile Include="Engine\World\World.cs" />
     <Compile Include="Engine\Entities\Character.cs" />
     <Compile Include="Engine\Entities\Entity.cs" />
     <Compile Include="Engine\Entities\Monster.cs" />
     <Compile Include="Engine\Entities\PartyMember.cs" />
-    <Compile Include="Engine\World\WorldMap.cs" />
+    <Compile Include="Engine\World\Dungeon.cs" />
     <Compile Include="Graphics\ScreenObject.cs" />
     <Compile Include="Graphics\ScreenText.cs" />
     <Compile Include="GUI\Hud.cs" />

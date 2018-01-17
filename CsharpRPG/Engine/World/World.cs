@@ -14,7 +14,6 @@ namespace RPG.Engine
         public static List<Skill> Skills = new List<Skill>();
         public static List<Item> Craftable = new List<Item>();
 
-        public static WorldMap Map { get; set; }
         public static Character Player { get; set; }
 
         public static Item ItemByID(int id)

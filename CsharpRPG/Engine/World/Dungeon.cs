@@ -3,20 +3,23 @@ using System.Collections.Generic;
 
 namespace RPG.Engine
 {
-    public class WorldMap // Class holding the play area and tiles inside
+    public class Dungeon // Class holding the play area and tiles inside
     {
         public string Name { get; set; }
-        public List<Tile> TilesOnMap;
+        Random rand = new Random();
 
-        public WorldMap(string _name)
+        public Dungeon(string _name, int numOfRooms, Biome biome)
         {
             Name = _name;
-            TilesOnMap = new List<Tile>();
+            BuildMap(_name, numOfRooms, biome);
         }
 
-        void BuildMap(string name)
+        void BuildMap(string name, int numOfRooms, Biome biome)
         {
-            
+            for (int i = 0; i < numOfRooms; i++)
+            {
+                GenerateRoom(biome, i, "", "", rand.Next(5, 10), rand.Next(5, 10), 0, 0, "South");
+            }
         }
 
         // Indicies for Biome Lists
@@ -42,7 +45,7 @@ namespace RPG.Engine
         /// <param name="playerY">the last y coordinate of the player</param>
         /// <param name="playerFacing">the last direction the player was facing</param>
         /// <returns>Void</returns>
-        public void ProceduralGeneration (Biome biome, int id, string name, string desc, int width, int length, int playerX, int playerY, string playerFacing)
+        public void GenerateRoom (Biome biome, int id, string name, string desc, int width, int length, int playerX, int playerY, string playerFacing)
         {
             bool containsLoot = false, hasMonster = false, hasDoor = false;
 
@@ -191,39 +194,6 @@ namespace RPG.Engine
             }
         }
     }
-    public class Tile// Class to hold tile information 
-    {
-        const int ICON_SIZE = 32; // 32x32 icons
-
-        int dense;
-
-        public int ID { get; set; }
-        public string Name { get; set; }
-        public int Dense { get { return dense; } set { dense = value; } } // Tile Density (Can you walk over it or not)
-
-        public int X { get; set; }
-        public int Y { get; set; }
-
-        public string Type { get; set; }
-
-        public Tile(int _id, string _name, int _dense, int x, int y, string type)
-        {
-            ID = _id;
-            Name = _name;
-            dense = _dense;
-            Type = type;
-            X = x;
-            Y = y;
-        }
-        public Tile(Tile tile)
-        {
-            ID = tile.ID;
-            Name = tile.Name;
-            dense = tile.Dense;
-            Type = tile.Type;
-            X = tile.X;
-            Y = tile.Y;
-        }
-    } 
-}
+    
+} 
 

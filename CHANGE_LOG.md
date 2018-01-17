@@ -1,4 +1,11 @@
 # CHANGE LOG
+- v1.0.6
+  - Renamed class WorldMap to Dungeon to better build a Dungeon System
+  - Moved class Tile from WorldMap.cs (now Dungeon.cs) to Tile.cs
+  - Removed World.Map variable
+  - Added a BuildMap() function tha will build the dungeon rooms
+  - Will add hallway generation to connect rooms together
+  - Will add Map Saving
 - v1.0.5
   - Added SceenObject render to project
   - Added HUD render to project
@@ -10,7 +17,7 @@
   - Added more comments
 - v1.0.3
   - Removed Executable file
-  - Removed Sustem.Drawing library
+  - Removed System.Drawing library
   - Switched to complete Library build
   - Added Rogue-Like Dungeon Procedural generation (UNTESTED)
   - Added this handy change log :)
