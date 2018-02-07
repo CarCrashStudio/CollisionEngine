@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\CsharpRPG"
+    "\\CsharpRPG",
+    "\\CsharpRPG\\GUI"
   ],
-  "SelectedNode": "\\CsharpRPG\\MainForm.cs",
+  "SelectedNode": "\\CsharpRPG\\GUI\\Hud.cs",
   "PreviewInSolutionExplorer": false
 }

@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 
 namespace RPG.Engine
 {
@@ -15,6 +17,172 @@ namespace RPG.Engine
         public static List<Item> Craftable = new List<Item>();
 
         public static Character Player { get; set; }
+
+        /// <summary>
+        /// Loads Text File with Items
+        /// </summary>
+        /// <param name="db">Text file with Information</param>
+        public static void LoadItemDatabase(string db)
+        {
+            try
+            {
+                Assembly assembly = Assembly.GetExecutingAssembly();
+                StreamReader reader = new StreamReader(assembly.GetManifestResourceStream(db));
+
+                World.Items = new List<Item>();
+
+                while (!reader.EndOfStream)
+                {
+                    // Grab these from the file
+                    int id = int.Parse(reader.ReadLine());
+                    string name = reader.ReadLine();
+                    string plural = reader.ReadLine();
+                    int cost = int.Parse(reader.ReadLine());
+
+                    World.Items.Add(new Item(id, name, plural, cost));
+                    reader.ReadLine();
+                }
+            }
+            catch (System.Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        /// <summary>
+        /// Loads Text File with Tiles
+        /// </summary>
+        /// <param name="db">Text file with Information</param>
+        public static void LoadTileDatabase(string db)
+        {
+            try
+            {
+                Assembly assembly = Assembly.GetExecutingAssembly();
+                StreamReader reader = new StreamReader(assembly.GetManifestResourceStream(db));
+
+                World.Tiles = new List<Tile>();
+
+                while (!reader.EndOfStream)
+                {
+                    // Grab these from the file
+                    int id = int.Parse(reader.ReadLine());
+                    string name = reader.ReadLine();
+                    int dense = int.Parse(reader.ReadLine());
+                    string type = reader.ReadLine();
+
+                    World.Tiles.Add(new Tile(id, name, dense, 0, 0, type));
+                    reader.ReadLine();
+                }
+            }
+            catch (System.Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Loads Text File with Monsters
+        /// </summary>
+        /// <param name="db">Text file with Information</param>
+        public static void LoadMonsterDatabase(string db)
+        {
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            StreamReader reader = new StreamReader(assembly.GetManifestResourceStream(db));
+
+            World.Monsters = new List<Monster>();
+
+            while (!reader.EndOfStream)
+            {
+                // Grab these from the file
+                int id = int.Parse(reader.ReadLine());
+                string name = reader.ReadLine();
+                int hp = int.Parse(reader.ReadLine());
+                int maxhp = int.Parse(reader.ReadLine());
+                int mana = int.Parse(reader.ReadLine());
+                int maxmana = int.Parse(reader.ReadLine());
+                int str = int.Parse(reader.ReadLine());
+                int def = int.Parse(reader.ReadLine());
+                int exp = int.Parse(reader.ReadLine());
+                int gold = int.Parse(reader.ReadLine());
+                int spawn = int.Parse(reader.ReadLine());
+                reader.ReadLine();
+
+                World.Monsters.Add(new Monster(id, name, hp, maxhp, mana, maxmana, str, def, exp, gold, spawn));
+            }
+        }
+
+        /// <summary>
+        /// Loads Text File with NPCs
+        /// </summary>
+        /// <param name="db">Text file with Information</param>
+        public static void LoadNPCDatabase(string db)
+        {
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            StreamReader reader = new StreamReader(assembly.GetManifestResourceStream(db));
+            World.Tiles = new List<Tile>();
+
+            while (!reader.EndOfStream)
+            {
+                // Grab these from the file
+                int id = int.Parse(reader.ReadLine());
+                string name = reader.ReadLine();
+                int dense = int.Parse(reader.ReadLine());
+                string type = reader.ReadLine();
+
+                World.Tiles.Add(new Tile(id, name, dense, 0, 0, type));
+            }
+        }
+
+        /// <summary>
+        /// Loads Text File with Biomes
+        /// </summary>
+        /// <param name="db">Text file with Information</param>
+        public static void LoadBiomeDatabase(string db)
+        {
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            StreamReader reader = new StreamReader(assembly.GetManifestResourceStream(db));
+            World.Biomes = new List<Biome>();
+
+            while (!reader.EndOfStream)
+            {
+                // Indicies for Biome Lists
+                // --- South Facing Wall Tile [0]
+                // --- North Facing Wall Tile [1]
+                // --- EastWest Facing Wall Tile [2]
+                // --- Floor Tile [3]
+                // --- Chest Tile [4]
+                // --- South Facing Door Tile [5]
+                // --- North Facing Door Tile [6]
+                // --- East Facing Door Tile [7]
+                // --- West Facing Door Tile [8]
+
+                // Grab these from the file
+                int id = int.Parse(reader.ReadLine());
+                string name = reader.ReadLine();
+
+                int tile1 = int.Parse(reader.ReadLine());
+                int tile2 = int.Parse(reader.ReadLine());
+                int tile3 = int.Parse(reader.ReadLine());
+                int tile4 = int.Parse(reader.ReadLine());
+                int tile5 = int.Parse(reader.ReadLine());
+                int tile6 = int.Parse(reader.ReadLine());
+                int tile7 = int.Parse(reader.ReadLine());
+                int tile8 = int.Parse(reader.ReadLine());
+                int tile9 = int.Parse(reader.ReadLine());
+
+                int monster1 = int.Parse(reader.ReadLine());
+                int monster2 = int.Parse(reader.ReadLine());
+                int monster3 = int.Parse(reader.ReadLine());
+
+                Tile[] tileAry = new Tile[] { World.TileByID(tile1), World.TileByID(tile2), World.TileByID(tile3), World.TileByID(tile4), World.TileByID(tile5), World.TileByID(tile6), World.TileByID(tile7), World.TileByID(tile8), World.TileByID(tile9) };
+                Monster[] monsterAry = new Monster[] { World.MonsterByID(monster1), World.MonsterByID(monster2), World.MonsterByID(monster3) };
+
+                World.Biomes.Add(new Biome(id, name, tileAry, monsterAry));
+
+                reader.ReadLine();
+            }
+        }
 
         public static Item ItemByID(int id)
         {

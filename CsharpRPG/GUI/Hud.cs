@@ -17,11 +17,11 @@ namespace RPG.GUI
         /// <param name="imgWidth">The width of the object being drawn on</param>
         /// <param name="imgHeight">The height if the object being drawn on</param>
         /// <param name="currentImg">The image currently on display in the object being drawn on</param>
-        public void UpdateHUD(Bitmap currentImg)
+        public void UpdateHUD(ref Bitmap currentImg)
         {
             foreach(HudObject ho in Objects)
             {
-                DrawBars(ho, currentImg);
+                DrawBars(ho, ref currentImg);
             }
         }
 
@@ -30,7 +30,7 @@ namespace RPG.GUI
         /// </summary>
         /// <param name="bar">The HudObject to draw</param>
         /// <param name="currentImage">The image being drawn on</param>
-        public void DrawBars(HudObject bar, Bitmap currentImage)
+        public void DrawBars(HudObject bar, ref Bitmap currentImage)
         {
             if (bar.Text != null)
             {

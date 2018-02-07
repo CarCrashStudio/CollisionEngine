@@ -1,4 +1,8 @@
 # CHANGE LOG
+- v1.0.7
+  - Added World Database loaders
+  - Various Bug Fixes
+  - Slowly implementing Dungeon drawing
 - v1.0.6
   - Renamed class WorldMap to Dungeon to better build a Dungeon System
   - Moved class Tile from WorldMap.cs (now Dungeon.cs) to Tile.cs

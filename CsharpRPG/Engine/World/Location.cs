@@ -50,6 +50,7 @@ namespace RPG.Engine
             Length = length;
             NPCsLivingHere = new List<NPC>();
             Tiles = new List<Tile>();
+            Transitions = new List<Transition>();
         }
         public Location(Location location) //Overload For location class
         {

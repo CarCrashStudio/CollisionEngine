@@ -13,6 +13,9 @@ namespace RPG.Engine
         {
             ID = id;
             Name = name;
+            AvailibleMonsters = new List<Monster>();
+            AvailibleTiles = new List<Tile>();
+
             for(int i = 0; i < tileAry.Length; i++)
             {
                 AvailibleTiles.Add(tileAry[i]);
