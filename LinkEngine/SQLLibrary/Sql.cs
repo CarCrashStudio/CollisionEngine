@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
-namespace RPG
+namespace LinkEngine
 {
     public class Sql
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace RPG
+namespace LinkEngine
 {
     public class Monster : Entity
     {        

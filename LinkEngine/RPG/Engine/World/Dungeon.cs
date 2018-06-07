@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace RPG
+namespace LinkEngine
 {
     public class Dungeon // Class holding the play area and tiles inside
     {

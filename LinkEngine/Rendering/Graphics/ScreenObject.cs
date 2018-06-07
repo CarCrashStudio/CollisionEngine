@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace RPG.Rendering
+namespace LinkEngine.Rendering
 {
     public static class ScreenObject
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace RPG
+namespace LinkEngine
 {
     public class Skill
     {

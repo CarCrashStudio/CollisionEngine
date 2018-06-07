@@ -1,5 +1,7 @@
 # CHANGE LOG
-- v1.0.10
+- v1.0.10 stable
+  - Restructured file system
+- v1.0.10 dev
   - Started work on combat system
   - Created new project for 2d rendering system
   - Moved Sql.cs to seperate unloaded project to be used later

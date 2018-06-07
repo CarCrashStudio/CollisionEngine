@@ -1,8 +1,8 @@
-﻿using RPG.Rendering;
+﻿using LinkEngine.Rendering;
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace RPG.GUI
+namespace LinkEngine.GUI
 {
     public class Hud
     {

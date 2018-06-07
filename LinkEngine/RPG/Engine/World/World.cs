@@ -2,7 +2,7 @@
 using System.IO;
 using System.Reflection;
 
-namespace RPG
+namespace LinkEngine
 {
     public static class World
     {

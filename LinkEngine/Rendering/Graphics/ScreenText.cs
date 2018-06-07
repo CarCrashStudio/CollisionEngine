@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 
-namespace RPG.Rendering
+namespace LinkEngine.Rendering
 {
     public static class ScreenText
     {
