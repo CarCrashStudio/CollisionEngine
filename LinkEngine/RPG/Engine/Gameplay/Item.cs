@@ -38,10 +38,10 @@ namespace RPG
                     player.Health += pot.AmountToBuff;
                     break;
                 case "Strength":
-                    player.Strength += pot.AmountToBuff;
+                    // player.Strength += pot.AmountToBuff;
                     break;
                 case "Defense":
-                    player.Defense += pot.AmountToBuff;
+                    // player.Defense += pot.AmountToBuff;
                     break;
 
             }

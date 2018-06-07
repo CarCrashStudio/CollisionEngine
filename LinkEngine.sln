@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RPG", "LinkEngine\RPG\RPG.c
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rendering", "LinkEngine\Rendering\Rendering.csproj", "{7A33A0F5-896A-461B-BBC4-A49B1C0AC554}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLLibrary", "SQLLibrary\SQLLibrary.csproj", "{DF860FD1-C231-4DC1-9262-FB243D7FBD4E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{7A33A0F5-896A-461B-BBC4-A49B1C0AC554}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A33A0F5-896A-461B-BBC4-A49B1C0AC554}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A33A0F5-896A-461B-BBC4-A49B1C0AC554}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF860FD1-C231-4DC1-9262-FB243D7FBD4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF860FD1-C231-4DC1-9262-FB243D7FBD4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF860FD1-C231-4DC1-9262-FB243D7FBD4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF860FD1-C231-4DC1-9262-FB243D7FBD4E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

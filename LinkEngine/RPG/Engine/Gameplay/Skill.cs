@@ -92,13 +92,14 @@ namespace RPG
         /// <returns>Damgae value</returns>
         int Damage(Entity attacker, Entity defender)
         {
-            int temp = rand.Next(attacker.Strength);
-            temp -= rand.Next(defender.Defense);
-            if (temp < 0)
-            {
-                temp = 1;
-            }
-            return temp;
+            //int temp = rand.Next(attacker.Strength);
+            //temp -= rand.Next(defender.Defense);
+            //if (temp < 0)
+            //{
+            //    temp = 1;
+            //}
+            //return temp;
+            return 0;
         }
     }
 }

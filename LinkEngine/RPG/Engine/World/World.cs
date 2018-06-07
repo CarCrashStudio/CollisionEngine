@@ -45,7 +45,7 @@ namespace RPG
             }
             catch (System.Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show(ex.Message);
+                // System.Windows.Forms.MessageBox.Show(ex.Message);
             }
 
         }
@@ -77,7 +77,7 @@ namespace RPG
             }
             catch (System.Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show(ex.Message);
+                // System.Windows.Forms.MessageBox.Show(ex.Message);
             }
         }
 
@@ -108,7 +108,7 @@ namespace RPG
                 int spawn = int.Parse(reader.ReadLine());
                 reader.ReadLine();
 
-                World.Monsters.Add(new Monster(id, name, hp, maxhp, mana, maxmana, str, def, exp, gold, spawn));
+                World.Monsters.Add(new Monster(id, name, hp, maxhp, mana, maxmana, exp, gold, spawn));
             }
         }
 
