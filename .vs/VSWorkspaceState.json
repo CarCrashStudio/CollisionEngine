@@ -1,9 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\CsharpRPG",
-    "\\CsharpRPG\\Engine",
-    "\\CsharpRPG\\Engine\\Entities"
+    "\\LinkEngine",
+    "\\LinkEngine\\Engine"
   ],
   "SelectedNode": "\\RPG-Engine.sln",
   "PreviewInSolutionExplorer": false

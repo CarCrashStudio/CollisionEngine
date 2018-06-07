@@ -25,25 +25,6 @@ namespace RPG.Engine
         public List<Equipment> Equipped { get; set; }
         public List<PlayerQuest> Quests { get; set; }
 
-        public enum Slot
-        {
-            Head=0,
-            Torso=1,
-            Legs=2,
-            Feet = 3,
-            MainHand = 4,
-            OffHand = 5
-        }
-        public Equipment Head { get; set; }
-        public Equipment Torso { get; set; }
-        public Equipment Legs { get; set; }
-        public Equipment Feet { get; set; }
-        public Equipment MainHand { get; set; }
-        public Equipment OffHand { get; set; }
-
-        public string Class { get; set; }
-        public bool StatsChanged { get; set; }
-
         public int CountDown { get; set; }
         public int MAX_COUNTDOWN { get { return 100; } }
 
@@ -64,8 +45,8 @@ namespace RPG.Engine
         /// <param name="_maxExp"></param>
         /// <param name="_gold"></param>
         /// <param name="slug"></param>
-        public Character(int _id, string _name, string clss, int _hp, int _maxHp, int _mana, int _maxMana, int _maximumDamage, int _maxDefense, int _level, int _exp, int _maxExp, int _gold, string slug) : 
-            base(_id, _name, _hp, _maxHp, _mana, _maxMana, _maximumDamage, _maxDefense)
+        public Character(int _id, string _name, int _hp, int _maxHp, int _mana, int _maxMana, int _level, int _exp, int _maxExp, int _gold, string slug) :
+            base(_id, _name, _hp, _maxHp, _mana, _maxMana)
         {
             level = _level;
             exp = _exp;
@@ -73,14 +54,20 @@ namespace RPG.Engine
             gold = _gold;
             Slug = slug;
 
-            Class = clss;
-            StatsChanged = true;
-
             Inventory = new List<InventoryItem>();
             Equipped = new List<Equipment>();
             Quests = new List<PlayerQuest>();
+
+            Party.Add(this);
         }
-    
+
+        public void giveExperience (int exp)
+        {
+            if (Intelligence > 0)
+            {
+                Exp += (int)(exp + ((exp * 0.10) * Intelligence));
+            }
+        }
         public void LevelUp()
         {
             if (exp >= maxExp)
@@ -395,7 +382,7 @@ namespace RPG.Engine
                         }
 
                         // Give quest rewards
-                        Exp += npc.QuestAvailableHere.RewardExperiencePoints;
+                        giveExperience(npc.QuestAvailableHere.RewardExperiencePoints);
                         Gold += npc.QuestAvailableHere.RewardGold;
 
                         // Add the reward item to the player's inventory
@@ -437,9 +424,7 @@ namespace RPG.Engine
             }
             else
             {
-                // The player does not already have the quest
-                StatsChanged = true;
-
+                // The Player does not already have the quest
                 // Add the quest to the player's quest list
                 Quests.Add(new PlayerQuest(npc.QuestAvailableHere));
             }

@@ -12,19 +12,17 @@ namespace RPG.Engine
         int maxHp;
         int mana;
         int maxMana;
-        int maxDamage;
-        int maxDefense;
         int locX;
         int locY;
         int locZ;
 
-        short Strength;
-        short Perception;
-        short Endurance;
-        short Charisma;
-        short Intelligence;
-        short Agility;
-        short Luck;
+        public short Strength { get; set; }
+        public short Perception { get; set; }
+        public short Endurance { get; set; }
+        public short Charisma { get; set; }
+        public short Intelligence { get; set; }
+        public short Agility { get; set; }
+        public short Luck { get; set; }
 
         public int ID { get { return id; } set { id = value; } }
         public string Name { get { return name; } set { name = value; } }
@@ -36,6 +34,8 @@ namespace RPG.Engine
         public List<Skill> Skills { get; set; }
         public List<Entity> Party { get; set; }
         public List<Entity> PartyDead { get; set; }
+
+        
 
         public int Location_X { get { return locX; } set { locX = value; } }
         public int Location_Y { get { return locY; } set { locY = value; } }
@@ -50,7 +50,7 @@ namespace RPG.Engine
         /// <param name="_maxHp">The maximum amount of hp this object can have</param>
         /// <param name="_mana">Starting amount of Mana</param>
         /// <param name="_maxMana">Max amount of mana</param>
-        public Entity(int _id, string _name, int _hp, int _maxHp, int _mana, int _maxMana, int _maximumDamage, int _maxDefense)
+        public Entity(int _id, string _name, int _hp, int _maxHp, int _mana, int _maxMana)
         {
             id = _id;
             name = _name;
@@ -58,13 +58,9 @@ namespace RPG.Engine
             maxHp = _maxHp;
             mana = _mana;
             maxMana = _maxMana;
-            maxDamage = _maximumDamage;
-            maxDefense = _maxDefense;
             Skills = new List<Skill>();
             Party = new List<Entity>();
             PartyDead = new List<Entity>();
-
-            Party.Add(this);
         }
 
         /// <summary>
@@ -103,7 +99,9 @@ namespace RPG.Engine
         }
 
         /// <summary>
-        /// StrengthCheck will check the roll of the current strength against the check, adds all availible modifiers
+        /// StrengthCheck will take the current value of this.Strength, 
+        /// add all given modifiers and check if it is greater, 
+        /// less than or equal to the target 'check' value
         /// </summary>
         /// <param name="check">the value to check the strength mod against</param>
         /// <param name="modifiers">the list of values to add to the skill check</param>
@@ -117,6 +115,14 @@ namespace RPG.Engine
                 // adds modifiers to strength value
                 str += modifiers[i];
             }
+
+            // if the check is less than check
+            if (str < check)
+                return false;
+            else
+                // If the check is equal to or greater than check
+                return true;
+            
         }
         public bool PerceptionCheck(short check, short[] modifiers)
         {
@@ -127,6 +133,14 @@ namespace RPG.Engine
                 // adds modifiers to perception value
                 per += modifiers[i];
             }
+
+            // if the check is less than check
+            if (per < check)
+                return false;
+            else
+                // If the check is equal to or greater than check
+                return true;
+
         }
         public bool EnduranceCheck(short check, short[] modifiers)
         {
@@ -137,6 +151,14 @@ namespace RPG.Engine
                 // adds modifiers to strength value
                 end += modifiers[i];
             }
+
+            // if the check is less than check
+            if (end < check)
+                return false;
+            else
+                // If the check is equal to or greater than check
+                return true;
+
         }
         public bool CharismaCheck(short check, short[] modifiers)
         {
@@ -147,6 +169,14 @@ namespace RPG.Engine
                 // adds modifiers to strength value
                 cha += modifiers[i];
             }
+
+            // if the check is less than check
+            if (cha < check)
+                return false;
+            else
+                // If the check is equal to or greater than check
+                return true;
+
         }
         public bool IntelligenceCheck(short check, short[] modifiers)
         {
@@ -157,6 +187,14 @@ namespace RPG.Engine
                 // adds modifiers to perception value
                 intel += modifiers[i];
             }
+
+            // if the check is less than check
+            if (intel < check)
+                return false;
+            else
+                // If the check is equal to or greater than check
+                return true;
+
         }
         public bool AgilityCheck(short check, short[] modifiers)
         {
@@ -167,6 +205,14 @@ namespace RPG.Engine
                 // adds modifiers to strength value
                 agi += modifiers[i];
             }
+
+            // if the check is less than check
+            if (agi < check)
+                return false;
+            else
+                // If the check is equal to or greater than check
+                return true;
+
         }
         public bool LuckCheck(short check, short[] modifiers)
         {
@@ -177,6 +223,13 @@ namespace RPG.Engine
                 // adds modifiers to strength value
                 luck += modifiers[i];
             }
+
+            // if the check is less than check
+            if (luck < check)
+                return false;
+            else
+                // If the check is equal to or greater than check
+                return true;
         }
     }
 }

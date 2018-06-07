@@ -1,4 +1,10 @@
 # CHANGE LOG
+- v1.0.9
+  - Reorganized File Structure
+  - Removed Equipment Slot system on Character.cs
+  - Will replace slot system with a more permanent and clean system
+  - Removed original Streangth and Defense
+  - TODO: Work on proper combat system
 - v1.0.8
   - Added Skill Modifiers (Fallout style S.P.E.C.I.A.L) 
   - Skills will change names and uses in a later update. 
