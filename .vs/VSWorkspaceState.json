@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\CsharpRPG",
-    "\\CsharpRPG\\GUI"
+    "\\CsharpRPG\\Engine",
+    "\\CsharpRPG\\Engine\\Entities"
   ],
-  "SelectedNode": "\\CsharpRPG\\GUI\\Hud.cs",
+  "SelectedNode": "\\RPG-Engine.sln",
   "PreviewInSolutionExplorer": false
 }

@@ -1,4 +1,7 @@
 # CHANGE LOG
+- v1.0.8
+  - Added Skill Modifiers (Fallout style S.P.E.C.I.A.L) 
+  - Skills will change names and uses in a later update. 
 - v1.0.7
   - Added World Database loaders
   - Various Bug Fixes
