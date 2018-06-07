@@ -2,7 +2,7 @@
 using System.IO;
 using System.Reflection;
 
-namespace RPG.Engine
+namespace RPG
 {
     public static class World
     {

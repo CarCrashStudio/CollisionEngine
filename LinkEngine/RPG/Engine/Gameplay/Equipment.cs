@@ -1,4 +1,4 @@
-﻿namespace RPG.Engine
+﻿namespace RPG
 {
     public class Equipment : Item
     {

@@ -2,8 +2,11 @@
   "ExpandedNodes": [
     "",
     "\\LinkEngine",
-    "\\LinkEngine\\Engine"
+    "\\LinkEngine\\Rendering",
+    "\\LinkEngine\\RPG",
+    "\\LinkEngine\\RPG\\Engine",
+    "\\LinkEngine\\RPG\\Engine\\Gameplay"
   ],
-  "SelectedNode": "\\RPG-Engine.sln",
+  "SelectedNode": "\\LinkEngine\\Rendering\\Rendering.csproj",
   "PreviewInSolutionExplorer": false
 }

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace RPG.Engine
+namespace RPG
 {
     public class Monster : Entity
     {        
@@ -14,8 +14,8 @@ namespace RPG.Engine
 
         public int SpawnChance { get; set; }
 
-        public Monster(int _id, string _name, int _hp, int _maxHp, int _mana, int _maxMana, int _maximumDamage, int _maxDefense, int _rewardExp, int _rewardGold, int _spawnChance) :
-            base(_id, _name, _hp, _maxHp, _mana, _maxMana, _maximumDamage, _maxDefense)
+        public Monster(int _id, string _name, int _hp, int _maxHp, int _mana, int _maxMana, int _rewardExp, int _rewardGold, int _spawnChance) :
+            base(_id, _name, _hp, _maxHp, _mana, _maxMana)
         {
             rewardExp = _rewardExp;
             rewardGold = _rewardGold;
@@ -25,7 +25,7 @@ namespace RPG.Engine
             SpawnChance = _spawnChance;
         }
         public Monster(Monster monster) :
-            base(monster.ID, monster.Name, monster.Health, monster.MaxHealth, monster.Mana, monster.MaxMana, monster.Strength, monster.Defense)
+            base(monster.ID, monster.Name, monster.Health, monster.MaxHealth, monster.Mana, monster.MaxMana)
         {
             rewardExp = monster.rewardExp;
             rewardGold = monster.RewardGold;

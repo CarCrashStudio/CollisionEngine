@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace RPG.Engine
+namespace RPG
 {
     public class Entity
     {

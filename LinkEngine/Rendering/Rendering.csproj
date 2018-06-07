@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3A696174-9A1D-4E17-8FEB-0C3A4AE8F840}</ProjectGuid>
+    <ProjectGuid>{7A33A0F5-896A-461B-BBC4-A49B1C0AC554}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RPG</RootNamespace>
-    <AssemblyName>RPG</AssemblyName>
+    <RootNamespace>Rendering</RootNamespace>
+    <AssemblyName>Rendering</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,24 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Engine\Entities\Character.cs" />
-    <Compile Include="Engine\Entities\Entity.cs" />
-    <Compile Include="Engine\Entities\Monster.cs" />
-    <Compile Include="Engine\Entities\NPC.cs" />
-    <Compile Include="Engine\Entities\PartyMember.cs" />
-    <Compile Include="Engine\Gameplay\Combat.cs" />
-    <Compile Include="Engine\Gameplay\Consumable.cs" />
-    <Compile Include="Engine\Gameplay\Equipment.cs" />
-    <Compile Include="Engine\Gameplay\Item.cs" />
-    <Compile Include="Engine\Gameplay\Quest.cs" />
-    <Compile Include="Engine\Gameplay\Shop.cs" />
-    <Compile Include="Engine\Gameplay\Skill.cs" />
-    <Compile Include="Engine\Sql.cs" />
-    <Compile Include="Engine\World\Biome.cs" />
-    <Compile Include="Engine\World\Dungeon.cs" />
-    <Compile Include="Engine\World\Location.cs" />
-    <Compile Include="Engine\World\Tile.cs" />
-    <Compile Include="Engine\World\World.cs" />
+    <Compile Include="Graphics\ScreenObject.cs" />
+    <Compile Include="Graphics\ScreenText.cs" />
+    <Compile Include="GUI\Hud.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

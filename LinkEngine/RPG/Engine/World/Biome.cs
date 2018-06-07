@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace RPG.Engine
+namespace RPG
 {
     public class Biome
     {

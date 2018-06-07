@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace RPG.Engine
+namespace RPG
 {
     public class Skill
     {

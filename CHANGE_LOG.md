@@ -1,4 +1,7 @@
 # CHANGE LOG
+- v1.0.10
+  - Started work on combat system
+  - Created new project for 2d rendering system
 - v1.0.9
   - Reorganized File Structure
   - Removed Equipment Slot system on Character.cs
