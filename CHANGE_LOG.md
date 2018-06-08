@@ -1,4 +1,8 @@
 # CHANGE LOG
+- v1.0.10.1 stable
+  - Constructed building blocks for combat system
+  - Added Modifier Class to properly organize all modifiers the player can receive
+  - Changed Skill Class to Ability class, will rework functionality later
 - v1.0.10 stable
   - Restructured file system
 - v1.0.10 dev

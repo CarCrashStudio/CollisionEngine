@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
+﻿using System.Collections.Generic;
 
-namespace LinkEngine
+namespace LinkEngine.RPG
 {
     public class Entity
     {
@@ -24,6 +22,14 @@ namespace LinkEngine
         public short Agility { get; set; }
         public short Luck { get; set; }
 
+        public List<Modifier> StrengthModifiers { get; set; }
+        public List<Modifier> PerceptionModifiers { get; set; }
+        public List<Modifier> EnduranceModifiers { get; set; }
+        public List<Modifier> CharismaModifiers { get; set; }
+        public List<Modifier> IntelligenceModifiers { get; set; }
+        public List<Modifier> AgilityModifiers { get; set; }
+        public List<Modifier> LuckModifiers { get; set; }
+
         public int ID { get { return id; } set { id = value; } }
         public string Name { get { return name; } set { name = value; } }
         public string Facing { get; set; } // The direction the player is facing (North, South, East, West)
@@ -31,7 +37,7 @@ namespace LinkEngine
         public int MaxHealth { get { return maxHp; } set { maxHp = value; } }
         public int Mana { get { return mana; } set { mana = value; } }
         public int MaxMana { get { return maxMana; } set { maxMana = value; } }
-        public List<Skill> Skills { get; set; }
+        public List<Ability> Abilities { get; set; }
         public List<Entity> Party { get; set; }
         public List<Entity> PartyDead { get; set; }
 
@@ -58,7 +64,7 @@ namespace LinkEngine
             maxHp = _maxHp;
             mana = _mana;
             maxMana = _maxMana;
-            Skills = new List<Skill>();
+            Abilities = new List<Ability>();
             Party = new List<Entity>();
             PartyDead = new List<Entity>();
         }
@@ -104,17 +110,22 @@ namespace LinkEngine
         /// less than or equal to the target 'check' value
         /// </summary>
         /// <param name="check">the value to check the strength mod against</param>
-        /// <param name="modifiers">the list of values to add to the skill check</param>
-        /// <returns>Returns true if skill check passes</returns>
-        public bool StrengthCheck (short check, short[] modifiers)
+        /// <param name="modifiers">the list of values to add to the Ability check</param>
+        /// <returns>Returns true if Ability check passes</returns>
+        public bool StrengthCheck (short check, Modifier[] modifiers)
         {
             // sets the current strength mod
             int str = Strength;
-            for (int i = 0; i < modifiers.Length; i++)
+
+            if(modifiers != null)
             {
-                // adds modifiers to strength value
-                str += modifiers[i];
+                for (int i = 0; i < modifiers.Length; i++)
+                {
+                    // adds modifiers to strength value
+                    str += modifiers[i].ModifierAmount;
+                }
             }
+            
 
             // if the check is less than check
             if (str < check)
@@ -124,14 +135,17 @@ namespace LinkEngine
                 return true;
             
         }
-        public bool PerceptionCheck(short check, short[] modifiers)
+        public bool PerceptionCheck(short check, Modifier[] modifiers)
         {
             // sets the current perception mod
             int per = Perception;
-            for (int i = 0; i < modifiers.Length; i++)
+            if (modifiers != null)
             {
-                // adds modifiers to perception value
-                per += modifiers[i];
+                for (int i = 0; i < modifiers.Length; i++)
+                {
+                    // adds modifiers to perception value
+                    per += modifiers[i].ModifierAmount;
+                }
             }
 
             // if the check is less than check
@@ -142,14 +156,18 @@ namespace LinkEngine
                 return true;
 
         }
-        public bool EnduranceCheck(short check, short[] modifiers)
+        public bool EnduranceCheck(short check, Modifier[] modifiers)
         {
             // sets the current strength mod
             int end = Endurance;
-            for (int i = 0; i < modifiers.Length; i++)
+
+            if (modifiers != null)
             {
-                // adds modifiers to strength value
-                end += modifiers[i];
+                for (int i = 0; i < modifiers.Length; i++)
+                {
+                    // adds modifiers to strength value
+                    end += modifiers[i].ModifierAmount;
+                }
             }
 
             // if the check is less than check
@@ -160,14 +178,18 @@ namespace LinkEngine
                 return true;
 
         }
-        public bool CharismaCheck(short check, short[] modifiers)
+        public bool CharismaCheck(short check, Modifier[] modifiers)
         {
             // sets the current strength mod
             int cha = Charisma;
-            for (int i = 0; i < modifiers.Length; i++)
+
+            if (modifiers != null)
             {
-                // adds modifiers to strength value
-                cha += modifiers[i];
+                for (int i = 0; i < modifiers.Length; i++)
+                {
+                    // adds modifiers to strength value
+                    cha += modifiers[i].ModifierAmount;
+                }
             }
 
             // if the check is less than check
@@ -178,14 +200,18 @@ namespace LinkEngine
                 return true;
 
         }
-        public bool IntelligenceCheck(short check, short[] modifiers)
+        public bool IntelligenceCheck(short check, Modifier[] modifiers)
         {
             // sets the current perception mod
             int intel = Intelligence;
-            for (int i = 0; i < modifiers.Length; i++)
+
+            if (modifiers != null)
             {
-                // adds modifiers to perception value
-                intel += modifiers[i];
+                for (int i = 0; i < modifiers.Length; i++)
+                {
+                    // adds modifiers to perception value
+                    intel += modifiers[i].ModifierAmount;
+                }
             }
 
             // if the check is less than check
@@ -196,14 +222,18 @@ namespace LinkEngine
                 return true;
 
         }
-        public bool AgilityCheck(short check, short[] modifiers)
+        public bool AgilityCheck(short check, Modifier[] modifiers)
         {
             // sets the current strength mod
             int agi = Agility;
-            for (int i = 0; i < modifiers.Length; i++)
+
+            if (modifiers != null)
             {
-                // adds modifiers to strength value
-                agi += modifiers[i];
+                for (int i = 0; i < modifiers.Length; i++)
+                {
+                    // adds modifiers to strength value
+                    agi += modifiers[i].ModifierAmount;
+                }
             }
 
             // if the check is less than check
@@ -214,14 +244,18 @@ namespace LinkEngine
                 return true;
 
         }
-        public bool LuckCheck(short check, short[] modifiers)
+        public bool LuckCheck(short check, Modifier[] modifiers)
         {
             // sets the current strength mod
             int luck = Luck;
-            for (int i = 0; i < modifiers.Length; i++)
+
+            if (modifiers != null)
             {
-                // adds modifiers to strength value
-                luck += modifiers[i];
+                for (int i = 0; i < modifiers.Length; i++)
+                {
+                    // adds modifiers to strength value
+                    luck += modifiers[i].ModifierAmount;
+                }
             }
 
             // if the check is less than check
@@ -230,6 +264,45 @@ namespace LinkEngine
             else
                 // If the check is equal to or greater than check
                 return true;
+        }
+
+        public void AddModifier (Modifier mod)
+        {
+            switch(mod.TargetVariable)
+            {
+                case "Strength":
+                    StrengthModifiers.Add(mod);
+                    break;
+                case "Perception":
+                    PerceptionModifiers.Add(mod);
+                    break;
+                case "Endurance":
+                    EnduranceModifiers.Add(mod);
+                    break;
+                case "Charisma":
+                    CharismaModifiers.Add(mod);
+                    break;
+                case "Intelligence":
+                    IntelligenceModifiers.Add(mod);
+                    break;
+                case "Agility":
+                    AgilityModifiers.Add(mod);
+                    break;
+                case "Luck":
+                    LuckModifiers.Add(mod);
+                    break;
+            }
+        }
+
+        public void RemoveMod(string name, List<Modifier> mods)
+        {
+            foreach (Modifier mod in mods)
+            {
+                if (mod.Name == name)
+                {
+                    mods.Remove(mod);
+                }
+            }
         }
     }
 }

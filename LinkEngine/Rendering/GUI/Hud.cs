@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace LinkEngine.GUI
+namespace LinkEngine.RPG.GUI
 {
     public class Hud
     {

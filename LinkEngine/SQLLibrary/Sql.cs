@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 
-namespace LinkEngine
+namespace LinkEngine.RPG
 {
     public class Sql
     {

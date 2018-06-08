@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace LinkEngine
+namespace LinkEngine.RPG
 {
     public class Character : Entity
     {

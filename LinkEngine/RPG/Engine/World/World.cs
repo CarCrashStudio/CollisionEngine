@@ -2,7 +2,7 @@
 using System.IO;
 using System.Reflection;
 
-namespace LinkEngine
+namespace LinkEngine.RPG
 {
     public static class World
     {
@@ -13,7 +13,7 @@ namespace LinkEngine
         public static List<NPC> NPCs = new List<NPC>();
         public static List<Tile> Tiles = new List<Tile>();
         public static List<Biome> Biomes = new List<Biome>();
-        public static List<Skill> Skills = new List<Skill>();
+        public static List<Ability> Abilities = new List<Ability>();
         public static List<Item> Craftable = new List<Item>();
 
         public static Character Player { get; set; }
@@ -274,24 +274,24 @@ namespace LinkEngine
             return null;
         }
 
-        public static Skill SkillByID(int id)
+        public static Ability AbilityByID(int id)
         {
-            foreach (Skill skill in Skills)
+            foreach (Ability Ability in Abilities)
             {
-                if(skill.ID == id)
+                if(Ability.ID == id)
                 {
-                    return skill;
+                    return Ability;
                 }
             }
             return null;
         }
-        public static Skill SkillByName(string name)
+        public static Ability AbilityByName(string name)
         {
-            foreach (Skill skill in Skills)
+            foreach (Ability Ability in Abilities)
             {
-                if(skill.Name == name)
+                if(Ability.Name == name)
                 {
-                    return skill;
+                    return Ability;
                 }
             }
             return null;

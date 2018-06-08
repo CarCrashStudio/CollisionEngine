@@ -5,8 +5,9 @@
     "\\LinkEngine\\Rendering",
     "\\LinkEngine\\RPG",
     "\\LinkEngine\\RPG\\Engine",
+    "\\LinkEngine\\RPG\\Engine\\Entities",
     "\\LinkEngine\\RPG\\Engine\\Gameplay"
   ],
-  "SelectedNode": "\\LinkEngine\\Rendering\\Rendering.csproj",
+  "SelectedNode": "\\LinkEngine\\RPG\\Engine\\Gameplay\\Quest.cs",
   "PreviewInSolutionExplorer": false
 }

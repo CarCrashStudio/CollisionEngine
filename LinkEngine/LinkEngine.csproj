@@ -55,8 +55,9 @@
     <Compile Include="RPG\Engine\Gameplay\Consumable.cs" />
     <Compile Include="RPG\Engine\Gameplay\Equipment.cs" />
     <Compile Include="RPG\Engine\Gameplay\Item.cs" />
+    <Compile Include="RPG\Engine\Gameplay\Modifier.cs" />
     <Compile Include="RPG\Engine\Gameplay\Quest.cs" />
-    <Compile Include="RPG\Engine\Gameplay\Skill.cs" />
+    <Compile Include="RPG\Engine\Gameplay\Ability.cs" />
     <Compile Include="RPG\Engine\World\Biome.cs" />
     <Compile Include="RPG\Engine\World\Dungeon.cs" />
     <Compile Include="RPG\Engine\World\Location.cs" />

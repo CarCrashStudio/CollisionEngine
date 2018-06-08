@@ -1,4 +1,4 @@
-﻿namespace LinkEngine
+﻿namespace LinkEngine.RPG
 {
     public class Tile// Class to hold tile information 
     {
