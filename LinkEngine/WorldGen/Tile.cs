@@ -1,4 +1,4 @@
-﻿namespace LinkEngine.RPG
+﻿namespace LinkEngine.WorldGen
 {
     public class Tile// Class to hold tile information 
     {

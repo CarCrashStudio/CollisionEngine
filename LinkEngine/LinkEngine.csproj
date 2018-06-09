@@ -58,10 +58,10 @@
     <Compile Include="RPG\Engine\Gameplay\Modifier.cs" />
     <Compile Include="RPG\Engine\Gameplay\Quest.cs" />
     <Compile Include="RPG\Engine\Gameplay\Ability.cs" />
-    <Compile Include="RPG\Engine\World\Biome.cs" />
-    <Compile Include="RPG\Engine\World\Dungeon.cs" />
+    <Compile Include="WorldGen\Biome.cs" />
+    <Compile Include="Dungeon\Dungeon.cs" />
     <Compile Include="RPG\Engine\World\Location.cs" />
-    <Compile Include="RPG\Engine\World\Tile.cs" />
+    <Compile Include="WorldGen\Tile.cs" />
     <Compile Include="RPG\Engine\World\World.cs" />
     <Compile Include="SQLLibrary\Sql.cs" />
   </ItemGroup>

@@ -4,21 +4,13 @@ namespace LinkEngine.RPG
 {
     public class Character : Entity
     {
-        //const int STEP_SIZE = 8;    
-
-        int level;
-        int exp;
-        int maxExp;
-        int gold;
-        Location currentLocation;
-        
         System.Random rand = new System.Random();
 
-        public Location CurrentLocation { get { return currentLocation; } set { currentLocation = value; } }
-        public int Level { get { return level; } set { level = value; } }
-        public int Exp { get { return exp; } set { exp = value; } }
-        public int MaxExp { get { return maxExp; } set { maxExp = value; } }
-        public int Gold { get { return gold; } set { gold = value; } }
+        public Location CurrentLocation { get; set; }
+        public int Level { get; set; }
+        public int Exp { get; set; }
+        public int MaxExp { get; set; }
+        public int Gold { get; set; }
         public string Slug { get; set; }
 
         public List<InventoryItem> Inventory { get; set; }
@@ -48,10 +40,10 @@ namespace LinkEngine.RPG
         public Character(int _id, string _name, int _hp, int _maxHp, int _mana, int _maxMana, int _level, int _exp, int _maxExp, int _gold, string slug) :
             base(_id, _name, _hp, _maxHp, _mana, _maxMana)
         {
-            level = _level;
-            exp = _exp;
-            maxExp = _maxExp;
-            gold = _gold;
+            Level = _level;
+            Exp = _exp;
+            MaxExp = _maxExp;
+            Gold = _gold;
             Slug = slug;
 
             Inventory = new List<InventoryItem>();
@@ -70,10 +62,10 @@ namespace LinkEngine.RPG
         }
         public void LevelUp()
         {
-            if (exp >= maxExp)
+            if (Exp >= MaxExp)
             {
-                level++;
-                maxExp += rand.Next(100, maxExp);
+                Level++;
+                MaxExp += rand.Next(100, MaxExp);
             }
         }
 

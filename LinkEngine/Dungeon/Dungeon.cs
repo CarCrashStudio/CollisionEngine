@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using LinkEngine.WorldGen;
+using LinkEngine.RPG;
 
-namespace LinkEngine.RPG
+namespace LinkEngine.Dungeon
 {
     public class Dungeon // Class holding the play area and tiles inside
     {
@@ -51,7 +53,7 @@ namespace LinkEngine.RPG
         /// <returns>Void</returns>
         public void GenerateRoom (Biome biome, int id, string name, string desc, int width, int length, ref int playerX, ref int playerY, string playerFacing)
         {
-            bool containsLoot = false, hasMonster = false, hasDoor = false;
+            bool hasDoor = false;
 
             // Generate a room based on the biome and tile size
             Rooms.Add(new Location(id, name, desc, width, length));
@@ -67,10 +69,10 @@ namespace LinkEngine.RPG
                 //GenerateLoot(ref containsLoot, width, length, biome, Rooms.Count - 1);
             }
 
-            if (biome.AvailibleMonsters.Count != 0)
-            {
-                SpawnMonster(ref hasMonster, length, width, biome, Rooms.Count - 1);
-            }
+            //if (biome.AvailibleMonsters.Count != 0)
+            //{
+            //    SpawnMonster(ref hasMonster, length, width, biome, Rooms.Count - 1);
+            //}
         }
 
         public void GenerateHallway(Biome biome, int width, int length, ref int playerX, ref int playerY, string Facing, int roomNumber)
@@ -294,9 +296,9 @@ namespace LinkEngine.RPG
                 {
                     if (!(y == 0 || y == length))
                     {
-                        int i = rand.Next(biome.AvailibleMonsters.Count - 1);
-                        Rooms[roomNumber].MonsterLivingHere = new Monster(biome.AvailibleMonsters[i]);
-                        hasMonster = true;
+                        //int i = rand.Next(biome.AvailibleMonsters.Count - 1);
+                        //Rooms[roomNumber].MonsterLivingHere = new Monster(biome.AvailibleMonsters[i]);
+                        //hasMonster = true;
                     }
                 }
             }

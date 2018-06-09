@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using LinkEngine.WorldGen;
 
 namespace LinkEngine.RPG
 {
@@ -45,7 +46,7 @@ namespace LinkEngine.RPG
             }
             catch (System.Exception ex)
             {
-                // System.Windows.Forms.MessageBox.Show(ex.Message);
+                System.Windows.Forms.MessageBox.Show(ex.Message);
             }
 
         }
@@ -77,7 +78,7 @@ namespace LinkEngine.RPG
             }
             catch (System.Exception ex)
             {
-                // System.Windows.Forms.MessageBox.Show(ex.Message);
+                System.Windows.Forms.MessageBox.Show(ex.Message);
             }
         }
 
@@ -178,7 +179,7 @@ namespace LinkEngine.RPG
                 Tile[] tileAry = new Tile[] { World.TileByID(tile1), World.TileByID(tile2), World.TileByID(tile3), World.TileByID(tile4), World.TileByID(tile5), World.TileByID(tile6), World.TileByID(tile7), World.TileByID(tile8), World.TileByID(tile9) };
                 Monster[] monsterAry = new Monster[] { World.MonsterByID(monster1), World.MonsterByID(monster2), World.MonsterByID(monster3) };
 
-                World.Biomes.Add(new Biome(id, name, tileAry, monsterAry));
+                World.Biomes.Add(new Biome(id, name, tileAry));
 
                 reader.ReadLine();
             }

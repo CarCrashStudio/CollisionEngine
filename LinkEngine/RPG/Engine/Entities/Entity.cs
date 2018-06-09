@@ -4,16 +4,6 @@ namespace LinkEngine.RPG
 {
     public class Entity
     {
-        int id;
-        string name;
-        int hp;
-        int maxHp;
-        int mana;
-        int maxMana;
-        int locX;
-        int locY;
-        int locZ;
-
         public short Strength { get; set; }
         public short Perception { get; set; }
         public short Endurance { get; set; }
@@ -30,22 +20,22 @@ namespace LinkEngine.RPG
         public List<Modifier> AgilityModifiers { get; set; }
         public List<Modifier> LuckModifiers { get; set; }
 
-        public int ID { get { return id; } set { id = value; } }
-        public string Name { get { return name; } set { name = value; } }
+        public int ID { get; set; }
+        public string Name { get; set; }
         public string Facing { get; set; } // The direction the player is facing (North, South, East, West)
-        public int Health { get { return hp; } set { hp = value; } }
-        public int MaxHealth { get { return maxHp; } set { maxHp = value; } }
-        public int Mana { get { return mana; } set { mana = value; } }
-        public int MaxMana { get { return maxMana; } set { maxMana = value; } }
+        public int Health { get; set; }
+        public int MaxHealth { get; set; }
+        public int Mana { get; set; }
+        public int MaxMana { get; set; }
         public List<Ability> Abilities { get; set; }
         public List<Entity> Party { get; set; }
         public List<Entity> PartyDead { get; set; }
 
-        
 
-        public int Location_X { get { return locX; } set { locX = value; } }
-        public int Location_Y { get { return locY; } set { locY = value; } }
-        public int Location_Z { get { return locZ; } set { locZ = value; } }
+
+        public int Location_X { get; set; }
+        public int Location_Y { get; set; }
+        public int Location_Z { get; set; }
 
         /// <summary>
         /// Creates a new object of the Entity class
@@ -58,12 +48,12 @@ namespace LinkEngine.RPG
         /// <param name="_maxMana">Max amount of mana</param>
         public Entity(int _id, string _name, int _hp, int _maxHp, int _mana, int _maxMana)
         {
-            id = _id;
-            name = _name;
-            hp = _hp;
-            maxHp = _maxHp;
-            mana = _mana;
-            maxMana = _maxMana;
+            ID = _id;
+            Name = _name;
+            Health = _hp;
+            MaxHealth = _maxHp;
+            Mana = _mana;
+            MaxMana = _maxMana;
             Abilities = new List<Ability>();
             Party = new List<Entity>();
             PartyDead = new List<Entity>();
@@ -77,8 +67,8 @@ namespace LinkEngine.RPG
         public void Move(int x, int y)
         {
             // Move the entity according to what is put in the parameters, +1,-1,0
-            locX += x;
-            locY += y;
+            Location_X += x;
+            Location_Y += y;
         }
 
         /// <summary>
@@ -87,7 +77,7 @@ namespace LinkEngine.RPG
         /// <returns>True or False</returns>
         public bool IsDead()
         {
-            if (hp <= 0)
+            if (Health <= 0)
             {
                 return true;
             }

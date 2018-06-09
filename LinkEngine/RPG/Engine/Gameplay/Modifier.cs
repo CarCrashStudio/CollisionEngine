@@ -2,16 +2,16 @@
 {
     public class Modifier
     {
-        int modAmount = 0;
+        short modAmount = 0;
 
         public string Name { get; set; }
 
-        public int ModifierAmount { get { return modAmount * ModifierLevel; ; } }
+        public short ModifierAmount { get { return (short)(modAmount * ModifierLevel); ; } }
         public string TargetVariable { get; set; }
 
-        public int ModifierLevel { get; set; }
+        public short ModifierLevel { get; set; }
 
-        public Modifier(string name, string targetVar, int buff)
+        public Modifier(string name, string targetVar, short buff)
         {
             Name = name;
             modAmount = buff;

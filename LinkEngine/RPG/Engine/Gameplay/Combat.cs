@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace LinkEngine.RPG
 {
@@ -11,6 +12,11 @@ namespace LinkEngine.RPG
 
         int damageAmount = 0;
 
+        /// <summary>
+        /// The Attack command to be executed whenever attack input is triggered
+        /// </summary>
+        /// <param name="Attacker">The entity executing the command</param>
+        /// <param name="Defender">The target entity</param>
         public void Attack (Entity Attacker, Entity Defender)
         {
             // Check if the defender has an agility or luck Ability
@@ -31,7 +37,7 @@ namespace LinkEngine.RPG
             {
                 // Deal damage to defender
                 // Defenders endurance and agility has a chance counteract the damage
-                damageAmount = (damage(Attacker.Strength) - block(Defender.Endurance, Defender.Agility));
+                damageAmount = (damage(Attacker.Strength, Attacker.StrengthModifiers) - block(Defender.Endurance, Defender.Agility, Defender.EnduranceModifiers, Defender.AgilityModifiers));
 
                 // Make sure damage amount is not negative, that will give the player health
                 if (damageAmount > 0)
@@ -42,13 +48,26 @@ namespace LinkEngine.RPG
             }
         }
 
-        int damage (short str)
+        int damage (short str, List<Modifier> strMods)
         {
+            foreach(Modifier mod in strMods)
+            {
+                str += mod.ModifierAmount;
+            }
+
             return rand.Next(str * 10);
         }
 
-        int block (short end, short agi)
+        int block (short end, short agi, List<Modifier> endMods, List<Modifier> agiMods)
         {
+            foreach (Modifier mod in endMods)
+            {
+                end += mod.ModifierAmount;
+            }
+            foreach (Modifier mod in agiMods)
+            {
+                agi += mod.ModifierAmount;
+            }
             return rand.Next((end + agi) * 10);
         }
     }

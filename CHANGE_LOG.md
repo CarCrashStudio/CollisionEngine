@@ -1,4 +1,8 @@
 # CHANGE LOG
+- v1.0.11 dev
+  - Created Worldgen File structure. 
+  - Moved Biome and Tile under new WorldGen structure
+  - TODO: Rebuild world gen system. Current system is clunky and inefficient
 - v1.0.10.1 stable
   - Constructed building blocks for combat system
   - Added Modifier Class to properly organize all modifiers the player can receive
