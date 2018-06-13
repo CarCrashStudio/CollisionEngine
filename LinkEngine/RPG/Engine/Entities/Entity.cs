@@ -31,8 +31,6 @@ namespace LinkEngine.RPG
         public List<Entity> Party { get; set; }
         public List<Entity> PartyDead { get; set; }
 
-
-
         public int Location_X { get; set; }
         public int Location_Y { get; set; }
         public int Location_Z { get; set; }
@@ -256,32 +254,9 @@ namespace LinkEngine.RPG
                 return true;
         }
 
-        public void AddModifier (Modifier mod)
+        public void AddModifier (Modifier mod, List<Modifier> mods)
         {
-            switch(mod.TargetVariable)
-            {
-                case "Strength":
-                    StrengthModifiers.Add(mod);
-                    break;
-                case "Perception":
-                    PerceptionModifiers.Add(mod);
-                    break;
-                case "Endurance":
-                    EnduranceModifiers.Add(mod);
-                    break;
-                case "Charisma":
-                    CharismaModifiers.Add(mod);
-                    break;
-                case "Intelligence":
-                    IntelligenceModifiers.Add(mod);
-                    break;
-                case "Agility":
-                    AgilityModifiers.Add(mod);
-                    break;
-                case "Luck":
-                    LuckModifiers.Add(mod);
-                    break;
-            }
+            mods.Add(mod);
         }
 
         public void RemoveMod(string name, List<Modifier> mods)
