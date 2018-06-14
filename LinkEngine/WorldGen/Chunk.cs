@@ -4,7 +4,7 @@ namespace LinkEngine.WorldGen
 {
     public class Chunk
     {
-        short Size { get { return 10; } }
+        public short Size { get { return 10; } }
         public Biome containsBiome { get; set; }
 
         // Store the chunks that are adajacent

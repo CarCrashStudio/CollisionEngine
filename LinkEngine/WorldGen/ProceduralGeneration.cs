@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 
 namespace LinkEngine.WorldGen
 {
@@ -9,7 +8,7 @@ namespace LinkEngine.WorldGen
         /*
          * Will Add a minecraft style 'Seed' System for generation where each number in 
          * a string of numbers indicates a certain action to happen in the generation.
-         * Sytem can be used for duungeon style games or games requiring infinite worlds
+         * System can be used for dungeon style games or games requiring infinite worlds
          */
         public string Seed { get; set; }
         System.Random rand = new System.Random();
@@ -17,7 +16,11 @@ namespace LinkEngine.WorldGen
         List<Biome> BiomeList = new List<Biome>();
 
         StreamWriter writer;
-
+        /// <summary>
+        /// Generates a new spawn location based on seed
+        /// </summary>
+        /// <param name="seed">Supports the algorithim of the generation. 
+        /// If no seed is provided, a new one will be generated</param>
         public ProceduralGeneration (string seed = null)
         {
             Seed = seed;
@@ -28,6 +31,7 @@ namespace LinkEngine.WorldGen
                 // Generate a new seed
                 Seed = GenerateSeed();
             }
+            BuildSpawn();
         }
 
         /// <summary>
@@ -42,8 +46,8 @@ namespace LinkEngine.WorldGen
             for (int i = 0; i < 10; i++)
             {
                 /* Seed determines
-                 * 1: 
-                 * 2:
+                 * 1: Chunks should connect smoothly (0 - 1)
+                 * 2: 
                  * 3:
                  * 4: 
                  * 5:
@@ -53,7 +57,10 @@ namespace LinkEngine.WorldGen
                  * 9:
                  * 10:
                  */
-                seed += rand.Next(9).ToString();
+                if(i == 0)
+                {
+                    seed += rand.Next(1);
+                }
             }
             return seed;
         }
@@ -68,25 +75,55 @@ namespace LinkEngine.WorldGen
             // Chunks will have a size of 10 x 10 tiles
 
             // create a new blank chunk
-            Chunk chnk = new Chunk();
+            Chunk chnk = GenerateChunk ();
 
-            // loop for chnk and its adjacent chunks
-            for (int i = 0; i < 5; i++)
+            // generate adjacent chunks
+            chnk.toNorth = GenerateChunk();
+            chnk.toSouth = GenerateChunk();
+            chnk.toEast = GenerateChunk();
+            chnk.toWest = GenerateChunk();
+
+            // add chunks to the list
+            ChunkList.Add(chnk);
+            ChunkList.Add(chnk.toNorth);
+            ChunkList.Add(chnk.toSouth);
+            ChunkList.Add(chnk.toEast);
+            ChunkList.Add(chnk.toWest);
+        }
+
+        /// <summary>
+        /// GenerateChunk will populate the Tiles list inside its own chunk object.
+        /// </summary>
+        /// <returns></returns>
+        Chunk GenerateChunk ()
+        {
+            // create a blank chunk object
+            // create a blank tile object
+            Chunk chnk = new WorldGen.Chunk();
+            Tile tile;
+
+            // get the biome info
+            Biome biome = chnk.containsBiome;
+
+            // loop for chunk size as x and y
+            for (int y = 0; y < chnk.Size; y++)
             {
-                // assign the chunk a biome to pull tiles from
-                chnk.containsBiome = BiomeList[rand.Next(BiomeList.Count)];
+                for (int x = 0; x < chnk.Size; x++)
+                {
+                    // create a new random tile form biome list
+                    tile = new Tile(biome.AvailibleTiles[rand.Next(biome.AvailibleTiles.Count)]);
 
-                // randomly select a tile
-                // this should follow seed generation once the system is implemented better
-                Tile tile = new Tile(chnk.containsBiome.AvailibleTiles[rand.Next(chnk.containsBiome.AvailibleTiles.Count)]);
-                chnk.Tiles.Add(tile);
+                    // Give the tile its X and Y coordinates
+                    tile.X = x;
+                    tile.Y = y;
 
-                // write id to file
-                Assembly assembly = Assembly.GetExecutingAssembly();
-                writer = new StreamWriter(assembly.GetManifestResourceStream("world.txt"));
-
-                writer.WriteLine(tile.ID);
+                    // store tile in chunk
+                    chnk.Tiles.Add(tile);
+                }
             }
+
+            // return the finished chunk
+            return chnk;
         }
     }
 }

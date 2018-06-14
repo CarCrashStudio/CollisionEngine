@@ -1,4 +1,7 @@
 # CHANGE LOG
+- v1.0.11.3 dev
+  - Improved Chunk spawning. 
+  - Working on a proper algorithim.
 - v1.0.11.2 dev 
   - Wrote functions for a procedural generation terrain system.
   - Functions are dirty and unlikely to work. 
