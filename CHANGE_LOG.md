@@ -1,4 +1,8 @@
 # CHANGE LOG
+- v1.0.11.2 dev 
+  - Wrote functions for a procedural generation terrain system.
+  - Functions are dirty and unlikely to work. 
+  - Functions are likely to be re-written but these are the basics of what should happen.
 - v1.0.11.1 dev
   - Started work on new WorldGen systems (Procedural and Set generation)
   - Setgeneration System is old code Copy/Pasted back into the project. This system will have to be reworked to be as streamlined and generic as possible.
