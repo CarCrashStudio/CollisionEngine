@@ -1,4 +1,7 @@
 # CHANGE LOG
+- v1.0.11.1 dev
+  - Started work on new WorldGen systems (Procedural and Set generation)
+  - Setgeneration System is old code Copy/Pasted back into the project. This system will have to be reworked to be as streamlined and generic as possible.
 - v1.0.11 dev
   - Created Worldgen File structure. 
   - Moved Biome and Tile under new WorldGen structure

@@ -33,5 +33,18 @@
             X = tile.X;
             Y = tile.Y;
         }
+
+        public static Tile ByID(int id, System.Collections.Generic.List<Tile> tiles)
+        {
+            foreach (Tile tile in tiles)
+            {
+                if (tile.ID == id)
+                {
+                    return tile;
+                }
+            }
+
+            return null;
+        }
     }
 }

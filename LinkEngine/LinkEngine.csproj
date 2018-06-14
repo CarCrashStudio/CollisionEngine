@@ -61,6 +61,8 @@
     <Compile Include="WorldGen\Biome.cs" />
     <Compile Include="Dungeon\Dungeon.cs" />
     <Compile Include="RPG\Engine\World\Location.cs" />
+    <Compile Include="WorldGen\ProceduralGeneration.cs" />
+    <Compile Include="WorldGen\SetGeneration.cs" />
     <Compile Include="WorldGen\Tile.cs" />
     <Compile Include="RPG\Engine\World\World.cs" />
     <Compile Include="SQLLibrary\Sql.cs" />
