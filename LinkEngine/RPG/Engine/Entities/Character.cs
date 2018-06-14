@@ -2,7 +2,7 @@
 
 namespace LinkEngine.RPG
 {
-    public class Character : Entity
+    public class Character : RPGEntity
     {
         System.Random rand = new System.Random();
 
@@ -21,7 +21,7 @@ namespace LinkEngine.RPG
         public int MAX_COUNTDOWN { get { return 100; } }
 
         /// <summary>
-        /// 
+        /// The Player class
         /// </summary>
         /// <param name="_id"></param>
         /// <param name="_name"></param>

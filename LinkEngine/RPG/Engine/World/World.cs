@@ -178,8 +178,9 @@ namespace LinkEngine.RPG
 
                 Tile[] tileAry = new Tile[] { World.TileByID(tile1), World.TileByID(tile2), World.TileByID(tile3), World.TileByID(tile4), World.TileByID(tile5), World.TileByID(tile6), World.TileByID(tile7), World.TileByID(tile8), World.TileByID(tile9) };
                 Monster[] monsterAry = new Monster[] { World.MonsterByID(monster1), World.MonsterByID(monster2), World.MonsterByID(monster3) };
+                Biome[] biomeAry = new WorldGen.Biome[] { };
 
-                World.Biomes.Add(new Biome(id, name, tileAry));
+                Biomes.Add(new Biome(id, name, tileAry, biomeAry));
 
                 reader.ReadLine();
             }

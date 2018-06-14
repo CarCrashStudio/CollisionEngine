@@ -8,7 +8,7 @@
         public int X { get; set; }
         public int Y { get; set; }
 
-        // public Quest QuestAvailableHere { get; set; }
+        public Quest QuestAvailableHere { get; set; }
         // public Shop ShopAvailibleHere { get; set; }
 
         public NPC(int _id, string _name, int x, int y)//, Quest _questAvailibleHere) // Shop _shopAvailibleHere)

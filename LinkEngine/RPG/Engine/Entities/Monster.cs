@@ -2,7 +2,7 @@
 
 namespace LinkEngine.RPG
 {
-    public class Monster : Entity
+    public class Monster : RPGEntity
     {        
         int rewardExp;
         int rewardGold;

@@ -1,6 +1,6 @@
 ﻿namespace LinkEngine.RPG
 {
-    public class PartyMember : Entity
+    public class PartyMember : RPGEntity
     {
         public PartyMember(PartyMember member) : 
             base(member.ID, member.Name, member.Health, member.MaxHealth, member.Mana, member.MaxMana)

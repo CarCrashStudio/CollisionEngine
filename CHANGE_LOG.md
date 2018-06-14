@@ -1,4 +1,9 @@
 # CHANGE LOG
+- v1.0.12 dev
+  - Created new Entities File structure
+  - Created Entity class under Entities and changed RPG.Entity to RPG.RPGEntity
+  - Created Player and Enemy class files under Entities
+  - Fixed some errors that were appearing
 - v1.0.11.3 dev
   - Improved Chunk spawning. 
   - Working on a proper algorithim.

@@ -2,7 +2,7 @@
 
 namespace LinkEngine.RPG
 {
-    public class Entity
+    public class RPGEntity : Entities.Entity
     {
         public short Strength { get; set; }
         public short Perception { get; set; }
@@ -19,21 +19,12 @@ namespace LinkEngine.RPG
         public List<Modifier> IntelligenceModifiers { get; set; }
         public List<Modifier> AgilityModifiers { get; set; }
         public List<Modifier> LuckModifiers { get; set; }
-
-        public int ID { get; set; }
-        public string Name { get; set; }
-        public string Facing { get; set; } // The direction the player is facing (North, South, East, West)
-        public int Health { get; set; }
-        public int MaxHealth { get; set; }
+        
         public int Mana { get; set; }
         public int MaxMana { get; set; }
         public List<Ability> Abilities { get; set; }
-        public List<Entity> Party { get; set; }
-        public List<Entity> PartyDead { get; set; }
-
-        public int Location_X { get; set; }
-        public int Location_Y { get; set; }
-        public int Location_Z { get; set; }
+        public List<RPGEntity> Party { get; set; }
+        public List<RPGEntity> PartyDead { get; set; }
 
         /// <summary>
         /// Creates a new object of the Entity class
@@ -44,49 +35,21 @@ namespace LinkEngine.RPG
         /// <param name="_maxHp">The maximum amount of hp this object can have</param>
         /// <param name="_mana">Starting amount of Mana</param>
         /// <param name="_maxMana">Max amount of mana</param>
-        public Entity(int _id, string _name, int _hp, int _maxHp, int _mana, int _maxMana)
+        public RPGEntity(int _id, string _name, int _hp, int _maxHp, int _mana, int _maxMana) :
+            base (_id, _name, _hp, _maxHp)
         {
-            ID = _id;
-            Name = _name;
-            Health = _hp;
-            MaxHealth = _maxHp;
             Mana = _mana;
             MaxMana = _maxMana;
             Abilities = new List<Ability>();
-            Party = new List<Entity>();
-            PartyDead = new List<Entity>();
-        }
-
-        /// <summary>
-        /// Change the entities X and Y coordinates
-        /// </summary>
-        /// <param name="x">The value to change the X coordinate</param>
-        /// <param name="y">The Value to change the Y coordinate</param>
-        public void Move(int x, int y)
-        {
-            // Move the entity according to what is put in the parameters, +1,-1,0
-            Location_X += x;
-            Location_Y += y;
-        }
-
-        /// <summary>
-        /// Check if the entity health is 0
-        /// </summary>
-        /// <returns>True or False</returns>
-        public bool IsDead()
-        {
-            if (Health <= 0)
-            {
-                return true;
-            }
-            else { return false; }
+            Party = new List<RPGEntity>();
+            PartyDead = new List<RPGEntity>();
         }
 
         /// <summary>
         /// Removes a party member from the active list and places it in the dead list to be revived
         /// </summary>
         /// <param name="partymember">The party member to kill</param>
-        public void KillPartyMember(Entity partymember)
+        public void KillPartyMember(RPGEntity partymember)
         {
             Party.Remove(partymember);
             PartyDead.Add(partymember);

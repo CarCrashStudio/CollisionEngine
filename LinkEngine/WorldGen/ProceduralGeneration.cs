@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 
 namespace LinkEngine.WorldGen
 {
@@ -15,7 +14,6 @@ namespace LinkEngine.WorldGen
         List<Chunk> ChunkList = new List<Chunk>();
         List<Biome> BiomeList = new List<Biome>();
 
-        StreamWriter writer;
         /// <summary>
         /// Generates a new spawn location based on seed
         /// </summary>

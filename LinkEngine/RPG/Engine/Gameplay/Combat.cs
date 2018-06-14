@@ -17,7 +17,7 @@ namespace LinkEngine.RPG
         /// </summary>
         /// <param name="Attacker">The entity executing the command</param>
         /// <param name="Defender">The target entity</param>
-        public void Attack (Entity Attacker, Entity Defender)
+        public void Attack (RPGEntity Attacker, RPGEntity Defender)
         {
             // Check if the defender has an agility or luck Ability
             if (Defender.Luck > 0 || Defender.Agility > 0)
