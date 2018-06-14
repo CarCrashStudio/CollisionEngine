@@ -17,9 +17,6 @@ namespace LinkEngine.RPG
         public List<Equipment> Equipped { get; set; }
         public List<PlayerQuest> Quests { get; set; }
 
-        public int CountDown { get; set; }
-        public int MAX_COUNTDOWN { get { return 100; } }
-
         /// <summary>
         /// The Player class
         /// </summary>
@@ -284,7 +281,6 @@ namespace LinkEngine.RPG
             }
             catch { CurrentLocation.MonsterLivingHere = null; }
 
-            CountDown = MAX_COUNTDOWN; //Countdown resets upon entering a new location
             //World.HUD.UpdateNPCs();
         }
         public void RecieveQuest(NPC npc)
