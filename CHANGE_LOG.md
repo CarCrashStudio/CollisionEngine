@@ -1,4 +1,7 @@
 # CHANGE LOG
+- v1.0.12.1 release
+  - Fixed Procedural generation.
+  - System is completly random, need to work on proper algorithim
 - v1.0.12 dev
   - Created new Entities File structure
   - Created Entity class under Entities and changed RPG.Entity to RPG.RPGEntity

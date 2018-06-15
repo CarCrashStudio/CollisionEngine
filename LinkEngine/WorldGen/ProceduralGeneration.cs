@@ -2,14 +2,17 @@
 
 namespace LinkEngine.WorldGen
 {
-    class ProceduralGeneration
+    public class ProceduralGeneration
     {
+        enum TileTypes { PASSABLE=0, UNPASSABLE=1, WATER=2}
         /*
          * Will Add a minecraft style 'Seed' System for generation where each number in 
          * a string of numbers indicates a certain action to happen in the generation.
          * System can be used for dungeon style games or games requiring infinite worlds
          */
         public string Seed { get; set; }
+        public short ViewDistance { get; set; }
+
         System.Random rand = new System.Random();
         List<Chunk> ChunkList = new List<Chunk>();
         List<Biome> BiomeList = new List<Biome>();
@@ -29,6 +32,7 @@ namespace LinkEngine.WorldGen
                 // Generate a new seed
                 Seed = GenerateSeed();
             }
+            // Build the starting 3x3 chunk of map
             BuildSpawn();
         }
 
@@ -76,10 +80,10 @@ namespace LinkEngine.WorldGen
             Chunk chnk = GenerateChunk ();
 
             // generate adjacent chunks
-            chnk.toNorth = GenerateChunk();
-            chnk.toSouth = GenerateChunk();
-            chnk.toEast = GenerateChunk();
-            chnk.toWest = GenerateChunk();
+            chnk.toNorth = GenerateChunk("North", chnk);
+            chnk.toSouth = GenerateChunk("South", chnk);
+            chnk.toEast = GenerateChunk("East", chnk);
+            chnk.toWest = GenerateChunk("West", chnk);
 
             // add chunks to the list
             ChunkList.Add(chnk);
@@ -92,12 +96,14 @@ namespace LinkEngine.WorldGen
         /// <summary>
         /// GenerateChunk will populate the Tiles list inside its own chunk object.
         /// </summary>
+        /// <param name="adajcent">The side of the current chunk this new chunk is adjacent to</param>
+        /// <param name="previousChunk">The previous chunk to match current chunk to. If null, function will create chunk as normal</param>
         /// <returns></returns>
-        Chunk GenerateChunk ()
+        public Chunk GenerateChunk (string adajcent = null, Chunk previousChunk = null)
         {
             // create a blank chunk object
             // create a blank tile object
-            Chunk chnk = new WorldGen.Chunk();
+            Chunk chnk = new Chunk();
             Tile tile;
 
             // get the biome info
@@ -120,8 +126,33 @@ namespace LinkEngine.WorldGen
                 }
             }
 
+            // Check if this chunk is adajcent to another
+            if (adajcent != null)
+            {
+                switch (adajcent)
+                {
+                    case "North":
+                        chnk.toSouth = previousChunk;
+                        break;
+                    case "South":
+                        chnk.toNorth = previousChunk;
+                        break;
+                    case "East":
+                        chnk.toWest = previousChunk;
+                        break;
+                    case "West":
+                        chnk.toEast = previousChunk;
+                        break;
+                }
+            }
+
             // return the finished chunk
             return chnk;
         }
+
+        /*
+         * An algorithim needs to be put in place to eliminate the randomness of the current system.
+         * Function should check the tile type of the prev
+         */
     }
 }
