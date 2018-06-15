@@ -1,7 +1,16 @@
-﻿namespace LinkEngine.Entities
+﻿using System.Collections.Generic;
+
+namespace LinkEngine.Entities
 {
     public class Enemy : Entity
     {
+        public short Strength { get; set; }
+        public short Defense { get; set; }
+
+        public int RewardExperiencePoints { get; set; }
+        public int RewardGold { get; set; }
+
+        public List<LootItem> LootTable { get; set; }
         public Enemy (int id, string name, int health, int maxHealth) : base (id, name, health, maxHealth)
         {
 

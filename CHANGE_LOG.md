@@ -1,4 +1,8 @@
 # CHANGE LOG
+- v1.0.13.2 dev
+  - Moved Room and Transition from DungeonGeneration to their own respective files
+  - Added RandomizeItems stub to Dungeon.cs
+  - TODO: Go back through new additions and comment them out
 - v1.0.13.1 dev
   - Removed Unneeded Microsoft libraries
   - Tinkered combat system. Only Player has skill checks. monsters have a set STR and DEF

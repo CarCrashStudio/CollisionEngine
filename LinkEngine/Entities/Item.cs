@@ -24,8 +24,6 @@ namespace LinkEngine.Entities
         public bool Consumable { get; set; }
 
         public List<CraftingItem> Recipe;
-        
-        
     }
     public class InventoryItem
     {

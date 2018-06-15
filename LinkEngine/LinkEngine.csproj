@@ -41,6 +41,7 @@
     <Compile Include="Entities\Enemy.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\Player.cs" />
+    <Compile Include="GameTypes\Dungeon\DungeonEnemy.cs" />
     <Compile Include="GameTypes\Dungeon\DungeonItem.cs" />
     <Compile Include="GameTypes\RPG\Engine\Entities\Item.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -66,9 +67,11 @@
     <Compile Include="WorldGen\Chunk.cs" />
     <Compile Include="WorldGen\DungeonGeneration.cs" />
     <Compile Include="WorldGen\ProceduralGeneration.cs" />
+    <Compile Include="WorldGen\Room.cs" />
     <Compile Include="WorldGen\SetGeneration.cs" />
     <Compile Include="WorldGen\Tile.cs" />
     <Compile Include="GameTypes\RPG\Engine\World\World.cs" />
+    <Compile Include="WorldGen\Transition.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
