@@ -50,17 +50,18 @@
     <Compile Include="Rendering\Graphics\ScreenText.cs" />
     <Compile Include="Rendering\GUI\Hud.cs" />
     <Compile Include="RPG\Engine\Entities\Character.cs" />
-    <Compile Include="RPG\Engine\Entities\Entity.cs" />
     <Compile Include="RPG\Engine\Entities\Monster.cs" />
     <Compile Include="RPG\Engine\Entities\NPC.cs" />
     <Compile Include="RPG\Engine\Entities\PartyMember.cs" />
     <Compile Include="RPG\Engine\Gameplay\Combat.cs" />
     <Compile Include="RPG\Engine\Gameplay\Consumable.cs" />
     <Compile Include="RPG\Engine\Gameplay\Equipment.cs" />
-    <Compile Include="RPG\Engine\Gameplay\Item.cs" />
+    <Compile Include="Entities\Item.cs" />
     <Compile Include="RPG\Engine\Gameplay\Modifier.cs" />
     <Compile Include="RPG\Engine\Gameplay\Quest.cs" />
     <Compile Include="RPG\Engine\Gameplay\Ability.cs" />
+    <Compile Include="Survival\Entities\Character.cs" />
+    <Compile Include="Survival\Gameplay\Food.cs" />
     <Compile Include="WorldGen\Biome.cs" />
     <Compile Include="Dungeon\Dungeon.cs" />
     <Compile Include="RPG\Engine\World\Location.cs" />
@@ -71,5 +72,6 @@
     <Compile Include="RPG\Engine\World\World.cs" />
     <Compile Include="RPG\Engine\SQLLibrary\Sql.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -2,6 +2,7 @@
 using System.IO;
 using System.Reflection;
 using LinkEngine.WorldGen;
+using LinkEngine.Entities;
 
 namespace LinkEngine.RPG
 {

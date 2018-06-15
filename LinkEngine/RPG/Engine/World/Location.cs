@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using LinkEngine.WorldGen;
+using LinkEngine.Entities;
 
 namespace LinkEngine.RPG
 {

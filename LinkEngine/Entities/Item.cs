@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace LinkEngine.RPG
+namespace LinkEngine.Entities
 {
     public class Item
     { 
@@ -28,28 +28,28 @@ namespace LinkEngine.RPG
 
         public List<CraftingItem> Recipe;
         
-        public void Use(Character player)
-        {
-            Potion pot = (Potion)this;
+        //public void Use(Character player)
+        //{
+        //    Potion pot = (Potion)this;
 
-            switch (pot.VariableToBuff)
-            {
-                case "Health":
-                    player.Health += pot.AmountToBuff;
-                    break;
-                case "Strength":
-                    // player.Strength += pot.AmountToBuff;
-                    break;
-                case "Defense":
-                    // player.Defense += pot.AmountToBuff;
-                    break;
+        //    switch (pot.VariableToBuff)
+        //    {
+        //        case "Health":
+        //            player.Health += pot.AmountToBuff;
+        //            break;
+        //        case "Strength":
+        //            // player.Strength += pot.AmountToBuff;
+        //            break;
+        //        case "Defense":
+        //            // player.Defense += pot.AmountToBuff;
+        //            break;
 
-            }
-        }
-        public void Equip()
-        {
+        //    }
+        //}
+        //public void Equip()
+        //{
 
-        }
+        //}
     }
     public class InventoryItem
     {

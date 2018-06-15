@@ -1,4 +1,6 @@
-﻿namespace LinkEngine.RPG
+﻿using LinkEngine.Entities;
+
+namespace LinkEngine.RPG
 {
     public class Potion : Item
     {

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using LinkEngine.Entities;
+using System.Collections.Generic;
 
 namespace LinkEngine.RPG
 {

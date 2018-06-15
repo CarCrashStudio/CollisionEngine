@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using LinkEngine.Entities;
+using System.Collections.Generic;
 
 namespace LinkEngine.RPG
 {
-    public class Monster : RPGEntity
+    public class Monster : Enemy
     {        
         int rewardExp;
         int rewardGold;
@@ -14,8 +15,8 @@ namespace LinkEngine.RPG
 
         public int SpawnChance { get; set; }
 
-        public Monster(int _id, string _name, int _hp, int _maxHp, int _mana, int _maxMana, int _rewardExp, int _rewardGold, int _spawnChance) :
-            base(_id, _name, _hp, _maxHp, _mana, _maxMana)
+        public Monster(int _id, string _name, int _hp, int _maxHp, int _rewardExp, int _rewardGold, int _spawnChance) :
+            base(_id, _name, _hp, _maxHp)
         {
             rewardExp = _rewardExp;
             rewardGold = _rewardGold;
@@ -25,7 +26,7 @@ namespace LinkEngine.RPG
             SpawnChance = _spawnChance;
         }
         public Monster(Monster monster) :
-            base(monster.ID, monster.Name, monster.Health, monster.MaxHealth, monster.Mana, monster.MaxMana)
+            base(monster.ID, monster.Name, monster.Health, monster.MaxHealth)
         {
             rewardExp = monster.rewardExp;
             rewardGold = monster.RewardGold;

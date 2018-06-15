@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using LinkEngine.Entities;
+using System.Collections.Generic;
 
 namespace LinkEngine.RPG
 {
-    public class Character : RPGEntity
+    public class Character : Player
     {
         System.Random rand = new System.Random();
 
@@ -13,9 +14,25 @@ namespace LinkEngine.RPG
         public int Gold { get; set; }
         public string Slug { get; set; }
 
-        public List<InventoryItem> Inventory { get; set; }
         public List<Equipment> Equipped { get; set; }
         public List<PlayerQuest> Quests { get; set; }
+        public List<Ability> Abilities { get; set; }
+
+        public short Strength { get; set; }
+        public short Perception { get; set; }
+        public short Endurance { get; set; }
+        public short Charisma { get; set; }
+        public short Intelligence { get; set; }
+        public short Agility { get; set; }
+        public short Luck { get; set; }
+
+        public List<Modifier> StrengthModifiers { get; set; }
+        public List<Modifier> PerceptionModifiers { get; set; }
+        public List<Modifier> EnduranceModifiers { get; set; }
+        public List<Modifier> CharismaModifiers { get; set; }
+        public List<Modifier> IntelligenceModifiers { get; set; }
+        public List<Modifier> AgilityModifiers { get; set; }
+        public List<Modifier> LuckModifiers { get; set; }
 
         /// <summary>
         /// The Player class
@@ -25,8 +42,6 @@ namespace LinkEngine.RPG
         /// <param name="clss"></param>
         /// <param name="_hp"></param>
         /// <param name="_maxHp"></param>
-        /// <param name="_mana"></param>
-        /// <param name="_maxMana"></param>
         /// <param name="_maximumDamage"></param>
         /// <param name="_maxDefense"></param>
         /// <param name="_level"></param>
@@ -34,8 +49,8 @@ namespace LinkEngine.RPG
         /// <param name="_maxExp"></param>
         /// <param name="_gold"></param>
         /// <param name="slug"></param>
-        public Character(int _id, string _name, int _hp, int _maxHp, int _mana, int _maxMana, int _level, int _exp, int _maxExp, int _gold, string slug) :
-            base(_id, _name, _hp, _maxHp, _mana, _maxMana)
+        public Character(int _id, string _name, int _hp, int _maxHp, int _level, int _exp, int _maxExp, int _gold, string slug) :
+            base(_id, _name, _hp, _maxHp)
         {
             Level = _level;
             Exp = _exp;
@@ -157,84 +172,7 @@ namespace LinkEngine.RPG
                 }
             }
         }
-        public bool HasAllCraftingRecipeItems(Item craft)
-        {
-            // See if the player has all the items needed to complete the quest here
-            foreach (CraftingItem ci in craft.Recipe)
-            {
-                bool foundItemInPlayersInventory = false;
 
-                // Check each item in the player's inventory, to see if they have it, and enough of it
-                foreach (InventoryItem ii in Inventory)
-                {
-                    if (ii.Details.ID == ci.Details.ID) // The player has the item in their inventory
-                    {
-                        foundItemInPlayersInventory = true;
-
-                        if (ii.Quantity < ci.Quantity) // The player does not have enough of this item to complete the quest
-                        {
-                            return false;
-                        }
-                    }
-                }
-
-                // The player does not have any of this quest completion item in their inventory
-                if (!foundItemInPlayersInventory)
-                {
-                    return false;
-                }
-            }
-
-            // If we got here, then the player must have all the required items, and enough of them, to complete the quest.
-            return true;
-        }
-        public void RemoveCraftingRecipeItems(Item craft)
-        {
-            foreach (CraftingItem ci in craft.Recipe)
-            {
-                foreach (InventoryItem ii in Inventory)
-                {
-                    if (ii.Details.ID == ci.Details.ID)
-                    {
-                        // Subtract the quantity from the player's inventory that was needed to complete the quest
-                        ii.Quantity -= ci.Quantity;
-                        break;
-                    }
-                }
-            }
-        }
-        public void AddItemToInventory(Item itemToAdd)
-        {
-            foreach (InventoryItem ii in Inventory)
-            {
-                if (ii.Details.ID == itemToAdd.ID)
-                {
-                    // They have the item in their inventory, so increase the quantity by one
-                    ii.Quantity++;
-
-                    return; // We added the item, and are done, so get out of this function
-                }
-            }
-
-            // They didn't have the item, so add it to their inventory, with a quantity of 1
-            Inventory.Add(new InventoryItem(itemToAdd, 1));
-        }
-        public void RemoveItemFromInventory(Item itemToRemove)
-        {
-            foreach (InventoryItem ii in Inventory)
-            {
-                if (ii.Details.ID == itemToRemove.ID)
-                {
-                    // They have the item in their inventory, so increase the quantity by one
-                    ii.Quantity--;
-                    if(ii.Quantity <= 0)
-                    {
-                        Inventory.Remove(ii);
-                    }
-                    return; // We added the item, and are done, so get out of this function
-                }
-            }
-        }
         public void MarkQuestCompleted(Quest quest)
         {
             // Find the quest in the player's quest list
@@ -440,6 +378,183 @@ namespace LinkEngine.RPG
                 }
             }
             return null;
+        }
+
+        /// <summary>
+        /// StrengthCheck will take the current value of this.Strength, 
+        /// add all given modifiers and check if it is greater, 
+        /// less than or equal to the target 'check' value
+        /// </summary>
+        /// <param name="check">the value to check the strength mod against</param>
+        /// <param name="modifiers">the list of values to add to the Ability check</param>
+        /// <returns>Returns true if Ability check passes</returns>
+        public bool StrengthCheck(short check, Modifier[] modifiers)
+        {
+            // sets the current strength mod
+            int str = Strength;
+
+            if (modifiers != null)
+            {
+                for (int i = 0; i < modifiers.Length; i++)
+                {
+                    // adds modifiers to strength value
+                    str += modifiers[i].ModifierAmount;
+                }
+            }
+
+
+            // if the check is less than check
+            if (str < check)
+                return false;
+            else
+                // If the check is equal to or greater than check
+                return true;
+
+        }
+        public bool PerceptionCheck(short check, Modifier[] modifiers)
+        {
+            // sets the current perception mod
+            int per = Perception;
+            if (modifiers != null)
+            {
+                for (int i = 0; i < modifiers.Length; i++)
+                {
+                    // adds modifiers to perception value
+                    per += modifiers[i].ModifierAmount;
+                }
+            }
+
+            // if the check is less than check
+            if (per < check)
+                return false;
+            else
+                // If the check is equal to or greater than check
+                return true;
+
+        }
+        public bool EnduranceCheck(short check, Modifier[] modifiers)
+        {
+            // sets the current strength mod
+            int end = Endurance;
+
+            if (modifiers != null)
+            {
+                for (int i = 0; i < modifiers.Length; i++)
+                {
+                    // adds modifiers to strength value
+                    end += modifiers[i].ModifierAmount;
+                }
+            }
+
+            // if the check is less than check
+            if (end < check)
+                return false;
+            else
+                // If the check is equal to or greater than check
+                return true;
+
+        }
+        public bool CharismaCheck(short check, Modifier[] modifiers)
+        {
+            // sets the current strength mod
+            int cha = Charisma;
+
+            if (modifiers != null)
+            {
+                for (int i = 0; i < modifiers.Length; i++)
+                {
+                    // adds modifiers to strength value
+                    cha += modifiers[i].ModifierAmount;
+                }
+            }
+
+            // if the check is less than check
+            if (cha < check)
+                return false;
+            else
+                // If the check is equal to or greater than check
+                return true;
+
+        }
+        public bool IntelligenceCheck(short check, Modifier[] modifiers)
+        {
+            // sets the current perception mod
+            int intel = Intelligence;
+
+            if (modifiers != null)
+            {
+                for (int i = 0; i < modifiers.Length; i++)
+                {
+                    // adds modifiers to perception value
+                    intel += modifiers[i].ModifierAmount;
+                }
+            }
+
+            // if the check is less than check
+            if (intel < check)
+                return false;
+            else
+                // If the check is equal to or greater than check
+                return true;
+
+        }
+        public bool AgilityCheck(short check, Modifier[] modifiers)
+        {
+            // sets the current strength mod
+            int agi = Agility;
+
+            if (modifiers != null)
+            {
+                for (int i = 0; i < modifiers.Length; i++)
+                {
+                    // adds modifiers to strength value
+                    agi += modifiers[i].ModifierAmount;
+                }
+            }
+
+            // if the check is less than check
+            if (agi < check)
+                return false;
+            else
+                // If the check is equal to or greater than check
+                return true;
+
+        }
+        public bool LuckCheck(short check, Modifier[] modifiers)
+        {
+            // sets the current strength mod
+            int luck = Luck;
+
+            if (modifiers != null)
+            {
+                for (int i = 0; i < modifiers.Length; i++)
+                {
+                    // adds modifiers to strength value
+                    luck += modifiers[i].ModifierAmount;
+                }
+            }
+
+            // if the check is less than check
+            if (luck < check)
+                return false;
+            else
+                // If the check is equal to or greater than check
+                return true;
+        }
+
+        public void AddModifier(Modifier mod, List<Modifier> mods)
+        {
+            mods.Add(mod);
+        }
+        public void RemoveMod(string name, List<Modifier> mods)
+        {
+            foreach (Modifier mod in mods)
+            {
+                if (mod.Name == name)
+                {
+                    mods.Remove(mod);
+                }
+            }
         }
     }
 }

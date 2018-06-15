@@ -1,6 +1,6 @@
 ﻿namespace LinkEngine.RPG
 {
-    public class Equipment : Item
+    public class Equipment : Entities.Item
     {
         public int MinimumDamage { get; set; }
         public int MaximumDamage { get; set; }
