@@ -1,4 +1,9 @@
 # CHANGE LOG
+- v1.0.13.1 dev
+  - Removed Unneeded Microsoft libraries
+  - Tinkered combat system. Only Player has skill checks. monsters have a set STR and DEF
+  - Moved all dungeon generation code from Dungeon.cs to DungeonGeneration.cs
+  - Added DungeonItem.cs, will control the game to game item randomness
 - v1.0.13 release
   - Added Survival Game file Structure
   - Added Survival Mechanics (Hunger, food, crafting)

@@ -13,11 +13,11 @@ namespace LinkEngine.RPG
         int damageAmount = 0;
 
         /// <summary>
-        /// The Attack command to be executed whenever attack input is triggered
+        /// The MonsterAttack command to be executed whenever aa monster initiates its attack
         /// </summary>
         /// <param name="Attacker">The entity executing the command</param>
         /// <param name="Defender">The target entity</param>
-        public void Attack (RPGEntity Attacker, RPGEntity Defender)
+        public void MonsterAttack (Monster Attacker, Character Defender)
         {
             // Check if the defender has an agility or luck Ability
             if (Defender.Luck > 0 || Defender.Agility > 0)
@@ -29,7 +29,7 @@ namespace LinkEngine.RPG
 
                 // if the defender has a higher strength or endurance, he can block the attack
                 canBlock = Defender.StrengthCheck(Attacker.Strength, Defender.StrengthModifiers.ToArray());
-                canBlock = Defender.EnduranceCheck(Attacker.Endurance, Defender.EnduranceModifiers.ToArray());
+                canBlock = Defender.EnduranceCheck(Attacker.Strength, Defender.EnduranceModifiers.ToArray());
             }
 
             // if the defender can't dodge the attack
@@ -37,7 +37,7 @@ namespace LinkEngine.RPG
             {
                 // Deal damage to defender
                 // Defenders endurance and agility has a chance counteract the damage
-                damageAmount = (damage(Attacker.Strength, Attacker.StrengthModifiers) - block(Defender.Endurance, Defender.Agility, Defender.EnduranceModifiers, Defender.AgilityModifiers));
+                damageAmount = (damage(Attacker.Strength, null) - block(Defender.Endurance, Defender.Agility, Defender.EnduranceModifiers, Defender.AgilityModifiers));
 
                 // Make sure damage amount is not negative, that will give the player health
                 if (damageAmount > 0)

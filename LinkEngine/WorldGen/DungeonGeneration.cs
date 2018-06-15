@@ -1,29 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using LinkEngine.WorldGen;
-using LinkEngine.RPG;
 
-namespace LinkEngine.Dungeon
+namespace LinkEngine.WorldGen
 {
-    public class Dungeon // Class holding the play area and tiles inside
+    public class DungeonGeneration
     {
         public string Name { get; set; }
-        public List<Location> Rooms { get; set; }
+        public List<Room> Rooms { get; set; }
 
         Random rand = new Random();
-
-        public Dungeon(string _name, int numOfRooms, Biome biome, int playerX, int playerY)
+        public void BuildMap(int numOfRooms, Biome biome, int playerX, int playerY)
         {
-            Name = _name;
-            BuildMap(numOfRooms, biome, playerX, playerY);
-        }
-
-        void BuildMap(int numOfRooms, Biome biome, int playerX, int playerY)
-        {
-            Rooms = new List<Location>();
+            Rooms = new List<Room>();
             for (int i = 0; i < numOfRooms; i++)
             {
-                GenerateRoom(biome, i, "", "", rand.Next(5, 10), rand.Next(5, 10),ref playerX, ref playerY, "South");
+                GenerateRoom(biome, i, "", "", rand.Next(5, 10), rand.Next(5, 10), ref playerX, ref playerY, "South");
             }
         }
 
@@ -51,19 +42,19 @@ namespace LinkEngine.Dungeon
         /// <param name="playerY">the last y coordinate of the player</param>
         /// <param name="playerFacing">the last direction the player was facing</param>
         /// <returns>Void</returns>
-        public void GenerateRoom (Biome biome, int id, string name, string desc, int width, int length, ref int playerX, ref int playerY, string playerFacing)
+        public void GenerateRoom(Biome biome, int id, string name, string desc, int width, int length, ref int playerX, ref int playerY, string playerFacing)
         {
             bool hasDoor = false;
 
             // Generate a room based on the biome and tile size
-            Rooms.Add(new Location(id, name, desc, width, length));
+            Rooms.Add(new Room(id, name, desc, width, length));
 
-            if(biome.AvailibleTiles.Count != 0)
+            if (biome.AvailibleTiles.Count != 0)
             {
                 GenerateTiles(width, length, biome, Rooms.Count - 1);
 
                 // Room needs atleast one door
-                GenerateDoors(ref hasDoor, ref playerX, ref playerY,playerFacing, width, length, biome, Rooms.Count - 1);
+                GenerateDoors(ref hasDoor, ref playerX, ref playerY, playerFacing, width, length, biome, Rooms.Count - 1);
 
                 // Room should include some harvestable item (Treasure, Plant)
                 //GenerateLoot(ref containsLoot, width, length, biome, Rooms.Count - 1);
@@ -77,13 +68,13 @@ namespace LinkEngine.Dungeon
 
         public void GenerateHallway(Biome biome, int width, int length, ref int playerX, ref int playerY, string Facing, int roomNumber)
         {
-            for(int i = 0; i < length; i++)
+            for (int i = 0; i < length; i++)
             {
                 for (int j = 0; j < width; j++)
                 {
-                    if(Facing == "North" || Facing == "South")
+                    if (Facing == "North" || Facing == "South")
                     {
-                        if(j == 0 || j == width)
+                        if (j == 0 || j == width)
                         {
                             Rooms[roomNumber].Tiles.Add(new Tile(biome.AvailibleTiles[2].ID, biome.AvailibleTiles[2].Name, biome.AvailibleTiles[2].Dense, i, j, biome.AvailibleTiles[2].Type));
                         }
@@ -104,7 +95,6 @@ namespace LinkEngine.Dungeon
                 }
             }
         }
-
         void GenerateDoors(ref bool hasDoor, ref int playerX, ref int playerY, string playerFacing, int width, int length, Biome biome, int roomNumber)
         {
             while (!hasDoor)
@@ -147,7 +137,7 @@ namespace LinkEngine.Dungeon
                 // Random number of doors to generate
                 int numDoors = rand.Next(1, 3);
 
-                for(int j = 0; j < numDoors; j++)
+                for (int j = 0; j < numDoors; j++)
                 {
                     do
                     {
@@ -304,5 +294,51 @@ namespace LinkEngine.Dungeon
             }
         }
     }
-} 
 
+    public class Room
+    {
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public int Length { get; set; }
+        public int Width { get; set; }
+
+        public List<Tile> Tiles { get; set; }
+
+        public List<Transition> Transitions { get; set; }
+
+        public Room LocationToNorth { get; set; }
+        public Room LocationToEast { get; set; }
+        public Room LocationToSouth { get; set; }
+        public Room LocationToWest { get; set; }
+
+        public Room(int _id, string _name, string _desc, int width, int length)
+        {
+            ID = _id;
+            Name = _name;
+            Description = _desc;
+            Width = width;
+            Length = length;
+            Tiles = new List<Tile>();
+            Transitions = new List<Transition>();
+        }
+    }
+    public class Transition : Tile
+    {
+        public string RequiredFacingDirection { get; set; }
+        public Room NextLocation { get; set; }
+
+        public Transition(int id, string name, int dense, int x, int y, string type, string facing, Room nextLoc) :
+            base(id, name, dense, x, y, type)
+        {
+            RequiredFacingDirection = facing;
+            NextLocation = nextLoc;
+        }
+        public Transition(Tile tile, string facing, Room nextLoc) :
+            base(tile.ID, tile.Name, tile.Dense, tile.X, tile.Y, tile.Type)
+        {
+            RequiredFacingDirection = facing;
+            NextLocation = nextLoc;
+        }
+    }
+}

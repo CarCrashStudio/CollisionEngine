@@ -1,8 +1,6 @@
-﻿using LinkEngine.Entities;
-
-namespace LinkEngine.RPG
+﻿namespace LinkEngine.RPG
 {
-    public class Potion : Item
+    public class Potion : RPGItem
     {
         int amountToHeal;
 
