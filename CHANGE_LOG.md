@@ -1,4 +1,14 @@
 # CHANGE LOG
+- v1.0.13 release
+  - Added Survival Game file Structure
+  - Added Survival Mechanics (Hunger, food, crafting)
+  - Removed RPG/Entity.cs
+  - Moved S.P.E.C.I.A.L to RPG.Character
+  - Set RPG.Character's base class to Entities.player
+  - Entities.Player now contains inventory management functions
+  - Moved Items.cs to Entities folder
+  - Will rework item system to manage all like Items
+  - This should be last huge, engine changing update for a while, I will be testing, fixing, and improving small systems
 - v1.0.12.1 release
   - Fixed Procedural generation.
   - System is completly random, need to work on proper algorithim
