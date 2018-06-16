@@ -1,4 +1,7 @@
 # CHANGE LOG
+- v1.0.13.3 dev
+  - Started reworking Rendering to not require WinForms
+  - Removed Windows.Forms library
 - v1.0.13.2 dev
   - Moved Room and Transition from DungeonGeneration to their own respective files
   - Added RandomizeItems stub to Dungeon.cs

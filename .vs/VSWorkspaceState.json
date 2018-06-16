@@ -2,12 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\LinkEngine",
-    "\\LinkEngine\\Rendering",
-    "\\LinkEngine\\RPG",
-    "\\LinkEngine\\RPG\\Engine",
-    "\\LinkEngine\\RPG\\Engine\\Entities",
-    "\\LinkEngine\\RPG\\Engine\\Gameplay"
+    "\\LinkEngine\\Rendering"
   ],
-  "SelectedNode": "\\LinkEngine\\RPG\\Engine\\Gameplay\\Quest.cs",
+  "SelectedNode": "\\LinkEngine",
   "PreviewInSolutionExplorer": false
 }

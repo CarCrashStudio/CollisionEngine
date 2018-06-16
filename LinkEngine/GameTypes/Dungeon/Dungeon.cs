@@ -17,7 +17,7 @@ namespace LinkEngine.Dungeon
         // Dungeon Item Creator
         void RandomizeItems ()
         {
-
+            ItemsInDungeon = new List<DungeonItem>();
         }
     }
 } 
