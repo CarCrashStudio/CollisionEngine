@@ -14,12 +14,12 @@ namespace LinkEngine.RPG
         /// Creates a new Monster Entity from the parameters given
         /// </summary>
         /// <param name="_id">The ID of the Monster</param>
-        /// <param name="_name"></param>
-        /// <param name="_hp"></param>
-        /// <param name="_maxHp"></param>
-        /// <param name="str"></param>
-        /// <param name="def"></param>
-        /// <param name="_rewardExp"></param>
+        /// <param name="_name">The Name of the Monster</param>
+        /// <param name="_hp">The Health of the Monster</param>
+        /// <param name="_maxHp">The max Health of the Monster</param>
+        /// <param name="str">The Strength of the Monster</param>
+        /// <param name="def">The Defense of the Monster</param>
+        /// <param name="_rewardExp">The Reward Experience of the Monster</param>
         /// <param name="_rewardGold"></param>
         /// <param name="_spawnChance"></param>
         public Monster(int _id, string _name, int _hp, int _maxHp, short str, short def, int _rewardExp, int _rewardGold, int _spawnChance) :
