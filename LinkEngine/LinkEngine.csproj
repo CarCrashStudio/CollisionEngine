@@ -40,10 +40,11 @@
     <Compile Include="Entities\Enemy.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\Player.cs" />
-    <Compile Include="GameTypes\Dungeon\DungeonEnemy.cs" />
-    <Compile Include="GameTypes\Dungeon\DungeonEquipment.cs" />
-    <Compile Include="GameTypes\Dungeon\DungeonItem.cs" />
-    <Compile Include="GameTypes\Dungeon\DungeonPlayer.cs" />
+    <Compile Include="GameTypes\Dungeon\Entities\DungeonEnemy.cs" />
+    <Compile Include="GameTypes\Dungeon\Gameplay\DungeonEquipment.cs" />
+    <Compile Include="GameTypes\Dungeon\Gameplay\DungeonItem.cs" />
+    <Compile Include="GameTypes\Dungeon\Entities\DungeonPlayer.cs" />
+    <Compile Include="GameTypes\Dungeon\Gameplay\DungeonPotion.cs" />
     <Compile Include="GameTypes\RPG\Engine\Entities\Item.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rendering\Graphics\ScreenObject.cs" />
@@ -63,16 +64,16 @@
     <Compile Include="GameTypes\Survival\Entities\Character.cs" />
     <Compile Include="GameTypes\Survival\Gameplay\Food.cs" />
     <Compile Include="WorldGen\Biome.cs" />
-    <Compile Include="GameTypes\Dungeon\Dungeon.cs" />
+    <Compile Include="GameTypes\Dungeon\Gameplay\Dungeon.cs" />
     <Compile Include="GameTypes\RPG\Engine\World\Location.cs" />
     <Compile Include="WorldGen\Chunk.cs" />
     <Compile Include="WorldGen\DungeonGeneration.cs" />
     <Compile Include="WorldGen\ProceduralGeneration.cs" />
     <Compile Include="WorldGen\Room.cs" />
-    <Compile Include="WorldGen\SetGeneration.cs" />
     <Compile Include="WorldGen\Tile.cs" />
     <Compile Include="GameTypes\RPG\Engine\World\World.cs" />
     <Compile Include="WorldGen\Transition.cs" />
+    <Compile Include="WorldGen\World.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

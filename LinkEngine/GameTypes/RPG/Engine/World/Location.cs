@@ -4,7 +4,7 @@ using LinkEngine.WorldGen;
 namespace LinkEngine.RPG
 {
     public class Location : Room
-    {            
+    {
         public RPGItem ItemRequiredToEnter { get; set; }
         public Quest QuestAvailableHere { get; set; }
 

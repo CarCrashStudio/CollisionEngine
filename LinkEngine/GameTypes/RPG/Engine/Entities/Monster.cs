@@ -4,11 +4,26 @@ using System.Collections.Generic;
 namespace LinkEngine.RPG
 {
     public class Monster : Enemy
-    {        
+    {
+        /// <summary>
+        /// The chance of an enemy spawning. 1 (uncommon) - 100 (common)
+        /// </summary>
         public int SpawnChance { get; set; }
 
-        public Monster(int _id, string _name, int _hp, int _maxHp, int _rewardExp, int _rewardGold, int _spawnChance) :
-            base(_id, _name, _hp, _maxHp)
+        /// <summary>
+        /// Creates a new Monster Entity from the parameters given
+        /// </summary>
+        /// <param name="_id">The ID of the Monster</param>
+        /// <param name="_name"></param>
+        /// <param name="_hp"></param>
+        /// <param name="_maxHp"></param>
+        /// <param name="str"></param>
+        /// <param name="def"></param>
+        /// <param name="_rewardExp"></param>
+        /// <param name="_rewardGold"></param>
+        /// <param name="_spawnChance"></param>
+        public Monster(int _id, string _name, int _hp, int _maxHp, short str, short def, int _rewardExp, int _rewardGold, int _spawnChance) :
+            base(_id, _name, _hp, _maxHp, str, def)
         {
             RewardExperiencePoints = _rewardExp;
             RewardGold = _rewardGold;
@@ -18,7 +33,7 @@ namespace LinkEngine.RPG
             SpawnChance = _spawnChance;
         }
         public Monster(Monster monster) :
-            base(monster.ID, monster.Name, monster.Health, monster.MaxHealth)
+            base(monster.ID, monster.Name, monster.Health, monster.MaxHealth, monster.Strength, monster.Defense)
         {
             RewardExperiencePoints = monster.RewardExperiencePoints;
             RewardGold = monster.RewardGold;

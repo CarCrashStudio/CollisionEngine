@@ -1,4 +1,10 @@
 # CHANGE LOG
+- v1.0.13.5 dev
+  - Started work on the RandomizeItem function
+  - Added DungeonPotion.cs
+  - Started Combat system
+  - Started Rebuilding World to be a base class of Dungeon and RPG.world
+  - Added lots of documentation
 - v1.0.13.4 dev
   - Building Dungeon System
   - Added Equipment

@@ -9,23 +9,23 @@
         public int Y { get; set; }
 
         public Quest QuestAvailableHere { get; set; }
-        // public Shop ShopAvailibleHere { get; set; }
+        // public Shop ShopavailableHere { get; set; }
 
-        public NPC(int _id, string _name, int x, int y)//, Quest _questAvailibleHere) // Shop _shopAvailibleHere)
+        public NPC(int _id, string _name, int x, int y)//, Quest _questavailableHere) // Shop _shopavailableHere)
         {
             ID = _id;
             Name = _name;
             X = x;
             Y = y;
-            // QuestAvailableHere = _questAvailibleHere;
-            // ShopAvailibleHere = _shopAvailibleHere;
+            // QuestAvailableHere = _questavailableHere;
+            // ShopavailableHere = _shopavailableHere;
         }
         public NPC(NPC npc)
         {
             ID = npc.ID;
             Name = npc.Name;
             // QuestAvailableHere = npc.QuestAvailableHere;
-            // ShopAvailibleHere = npc.ShopAvailibleHere;
+            // ShopavailableHere = npc.ShopavailableHere;
         }
     }
 }

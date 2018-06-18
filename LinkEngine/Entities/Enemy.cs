@@ -11,9 +11,10 @@ namespace LinkEngine.Entities
         public int RewardGold { get; set; }
 
         public List<LootItem> LootTable { get; set; }
-        public Enemy (int id, string name, int health, int maxHealth) : base (id, name, health, maxHealth)
+        public Enemy(int id, string name, int health, int maxHealth, short str, short def) : base (id, name, health, maxHealth)
         {
-
+            Strength = str;
+            Defense = def;
         }
     }
 }
