@@ -41,7 +41,9 @@
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\Player.cs" />
     <Compile Include="GameTypes\Dungeon\DungeonEnemy.cs" />
+    <Compile Include="GameTypes\Dungeon\DungeonEquipment.cs" />
     <Compile Include="GameTypes\Dungeon\DungeonItem.cs" />
+    <Compile Include="GameTypes\Dungeon\DungeonPlayer.cs" />
     <Compile Include="GameTypes\RPG\Engine\Entities\Item.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rendering\Graphics\ScreenObject.cs" />
