@@ -1,4 +1,13 @@
 # CHANGE LOG
+- v1.0.13.4 dev
+  - Building Dungeon System
+  - Added Equipment
+  - Added Mystery Item System
+  - Added ItemUse function to DungeonPlayer
+  - Will work on Potion system in next release
+- v1.0.13.3 dev
+  - Started reworking Rendering to not require WinForms
+  - Removed Windows.Forms library
 - v1.0.13.2 dev
   - Moved Room and Transition from DungeonGeneration to their own respective files
   - Added RandomizeItems stub to Dungeon.cs

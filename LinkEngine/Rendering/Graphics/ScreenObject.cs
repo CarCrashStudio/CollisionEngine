@@ -16,20 +16,6 @@ namespace LinkEngine.Rendering
 
             return bitmap;
         }
-        public static Bitmap DrawText(string str, int fontSize,int imgWidth, int imgHeight, Point drawLoc, Bitmap img = null)
-        {
-            Font font = new Font("Arial", fontSize);
-            Brush brush = new SolidBrush(Color.Black);
-            var bitmap = new Bitmap(imgWidth, imgHeight);
-            if (img != null)
-            {
-               bitmap = new Bitmap(img, imgWidth, imgHeight);
-            }
-             
-            var graphics = Graphics.FromImage(bitmap);
 
-            graphics.DrawString(str, font, brush, drawLoc);
-            return bitmap;
-        }
     }
 }

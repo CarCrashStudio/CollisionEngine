@@ -46,7 +46,7 @@ namespace LinkEngine.RPG
             }
             catch (System.Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show(ex.Message);
+                // System.Windows.Forms.MessageBox.Show(ex.Message);
             }
 
         }
@@ -78,7 +78,7 @@ namespace LinkEngine.RPG
             }
             catch (System.Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show(ex.Message);
+                // System.Windows.Forms.MessageBox.Show(ex.Message);
             }
         }
 

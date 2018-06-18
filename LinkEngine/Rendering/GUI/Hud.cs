@@ -1,8 +1,7 @@
-﻿using LinkEngine.Rendering;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 
-namespace LinkEngine.RPG.GUI
+namespace LinkEngine.Rendering
 {
     public class Hud
     {
@@ -36,11 +35,11 @@ namespace LinkEngine.RPG.GUI
             {
                 if (bar.Image != null)
                 {
-                    currentImage = ScreenObject.DrawText(bar.Text, 16, currentImage.Width, currentImage.Height, new Point(bar.X_1 + bar.Image.Width + 5, bar.Y_1), currentImage);
+                    currentImage = ScreenText.Draw(bar.Text, currentImage.Width, currentImage.Height, new Point(bar.X_1 + bar.Image.Width + 5, bar.Y_1), currentImage);
                 }
                 else
                 {
-                    currentImage = ScreenObject.DrawText(bar.Text, 16, currentImage.Width, currentImage.Height, new Point(bar.X_1, bar.Y_1), currentImage);
+                    currentImage = ScreenText.Draw(bar.Text, currentImage.Width, currentImage.Height, new Point(bar.X_1, bar.Y_1), currentImage);
 
                 }
             }

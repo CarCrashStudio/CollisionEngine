@@ -19,9 +19,12 @@ namespace LinkEngine.WorldGen
             {
                 AvailibleTiles.Add(tileAry[i]);
             }
-            for (int i = 0; i < biomeAry.Length; i++)
+            if (biomeAry != null)
             {
-                RelatedBiomes.Add(biomeAry[i]);
+                for (int i = 0; i < biomeAry.Length; i++)
+                {
+                    RelatedBiomes.Add(biomeAry[i]);
+                }
             }
         }
     }

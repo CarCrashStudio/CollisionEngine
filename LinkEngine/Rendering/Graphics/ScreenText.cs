@@ -1,39 +1,73 @@
 ﻿using System.Drawing;
-using System.Windows.Forms;
 
 namespace LinkEngine.Rendering
 {
     public static class ScreenText
     {
-        static PictureBox Canvas;
-        static Form form;
-
-        public static void Draw(string Text)
+        /// <summary>
+        /// Takes a canvas size and draw location and draws a string onto the canvas
+        /// </summary>
+        /// <param name="str">The string to draw on screen</param>
+        /// <param name="imgWidth">The width of the canvas</param>
+        /// <param name="imgHeight">the Height of the canvas</param>
+        /// <param name="drawLoc">The point at which the text should start</param>
+        /// <param name="img">An already established image to draw over. Can be null</param>
+        /// <returns></returns>
+        public static Bitmap Draw (string str, int imgWidth, int imgHeight, Point drawLoc, Bitmap img = null)
         {
-            Bitmap Image = ScreenObject.DrawText(Text, 16, Canvas.Width, Canvas.Height, new Point(Canvas.Width, Canvas.Height), null);
-            Canvas.Image = ScreenObject.Draw(Canvas.Width, Canvas.Height, new Point((Canvas.Width / 2) - (Image.Width / 2), Canvas.Height / 2), null);
-            form.ShowDialog();
+            // Create a new font to write in
+            Font font = new Font("Arial", 16);
+
+            // create a new brush for the coloring of the text
+            Brush brush = new SolidBrush(Color.Black);
+
+            // create a new blank bitmap set to the determined width and height
+            var bitmap = new Bitmap(imgWidth, imgHeight);
+
+            // if img was provided to mark on, create a new bitmap using img
+            if (img != null)
+            {
+                bitmap = new Bitmap(img, imgWidth, imgHeight);
+            }
+
+            // create a new graphics object to draw with
+            var graphics = Graphics.FromImage(bitmap);
+
+            // draw the text to bitmap using graphics
+            graphics.DrawString(str, font, brush, drawLoc);
+
+            // return the new bitmap
+            return bitmap;
         }
 
-        static void CreateNewCanvas(Form parent, Bitmap BackgroundImage)
+        /// <summary>
+        /// Takes a canvas size and draw location and draws a string onto the canvas. 
+        /// The font is all chosen by you.
+        /// </summary>
+        /// <param name="str">The string to draw on screen</param>
+        /// <param name="imgWidth">The width of the canvas</param>
+        /// <param name="imgHeight">the Height of the canvas</param>
+        /// <param name="drawLoc">The point at which the text should start</param>
+        /// <param name="fontName">The font you wish to use as a string</param>
+        /// <param name="fontSize">the size of the font you wish to use</param>
+        /// <param name="fontColor">The color of the font you wish to use</param>
+        /// <param name="img">An already established image to draw over. Can be null</param>
+        /// <returns></returns>
+        public static Bitmap Draw(string str, int imgWidth, int imgHeight, Point drawLoc, string fontName, short fontSize, Color fontColor, Bitmap img = null)
         {
-            int width = 400;
-            int height = 200;
+            Font font = new Font(fontName, fontSize);
+            Brush brush = new SolidBrush(fontColor);
 
-            form = new Form
+            var bitmap = new Bitmap(imgWidth, imgHeight);
+            if (img != null)
             {
-                Size = new Size(width, height),
-                FormBorderStyle = FormBorderStyle.None
-            };
+                bitmap = new Bitmap(img, imgWidth, imgHeight);
+            }
 
-            Canvas = new PictureBox
-            {
-                Size = new Size(width, height),
-                BackgroundImage = BackgroundImage,
-                BackgroundImageLayout = ImageLayout.Stretch
-            };
+            var graphics = Graphics.FromImage(bitmap);
 
-            form.Controls.Add(Canvas);
+            graphics.DrawString(str, font, brush, drawLoc);
+            return bitmap;
         }
     }
 }
