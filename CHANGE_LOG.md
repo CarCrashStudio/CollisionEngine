@@ -5,6 +5,9 @@
   - Started Combat system
   - Started Rebuilding World to be a base class of Dungeon and RPG.world
   - Added lots of documentation
+  - Removed Weapon and Armor classes from Equipment.cs
+  - Added PlayerAttack to combat.cs
+  - 
 - v1.0.13.4 dev
   - Building Dungeon System
   - Added Equipment

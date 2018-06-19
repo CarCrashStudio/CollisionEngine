@@ -3,27 +3,79 @@ using System.Collections.Generic;
 
 namespace LinkEngine.RPG
 {
+    /// <summary>
+    /// Character is the class that holds all the needed data for the player to use.
+    /// </summary>
     public class Character : Player
     {
         System.Random rand = new System.Random();
+        short equip_size = 6;
 
+        /// <summary>
+        /// EQUIP_SIZE is the max equipment the player can equip.
+        /// The order of the slots are [Head, Torso, Legs, Boots, Main Hand, Off Hand]
+        /// </summary>
+        public short EQUIP_SIZE { get { return equip_size; } set { equip_size = value; } }
+
+        /// <summary>
+        /// The location the Player is currently in
+        /// </summary>
         public Location CurrentLocation { get; set; }
+        /// <summary>
+        /// The current level of the Player
+        /// </summary>
         public int Level { get; set; }
+        /// <summary>
+        /// The amassed experience of the Player
+        /// </summary>
         public int Exp { get; set; }
+        /// <summary>
+        /// the required exp to level up
+        /// </summary>
         public int MaxExp { get; set; }
+        /// <summary>
+        /// the amount of gold the player currently has
+        /// </summary>
         public int Gold { get; set; }
+        /// <summary>
+        /// the slug of the player, used for image searching
+        /// </summary>
         public string Slug { get; set; }
 
-        public List<Equipment> Equipped { get; set; }
+        /// <summary>
+        /// The players Equipment list
+        /// </summary>
+        public Equipment[] Equipment { get; set; }
         public List<PlayerQuest> Quests { get; set; }
         public List<Ability> Abilities { get; set; }
 
+        /// <summary>
+        /// Strength is used to calculate combat damage
+        /// </summary>
         public short Strength { get; set; }
+        /// <summary>
+        /// Perception is used to discover the map more efficiently
+        /// </summary>
         public short Perception { get; set; }
+        /// <summary>
+        /// Endurance is used when calculating blocking damage
+        /// </summary>
         public short Endurance { get; set; }
+        /// <summary>
+        /// Charisma is used to gain dialoge options
+        /// </summary>
         public short Charisma { get; set; }
+        /// <summary>
+        /// Intelligence is used to think up crafting recipes
+        /// </summary>
         public short Intelligence { get; set; }
+        /// <summary>
+        /// Agility is used to calculate blocking ability
+        /// </summary>
         public short Agility { get; set; }
+        /// <summary>
+        /// Luck is used to calculate Critical Hit chance and Blocking ability
+        /// </summary>
         public short Luck { get; set; }
 
         public List<Modifier> StrengthModifiers { get; set; }
@@ -35,7 +87,7 @@ namespace LinkEngine.RPG
         public List<Modifier> LuckModifiers { get; set; }
 
         /// <summary>
-        /// The Player class
+        /// 
         /// </summary>
         /// <param name="_id"></param>
         /// <param name="_name"></param>
@@ -59,7 +111,7 @@ namespace LinkEngine.RPG
             Slug = slug;
 
             Inventory = new List<InventoryItem>();
-            Equipped = new List<Equipment>();
+            Equipment = new RPG.Equipment[EQUIP_SIZE];
             Quests = new List<PlayerQuest>();
 
             Party.Add(this);
@@ -357,6 +409,114 @@ namespace LinkEngine.RPG
             //World.HUD.Update();
         }
 
+        /// <summary>
+        /// Will try to use the selected item. If its equippable it will try to equip it, and if its consumable the playe will consume it
+        /// </summary>
+        /// <param name="itemToUse"></param>
+        public void UseItem(RPGItem itemToUse)
+        {
+            // use the item
+            // check if the item is equipment
+            if (itemToUse.Equipable)
+            {
+                Equipment equ = (Equipment)itemToUse;
+                // if the item is already eqipped it should be unequipped
+                if (equ.IsEquipped)
+                {
+                    Unequip(equ);
+                    ((Equipment)itemToUse).IsEquipped = false;
+                }
+                else
+                {
+                    // check if another item is equipped in that slot
+                    if (Equipment[equ.Slot] == null)
+                    {
+                        Equip(equ);
+                        ((Equipment)itemToUse).IsEquipped = true;
+                    }
+                }
+            }
+
+            if (itemToUse.Consumable)
+            {
+                Health += ((Potion)itemToUse).AmountToBuff;
+
+                // remove 1 from the inventory
+                RemoveItemFromInventory(itemToUse);
+            }
+        }
+
+        /// <summary>
+        /// Will find the slot in the array, as defined by the item's 'Slot' variable, and place the item there.
+        /// This will add the modifier to the player
+        /// </summary>
+        /// <param name="equ">The item to equip</param>
+        public void Equip(Equipment equ)
+        {
+            Equipment[equ.Slot] = equ;
+
+            switch (equ.Mod.TargetSkill)
+            {
+                case "Strength":
+                    AddModifier(equ.Mod, StrengthModifiers);
+                    break;
+                case "Perception":
+                    AddModifier(equ.Mod, PerceptionModifiers);
+                    break;
+                case "Endurance":
+                    AddModifier(equ.Mod, EnduranceModifiers);
+                    break;
+                case "Charisma":
+                    AddModifier(equ.Mod, CharismaModifiers);
+                    break;
+                case "Intelligence":
+                    AddModifier(equ.Mod, IntelligenceModifiers);
+                    break;
+                case "Agility":
+                    AddModifier(equ.Mod, AgilityModifiers);
+                    break;
+                case "Luck":
+                    AddModifier(equ.Mod, LuckModifiers);
+                    break;
+            }
+            
+        }
+
+        /// <summary>
+        /// Will find the slot in the array, as defined by the item's 'Slot' variable, and set the slot to null.
+        /// This will remove the modifier from the player
+        /// </summary>
+        /// <param name="equ">The item to unequip</param>
+        public void Unequip(Equipment equ)
+        {
+            Equipment[equ.Slot] = null;
+
+            switch (equ.Mod.TargetSkill)
+            {
+                case "Strength":
+                    RemoveMod(equ.Mod.Name, StrengthModifiers);
+                    break;
+                case "Perception":
+                    RemoveMod(equ.Mod.Name, PerceptionModifiers);
+                    break;
+                case "Endurance":
+                    RemoveMod(equ.Mod.Name, EnduranceModifiers);
+                    break;
+                case "Charisma":
+                    RemoveMod(equ.Mod.Name, CharismaModifiers);
+                    break;
+                case "Intelligence":
+                    RemoveMod(equ.Mod.Name, IntelligenceModifiers);
+                    break;
+                case "Agility":
+                    RemoveMod(equ.Mod.Name, AgilityModifiers);
+                    break;
+                case "Luck":
+                    RemoveMod(equ.Mod.Name, LuckModifiers);
+                    break;
+            }
+        }
+
         public InventoryItem ItemByName(string name)
         {
             foreach(InventoryItem ii in Inventory)
@@ -370,7 +530,7 @@ namespace LinkEngine.RPG
         }
         public Equipment EquipmentByName(string name)
         {
-            foreach (Equipment equ in Equipped)
+            foreach (Equipment equ in Equipment)
             {
                 if (equ.Name == name)
                 {
@@ -411,6 +571,15 @@ namespace LinkEngine.RPG
                 return true;
 
         }
+
+        /// <summary>
+        /// PerceptionCheck will take the current value of this.Strength, 
+        /// add all given modifiers and check if it is greater, 
+        /// less than or equal to the target 'check' value
+        /// </summary>
+        /// <param name="check">the value to check the perception mod against</param>
+        /// <param name="modifiers">the list of values to add to the Ability check</param>
+        /// <returns>Returns true if Ability check passes</returns>
         public bool PerceptionCheck(short check, Modifier[] modifiers)
         {
             // sets the current perception mod
@@ -432,6 +601,15 @@ namespace LinkEngine.RPG
                 return true;
 
         }
+
+        /// <summary>
+        /// EnduranceCheck will take the current value of this.Strength, 
+        /// add all given modifiers and check if it is greater, 
+        /// less than or equal to the target 'check' value
+        /// </summary>
+        /// <param name="check">the value to check the endurance mod against</param>
+        /// <param name="modifiers">the list of values to add to the Ability check</param>
+        /// <returns>Returns true if Ability check passes</returns>
         public bool EnduranceCheck(short check, Modifier[] modifiers)
         {
             // sets the current strength mod
@@ -454,6 +632,15 @@ namespace LinkEngine.RPG
                 return true;
 
         }
+
+        /// <summary>
+        /// CharismaCheck will take the current value of this.Strength, 
+        /// add all given modifiers and check if it is greater, 
+        /// less than or equal to the target 'check' value
+        /// </summary>
+        /// <param name="check">the value to check the charisma mod against</param>
+        /// <param name="modifiers">the list of values to add to the Ability check</param>
+        /// <returns>Returns true if Ability check passes</returns>
         public bool CharismaCheck(short check, Modifier[] modifiers)
         {
             // sets the current strength mod
@@ -476,6 +663,15 @@ namespace LinkEngine.RPG
                 return true;
 
         }
+
+        /// <summary>
+        /// IntelligenceCheck will take the current value of this.Strength, 
+        /// add all given modifiers and check if it is greater, 
+        /// less than or equal to the target 'check' value
+        /// </summary>
+        /// <param name="check">the value to check the intelligence mod against</param>
+        /// <param name="modifiers">the list of values to add to the Ability check</param>
+        /// <returns>Returns true if Ability check passes</returns>
         public bool IntelligenceCheck(short check, Modifier[] modifiers)
         {
             // sets the current perception mod
@@ -498,6 +694,15 @@ namespace LinkEngine.RPG
                 return true;
 
         }
+
+        /// <summary>
+        /// AgilityCheck will take the current value of this.Strength, 
+        /// add all given modifiers and check if it is greater, 
+        /// less than or equal to the target 'check' value
+        /// </summary>
+        /// <param name="check">the value to check the agility mod against</param>
+        /// <param name="modifiers">the list of values to add to the Ability check</param>
+        /// <returns>Returns true if Ability check passes</returns>
         public bool AgilityCheck(short check, Modifier[] modifiers)
         {
             // sets the current strength mod
@@ -520,6 +725,15 @@ namespace LinkEngine.RPG
                 return true;
 
         }
+
+        /// <summary>
+        /// LuckCheck will take the current value of this.Strength, 
+        /// add all given modifiers and check if it is greater, 
+        /// less than or equal to the target 'check' value
+        /// </summary>
+        /// <param name="check">the value to check the luck mod against</param>
+        /// <param name="modifiers">the list of values to add to the Ability check</param>
+        /// <returns>Returns true if Ability check passes</returns>
         public bool LuckCheck(short check, Modifier[] modifiers)
         {
             // sets the current strength mod
@@ -542,10 +756,20 @@ namespace LinkEngine.RPG
                 return true;
         }
 
+        /// <summary>
+        /// Adds the given mod into a list of skill mods
+        /// </summary>
+        /// <param name="mod">the mod to add</param>
+        /// <param name="mods">the list to add the mod to</param>
         public void AddModifier(Modifier mod, List<Modifier> mods)
         {
             mods.Add(mod);
         }
+        /// <summary>
+        /// Removes the given mod from the given list of mods
+        /// </summary>
+        /// <param name="name">Mod to remove by name</param>
+        /// <param name="mods">List to remove mod from</param>
         public void RemoveMod(string name, List<Modifier> mods)
         {
             foreach (Modifier mod in mods)

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace LinkEngine.RPG
 {
-    class Combat
+    public class Combat
     {
         Random rand = new Random();
 
@@ -11,6 +11,34 @@ namespace LinkEngine.RPG
         bool canBlock = false;
 
         int damageAmount = 0;
+
+        int damage(short str, List<Modifier> strMods)
+        {
+            foreach (Modifier mod in strMods)
+            {
+                str += mod.ModifierAmount;
+            }
+
+            return rand.Next(str * 10);
+        }
+
+        int PlayerBlock(short end, short agi, List<Modifier> endMods, List<Modifier> agiMods)
+        {
+            foreach (Modifier mod in endMods)
+            {
+                end += mod.ModifierAmount;
+            }
+            foreach (Modifier mod in agiMods)
+            {
+                agi += mod.ModifierAmount;
+            }
+            return rand.Next((end + agi) * 10);
+        }
+
+        int MonsterBlock(short def)
+        {
+            return rand.Next(def);
+        }
 
         /// <summary>
         /// The MonsterAttack command to be executed whenever aa monster initiates its attack
@@ -37,7 +65,7 @@ namespace LinkEngine.RPG
             {
                 // Deal damage to defender
                 // Defenders endurance and agility has a chance counteract the damage
-                damageAmount = (damage(Attacker.Strength, null) - block(Defender.Endurance, Defender.Agility, Defender.EnduranceModifiers, Defender.AgilityModifiers));
+                damageAmount = (damage(Attacker.Strength, null) - PlayerBlock(Defender.Endurance, Defender.Agility, Defender.EnduranceModifiers, Defender.AgilityModifiers));
 
                 // Make sure damage amount is not negative, that will give the player health
                 if (damageAmount > 0)
@@ -48,27 +76,40 @@ namespace LinkEngine.RPG
             }
         }
 
-        int damage (short str, List<Modifier> strMods)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Defender"></param>
+        /// <param name="Attacker"></param>
+        public void PlayerAttack (Monster Defender, Character Attacker)
         {
-            foreach(Modifier mod in strMods)
+            // Check if the defender has an agility or luck Ability
+            if (Attacker.Luck > 0 || Attacker.Agility > 0)
             {
-                str += mod.ModifierAmount;
+                // check for any special abilities
+                // if the luck or agility Ability is high enough, Defender can't dodge the attack
+                canDodge = !Attacker.LuckCheck(Defender.Strength, Attacker.LuckModifiers.ToArray());
+                canDodge = !Attacker.AgilityCheck(Defender.Strength, Attacker.AgilityModifiers.ToArray());
+
+                // if the defender has a higher strength or endurance, he can block the attack
+                canBlock = !Attacker.StrengthCheck(Defender.Strength, Attacker.StrengthModifiers.ToArray());
+                canBlock = !Attacker.EnduranceCheck(Defender.Strength, Attacker.EnduranceModifiers.ToArray());
             }
 
-            return rand.Next(str * 10);
-        }
+            // if the defender can't dodge the attack
+            if (!canDodge || !canBlock)
+            {
+                // Deal damage to defender
+                // Defenders endurance and agility has a chance counteract the damage
+                damageAmount = (damage(Attacker.Strength, null) - MonsterBlock(Defender.Defense));
 
-        int block (short end, short agi, List<Modifier> endMods, List<Modifier> agiMods)
-        {
-            foreach (Modifier mod in endMods)
-            {
-                end += mod.ModifierAmount;
+                // Make sure damage amount is not negative, that will give the player health
+                if (damageAmount > 0)
+                {
+                    // deal final result to defender
+                    Defender.Health -= damageAmount;
+                }
             }
-            foreach (Modifier mod in agiMods)
-            {
-                agi += mod.ModifierAmount;
-            }
-            return rand.Next((end + agi) * 10);
         }
     }
 }
