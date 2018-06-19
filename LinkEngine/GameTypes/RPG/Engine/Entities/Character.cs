@@ -42,6 +42,11 @@ namespace LinkEngine.RPG
         /// </summary>
         public string Slug { get; set; }
 
+        public int Mana { get; set; }
+        public int MaxMana { get; set; }
+        public List<Entity> Party { get; set; }
+        public List<Entity> PartyDead { get; set; }
+
         /// <summary>
         /// The players Equipment list
         /// </summary>
@@ -779,6 +784,16 @@ namespace LinkEngine.RPG
                     mods.Remove(mod);
                 }
             }
+        }
+
+        /// <summary>
+        /// Removes a party member from the active list and places it in the dead list to be revived
+        /// </summary>
+        /// <param name="partymember">The party member to kill</param>
+        public void KillPartyMember(Entity partymember)
+        {
+            Party.Remove(partymember);
+            PartyDead.Add(partymember);
         }
     }
 }

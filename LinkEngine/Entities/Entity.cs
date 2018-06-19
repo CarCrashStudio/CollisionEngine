@@ -9,10 +9,6 @@ namespace LinkEngine.Entities
         public string Facing { get; set; }
         public int Health { get; set; }
         public int MaxHealth { get; set; }
-        public int Mana { get; set; }
-        public int MaxMana { get; set; }
-        public List<Entity> Party { get; set; }
-        public List<Entity> PartyDead { get; set; }
 
         public int Location_X { get; set; }
         public int Location_Y { get; set; }
@@ -62,16 +58,6 @@ namespace LinkEngine.Entities
                 return true;
             }
             else { return false; }
-        }
-
-        /// <summary>
-        /// Removes a party member from the active list and places it in the dead list to be revived
-        /// </summary>
-        /// <param name="partymember">The party member to kill</param>
-        public void KillPartyMember(Entity partymember)
-        {
-            Party.Remove(partymember);
-            PartyDead.Add(partymember);
         }
     }
 }

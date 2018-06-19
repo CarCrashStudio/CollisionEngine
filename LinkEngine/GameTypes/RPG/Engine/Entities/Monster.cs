@@ -10,6 +10,9 @@ namespace LinkEngine.RPG
         /// </summary>
         public int SpawnChance { get; set; }
 
+        public List<Entity> Party { get; set; }
+        public List<Entity> PartyDead { get; set; }
+
         /// <summary>
         /// Creates a new Monster Entity from the parameters given
         /// </summary>
@@ -41,6 +44,16 @@ namespace LinkEngine.RPG
             LootTable = new List<LootItem>();
 
             SpawnChance = monster.SpawnChance;
+        }
+
+        /// <summary>
+        /// Removes a party member from the active list and places it in the dead list to be revived
+        /// </summary>
+        /// <param name="partymember">The party member to kill</param>
+        public void KillPartyMember(Entity partymember)
+        {
+            Party.Remove(partymember);
+            PartyDead.Add(partymember);
         }
     }
 }

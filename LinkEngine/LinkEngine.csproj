@@ -75,6 +75,9 @@
     <Compile Include="WorldGen\Transition.cs" />
     <Compile Include="WorldGen\World.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="GameTypes\Platformer\" />
+    <Folder Include="GameTypes\Sidescroller\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

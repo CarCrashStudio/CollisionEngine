@@ -1,4 +1,7 @@
 # CHANGE LOG
+- v1.0.13.6 dev
+  - Added Sidescroller and platformer folders. 
+  - Will plan to work on those game types in the future
 - v1.0.13.5 dev
   - Started work on the RandomizeItem function
   - Added DungeonPotion.cs
@@ -7,7 +10,6 @@
   - Added lots of documentation
   - Removed Weapon and Armor classes from Equipment.cs
   - Added PlayerAttack to combat.cs
-  - 
 - v1.0.13.4 dev
   - Building Dungeon System
   - Added Equipment
