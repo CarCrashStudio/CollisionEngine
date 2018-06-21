@@ -70,6 +70,7 @@
     <Compile Include="WorldGen\DungeonGeneration.cs" />
     <Compile Include="WorldGen\ProceduralGeneration.cs" />
     <Compile Include="WorldGen\Room.cs" />
+    <Compile Include="WorldGen\SetGeneration.cs" />
     <Compile Include="WorldGen\Tile.cs" />
     <Compile Include="GameTypes\RPG\Engine\World\World.cs" />
     <Compile Include="WorldGen\Transition.cs" />
