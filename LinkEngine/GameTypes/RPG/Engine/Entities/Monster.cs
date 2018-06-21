@@ -19,9 +19,9 @@ namespace LinkEngine.RPG
         /// <param name="_maxHp">The max Health of the Monster</param>
         /// <param name="str">The Strength of the Monster</param>
         /// <param name="def">The Defense of the Monster</param>
-        /// <param name="_rewardExp">The Reward Experience of the Monster</param>
-        /// <param name="_rewardGold"></param>
-        /// <param name="_spawnChance"></param>
+        /// <param name="_rewardExp">The amount of experience gained from killing this monster</param>
+        /// <param name="_rewardGold">The amount of gold gained from killing this monster</param>
+        /// <param name="_spawnChance">the chance of this monster spawning. 1 (uncommon) - 100 (common)</param>
         public Monster(int _id, string _name, int _hp, int _maxHp, short str, short def, int _rewardExp, int _rewardGold, int _spawnChance) :
             base(_id, _name, _hp, _maxHp, str, def)
         {
@@ -32,6 +32,10 @@ namespace LinkEngine.RPG
 
             SpawnChance = _spawnChance;
         }
+        /// <summary>
+        /// Creates a copy of an already created monster
+        /// </summary>
+        /// <param name="monster">The monster to copy</param>
         public Monster(Monster monster) :
             base(monster.ID, monster.Name, monster.Health, monster.MaxHealth, monster.Strength, monster.Defense)
         {
