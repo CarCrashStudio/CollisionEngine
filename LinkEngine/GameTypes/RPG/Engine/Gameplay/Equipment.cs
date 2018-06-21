@@ -5,41 +5,46 @@
         public int StrengthBoost { get; set; }
         public int DefenseBoost { get; set; }
 
+        /// <summary>
+        /// Mod will be used to boost a player's skill only while it is equipped
+        /// </summary>
+        public Modifier Mod { get; set; }
+
+        /// <summary>
+        /// The index of where this item should go in the player's Equipment list
+        /// </summary>
         public int Slot { get; set; }
+        /// <summary>
+        /// Boolean flag indicating whether this item is equipped or not
+        /// </summary>
         public bool IsEquipped { get; set; }
 
-        public Equipment(int _id, string _name, string _namePlural, int _cost) :
-            base(_id, _name, _namePlural, _cost)
+        /// <summary>
+        /// Creates a new Equipment from the parameters given
+        /// </summary>
+        /// <param name="_id"></param>
+        /// <param name="_name"></param>
+        /// <param name="_namePlural"></param>
+        /// <param name="_cost"></param>
+        public Equipment(int _id, string _name, string _namePlural, int cost, int slot, Modifier mod) :
+            base(_id, _name, _namePlural, cost)
         {
+            Slot = slot;
+            Mod = mod;
+
             Equipable = true;
             
         }
+        /// <summary>
+        /// Creates a copy of a piece of Equipment
+        /// </summary>
+        /// <param name="equ">The Equipment to copy</param>
         public Equipment(Equipment equ) :
             base(equ.ID, equ.Name, equ.NamePlural, equ.Cost)
         {
-            Equipable = true;
             Slot = equ.Slot;
-        }
-    }
-    public class Weapon : Equipment
-    {
-        public Weapon(int _id, string _name, string _namePlural, int strength, int _cost, int slot) :
-            base(_id, _name, _namePlural, _cost)
-        {
-            StrengthBoost = strength;
+            Mod = equ.Mod;
 
-            Slot = slot;
-            Equipable = true;
-        }        
-    }
-    public class Armor : Equipment
-    {
-        public Armor(int _id, string _name, string _namePlural, int defense, int _cost, int slot) :
-            base(_id, _name, _namePlural, _cost)
-        {
-            DefenseBoost = defense;
-
-            Slot = slot;
             Equipable = true;
         }
     }
