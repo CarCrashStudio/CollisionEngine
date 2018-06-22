@@ -1,15 +1,70 @@
-﻿using System.Collections.Generic;
+﻿using LinkEngine.Rendering;
+using System.Collections.Generic;
+using System.Drawing;
 
 namespace LinkEngine.Entities
 {
     public class Player : Entity
     {
+        /// <summary>
+        /// The inventory of the player can be accessed by any gametype player class that inherits this class.
+        /// </summary>
         public List<InventoryItem> Inventory;
+        public Point MapLoc { get; set; }
 
+        /// <summary>
+        /// The camera object is what will be used to hold the image the player can see
+        /// </summary>
+        public Camera camera { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="name"></param>
+        /// <param name="health"></param>
+        /// <param name="maxHealth"></param>
         public Player(int id, string name, int health, int maxHealth) : base (id, name, health, maxHealth)
         {
 
         }
+
+        /// <summary>
+        /// ShiftMap moves the map in any direction
+        /// Used when keeping the player center screen
+        /// </summary>
+        /// <param name="x">the amount to shift the map on the X axis</param>
+        /// <param name="y">the amount to shift the map on the Y axis</param>
+        public void ShiftMap(int x, int y)
+        {
+            MapLoc = new Point(MapLoc.X + x, MapLoc.Y + y);
+        }
+        /// <summary>
+        /// SetMap returns the drawn map to use in pictureboxes
+        /// </summary>
+        /// <param name="Width"></param>
+        /// <param name="Height"></param>
+        /// <returns></returns>
+        public void SetMap(int Width, int Height)
+        {
+            camera.View = ScreenObject.Draw(Width, Height, new Point(MapLoc.X * 32, (MapLoc.Y - 10) * 32), null);
+        }
+        /// <summary>
+        /// CalibrateMap will adjust the map location so that the player can be centered on the screen
+        /// </summary>
+        /// <param name="centerX"></param>
+        /// <param name="centerY"></param>
+        void CalibrateMap(int centerX, int centerY)
+        {
+            MapLoc = new Point(
+                    // X Coordinate
+                    centerX - camera.X,
+
+                    // Y Coordinate
+                    centerY - camera.Y
+                );
+        }
+
         public bool HasAllCraftingRecipeItems(Item craft)
         {
             // See if the player has all the items needed to complete the quest here

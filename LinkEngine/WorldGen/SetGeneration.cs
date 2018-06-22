@@ -22,10 +22,6 @@ namespace LinkEngine.WorldGen
         /// List of all decorations currently on map (fences, buildings etc)
         /// </summary>
         public List<Tile> DecosOnMap { get; set; }
-        /// <summary>
-        /// The Map Location point is used when shifting the map to be center on the player / camera
-        /// </summary>
-        public Point MapLoc { get; set; }
 
         /// <summary>
         /// SetGeneration creates a new map from a text resource with id's pre laid out
@@ -37,33 +33,9 @@ namespace LinkEngine.WorldGen
         /// <param name="centerY"></param>
         /// <param name="playerX"></param>
         /// <param name="playerY"></param>
-        public SetGeneration(string Name, int Width, int Height, int centerX, int centerY, int playerX, int playerY)
+        public SetGeneration(string Name, int Width, int Height)
         {
             BuildMap(Width, Height, Name);
-            CalibrateMap(centerX, centerY, playerX, playerY);
-            SetMap(Width, Height);
-        }
-
-        /// <summary>
-        /// ShiftMap moves the map in any direction
-        /// Used when keeping the player center screen
-        /// </summary>
-        /// <param name="x">the amount to shift the map on the X axis</param>
-        /// <param name="y">the amount to shift the map on the Y axis</param>
-        public void ShiftMap(int x, int y)
-        {
-            MapLoc = new Point(MapLoc.X + x, MapLoc.Y + y);
-        }
-
-        /// <summary>
-        /// SetMap returns the drawn map to use in pictureboxes
-        /// </summary>
-        /// <param name="Width"></param>
-        /// <param name="Height"></param>
-        /// <returns></returns>
-        public Bitmap SetMap(int Width, int Height)
-        {
-            return ScreenObject.Draw(Width, Height, new Point(MapLoc.X * 32, (MapLoc.Y - 10) * 32), null);
         }
 
         /// <summary>
@@ -75,7 +47,6 @@ namespace LinkEngine.WorldGen
         /// <param name="Name">Name of the world</param>
         void BuildMap(int Width, int Height, string Name)
         {
-            MapLoc = new Point(0, 0); // Initialize the Point for the Map Location
             Image = new Bitmap("maps/worldmap.png");
             Image = ScreenObject.Draw(Width, Height, new Point(0, 0), null);
 
@@ -87,24 +58,6 @@ namespace LinkEngine.WorldGen
             ReadTextFile(DecosOnMap, Name + "Decos", Width);
             DrawDecorations(Width, Height);
 
-        }
-
-        /// <summary>
-        /// CalibrateMap will adjust the map location so that the player can be centered on the screen
-        /// </summary>
-        /// <param name="centerX"></param>
-        /// <param name="centerY"></param>
-        /// <param name="playerX"></param>
-        /// <param name="playerY"></param>
-        void CalibrateMap(int centerX, int centerY, int playerX, int playerY)
-        {
-            MapLoc = new Point(
-                    // X Coordinate
-                    centerX - playerX,
-
-                    // Y Coordinate
-                    centerY - playerY
-                );
         }
 
         /// <summary>

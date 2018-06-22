@@ -1,31 +1,49 @@
-﻿namespace LinkEngine.RPG
+﻿using System.Collections.Generic;
+
+namespace LinkEngine.RPG
 {
-    public class NPC
+    public class NPC : Entities.Entity
     {
-        public int ID { get; set; }
-        public string Name { get; set; }
-
-        public int X { get; set; }
-        public int Y { get; set; }
-
+        public bool Interactable { get; set; }
         public Quest QuestAvailableHere { get; set; }
-        // public Shop ShopavailableHere { get; set; }
+        public Shop ShopavailableHere { get; set; }
 
-        public NPC(int _id, string _name, int x, int y)//, Quest _questavailableHere) // Shop _shopavailableHere)
+        /// <summary>
+        /// Creates a new NPC Object. NPCs can be used to create shops, quest givers, or just display a message when interacted with
+        /// </summary>
+        /// <param name="_id">The ID to give the NPC</param>
+        /// <param name="_name">The Name of the npc</param>
+        /// <param name="x">Starting X coordinate, most likely defaults to 0</param>
+        /// <param name="y">Starting Y coordinate, most likely defaults to 0</param>
+        public NPC(int _id, string _name, int x, int y, Quest _questavailableHere, Shop _shopavailablehere) : base(_id, _name, 1, 1)
         {
-            ID = _id;
-            Name = _name;
-            X = x;
-            Y = y;
-            // QuestAvailableHere = _questavailableHere;
-            // ShopavailableHere = _shopavailableHere;
+            Location_X = x;
+            Location_Y = y;
+            QuestAvailableHere = _questavailableHere;
+            ShopavailableHere = _shopavailablehere;
         }
-        public NPC(NPC npc)
+        /// <summary>
+        /// Creates a copy of an NPC
+        /// </summary>
+        /// <param name="npc">The npc to copy</param>
+        public NPC(NPC npc) : base (npc.ID, npc.Name, 1,1)
         {
-            ID = npc.ID;
-            Name = npc.Name;
-            // QuestAvailableHere = npc.QuestAvailableHere;
+            Location_X = npc.Location_X;
+            Location_Y = npc.Location_Y;
+            QuestAvailableHere = npc.QuestAvailableHere;
             // ShopavailableHere = npc.ShopavailableHere;
         }
+    }
+
+    /// <summary>
+    /// Shop holds the inventory of all items that can be bought at this vendor
+    /// Contains an empty default contructor
+    /// </summary>
+    public class Shop
+    {
+        /// <summary>
+        /// The list of items that can be bought at this vendor
+        /// </summary>
+        public List<RPGItem> Inventory { get; set; }
     }
 }
