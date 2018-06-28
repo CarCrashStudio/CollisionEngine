@@ -5,7 +5,7 @@ namespace LinkEngine.Dungeon
 {
     public class DungeonPlayer : Player
     {
-        System.Random rand;
+        System.Random rand = new System.Random();
         short equip_size = 4;
 
         public short EQUIPMENT_SIZE { get { return equip_size; } set { equip_size = value; } }

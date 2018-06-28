@@ -10,6 +10,10 @@ namespace LinkEngine.Entities
         /// The inventory of the player can be accessed by any gametype player class that inherits this class.
         /// </summary>
         public List<InventoryItem> Inventory;
+
+        /// <summary>
+        /// MapLoc is the position of the map according to the camera
+        /// </summary>
         public Point MapLoc { get; set; }
 
         /// <summary>
@@ -65,9 +69,14 @@ namespace LinkEngine.Entities
                 );
         }
 
+        /// <summary>
+        /// Checks to see if the Items in the PLayer's Inventory match the Item to craft's recipe
+        /// </summary>
+        /// <param name="craft"></param>
+        /// <returns>Returns true if the player has the correct items</returns>
         public bool HasAllCraftingRecipeItems(Item craft)
         {
-            // See if the player has all the items needed to complete the quest here
+            // See if the player has all the items needed to complete the recipe here
             foreach (CraftingItem ci in craft.Recipe)
             {
                 bool foundItemInPlayersInventory = false;
@@ -79,23 +88,27 @@ namespace LinkEngine.Entities
                     {
                         foundItemInPlayersInventory = true;
 
-                        if (ii.Quantity < ci.Quantity) // The player does not have enough of this item to complete the quest
+                        if (ii.Quantity < ci.Quantity) // The player does not have enough of this item to complete the recipe
                         {
                             return false;
                         }
                     }
                 }
 
-                // The player does not have any of this quest completion item in their inventory
+                // The player does not have any of this recipe completion item in their inventory
                 if (!foundItemInPlayersInventory)
                 {
                     return false;
                 }
             }
 
-            // If we got here, then the player must have all the required items, and enough of them, to complete the quest.
+            // If we got here, then the player must have all the required items, and enough of them, to complete the recipe.
             return true;
         }
+        /// <summary>
+        /// Removes the items needed to craft the item
+        /// </summary>
+        /// <param name="craft"></param>
         public void RemoveCraftingRecipeItems(Item craft)
         {
             foreach (CraftingItem ci in craft.Recipe)
@@ -104,7 +117,7 @@ namespace LinkEngine.Entities
                 {
                     if (ii.Details.ID == ci.Details.ID)
                     {
-                        // Subtract the quantity from the player's inventory that was needed to complete the quest
+                        // Subtract the quantity from the player's inventory that was needed to complete the recipe
                         ii.Quantity -= ci.Quantity;
                         break;
                     }

@@ -25,6 +25,29 @@ namespace LinkEngine.Dungeon
         {
             ItemsInDungeon = new List<DungeonItem>();
         }
+
+        public void LoadItemImages()
+        {
+            PotionImages = new List<string>();
+            HelmetImages = new List<string>();
+            TorsoImages = new List<string>();
+            LegImages = new List<string>();
+            SwordImages = new List<string>();
+            ShieldImages = new List<string>();
+
+            // load them here
+        }
+
+        // Indicies for Biome Lists
+        // --- South Facing Wall Tile [0]
+        // --- North Facing Wall Tile [1]
+        // --- EastWest Facing Wall Tile [2]
+        // --- Floor Tile [3]
+        // --- Chest Tile [4]
+        // --- South Facing Door Tile [5]
+        // --- North Facing Door Tile [6]
+        // --- East Facing Door Tile [7]
+        // --- West Facing Door Tile [8]
     }
 } 
 

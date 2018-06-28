@@ -91,7 +91,7 @@ namespace LinkEngine.WorldGen
 
                 id = int.Parse(currentChar);
 
-                tile = new Tile(World.TileByID(id));
+                tile = new Tile(World.TileBy(id));
 
                 tile.X = x;
                 tile.Y = y;

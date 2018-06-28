@@ -2,7 +2,7 @@
 {
     public class DungeonEnemy : Entities.Enemy
     {
-        System.Random rand;
+        System.Random rand = new System.Random();
         public DungeonEnemy (int id, string name, int health, int maxHealth, short str, short def) : 
             base(id, name, health, maxHealth, str, def)
         {
