@@ -17,8 +17,8 @@ namespace LinkEngine.RPG
         /// <param name="y">Starting Y coordinate, most likely defaults to 0</param>
         public NPC(int _id, string _name, int x, int y, Quest _questavailableHere, Shop _shopavailablehere) : base(_id, _name, 1, 1)
         {
-            Location_X = x;
-            Location_Y = y;
+            collider.X_1 = x;
+            collider.Y_1 = y;
             QuestAvailableHere = _questavailableHere;
             ShopavailableHere = _shopavailablehere;
         }
@@ -28,8 +28,8 @@ namespace LinkEngine.RPG
         /// <param name="npc">The npc to copy</param>
         public NPC(NPC npc) : base (npc.ID, npc.Name, 1,1)
         {
-            Location_X = npc.Location_X;
-            Location_Y = npc.Location_Y;
+            collider.X_1 = npc.collider.X_1;
+            collider.Y_1 = npc.collider.Y_1;
             QuestAvailableHere = npc.QuestAvailableHere;
             // ShopavailableHere = npc.ShopavailableHere;
         }

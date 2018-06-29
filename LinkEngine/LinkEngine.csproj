@@ -37,7 +37,9 @@
     <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\Camera.cs" />
+    <Compile Include="Components\UI\Camera.cs" />
+    <Compile Include="Components\Physics\BoxCollider2D.cs" />
+    <Compile Include="Components\UI\Canvas.cs" />
     <Compile Include="Entities\Enemy.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\Player.cs" />
@@ -55,7 +57,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rendering\2dGraphics\ScreenObject.cs" />
     <Compile Include="Rendering\2dGraphics\ScreenText.cs" />
-    <Compile Include="Rendering\GUI\Hud.cs" />
+    <Compile Include="Components\UI\HUDObject.cs" />
     <Compile Include="GameTypes\Top-Down\RPG\Engine\Entities\Character.cs" />
     <Compile Include="GameTypes\Top-Down\RPG\Engine\Entities\Monster.cs" />
     <Compile Include="GameTypes\Top-Down\RPG\Engine\Entities\NPC.cs" />
@@ -89,7 +91,6 @@
     <Folder Include="GameTypes\Platformer\Sidescroller\" />
     <Folder Include="GameTypes\Top-Down\Adventure\" />
     <Folder Include="GameTypes\Top-Down\Strategy\Real-TIme\" />
-    <Folder Include="Rendering\3dGraphics\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

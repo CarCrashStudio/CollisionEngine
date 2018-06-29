@@ -16,6 +16,6 @@ namespace LinkEngine.GameTypes.Top_Down.Strategy.Turn_Based
         /// <summary>
         /// The camera controlling how the player see the world
         /// </summary>
-        public Entities.Camera camera { get; set; }
+        public Components.Camera camera { get; set; }
     }
 }

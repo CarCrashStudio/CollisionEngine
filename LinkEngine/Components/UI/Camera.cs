@@ -1,6 +1,7 @@
-﻿using System.Drawing;
+﻿using LinkEngine.Components;
+using System.Drawing;
 
-namespace LinkEngine.Entities
+namespace LinkEngine.Components
 {
     public class Camera
     {
@@ -9,7 +10,9 @@ namespace LinkEngine.Entities
 
         public Point[] Boundries { get; set; }
 
-        public Image View { get; set; }
+        public Bitmap View { get; set; }
+
+        public Canvas UI { get; set; }
 
         public Camera ()
         {

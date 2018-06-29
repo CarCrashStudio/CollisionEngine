@@ -19,7 +19,7 @@ namespace LinkEngine.Entities
         /// <summary>
         /// The camera object is what will be used to hold the image the player can see
         /// </summary>
-        public Camera camera { get; set; }
+        public Components.Camera camera { get; set; }
 
         /// <summary>
         /// 

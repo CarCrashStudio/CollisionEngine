@@ -45,7 +45,7 @@ namespace LinkEngine.RPG
         /// </summary>
         /// <param name="Attacker">The entity executing the command</param>
         /// <param name="Defender">The target entity</param>
-        public void MonsterAttack (Monster Attacker, Character Defender)
+        public void MonsterAttack (Monster Attacker, RPGCharacter Defender)
         {
             // Check if the defender has an agility or luck Ability
             if (Defender.Luck > 0 || Defender.Agility > 0)
@@ -81,7 +81,7 @@ namespace LinkEngine.RPG
         /// </summary>
         /// <param name="Defender"></param>
         /// <param name="Attacker"></param>
-        public void PlayerAttack (Monster Defender, Character Attacker)
+        public void PlayerAttack (Monster Defender, RPGCharacter Attacker)
         {
             // Check if the defender has an agility or luck Ability
             if (Attacker.Luck > 0 || Attacker.Agility > 0)

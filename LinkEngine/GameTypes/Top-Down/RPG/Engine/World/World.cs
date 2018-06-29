@@ -28,7 +28,7 @@ namespace LinkEngine.RPG
         /// </summary>
         public List<RPGItem> Craftable = new List<RPGItem>();
 
-        public Character Player { get; set; }
+        public RPGCharacter Player { get; set; }
 
         /// <summary>
         /// Loads Text File with NPCs
