@@ -6,7 +6,7 @@ namespace LinkEngine.RPG
     /// <summary>
     /// Character is the class that holds all the needed data for the player to use.
     /// </summary>
-    public class Character : Player
+    public class RPGCharacter : Player
     {
         System.Random rand = new System.Random();
         short equip_size = 6;
@@ -106,7 +106,7 @@ namespace LinkEngine.RPG
         /// <param name="_maxExp"></param>
         /// <param name="_gold"></param>
         /// <param name="slug"></param>
-        public Character(int _id, string _name, int _hp, int _maxHp, int _level, int _exp, int _maxExp, int _gold, string slug) :
+        public RPGCharacter(int _id, string _name, int _hp, int _maxHp, int _level, int _exp, int _maxExp, int _gold, string slug) :
             base(_id, _name, _hp, _maxHp)
         {
             Level = _level;

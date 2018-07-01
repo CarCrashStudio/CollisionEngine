@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using LinkEngine.Components;
+using System.Collections.Generic;
 
 namespace LinkEngine.Entities
 {
@@ -10,9 +11,7 @@ namespace LinkEngine.Entities
         public int Health { get; set; }
         public int MaxHealth { get; set; }
 
-        public int Location_X { get; set; }
-        public int Location_Y { get; set; }
-        public int Location_Z { get; set; }
+        public BoxCollider2D collider { get; set; }
 
         public Entity (int id, string name, int health, int maxHealth)
         {
@@ -30,21 +29,11 @@ namespace LinkEngine.Entities
         public void Move(int x, int y)
         {
             // Move the entity according to what is put in the parameters, +1,-1,0
-            Location_X += x;
-            Location_Y += y;
-        }
-        /// <summary>
-        /// Change the entities X, Y and Z coordinates
-        /// </summary>
-        /// <param name="x">The value to change the X coordinate</param>
-        /// <param name="y">The Value to change the Y coordinate</param>
-        /// <param name="z">The value to change the Z coordinate</param>
-        public void Move(int x, int y, int z)
-        {
-            // Move the entity according to what is put in the parameters, +1,-1,0
-            Location_X += x;
-            Location_Y += y;
-            Location_Z += z;
+            collider.X_1 += x;
+            collider.X_2 += x;
+
+            collider.Y_1 += y;
+            collider.Y_2 += y;
         }
 
         /// <summary>

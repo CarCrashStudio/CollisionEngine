@@ -15,12 +15,12 @@ namespace LinkEngine.WorldGen
         /// <summary>
         /// All Biomes available to the game
         /// </summary>
-        public static List<Biome> Biomes = new List<Biome>();
+        public List<Biome> Biomes = new List<Biome>();
 
         /// <summary>
         /// All Items available to the game
         /// </summary>
-        public static List<Item> Items = new List<Item>();
+        public List<Item> Items = new List<Item>();
 
         /// <summary>
         /// All Enemies available to the game
@@ -31,7 +31,7 @@ namespace LinkEngine.WorldGen
         /// Loads Text File with Items
         /// </summary>
         /// <param name="db">Text file with Information</param>
-        public static void LoadItemDatabase(string db)
+        public void LoadItemDatabase(string db)
         {
             try
             {
@@ -52,9 +52,9 @@ namespace LinkEngine.WorldGen
                     reader.ReadLine();
                 }
             }
-            catch (System.Exception ex)
+            catch
             {
-                // System.Windows.Forms.MessageBox.Show(ex.Message);
+              
             }
 
         }
@@ -63,7 +63,7 @@ namespace LinkEngine.WorldGen
         /// Loads Text File with Tiles
         /// </summary>
         /// <param name="db">Text file with Information</param>
-        public static void LoadTileDatabase(string db)
+        public void LoadTileDatabase(string db)
         {
             try
             {
@@ -84,9 +84,9 @@ namespace LinkEngine.WorldGen
                     reader.ReadLine();
                 }
             }
-            catch (System.Exception ex)
+            catch
             {
-                // System.Windows.Forms.MessageBox.Show(ex.Message);
+                
             }
         }
 
@@ -94,7 +94,7 @@ namespace LinkEngine.WorldGen
         /// Loads Text File with Biomes
         /// </summary>
         /// <param name="db">Text file with Information</param>
-        public static void LoadBiomeDatabase(string db)
+        public void LoadBiomeDatabase(string db)
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
             StreamReader reader = new StreamReader(assembly.GetManifestResourceStream(db));
@@ -102,17 +102,6 @@ namespace LinkEngine.WorldGen
 
             while (!reader.EndOfStream)
             {
-                // Indicies for Biome Lists
-                // --- South Facing Wall Tile [0]
-                // --- North Facing Wall Tile [1]
-                // --- EastWest Facing Wall Tile [2]
-                // --- Floor Tile [3]
-                // --- Chest Tile [4]
-                // --- South Facing Door Tile [5]
-                // --- North Facing Door Tile [6]
-                // --- East Facing Door Tile [7]
-                // --- West Facing Door Tile [8]
-
                 // Grab these from the file
                 int id = int.Parse(reader.ReadLine());
                 string name = reader.ReadLine();
@@ -131,7 +120,7 @@ namespace LinkEngine.WorldGen
                 int Enemy2 = int.Parse(reader.ReadLine());
                 int Enemy3 = int.Parse(reader.ReadLine());
 
-                Tile[] tileAry = new Tile[] { TileByID(tile1), TileByID(tile2), TileByID(tile3), TileByID(tile4), TileByID(tile5), TileByID(tile6), TileByID(tile7), TileByID(tile8), TileByID(tile9) };
+                Tile[] tileAry = new Tile[] { TileBy(tile1), TileBy(tile2), TileBy(tile3), TileBy(tile4), TileBy(tile5), TileBy(tile6), TileBy(tile7), TileBy(tile8), TileBy(tile9) };
                 Biome[] biomeAry = new WorldGen.Biome[] { };
 
                 Biomes.Add(new Biome(id, name, tileAry, biomeAry));
@@ -175,8 +164,8 @@ namespace LinkEngine.WorldGen
         /// Finds an Enemy by its ID variable
         /// </summary>
         /// <param name="id">The ID of the enemy to find</param>
-        /// <returns></returns>
-        public Enemy EnemyByID(int id)
+        /// <returns>Returns a copy of the enemy found, null if found nothing</returns>
+        public Enemy EnemyBy(int id)
         {
             foreach (Enemy enemy in Enemies)
             {
@@ -193,8 +182,8 @@ namespace LinkEngine.WorldGen
         /// Finds a Tile based on it's ID variable
         /// </summary>
         /// <param name="id">The ID of the tile to find</param>
-        /// <returns></returns>
-        public static Tile TileByID(int id)
+        /// <returns>Returns a copy of the tile found, null if found nothing</returns>
+        public static Tile TileBy(int id)
         {
             foreach (Tile tile in Tiles)
             {
@@ -211,8 +200,8 @@ namespace LinkEngine.WorldGen
         /// Finds an Item by its ID
         /// </summary>
         /// <param name="id">The ID of the Item to find</param>
-        /// <returns></returns>
-        public static Item ItemByID(int id)
+        /// <returns>Returns a copy of the item found, null if found nothing</returns>
+        public Item ItemBy(int id)
         {
             foreach (Item item in Items)
             {
@@ -228,8 +217,8 @@ namespace LinkEngine.WorldGen
         /// Finds an Item by its Name
         /// </summary>
         /// <param name="name">The name of the item to find</param>
-        /// <returns></returns>
-        public static Item ItemByName(string name)
+        /// <returns>Returns a copy of the item found, null if found nothing</returns>
+        public Item ItemBy(string name)
         {
             foreach (Item item in Items)
             {
