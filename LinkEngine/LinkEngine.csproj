@@ -37,6 +37,12 @@
     <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\Animation\Animator2D.cs" />
+    <Compile Include="Components\Animation\Screen.cs" />
+    <Compile Include="Components\Physics\CircleCollider2D.cs" />
+    <Compile Include="Components\Physics\Collider2D.cs" />
+    <Compile Include="Components\Physics\Transform.cs" />
+    <Compile Include="Components\Physics\Vector.cs" />
     <Compile Include="Components\UI\Camera.cs" />
     <Compile Include="Components\Physics\BoxCollider2D.cs" />
     <Compile Include="Components\UI\Canvas.cs" />
