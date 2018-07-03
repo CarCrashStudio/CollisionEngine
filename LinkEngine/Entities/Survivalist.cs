@@ -1,28 +1,23 @@
-﻿using LinkEngine.Entities;
+﻿using LinkEngine.Gameplay.Items;
 
-namespace LinkEngine.Survival
+namespace LinkEngine.Entities
 {
-    public class Character : Player
+    public class Survivalist
     {
         // Character class is the the playable class of the game
         // Inherits from Entities.Player
 
         public short Hunger { get; set; }
         public bool Full { get; set; }
-        
 
-        public Character (int id, string name, int health, int maxHealth) :
-            base (id, name, health, maxHealth)
-        {
-
-        }
+        public Player Details { get; set; }
 
         public void Craft(Item itemToCraft)
         {
-            if (HasAllCraftingRecipeItems(itemToCraft))
+            if (Details.HasAllCraftingRecipeItems(itemToCraft))
             {
-                RemoveCraftingRecipeItems(itemToCraft);
-                AddItemToInventory(itemToCraft);
+                Details.RemoveCraftingRecipeItems(itemToCraft);
+                Details.AddItemToInventory(itemToCraft);
             }
         }
 

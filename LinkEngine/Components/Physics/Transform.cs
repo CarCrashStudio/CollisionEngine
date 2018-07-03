@@ -8,13 +8,13 @@ namespace LinkEngine.Components
 {
     public class Transform
     {
-        public Vector position { get; set; }
+        public Vector Position { get; set; }
 
         public Transform (int x, int y, int z)
         {
-            position.X = x;
-            position.Y = y;
-            position.Z = z;
+            Position.X = x;
+            Position.Y = y;
+            Position.Z = z;
         }
 
         /// <summary>
@@ -26,9 +26,9 @@ namespace LinkEngine.Components
         public void Move(int x, int y, int z)
         {
             // Move the entity according to what is put in the parameters, +1,-1,0
-            X += x;
-            Y += y;
-            Z += Z;
+            Position.X = x;
+            Position.Y = y;
+            Position.Z = z;
         }
         /// <summary>
         /// Change the transforms X and Y coordinates
@@ -38,8 +38,8 @@ namespace LinkEngine.Components
         public void Move(int x, int y)
         {
             // Move the entity according to what is put in the parameters, +1,-1,0
-            X += x;
-            Y += y;
+            Position.X = x;
+            Position.Y = y;
         }
 
         public void Rotate ()

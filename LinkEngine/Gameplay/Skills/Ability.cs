@@ -1,4 +1,4 @@
-﻿namespace LinkEngine.RPG
+﻿namespace LinkEngine.Gameplay.Skills
 {
     public class Ability
     {

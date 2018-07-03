@@ -6,12 +6,12 @@ namespace LinkEngine.WorldGen
     public class DungeonGeneration
     {
         public string Name { get; set; }
-        public List<Room> Rooms { get; set; }
+        public List<Location> Rooms { get; set; }
 
         Random rand = new Random();
         public void BuildMap(int numOfRooms, Biome biome, int playerX, int playerY)
         {
-            Rooms = new List<Room>();
+            Rooms = new List<Location>();
             for (int i = 0; i < numOfRooms; i++)
             {
                 GenerateRoom(biome, i, "", "", rand.Next(5, 10), rand.Next(5, 10), ref playerX, ref playerY, "South");
@@ -47,7 +47,7 @@ namespace LinkEngine.WorldGen
             bool hasDoor = false;
 
             // Generate a room based on the biome and tile size
-            Rooms.Add(new Room(id, name, desc, width, length));
+            Rooms.Add(new Location(id, name, desc, width, length));
 
             if (biome.availableTiles.Count != 0)
             {

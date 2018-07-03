@@ -17,13 +17,13 @@ namespace LinkEngine.Components
         /// <returns></returns>
         public bool IsColliding (Collider2D collider)
         {
-            if (collider.Transform.position.X > this.Transform.position.X - Radius)
+            if (collider.Transform.Position.X > this.Transform.Position.X - Radius)
             {
-                if (collider.Transform.position.X < this.Transform.position.X + Radius)
+                if (collider.Transform.Position.X < this.Transform.Position.X + Radius)
                 {
-                    if (collider.Transform.position.Y > this.Transform.position.Y - Radius)
+                    if (collider.Transform.Position.Y > this.Transform.Position.Y - Radius)
                     {
-                        if (collider.Transform.position.Y < this.Transform.position.Y + Radius)
+                        if (collider.Transform.Position.Y < this.Transform.Position.Y + Radius)
                         {
                             return true;
                         }

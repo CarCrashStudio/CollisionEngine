@@ -13,7 +13,7 @@
         /// <returns>Returns true if the objects are colliding</returns>
         public bool isColliding(Collider2D collider)
         {
-            return ((collider.Transform.position.X > Transform.position.X - (Width / 2) && collider.Transform.position.X + Width < Transform.position.X + (Width / 2)) && (collider.Transform.position.Y > Transform.position.Y - (Height / 2) && collider.Transform.position.Y + Height > Transform.position.Y + (Height / 2)));
+            return ((collider.Transform.Position.X > Transform.Position.X - (Width / 2) && collider.Transform.Position.X + Width < Transform.Position.X + (Width / 2)) && (collider.Transform.Position.Y > Transform.Position.Y - (Height / 2) && collider.Transform.Position.Y + Height > Transform.Position.Y + (Height / 2)));
         }
 
         /// <summary>
@@ -24,7 +24,7 @@
         {
             if (HasGravity && !IsGrounded)
             {
-                Transform.position.Y--;
+                Transform.Position.Y--;
 
                 if (!isColliding(collider))
                 {

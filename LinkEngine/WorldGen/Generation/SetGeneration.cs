@@ -48,7 +48,7 @@ namespace LinkEngine.WorldGen
         void BuildMap(int Width, int Height, string Name)
         {
             Image = new Bitmap("maps/worldmap.png");
-            Image = ScreenObject.Draw(Width, Height, new Point(0, 0), null);
+            // Image = ScreenObject.Draw(Width, Height, new Point(0, 0), null);
 
             TilesOnMap = new List<Tile>();
             ReadTextFile(TilesOnMap, Name, Width);
@@ -115,7 +115,7 @@ namespace LinkEngine.WorldGen
             {
                 if (tile.ID > 999 && tile.ID < 10000)
                 {
-                    Image = ScreenObject.Draw(Width,Height, new Point(tile.X * 32, tile.Y * 32), Image);
+                    // Image = ScreenObject.Draw(Width,Height, new Point(tile.X * 32, tile.Y * 32), Image);
                 }
             }
         }
@@ -131,7 +131,7 @@ namespace LinkEngine.WorldGen
             {
                 if (tile.ID > 199 && tile.ID < 300)
                 {
-                    Image = ScreenObject.Draw(Width, Height, new Point(tile.X * 32, tile.Y * 32), Image);
+                    // Image = ScreenObject.Draw(Width, Height, new Point(tile.X * 32, tile.Y * 32), Image);
                 }
             }
         }

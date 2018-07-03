@@ -1,6 +1,6 @@
-﻿namespace LinkEngine.RPG
+﻿namespace LinkEngine.Gameplay.Items
 {
-    public class Potion : RPGItem
+    public class Potion : Item
     {
         int amountToHeal;
 

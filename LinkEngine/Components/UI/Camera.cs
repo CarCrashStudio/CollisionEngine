@@ -12,7 +12,9 @@ namespace LinkEngine.Components
 
         public Bitmap View { get; set; }
 
-        public Canvas UI { get; set; }
+        // public HUD UI { get; set; }
+
+        public Rendering.Screen Screen { get; set; }
 
         public Camera ()
         {
