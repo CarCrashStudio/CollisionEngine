@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>LinkEngine</RootNamespace>
     <AssemblyName>LinkEngine</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -32,10 +33,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\Animation\Animator2D.cs" />
@@ -60,14 +59,9 @@
     <Compile Include="Gameplay\Resource Management\Turn-Based\World.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Components\UI\HUDObject.cs" />
-    <Compile Include="Entities\Adventurer.cs" />
     <Compile Include="Entities\NPC.cs" />
-    <Compile Include="Gameplay\Combat\Combat.cs" />
     <Compile Include="Gameplay\Items\Consumable.cs" />
-    <Compile Include="Gameplay\Items\Equipment.cs" />
     <Compile Include="Gameplay\Items\Item.cs" />
-    <Compile Include="Gameplay\Modifiers\Modifier.cs" />
-    <Compile Include="Gameplay\Quests\Quest.cs" />
     <Compile Include="Gameplay\Skills\Ability.cs" />
     <Compile Include="Entities\Survivalist.cs" />
     <Compile Include="Gameplay\Survival\Food.cs" />
@@ -81,6 +75,8 @@
     <Compile Include="WorldGen\Modules\Transition.cs" />
     <Compile Include="WorldGen\World.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Gameplay\Combat\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

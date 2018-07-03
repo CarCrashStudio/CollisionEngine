@@ -1,7 +1,7 @@
 ﻿using LinkEngine.Entities;
 using System.Collections.Generic;
 
-namespace LinkEngine.Gameplay.Quests
+namespace RPG
 {
     public class Quest
     {
@@ -37,7 +37,7 @@ namespace LinkEngine.Gameplay.Quests
         public int RewardExperiencePoints { get { return rewardExp; } set { rewardExp = value; } }
         public int RewardGold { get { return rewardGold; } set { rewardGold = value; } }
 
-        public Items.Item RewardItem { get; set; }
+        public LinkEngine.Gameplay.Items.Item RewardItem { get; set; }
         public List<QuestCompletionItem> QuestCompletionItems { get; set; }
     }
     public class PlayerQuest
@@ -58,10 +58,10 @@ namespace LinkEngine.Gameplay.Quests
     }
     public class QuestCompletionItem
     {
-        public Items.Item Details { get; set; }
+        public LinkEngine.Gameplay.Items.Item Details { get; set; }
         public int Quantity { get; set; }
 
-        public QuestCompletionItem(Items.Item details, int quantity)
+        public QuestCompletionItem(LinkEngine.Gameplay.Items.Item details, int quantity)
         {
             Details = details;
             Quantity = quantity;

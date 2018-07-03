@@ -1,4 +1,4 @@
-﻿namespace LinkEngine.Gameplay.Modifiers
+﻿namespace RPG
 {
     public class Modifier
     {

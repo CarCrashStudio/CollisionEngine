@@ -1,6 +1,6 @@
-﻿namespace LinkEngine.Gameplay.Items
+﻿namespace RPG
 {
-    public class Equipment : Item
+    public class Equipment : LinkEngine.Gameplay.Items.Item
     {
         public int StrengthBoost { get; set; }
         public int DefenseBoost { get; set; }
@@ -8,7 +8,7 @@
         /// <summary>
         /// Mod will be used to boost a player's skill only while it is equipped
         /// </summary>
-        public Modifiers.Modifier Mod { get; set; }
+        public Modifier Mod { get; set; }
 
         /// <summary>
         /// The index of where this item should go in the player's Equipment list
@@ -26,7 +26,7 @@
         /// <param name="_name"></param>
         /// <param name="_namePlural"></param>
         /// <param name="_cost"></param>
-        public Equipment(int _id, string _name, string _namePlural, int cost, int slot, Modifiers.Modifier mod) :
+        public Equipment(int _id, string _name, string _namePlural, int cost, int slot, Modifier mod) :
             base(_id, _name, _namePlural, cost)
         {
             Slot = slot;

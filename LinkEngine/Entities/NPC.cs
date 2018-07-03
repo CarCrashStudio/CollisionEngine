@@ -6,7 +6,6 @@ namespace LinkEngine.Entities
     public class NPC : Entity
     {
         public bool Interactable { get; set; }
-        public Gameplay.Quests.Quest QuestAvailableHere { get; set; }
         public Shop ShopavailableHere { get; set; }
 
         /// <summary>
@@ -16,11 +15,10 @@ namespace LinkEngine.Entities
         /// <param name="_name">The Name of the npc</param>
         /// <param name="x">Starting X coordinate, most likely defaults to 0</param>
         /// <param name="y">Starting Y coordinate, most likely defaults to 0</param>
-        public NPC(int _id, string _name, int x, int y, Gameplay.Quests.Quest _questavailableHere, Shop _shopavailablehere) : base(_id, _name, 1, 1)
+        public NPC(int _id, string _name, int x, int y, Shop _shopavailablehere) : base(_id, _name, 1, 1)
         {
             collider.Transform.Position.X = x;
             collider.Transform.Position.Y = y;
-            QuestAvailableHere = _questavailableHere;
             ShopavailableHere = _shopavailablehere;
         }
         /// <summary>
@@ -31,7 +29,6 @@ namespace LinkEngine.Entities
         {
             collider.Transform.Position.X = npc.collider.Transform.Position.X;
             collider.Transform.Position.Y = npc.collider.Transform.Position.Y;
-            QuestAvailableHere = npc.QuestAvailableHere;
             ShopavailableHere = npc.ShopavailableHere;
         }
     }
@@ -91,7 +88,7 @@ namespace LinkEngine.Entities
                     player.RemoveItemFromInventory(selectedItem.Details);
 
                     // add gold one item at a time
-                    player.RPG.Gold += selectedItem.Details.Cost;
+                    player.Gold += selectedItem.Details.Cost;
                 }
             }
         }

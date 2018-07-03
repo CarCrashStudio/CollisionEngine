@@ -1,6 +1,5 @@
 ﻿using LinkEngine.Entities;
 using LinkEngine.Gameplay.Items;
-using LinkEngine.Gameplay.Quests;
 using LinkEngine.Gameplay.Skills;
 using System.Collections.Generic;
 using System.IO;
@@ -30,10 +29,6 @@ namespace LinkEngine.WorldGen
         /// </summary>
         public List<Enemy> Enemies = new List<Enemy>();
 
-        /// <summary>
-        /// AAll quests available to the game will be stored here
-        /// </summary>
-        public List<Quest> Quests = new List<Quest>();
         /// <summary>
         /// All locations available to the game will be stored here
         /// </summary>
@@ -279,23 +274,6 @@ namespace LinkEngine.WorldGen
             return null;
         }
 
-        /// <summary>
-        /// Finds a Quest by its ID
-        /// </summary>
-        /// <param name="id">The ID of the Quest to find</param>
-        /// <returns></returns>
-        public Quest QuestByID(int id)
-        {
-            foreach (Quest quest in Quests)
-            {
-                if (quest.ID == id)
-                {
-                    return quest;
-                }
-            }
-
-            return null;
-        }
 
         /// <summary>
         /// Finds a Location by its ID

@@ -1,10 +1,9 @@
-﻿using LinkEngine.Gameplay.Items;
-using LinkEngine.Gameplay.Modifiers;
-using LinkEngine.Gameplay.Skills;
+﻿using LinkEngine.Entities;
+using LinkEngine.Gameplay.Items;
 
 using System.Collections.Generic;
 
-namespace LinkEngine.Entities
+namespace RPG
 {
     /// <summary>
     /// Character is the class that holds all the needed data for the player to use.
@@ -20,10 +19,9 @@ namespace LinkEngine.Entities
         /// </summary>
         public short EQUIP_SIZE { get { return equip_size; } set { equip_size = value; } }
 
-        /// <summary>
-        /// the amount of gold the player currently has
-        /// </summary>
-        public int Gold { get; set; }
+        public Equipment[] Equipment { get; set; }
+        public List<PlayerQuest> Quests { get; set; }
+
         /// <summary>
         /// the slug of the player, used for image searching
         /// </summary>
@@ -465,6 +463,235 @@ namespace LinkEngine.Entities
                     break;
             }
         }
+        public bool HasThisQuest(Quest quest)
+        {
+            foreach (PlayerQuest playerQuest in Quests)
+            {
+                if (playerQuest.Details.ID == quest.ID)
+                {
+                    return true;
+                }
+            }
 
+            return false;
+        }
+        public bool CompletedThisQuest(Quest quest)
+        {
+            foreach (PlayerQuest playerQuest in Quests)
+            {
+                if (playerQuest.Details.ID == quest.ID)
+                {
+                    return playerQuest.IsCompleted;
+                }
+            }
+
+            return false;
+        }
+        public bool HasAllQuestCompletionItems(Quest quest)
+        {
+            // See if the player has all the items needed to complete the quest here
+            foreach (QuestCompletionItem qci in quest.QuestCompletionItems)
+            {
+                bool foundItemInPlayersInventory = false;
+
+                // Check each item in the player's inventory, to see if they have it, and enough of it
+                foreach (InventoryItem ii in Inventory)
+                {
+                    if (ii.Details.ID == qci.Details.ID) // The player has the item in their inventory
+                    {
+                        foundItemInPlayersInventory = true;
+
+                        if (ii.Quantity < qci.Quantity) // The player does not have enough of this item to complete the quest
+                        {
+                            return false;
+                        }
+                    }
+                }
+
+                // The player does not have any of this quest completion item in their inventory
+                if (!foundItemInPlayersInventory)
+                {
+                    return false;
+                }
+            }
+
+            // If we got here, then the player must have all the required items, and enough of them, to complete the quest.
+            return true;
+        }
+        public void RemoveQuestCompletionItems(Quest quest)
+        {
+            foreach (QuestCompletionItem qci in quest.QuestCompletionItems)
+            {
+                foreach (InventoryItem ii in Inventory)
+                {
+                    if (ii.Details.ID == qci.Details.ID)
+                    {
+                        // Subtract the quantity from the player's inventory that was needed to complete the quest
+                        ii.Quantity -= qci.Quantity;
+                        break;
+                    }
+                }
+            }
+        }
+        public void MarkQuestCompleted(Quest quest)
+        {
+            // Find the quest in the player's quest list
+            foreach (PlayerQuest pq in Quests)
+            {
+                if (pq.Details.ID == quest.ID)
+                {
+                    // Mark it as completed
+                    pq.IsCompleted = true;
+
+                    return; // We found the quest, and marked it complete, so get out of this function
+                }
+            }
+        }
+        public void RecieveQuest(Quest Quest)
+        {
+            // See if the player already has the quest, and if they've completed it
+            bool playerAlreadyHasQuest = false;
+            bool playerAlreadyCompletedQuest = false;
+
+            foreach (PlayerQuest playerQuest in Quests)
+            {
+                if (playerQuest.Details.ID == Quest.ID)
+                {
+                    playerAlreadyHasQuest = true;
+
+                    if (playerQuest.IsCompleted)
+                    {
+                        playerAlreadyCompletedQuest = true;
+                    }
+                }
+            }
+
+            // See if the player already has the quest
+            if (playerAlreadyHasQuest)
+            {
+                // If the player has not completed the quest yet
+                if (!playerAlreadyCompletedQuest)
+                {
+                    // See if the player has all the items needed to complete the quest
+                    bool playerHasAllItemsToCompleteQuest = true;
+
+                    foreach (QuestCompletionItem qci in Quest.QuestCompletionItems)
+                    {
+                        bool foundItemInPlayersInventory = false;
+
+                        // Check each item in the player's inventory, to see if they have it, and enough of it
+                        foreach (InventoryItem ii in Inventory)
+                        {
+                            // The player has this item in their inventory
+                            if (ii.Details.ID == qci.Details.ID)
+                            {
+                                foundItemInPlayersInventory = true;
+
+                                if (ii.Quantity < qci.Quantity)
+                                {
+                                    // The player does not have enough of this item to complete the quest
+                                    playerHasAllItemsToCompleteQuest = false;
+
+                                    // There is no reason to continue checking for the other quest completion items
+                                    break;
+                                }
+
+                                // We found the item, so don't check the rest of the player's inventory
+                                break;
+                            }
+                        }
+
+                        // If we didn't find the required item, set our variable and stop looking for other items
+                        if (!foundItemInPlayersInventory)
+                        {
+                            // The player does not have this item in their inventory
+                            playerHasAllItemsToCompleteQuest = false;
+
+                            // There is no reason to continue checking for the other quest completion items
+                            break;
+                        }
+                    }
+
+                    // The player has all items required to complete the quest
+                    if (playerHasAllItemsToCompleteQuest)
+                    {
+                        // Display message
+                        // World.Output.Text += Environment.NewLine;
+                        // World.Output.Text += "You complete the '" + npc.QuestAvailableHere.Name + "' quest." + Environment.NewLine;
+
+                        // Remove quest items from inventory
+                        foreach (QuestCompletionItem qci in Quest.QuestCompletionItems)
+                        {
+                            foreach (InventoryItem ii in Inventory)
+                            {
+                                if (ii.Details.ID == qci.Details.ID)
+                                {
+                                    // Subtract the quantity from the player's inventory that was needed to complete the quest
+                                    ii.Quantity -= qci.Quantity;
+                                    break;
+                                }
+                            }
+                        }
+
+                        // Give quest rewards
+                        giveExperience(Quest.RewardExperiencePoints);
+
+                        // Add the reward item to the player's inventory
+                        bool addedItemToPlayerInventory = false;
+
+                        foreach (InventoryItem ii in Inventory)
+                        {
+                            if (ii.Details.ID == Quest.RewardItem.ID)
+                            {
+                                // They have the item in their inventory, so increase the quantity by one
+                                ii.Quantity++;
+
+                                addedItemToPlayerInventory = true;
+
+                                break;
+                            }
+                        }
+
+                        // They didn't have the item, so add it to their inventory, with a quantity of 1
+                        if (!addedItemToPlayerInventory)
+                        {
+                            Inventory.Add(new InventoryItem(Quest.RewardItem, 1));
+                        }
+
+                        // Mark the quest as completed
+                        // Find the quest in the player's quest list
+                        foreach (PlayerQuest pq in Quests)
+                        {
+                            if (pq.Details.ID == Quest.ID)
+                            {
+                                // Mark it as completed
+                                pq.IsCompleted = true;
+
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                // The Player does not already have the quest
+                // Add the quest to the player's quest list
+                Quests.Add(new PlayerQuest(Quest));
+            }
+            //World.HUD.Update();
+        }
+
+        public Equipment EquipmentByName(string name)
+        {
+            foreach (Equipment equ in Equipment)
+            {
+                if (equ.Name == name)
+                {
+                    return equ;
+                }
+            }
+            return null;
+        }
     }
 }

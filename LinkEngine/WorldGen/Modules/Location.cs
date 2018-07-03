@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using LinkEngine.Entities;
 using LinkEngine.Gameplay.Items;
-using LinkEngine.Gameplay.Quests;
-
 namespace LinkEngine.WorldGen
 {
     public class Location
@@ -11,10 +9,6 @@ namespace LinkEngine.WorldGen
         /// THe Item the player must have in inventory to enter location
         /// </summary>
         public Item ItemRequiredToEnter { get; set; }
-        /// <summary>
-        /// A quest that can be given to the player when they enter the location
-        /// </summary>
-        public Quest QuestAvailableHere { get; set; }
 
         /// <summary>
         /// The monster that can spawn in this location
