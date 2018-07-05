@@ -38,6 +38,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\Animation\Animator2D.cs" />
+    <Compile Include="Components\Physics\Physics.cs" />
     <Compile Include="Components\Physics\Projectile.cs" />
     <Compile Include="Components\Physics\Raycast.cs" />
     <Compile Include="Rendering\2dGraphics\Screen.cs" />

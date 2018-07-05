@@ -22,6 +22,9 @@
         /// </summary>
         public string[] TerritoryNames { get; set; }
 
+        public UniqueBuilding UB { get; set; }
+        public UniqueUnit UU { get; set; }
+
         /// <summary>
         /// Creates a new faction based on the parameters given
         /// </summary>

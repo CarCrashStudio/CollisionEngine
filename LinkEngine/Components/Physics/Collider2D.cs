@@ -12,6 +12,11 @@ namespace LinkEngine.Components
         public int Height { get; set; }
 
         /// <summary>
+        /// Parent is the object that owns this collider component
+        /// </summary>
+        public object Parent { get; set; }
+
+        /// <summary>
         /// The transform of an object is the part of the object that moves around screen
         /// </summary>
         public Transform Transform { get; set; }
