@@ -1,4 +1,4 @@
-﻿namespace RPG
+﻿namespace LinkEngine.RPG
 {
     public class Equipment : LinkEngine.Gameplay.Items.Item
     {

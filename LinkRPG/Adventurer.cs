@@ -3,7 +3,7 @@ using LinkEngine.Gameplay.Items;
 
 using System.Collections.Generic;
 
-namespace RPG
+namespace LinkEngine.RPG
 {
     /// <summary>
     /// Character is the class that holds all the needed data for the player to use.

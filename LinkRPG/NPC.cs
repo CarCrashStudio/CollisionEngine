@@ -1,9 +1,10 @@
-﻿using LinkEngine.Gameplay.Items;
+﻿using LinkEngine.Entities;
+using LinkEngine.Gameplay.Items;
 using System.Collections.Generic;
 
-namespace LinkEngine.Entities
+namespace LinkEngine.RPG
 {
-    public class NPC : Entity
+    public class NPC : Entities.Entity
     {
         public bool Interactable { get; set; }
         public Shop ShopavailableHere { get; set; }

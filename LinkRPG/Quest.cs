@@ -1,7 +1,7 @@
 ﻿using LinkEngine.Entities;
 using System.Collections.Generic;
 
-namespace RPG
+namespace LinkEngine.RPG
 {
     public class Quest
     {

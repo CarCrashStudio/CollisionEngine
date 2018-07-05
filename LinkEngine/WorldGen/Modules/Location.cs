@@ -15,11 +15,6 @@ namespace LinkEngine.WorldGen
         /// </summary>
         public Enemy MonsterLivingHere { get; set; }
 
-        /// <summary>
-        /// All NPCs available to interact with in this room
-        /// </summary>
-        public List<NPC> NPCsLivingHere { get; set; }
-
         public int ID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }

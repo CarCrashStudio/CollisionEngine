@@ -33,18 +33,11 @@ namespace LinkEngine.WorldGen
         /// All locations available to the game will be stored here
         /// </summary>
         public List<Location> Locations = new List<Location>();
-        /// <summary>
-        /// All NPCs available to the game
-        /// </summary>
-        public List<NPC> NPCs = new List<NPC>();
+
         /// <summary>
         /// all Abilities available to the game
         /// </summary>
         public List<Ability> Abilities = new List<Ability>();
-        /// <summary>
-        /// All Craftable Items available to the game
-        /// </summary>
-        public List<Item> Craftable = new List<Item>();
 
         public Player Player { get; set; }
 
@@ -287,24 +280,6 @@ namespace LinkEngine.WorldGen
                 if (location.ID == id)
                 {
                     return location;
-                }
-            }
-
-            return null;
-        }
-
-        /// <summary>
-        /// Finds and NPC by its ID
-        /// </summary>
-        /// <param name="id">The ID of the NPC to find</param>
-        /// <returns></returns>
-        public NPC NPCByID(int id)
-        {
-            foreach (NPC npc in NPCs)
-            {
-                if (npc.ID == id)
-                {
-                    return npc;
                 }
             }
 
