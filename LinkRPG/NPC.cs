@@ -1,10 +1,9 @@
 ﻿using LinkEngine.Entities;
-using LinkEngine.Gameplay.Items;
 using System.Collections.Generic;
 
 namespace LinkEngine.RPG
 {
-    public class NPC : Entities.Entity
+    public class NPC : Entity
     {
         public bool Interactable { get; set; }
         public Shop ShopavailableHere { get; set; }
@@ -55,7 +54,7 @@ namespace LinkEngine.RPG
         /// </summary>
         /// <param name="player"></param>
         /// <param name="selectedItem"></param>
-        public void Buy (Player player, InventoryItem selectedItem)
+        public void Buy (Adventurer player, InventoryItem selectedItem)
         {
             // Check to see if the player has more gold than the selected item cost
             if (player.Gold > (selectedItem.Details.Cost * selectedItem.Quantity))
@@ -77,7 +76,7 @@ namespace LinkEngine.RPG
         /// </summary>
         /// <param name="player"></param>
         /// <param name="selectedItem"></param>
-        public void Sell (Player player, InventoryItem selectedItem)
+        public void Sell (Adventurer player, InventoryItem selectedItem)
         {
             // Check to see if the NPC has more gold than the selected item cost
             if (Gold > (selectedItem.Details.Cost * selectedItem.Quantity))

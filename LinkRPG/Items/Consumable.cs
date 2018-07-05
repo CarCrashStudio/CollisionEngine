@@ -1,4 +1,4 @@
-﻿namespace LinkEngine.Gameplay.Items
+﻿namespace LinkEngine.RPG
 {
     public class Potion : Item
     {

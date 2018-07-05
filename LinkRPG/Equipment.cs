@@ -1,6 +1,6 @@
 ﻿namespace LinkEngine.RPG
 {
-    public class Equipment : LinkEngine.Gameplay.Items.Item
+    public class Equipment : Item
     {
         public int StrengthBoost { get; set; }
         public int DefenseBoost { get; set; }

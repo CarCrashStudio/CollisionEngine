@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LinkEngine.GameTypes.Top_Down.Strategy.Turn_Based
+﻿namespace LinkEngine.Strategy.TurnBased
 {
     public class World : WorldGen.World
     {

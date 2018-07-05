@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace LinkEngine.Gameplay.Items
+namespace LinkEngine.RPG
 {
     public class Item
     {

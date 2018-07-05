@@ -11,7 +11,7 @@ namespace LinkEngine.Entities
         public int Health { get; set; }
         public int MaxHealth { get; set; }
 
-        public BoxCollider2D collider { get; set; }
+        public Collider2D collider { get; set; }
 
         public Entity (int id, string name, int health, int maxHealth)
         {

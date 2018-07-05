@@ -10,7 +10,6 @@ namespace LinkEngine.Entities
         public int RewardExperiencePoints { get; set; }
         public int RewardGold { get; set; }
 
-        public List<Gameplay.Items.LootItem> LootTable { get; set; }
         public Enemy(int id, string name, int health, int maxHealth, short str, short def) : base (id, name, health, maxHealth)
         {
             Strength = str;

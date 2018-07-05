@@ -1,6 +1,4 @@
 ﻿using LinkEngine.Entities;
-using LinkEngine.Gameplay.Items;
-using LinkEngine.Gameplay.Skills;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -20,11 +18,6 @@ namespace LinkEngine.WorldGen
         public List<Biome> Biomes = new List<Biome>();
 
         /// <summary>
-        /// All Items available to the game
-        /// </summary>
-        public List<Item> Items = new List<Item>();
-
-        /// <summary>
         /// All Enemies available to the game
         /// </summary>
         public List<Enemy> Enemies = new List<Enemy>();
@@ -33,11 +26,6 @@ namespace LinkEngine.WorldGen
         /// All locations available to the game will be stored here
         /// </summary>
         public List<Location> Locations = new List<Location>();
-
-        /// <summary>
-        /// all Abilities available to the game
-        /// </summary>
-        public List<Ability> Abilities = new List<Ability>();
 
         public Player Player { get; set; }
 
@@ -61,38 +49,6 @@ namespace LinkEngine.WorldGen
 
                 Tiles.Add(new Tile(id, name, dense, 0, 0, type));
             }
-        }
-
-        /// <summary>
-        /// Loads Text File with Items
-        /// </summary>
-        /// <param name="db">Text file with Information</param>
-        public void LoadItemDatabase(string db)
-        {
-            try
-            {
-                Assembly assembly = Assembly.GetExecutingAssembly();
-                StreamReader reader = new StreamReader(assembly.GetManifestResourceStream(db));
-
-                Items = new List<Item>();
-
-                while (!reader.EndOfStream)
-                {
-                    // Grab these from the file
-                    int id = int.Parse(reader.ReadLine());
-                    string name = reader.ReadLine();
-                    string plural = reader.ReadLine();
-                    int cost = int.Parse(reader.ReadLine());
-
-                    Items.Add(new Item(id, name, plural, cost));
-                    reader.ReadLine();
-                }
-            }
-            catch
-            {
-
-            }
-
         }
 
         /// <summary>
@@ -233,42 +189,6 @@ namespace LinkEngine.WorldGen
         }
 
         /// <summary>
-        /// Finds an Item by its ID
-        /// </summary>
-        /// <param name="id">The ID of the Item to find</param>
-        /// <returns>Returns a copy of the item found, null if found nothing</returns>
-        public Item ItemBy(int id)
-        {
-            foreach (Item item in Items)
-            {
-                if (item.ID == id)
-                {
-                    return item;
-                }
-            }
-
-            return null;
-        }
-        /// <summary>
-        /// Finds an Item by its Name
-        /// </summary>
-        /// <param name="name">The name of the item to find</param>
-        /// <returns>Returns a copy of the item found, null if found nothing</returns>
-        public Item ItemBy(string name)
-        {
-            foreach (Item item in Items)
-            {
-                if (item.Name == name)
-                {
-                    return item;
-                }
-            }
-
-            return null;
-        }
-
-
-        /// <summary>
         /// Finds a Location by its ID
         /// </summary>
         /// <param name="id">The ID of the location to find</param>
@@ -283,39 +203,6 @@ namespace LinkEngine.WorldGen
                 }
             }
 
-            return null;
-        }
-
-        /// <summary>
-        /// Finds an Ability by its ID
-        /// </summary>
-        /// <param name="id">The ID of the Ability to find</param>
-        /// <returns></returns>
-        public Ability AbilityByID(int id)
-        {
-            foreach (Ability Ability in Abilities)
-            {
-                if (Ability.ID == id)
-                {
-                    return Ability;
-                }
-            }
-            return null;
-        }
-        /// <summary>
-        /// Finds an Ability by its Name
-        /// </summary>
-        /// <param name="name">The Name of the ability to find</param>
-        /// <returns></returns>
-        public Ability AbilityByName(string name)
-        {
-            foreach (Ability Ability in Abilities)
-            {
-                if (Ability.Name == name)
-                {
-                    return Ability;
-                }
-            }
             return null;
         }
     }

@@ -48,6 +48,8 @@ namespace LinkEngine.Rendering
             Height = height;
 
             Image = image;
+
+            Initialize();
         }
 
         /// <summary>

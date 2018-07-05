@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LinkEngine.GameTypes.Top_Down.Strategy.Turn_Based
+namespace LinkEngine.Components
 {
-    public class Territory
+    public class Raycast
     {
-        public string Name { get; set; }
     }
 }
