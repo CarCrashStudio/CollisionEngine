@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading;
 
 namespace LinkEngine.Components
 {
@@ -10,6 +6,8 @@ namespace LinkEngine.Components
     {
         public int Width { get; set; }
         public int Height { get; set; }
+
+        public Vector Velocity { get; set; }
 
         /// <summary>
         /// Parent is the object that owns this collider component
@@ -50,41 +48,84 @@ namespace LinkEngine.Components
         /// Fall is a recursive function that will subtract 1 from Y_1 and Y_2 until the object collides with another
         /// </summary>
         /// <param name="collider">The object to collide with</param>
-        public void Fall(Collider2D collider)
+        public bool Fall(Collider2D[] colliders)
         {
             if (HasGravity && !IsGrounded)
             {
-                Transform.Position.Y--;
+                Transform.Move(Velocity.Mulitply(new Vector(1,-1,0)));
 
-                if (!isColliding(collider))
+                foreach (Collider2D collider in colliders)
                 {
-                    Fall(collider);
-                }
-                else
-                {
-                    IsGrounded = true;
+                    if (!isColliding(collider))
+                    {
+                        Fall(colliders);
+                    }
+                    else
+                    {
+                        IsGrounded = true;
+                        return false;
+                    }
                 }
             }
+            return false;
         }
 
         /// <summary>
-        /// Push is a recursive function that adds acceleration to the x and y coordinates
+        /// Push is a threaded function that adds acceleration to the x and y coordinates
         /// Push will check if the object is grounded and if it has friction to take into account the deceleration of the collider
         /// </summary>
         /// <param name="acc">the amount to </param>
-        public void Push(Vector acc)
+        public void Push(Vector acc, Collider2D[] colliders, int xDirection, int yDirection)
         {
-            //Acceleration = acc;
-            //Transform.position.Add()
+            // create a new pus thread start
+            ThreadStart ts = new ThreadStart(()=>push(acc, colliders, xDirection,yDirection));
 
-            //if (IsGrounded)
-            //{
-            //    if (HasFriction)
-            //    {
-            //        // if the object is on the ground and has friction. it will decelerate faster
-            //        Acceleration.Subtract(new Vector (-3, -3, 0));
-            //    }
-            //}
+            // Begin running the physics thread
+            Physics.Physics.Initialize(ts);
+
+            // end the physics thread
+            Physics.Physics.StopPhysics();
+        }
+
+        // this function runs as the threadstart parameter
+        void push(Vector acc, Collider2D[] colliders, int xDirection, int yDirection)
+        {
+            Velocity = acc;
+            bool stopped = false;
+
+            while (!stopped)
+            {
+                // execute physics code
+
+                // if the collider is grounded don't reduce x velocity
+                // if y is going up, acc.y should be decreasing until it reaches the maximum point
+                // once the maximum point is reached the y velocity should increase, and y should start falling
+                if (!IsGrounded || (Velocity.Y != 0 && yDirection == 1))
+                {
+                    // collider is still rising
+                    Transform.Move(Velocity);
+
+                    Velocity.Subtract(new Vector(0, -1, 0));
+                }
+                else
+                {
+                   
+                    if (IsGrounded)
+                    {
+                        // object is just sliding on the ground
+                        Transform.Move(Velocity);
+                        Velocity.Subtract(new Vector(-1, 0, 0));
+                    }
+                    if (Velocity.Y == 0)
+                    {
+                        // y velocity has reached 0, begin falling
+                        // Execute Fall function, will return false once collider is grounded
+                        stopped = Fall(colliders);
+                    }
+                    
+                }
+            }
+
         }
     }
 }

@@ -47,5 +47,10 @@ namespace LinkEngine.Components
         {
             return new Vector (this.X + vectorToAdd.X, this.Y + vectorToAdd.Y, 0);
         }
+
+        public Vector Mulitply (Vector vectorToMultiply)
+        {
+            return new Vector(this.X * vectorToMultiply.X, this.Y * vectorToMultiply.Y, this.Z * vectorToMultiply.Z);
+        }
     }
 }

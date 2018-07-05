@@ -41,7 +41,7 @@
     <Compile Include="Components\Physics\Physics.cs" />
     <Compile Include="Components\Physics\Projectile.cs" />
     <Compile Include="Components\Physics\Raycast.cs" />
-    <Compile Include="Rendering\2dGraphics\Screen.cs" />
+    <Compile Include="Rendering\Screen.cs" />
     <Compile Include="Components\Physics\Collider2D.cs" />
     <Compile Include="Components\Physics\Transform.cs" />
     <Compile Include="Components\Physics\Vector.cs" />

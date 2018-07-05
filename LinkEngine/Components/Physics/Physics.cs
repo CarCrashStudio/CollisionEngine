@@ -10,18 +10,11 @@ namespace LinkEngine.Components.Physics
         /// <summary>
         /// Initialize will create and start a new thread for the physics to run on
         /// </summary>
-        public static void Initialize()
+        public static void Initialize(ThreadStart ts)
         {
-            physicsStart = new ThreadStart(RunPhysics);
+            physicsStart = ts;
             physics = new Thread(physicsStart);
-        }
-
-        /// <summary>
-        /// RunPhysics is the method actually doing the physics running
-        /// </summary>
-        static void RunPhysics()
-        {
-
+            physics.Start();
         }
 
         /// <summary>
