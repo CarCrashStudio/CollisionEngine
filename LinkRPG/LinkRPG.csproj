@@ -40,11 +40,11 @@
     <Compile Include="Adventurer.cs" />
     <Compile Include="Combat.cs" />
     <Compile Include="Equipment.cs" />
-    <Compile Include="Items\Consumable.cs" />
-    <Compile Include="Items\CraftingItem.cs" />
-    <Compile Include="Items\InventoryItem.cs" />
-    <Compile Include="Items\Item.cs" />
-    <Compile Include="Items\LootItem.cs" />
+    <Compile Include="Consumable.cs" />
+    <Compile Include="CraftingItem.cs" />
+    <Compile Include="InventoryItem.cs" />
+    <Compile Include="Item.cs" />
+    <Compile Include="LootItem.cs" />
     <Compile Include="Modifier.cs" />
     <Compile Include="NPC.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
