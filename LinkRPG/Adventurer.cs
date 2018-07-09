@@ -774,9 +774,6 @@ namespace LinkEngine.RPG
             }
         }
 
-
-
-
         public bool HasRequiredItemToEnterThisLocation(Location location)
         {
             if (location.ItemRequiredToEnter == null)

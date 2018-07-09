@@ -9,6 +9,7 @@ namespace LinkEngine.Platformer
     {
         public int Speed { get; set; }
         public Vector Acceleration { get; set; }
+        public Vector Velocity { get; set; }
 
         /// <summary>
         /// Intializes a new Runner
@@ -23,15 +24,12 @@ namespace LinkEngine.Platformer
         /// Jump will call collider.Push to push the player into the air, then call Fall to bring him back to the ground
         /// </summary>
         /// <param name="ground"></param>
-        public void Jump(Collider2D ground)
+        public void Jump(Collider2D[] colliders)
         {
             if (collider.IsGrounded)
             {
                 // Calls Push function which will cause the player to be pushed into the air
-                collider.Push(new Vector(0, 3, 0));
-
-                // Once Push has finished running, call Fall and have the player come back down
-                collider.Fall(ground);
+                collider.Push(new Vector(0, 3, 0), colliders, Velocity.X, 1);
             }
         }
     }

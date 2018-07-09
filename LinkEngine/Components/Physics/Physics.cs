@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 
-namespace LinkEngine.Components.Physics
+namespace LinkEngine.Components
 {
     public class Physics
     {
