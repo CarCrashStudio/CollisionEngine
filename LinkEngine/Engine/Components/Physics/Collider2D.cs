@@ -81,10 +81,10 @@ namespace LinkEngine.Components
             ThreadStart ts = new ThreadStart(()=>push(acc, colliders, xDirection,yDirection));
 
             // Begin running the physics thread
-            Physics.Physics.Initialize(ts);
+            Physics.Initialize(ts);
 
             // end the physics thread
-            Physics.Physics.StopPhysics();
+            Physics.StopPhysics();
         }
 
         // this function runs as the threadstart parameter
@@ -124,6 +124,7 @@ namespace LinkEngine.Components
                     }
                     
                 }
+                Thread.Sleep(500);
             }
 
         }

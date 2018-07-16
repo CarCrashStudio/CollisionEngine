@@ -9,8 +9,9 @@
 
         public int AvailableFactions { get; set; }
 
-        public World ()
+        public World (int world_size)
         {
+            WorldSize = world_size;
             WorldMap = new WorldGen.Tile[WorldSize, WorldSize];
         }
     }

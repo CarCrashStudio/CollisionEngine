@@ -18,8 +18,17 @@ namespace LinkEngine.RPG
         /// </summary>
         public short EQUIP_SIZE { get { return equip_size; } set { equip_size = value; } }
 
+        /// <summary>
+        /// Invenotry is a list of all items the player has collected this game
+        /// </summary>
         public List<InventoryItem> Inventory { get; set; }
+        /// <summary>
+        /// Equipment is an array of the items the player has equipped. Default maximum size of 6
+        /// </summary>
         public Equipment[] Equipment { get; set; }
+        /// <summary>
+        /// A list of all quests the player has, both completed and in progress
+        /// </summary>
         public List<PlayerQuest> Quests { get; set; }
 
         /// <summary>
@@ -29,6 +38,7 @@ namespace LinkEngine.RPG
 
         public int Mana { get; set; }
         public int MaxMana { get; set; }
+        public Class Class { get; set; }
         public List<Entity> Party { get; set; }
         public List<Entity> PartyDead { get; set; }
 
@@ -80,7 +90,7 @@ namespace LinkEngine.RPG
         /// </summary>
         /// <param name="_id"></param>
         /// <param name="_name"></param>
-        /// <param name="clss"></param>
+        /// <param name="_clss"></param>
         /// <param name="_hp"></param>
         /// <param name="_maxHp"></param>
         /// <param name="_maximumDamage"></param>
@@ -90,9 +100,22 @@ namespace LinkEngine.RPG
         /// <param name="_maxExp"></param>
         /// <param name="_gold"></param>
         /// <param name="slug"></param>
-        public Adventurer(int _id, string _name, int _hp, int _maxHp, int _level, int _exp, int _maxExp, int _gold, string slug) : 
-            base (_id, _name, _hp, _maxHp)
+        public Adventurer(int _id, string _name, Class _clss, int _level, int _exp, int _maxExp, int _gold, string slug) : 
+            base (_id, _name, _clss.HP, _clss.HP)
         {
+            Class = _clss;
+
+            Health = Class.HP;
+            MaxHealth = Class.HP;
+
+            Strength = Class.Strength;
+            Perception = Class.Perception;
+            Endurance = Class.Endurance;
+            Charisma = Class.Charisma;
+            Intelligence = Class.Intelligence;
+            Agility = Class.Agility;
+            Luck = Class.Luck;
+
             Level = _level;
             Exp = _exp;
             MaxExp = _maxExp;
@@ -773,9 +796,6 @@ namespace LinkEngine.RPG
                 }
             }
         }
-
-
-
 
         public bool HasRequiredItemToEnterThisLocation(Location location)
         {

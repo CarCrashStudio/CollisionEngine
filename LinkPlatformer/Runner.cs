@@ -9,6 +9,7 @@ namespace LinkEngine.Platformer
     {
         public int Speed { get; set; }
         public Vector Acceleration { get; set; }
+        public Vector Velocity { get; set; }
 
         /// <summary>
         /// Intializes a new Runner
@@ -28,10 +29,7 @@ namespace LinkEngine.Platformer
             if (collider.IsGrounded)
             {
                 // Calls Push function which will cause the player to be pushed into the air
-                collider.Push(new Vector(0, 3, 0), colliders, 0, -1);
-
-                // Once Push has finished running, call Fall and have the player come back down
-                collider.Fall(colliders);
+                collider.Push(new Vector(0, 3, 0), colliders, Velocity.X, 1);
             }
         }
     }
