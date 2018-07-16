@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{63CF1CF9-7D8E-4B8B-825D-442F16DBFAEF}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>LinkEngine</RootNamespace>
     <AssemblyName>LinkEngine</AssemblyName>
@@ -31,36 +31,81 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>LinkEngine.Program</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Drawing" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Components\Animation\Animator2D.cs" />
-    <Compile Include="Components\Physics\Physics.cs" />
-    <Compile Include="Components\Physics\Projectile.cs" />
-    <Compile Include="Components\Physics\Raycast.cs" />
-    <Compile Include="Rendering\Screen.cs" />
-    <Compile Include="Components\Physics\Collider2D.cs" />
-    <Compile Include="Components\Physics\Transform.cs" />
-    <Compile Include="Components\Physics\Vector.cs" />
-    <Compile Include="Components\UI\Camera.cs" />
-    <Compile Include="Entities\Enemy.cs" />
-    <Compile Include="Entities\Entity.cs" />
-    <Compile Include="Entities\Player.cs" />
+    <Compile Include="Engine\Components\Animation\Animator2D.cs" />
+    <Compile Include="Engine\Components\Physics\Physics.cs" />
+    <Compile Include="Engine\Components\Physics\Projectile.cs" />
+    <Compile Include="Engine\Components\Physics\Raycast.cs" />
+    <Compile Include="GUI\GUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\GUI.Designer.cs">
+      <DependentUpon>GUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\NewProjectWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\NewProjectWindow.Designer.cs">
+      <DependentUpon>NewProjectWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\NewFileForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\NewFileForm.Designer.cs">
+      <DependentUpon>NewFileForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\MainMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\MainMenu.Designer.cs">
+      <DependentUpon>MainMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Engine\Rendering\Screen.cs" />
+    <Compile Include="Engine\Components\Physics\Collider2D.cs" />
+    <Compile Include="Engine\Components\Physics\Transform.cs" />
+    <Compile Include="Engine\Components\Physics\Vector.cs" />
+    <Compile Include="Engine\Components\UI\Camera.cs" />
+    <Compile Include="Engine\Entities\Enemy.cs" />
+    <Compile Include="Engine\Entities\Entity.cs" />
+    <Compile Include="Engine\Entities\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Components\UI\HUDObject.cs" />
-    <Compile Include="WorldGen\Modules\Biome.cs" />
-    <Compile Include="WorldGen\Modules\Location.cs" />
-    <Compile Include="WorldGen\Modules\Chunk.cs" />
-    <Compile Include="WorldGen\Generation\DungeonGeneration.cs" />
-    <Compile Include="WorldGen\Generation\ProceduralGeneration.cs" />
-    <Compile Include="WorldGen\Generation\SetGeneration.cs" />
-    <Compile Include="WorldGen\Modules\Tile.cs" />
-    <Compile Include="WorldGen\Modules\Transition.cs" />
-    <Compile Include="WorldGen\World.cs" />
+    <Compile Include="Engine\Components\UI\HUDObject.cs" />
+    <Compile Include="Engine\WorldGen\Modules\Biome.cs" />
+    <Compile Include="Engine\WorldGen\Modules\Location.cs" />
+    <Compile Include="Engine\WorldGen\Modules\Chunk.cs" />
+    <Compile Include="Engine\WorldGen\Generation\DungeonGeneration.cs" />
+    <Compile Include="Engine\WorldGen\Generation\ProceduralGeneration.cs" />
+    <Compile Include="Engine\WorldGen\Generation\SetGeneration.cs" />
+    <Compile Include="Engine\WorldGen\Modules\Tile.cs" />
+    <Compile Include="Engine\WorldGen\Modules\Transition.cs" />
+    <Compile Include="Engine\WorldGen\World.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="GUI\GUI.resx">
+      <DependentUpon>GUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\NewProjectWindow.resx">
+      <DependentUpon>NewProjectWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\NewFileForm.resx">
+      <DependentUpon>NewFileForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\MainMenu.resx">
+      <DependentUpon>MainMenu.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
