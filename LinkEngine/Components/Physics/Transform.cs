@@ -6,9 +6,7 @@
 
         public Transform (int x, int y, int z)
         {
-            Position.X = x;
-            Position.Y = y;
-            Position.Z = z;
+            Position = new Vector(x, y, z);
         }
 
         /// <summary>

@@ -12,16 +12,16 @@ namespace LinkEngine.Rendering
         /// <summary>
         /// Object contains the Image and Pointers to x and y coordinates of the object to draw
         /// </summary>
-        public unsafe struct Object
+        public struct Object
         {
             // The image to draw
             public Bitmap Image;
 
             // Pointers are used to keep the current version of coordinates that will most likely change 
             // Pointer to object's X Coordinate
-            public int *X;
+            public int X;
             // Pointer to object's Y Coordinate 
-            public int *Y;
+            public int Y;
         }
 
         public int Width { get; set; }
@@ -42,27 +42,26 @@ namespace LinkEngine.Rendering
         /// </summary>
         /// <param name="width"></param>
         /// <param name="height"></param>
-        public Screen (int width, int height, ref Bitmap image)
+        public Screen (int width, int height)
         {
             Width = width;
             Height = height;
 
-            Image = image;
-
-            Initialize();
+            Image = new Bitmap(width, height);
+            ObjectsOnScreen = new List<Object>();
         }
 
         /// <summary>
         /// Draw is a threaded function the runs infinetly and draws all the objects inside of ObjectsOnScreen. The coordinates to draw the images are pointer variables to the original location of the variable. This prevents the user from manually updating the list with new coordinates
         /// </summary>
-        unsafe void Draw ()
+        void Draw ()
         {
             while(true)
             {
                 foreach(Object obj in ObjectsOnScreen)
                 {
                     var graphics = Graphics.FromImage(Image);
-                    graphics.DrawImage(obj.Image, new PointF(int.Parse(obj.X->ToString()), int.Parse(obj.Y->ToString())));
+                    graphics.DrawImage(obj.Image, new PointF(int.Parse(obj.Y.ToString()), int.Parse(obj.Y.ToString())));
                 }
             }
         }
