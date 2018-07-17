@@ -29,17 +29,19 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cmbRecent = new System.Windows.Forms.ComboBox();
             this.btnQuit = new System.Windows.Forms.Button();
             this.btnLoad = new System.Windows.Forms.Button();
             this.btnNew = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.comboBox1);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.cmbRecent);
             this.panel1.Controls.Add(this.btnQuit);
             this.panel1.Controls.Add(this.btnLoad);
             this.panel1.Controls.Add(this.btnNew);
@@ -47,6 +49,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(671, 431);
             this.panel1.TabIndex = 3;
+            // 
+            // cmbRecent
+            // 
+            this.cmbRecent.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbRecent.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.cmbRecent.FormattingEnabled = true;
+            this.cmbRecent.Location = new System.Drawing.Point(417, 305);
+            this.cmbRecent.Name = "cmbRecent";
+            this.cmbRecent.Size = new System.Drawing.Size(232, 24);
+            this.cmbRecent.TabIndex = 4;
             // 
             // btnQuit
             // 
@@ -82,15 +94,14 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // comboBox1
+            // label1
             // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(417, 281);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(232, 24);
-            this.comboBox1.TabIndex = 4;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(414, 285);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(160, 17);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Select a Recent Project:";
             // 
             // MainMenu
             // 
@@ -101,6 +112,7 @@
             this.Name = "MainMenu";
             this.Text = "MainMenu";
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -112,6 +124,7 @@
         private System.Windows.Forms.Button btnLoad;
         private System.Windows.Forms.Button btnNew;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cmbRecent;
+        private System.Windows.Forms.Label label1;
     }
 }

@@ -31,10 +31,10 @@
             this.txtProjName = new System.Windows.Forms.TextBox();
             this.btnSubmit = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.cmbTemplates = new System.Windows.Forms.ComboBox();
+            this.lstLibraries = new System.Windows.Forms.CheckedListBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -60,8 +60,8 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.WhiteSmoke;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.lstLibraries);
             this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.cmbTemplates);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.txtProjName);
             this.panel1.Controls.Add(this.btnSubmit);
@@ -70,15 +70,27 @@
             this.panel1.Size = new System.Drawing.Size(543, 415);
             this.panel1.TabIndex = 2;
             // 
-            // label1
+            // lstLibraries
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(153, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(245, 44);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "New Project: ";
+            this.lstLibraries.FormattingEnabled = true;
+            this.lstLibraries.Items.AddRange(new object[] {
+            "RPG",
+            "Platformer",
+            "Survival",
+            "Strategy"});
+            this.lstLibraries.Location = new System.Drawing.Point(124, 51);
+            this.lstLibraries.Name = "lstLibraries";
+            this.lstLibraries.Size = new System.Drawing.Size(204, 140);
+            this.lstLibraries.TabIndex = 6;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(3, 54);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(115, 17);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "Project Libraries:";
             // 
             // label2
             // 
@@ -89,29 +101,15 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "Project Name:";
             // 
-            // cmbTemplates
+            // label1
             // 
-            this.cmbTemplates.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbTemplates.FormattingEnabled = true;
-            this.cmbTemplates.Items.AddRange(new object[] {
-            "None",
-            "Platformer",
-            "RPG",
-            "Survival",
-            "Strategy"});
-            this.cmbTemplates.Location = new System.Drawing.Point(124, 51);
-            this.cmbTemplates.Name = "cmbTemplates";
-            this.cmbTemplates.Size = new System.Drawing.Size(121, 24);
-            this.cmbTemplates.TabIndex = 4;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 54);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(115, 17);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Project Template";
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(153, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(245, 44);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "New Project: ";
             // 
             // NewProjectWindow
             // 
@@ -138,6 +136,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
-        public System.Windows.Forms.ComboBox cmbTemplates;
+        public System.Windows.Forms.CheckedListBox lstLibraries;
     }
 }
