@@ -14,58 +14,66 @@ namespace LinkEngine
     public partial class MainMenu : Form
     {
         StreamReader reader;
+        StreamWriter writer;
         string projectName = "";
         string projectTemplate = "";
 
-        public MainMenu()
+        GUI gui;
+
+        string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/LinkEngine";
+
+        public MainMenu(GUI gui)
         {
             InitializeComponent();
 
-            reader = new StreamReader(File.OpenRead(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/LinkEngine/temp/recents.file"));
+            this.gui = gui;
+            cmbRecent.Items.Add("None");
+            cmbRecent.SelectedIndex = 0;
+
+            reader = new StreamReader(File.OpenRead(path + "/temp/recents.file"));
             while (!reader.EndOfStream)
             {
                 cmbRecent.Items.Add(reader.ReadLine());
             }
+            reader.Close();
         }
 
         void NewProject()
         {
-            NewProjectWindow npw = new NewProjectWindow();
-            npw.ShowDialog();
-
-            if (npw.txtProjName.Text != "")
-            {
-                projectName = npw.txtProjName.Text;
-                projectTemplate = npw.cmbTemplates.Items[npw.cmbTemplates.SelectedIndex].ToString();
-            }
+            gui.menuAction = "new";
+            
         }
 
         void LoadProject (string name)
         {
-
-            reader = new StreamReader(File.OpenRead(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/LinkEngine/Projects/" + name + "/" + name + ".proj"));
+            gui.menuAction = "load";
+            gui.projectName = name;
             
-            while (!reader.EndOfStream)
-            {
-                projectName = reader.ReadLine();
-                projectTemplate = reader.ReadLine();
-            }
         }
 
         private void btnNew_Click(object sender, EventArgs e)
         {
             NewProject();
-            GUI gui = new LinkEngine.GUI(projectName, projectTemplate);
             gui.Show();
-            Hide();
+            Close();
         }
 
         private void btnLoad_Click(object sender, EventArgs e)
         {
-            LoadProject(cmbRecent.SelectedItem.ToString());
-            GUI gui = new LinkEngine.GUI(projectName, projectTemplate);
+            if (cmbRecent.SelectedIndex == 0)
+            {
+                openFileDialog1.ShowDialog();
+                if (openFileDialog1.FileName != null)
+                {
+                    LoadProject(openFileDialog1.FileName);
+                }
+            }
+            else
+            {
+                LoadProject(cmbRecent.SelectedItem.ToString());
+            }
             gui.Show();
-            Hide();
+            Close();
         }
 
         private void btnQuit_Click(object sender, EventArgs e)
