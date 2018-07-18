@@ -29,30 +29,43 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cmbRecent = new System.Windows.Forms.ComboBox();
             this.btnQuit = new System.Windows.Forms.Button();
             this.btnLoad = new System.Windows.Forms.Button();
             this.btnNew = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.comboBox1);
+            this.panel1.Controls.Add(this.cmbRecent);
             this.panel1.Controls.Add(this.btnQuit);
             this.panel1.Controls.Add(this.btnLoad);
             this.panel1.Controls.Add(this.btnNew);
-            this.panel1.Location = new System.Drawing.Point(12, 123);
+            this.panel1.Location = new System.Drawing.Point(9, 100);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(671, 431);
+            this.panel1.Size = new System.Drawing.Size(503, 350);
             this.panel1.TabIndex = 3;
+            // 
+            // cmbRecent
+            // 
+            this.cmbRecent.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbRecent.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.cmbRecent.FormattingEnabled = true;
+            this.cmbRecent.Location = new System.Drawing.Point(313, 228);
+            this.cmbRecent.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbRecent.Name = "cmbRecent";
+            this.cmbRecent.Size = new System.Drawing.Size(175, 21);
+            this.cmbRecent.TabIndex = 4;
             // 
             // btnQuit
             // 
-            this.btnQuit.Location = new System.Drawing.Point(221, 357);
+            this.btnQuit.Location = new System.Drawing.Point(166, 290);
+            this.btnQuit.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnQuit.Name = "btnQuit";
-            this.btnQuit.Size = new System.Drawing.Size(190, 70);
+            this.btnQuit.Size = new System.Drawing.Size(142, 57);
             this.btnQuit.TabIndex = 5;
             this.btnQuit.Text = "Quit";
             this.btnQuit.UseVisualStyleBackColor = true;
@@ -60,9 +73,10 @@
             // 
             // btnLoad
             // 
-            this.btnLoad.Location = new System.Drawing.Point(221, 281);
+            this.btnLoad.Location = new System.Drawing.Point(166, 228);
+            this.btnLoad.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnLoad.Name = "btnLoad";
-            this.btnLoad.Size = new System.Drawing.Size(190, 70);
+            this.btnLoad.Size = new System.Drawing.Size(142, 57);
             this.btnLoad.TabIndex = 4;
             this.btnLoad.Text = "Load Project...";
             this.btnLoad.UseVisualStyleBackColor = true;
@@ -70,9 +84,10 @@
             // 
             // btnNew
             // 
-            this.btnNew.Location = new System.Drawing.Point(221, 205);
+            this.btnNew.Location = new System.Drawing.Point(166, 167);
+            this.btnNew.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnNew.Name = "btnNew";
-            this.btnNew.Size = new System.Drawing.Size(190, 70);
+            this.btnNew.Size = new System.Drawing.Size(142, 57);
             this.btnNew.TabIndex = 3;
             this.btnNew.Text = "New Project...";
             this.btnNew.UseVisualStyleBackColor = true;
@@ -82,22 +97,13 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // comboBox1
-            // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(417, 281);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(232, 24);
-            this.comboBox1.TabIndex = 4;
-            // 
             // MainMenu
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(695, 566);
+            this.ClientSize = new System.Drawing.Size(521, 460);
             this.Controls.Add(this.panel1);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "MainMenu";
             this.Text = "MainMenu";
             this.panel1.ResumeLayout(false);
@@ -112,6 +118,6 @@
         private System.Windows.Forms.Button btnLoad;
         private System.Windows.Forms.Button btnNew;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cmbRecent;
     }
 }

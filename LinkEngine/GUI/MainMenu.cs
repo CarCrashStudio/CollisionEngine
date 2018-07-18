@@ -20,6 +20,12 @@ namespace LinkEngine
         public MainMenu()
         {
             InitializeComponent();
+
+            reader = new StreamReader(File.OpenRead(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/LinkEngine/temp/recents.file"));
+            while (!reader.EndOfStream)
+            {
+                cmbRecent.Items.Add(reader.ReadLine());
+            }
         }
 
         void NewProject()
@@ -56,7 +62,7 @@ namespace LinkEngine
 
         private void btnLoad_Click(object sender, EventArgs e)
         {
-            LoadProject();
+            LoadProject(cmbRecent.SelectedItem.ToString());
             GUI gui = new LinkEngine.GUI(projectName, projectTemplate);
             gui.Show();
             Hide();
