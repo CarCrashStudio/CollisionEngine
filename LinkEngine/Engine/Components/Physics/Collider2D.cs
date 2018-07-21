@@ -2,7 +2,7 @@
 
 namespace LinkEngine.Components
 {
-    public class Collider2D
+    public class Collider2D : Component
     {
         public int Width { get; set; }
         public int Height { get; set; }

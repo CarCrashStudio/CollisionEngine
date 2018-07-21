@@ -11,7 +11,7 @@ namespace LinkEngine.Entities
         public int Health { get; set; }
         public int MaxHealth { get; set; }
 
-        public Collider2D collider { get; set; }
+        public List<Component> Components { get; set; }
 
         public Entity (int id, string name, int health, int maxHealth)
         {
@@ -19,6 +19,8 @@ namespace LinkEngine.Entities
             Name = name;
             health = Health;
             MaxHealth = maxHealth;
+            Components = new List<Component>();
+            Components.Add(new Collider2D());
         }
 
 
