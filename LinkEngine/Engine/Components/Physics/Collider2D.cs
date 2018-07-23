@@ -4,9 +4,6 @@ namespace LinkEngine.Components
 {
     public class Collider2D : Component
     {
-        public int Width { get; set; }
-        public int Height { get; set; }
-
         public Vector Velocity { get; set; }
 
         /// <summary>
@@ -41,7 +38,7 @@ namespace LinkEngine.Components
         /// <returns></returns>
         public bool isColliding(Collider2D collider)
         {
-            return ((collider.Transform.Position.X > Transform.Position.X - (Width / 2) && collider.Transform.Position.X + Width < Transform.Position.X + (Width / 2)) && (collider.Transform.Position.Y > Transform.Position.Y - (Height / 2) && collider.Transform.Position.Y + Height > Transform.Position.Y + (Height / 2)));
+            return ((collider.Transform.Position.X > Transform.Position.X - (Transform.Size.Width / 2) && collider.Transform.Position.X + Transform.Size.Width < Transform.Position.X + (Transform.Size.Width / 2)) && (collider.Transform.Position.Y > Transform.Position.Y - (Transform.Size.Height / 2) && collider.Transform.Position.Y + Transform.Size.Height > Transform.Position.Y + (Transform.Size.Height / 2)));
         }
 
         /// <summary>
@@ -127,6 +124,11 @@ namespace LinkEngine.Components
                 Thread.Sleep(500);
             }
 
+        }
+
+        public Collider2D (int x, int y, int z, int h, int w)
+        {
+            Transform = new Components.Transform(x, y, z, h, w);
         }
     }
 }

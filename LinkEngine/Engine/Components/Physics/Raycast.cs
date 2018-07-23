@@ -20,9 +20,9 @@
                 {
                     foreach(Collider2D collider in allColliders)
                     {
-                        if (x > collider.Transform.Position.X || x < collider.Transform.Position.X + collider.Width)
+                        if (x > collider.Transform.Position.X || x < collider.Transform.Position.X + collider.Transform.Size.Width)
                         {
-                            if (y > collider.Transform.Position.Y || y < collider.Transform.Position.Y + collider.Height)
+                            if (y > collider.Transform.Position.Y || y < collider.Transform.Position.Y + collider.Transform.Size.Height)
                             {
                                 Hit = collider.Parent;
                             }

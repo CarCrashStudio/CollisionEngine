@@ -36,7 +36,7 @@ namespace LinkEngine
         public GUI()
         {
             InitializeComponent();
-
+            WorldObjects = new List<GameObject>();
             MainMenu mm = new MainMenu(this);
             mm.ShowDialog();
             Hide();
@@ -362,9 +362,11 @@ namespace LinkEngine
 
         //
         #region ObjectFileHandlers
-        void CreateNewObjectFile(string file)
+        void CreateNewObjectFile(string file, GameObject obj)
         {
-            SaveObjectFile(file);
+
+
+            SaveObjectFile(file, obj);
         }
         void LoadObjectFile(string file)
         {
@@ -372,10 +374,20 @@ namespace LinkEngine
 
             reader.Close();
         }
-        void SaveObjectFile(string file)
+        void SaveObjectFile(string file, GameObject obj)
         {
             writer = new StreamWriter(File.OpenWrite(file));
-            writer.WriteLine("");
+            writer.WriteLine(obj.GetType().BaseType.Name);
+            writer.WriteLine(obj.Name);
+            writer.WriteLine("-COMPONENTS-");
+            foreach (Component comp in obj.Components)
+            {
+                foreach (PropertyInfo prop in comp.GetType().GetProperties())
+                {
+                    writer.WriteLine(GetPropInfo(comp, prop.Name).ToString());
+                }
+            }
+            writer.WriteLine("-ENDCOMPONENTS-");
             writer.Close();
         }
         #endregion
@@ -430,20 +442,35 @@ namespace LinkEngine
         {
 
         }
+        void AddNewObjectToProject(TreeNodeMouseClickEventArgs e)
+        {
+            object obj = null;
+
+
+        }
         void AddObjectToProject (string objectToAdd)
         {
             // get the object information from its object file
             // read all information
             // place the object in the world where it was last saved
+            reader = new StreamReader(File.OpenRead(objectToAdd));
 
             GameObject obj = new GameObject();
 
-            reader = new StreamReader(File.OpenRead(objectToAdd));
             while (reader.EndOfStream)
             {
-                obj.Name = reader.ReadLine();
-                obj.ScreenPosition = new Vector(int.Parse(reader.ReadLine()), int.Parse(reader.ReadLine()), 0);
                 string str = reader.ReadLine();
+
+                if (str == "Entity")
+                {
+                    obj = new Entities.Entity(0, reader.ReadLine(), 100, 100);
+                }
+                else
+                {
+                    obj.Name = reader.ReadLine();
+                    obj.ScreenPosition = new Vector(int.Parse(reader.ReadLine()), int.Parse(reader.ReadLine()), 0);
+                    str = reader.ReadLine();
+                }
                 do
                 {
                     str = reader.ReadLine();
@@ -451,11 +478,9 @@ namespace LinkEngine
                     {
                         var com = new Component();
                         if (str == "Collider")
-                            com = new Collider2D();
+                            com = new Collider2D(int.Parse(reader.ReadLine()), int.Parse(reader.ReadLine()), 0, int.Parse(reader.ReadLine()), int.Parse(reader.ReadLine()));
                         if (str == "Transform")
                             com = new Transform(0, 0, 0, 0, 0);
-                        
-
 
                         obj.Components.Add(com);
                     }
@@ -464,6 +489,7 @@ namespace LinkEngine
             reader.Close();
 
             obj.ScreenPosition = new Vector(pbScreen.Width / 2, pbScreen.Height / 2, 0);
+            WorldObjects.Add(obj);
         }
         void RemoveObjectFromProject (GameObject obj)
         {
@@ -489,6 +515,13 @@ namespace LinkEngine
         object GetPropInfo(object src, string propName)
         {
             return src.GetType().GetProperty(propName).GetValue(src);
+        }
+        void ShowSelectedObjectProperties ()
+        {
+            foreach (PropertyInfo prop in SelectedObject.GetType().GetProperties())
+            {
+                GetPropInfo(SelectedObject, prop.Name);
+            }
         }
         #endregion
 
@@ -642,34 +675,22 @@ namespace LinkEngine
             // when a node is double clicked, an object of the class should be created and added to the 
             // the project's designer class
             treScene.Nodes[0].Nodes.Add((TreeNode)e.Node.Clone());
-            CreateNewObjectFile(e.Node.Text);
-            AddObjectToProject(e.Node.Text);
-
+            AddNewObjectToProject(e);
         }
         #endregion
         #region treScene
-        private void treScene_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        private void treScene_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            //Assembly assembly = Assembly.GetExecutingAssembly();
-
-            //// view the properties of the selected node
-            //TreeNode newSelected = e.Node;
-            //lvProperties.Items.Clear();
-            //List<ListViewItem.ListViewSubItem> subItems;
-            //ListViewItem item = null;
-
-            //foreach (PropertyInfo prop in type.GetProperties())
-            //{
-            //    item = new ListViewItem(prop.Name, 1);
-            //    subItems = new List<ListViewItem.ListViewSubItem>();
-
-            //    var val = GetPropInfo(type, prop.Name);
-
-            //    subItems.Add(new ListViewItem.ListViewSubItem(item, val.ToString()));
-            //    item.SubItems.AddRange(subItems.ToArray());
-            //    lvProperties.Items.Add(item);
-            //}
-            //lvProperties.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+            // selecting a scene node will also set the object as the selected object
+            foreach (GameObject obj in WorldObjects)
+            {
+                if (obj.Name == e.Node.Text)
+                {
+                    SelectedObject = obj;
+                    break;
+                }
+            }
+            ShowSelectedObjectProperties();
         }
         #endregion
         private void fsWatcher_Changed(object sender, FileSystemEventArgs e)

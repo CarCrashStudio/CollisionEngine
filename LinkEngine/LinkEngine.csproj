@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{63CF1CF9-7D8E-4B8B-825D-442F16DBFAEF}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>LinkEngine</RootNamespace>
     <AssemblyName>LinkEngine</AssemblyName>
@@ -84,6 +84,7 @@
     <Compile Include="Engine\Entities\Enemy.cs" />
     <Compile Include="Engine\Entities\Entity.cs" />
     <Compile Include="Engine\Entities\Player.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Engine\Components\UI\HUDObject.cs" />
     <Compile Include="Engine\WorldGen\Modules\Biome.cs" />

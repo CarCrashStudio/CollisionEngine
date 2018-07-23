@@ -538,7 +538,7 @@
             treeNode1});
             this.treScene.Size = new System.Drawing.Size(225, 483);
             this.treScene.TabIndex = 0;
-            this.treScene.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treScene_NodeMouseClick);
+            this.treScene.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treScene_NodeMouseDoubleClick);
             // 
             // tabMain
             // 

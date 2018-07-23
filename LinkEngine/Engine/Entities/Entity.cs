@@ -3,15 +3,12 @@ using System.Collections.Generic;
 
 namespace LinkEngine.Entities
 {
-    public class Entity
+    public class Entity : GameObject
     {
         public int ID { get; set; }
-        public string Name { get; set; }
         public string Facing { get; set; }
         public int Health { get; set; }
         public int MaxHealth { get; set; }
-
-        public List<Component> Components { get; set; }
 
         public Entity (int id, string name, int health, int maxHealth)
         {
@@ -20,7 +17,7 @@ namespace LinkEngine.Entities
             health = Health;
             MaxHealth = maxHealth;
             Components = new List<Component>();
-            Components.Add(new Collider2D());
+            Components.Add(new Collider2D(0, 0, 0, 0, 0));
         }
 
 
