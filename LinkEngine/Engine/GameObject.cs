@@ -22,6 +22,8 @@ namespace LinkEngine
         /// </summary>
         public string Name { get; set; }
 
+        public Vector ScreenPosition { get; set; } 
+
         /// <summary>
         /// Creates a new blank GameObject
         /// </summary>
@@ -29,6 +31,7 @@ namespace LinkEngine
         {
             Name = "Untitled GameObject";
             Components = new List<Component>();
+            Components.Add(new Transform(0, 0, 0, 0, 0));
         }
         /// <summary>
         /// Creates a new GameObject with the given name
@@ -38,6 +41,7 @@ namespace LinkEngine
         {
             Name = name;
             Components = new List<Component>();
+            Components.Add(new Transform(0, 0, 0, 0, 0));
         }
         /// <summary>
         /// Creates a named GameObject with components already on it

@@ -1,12 +1,14 @@
 ﻿namespace LinkEngine.Components
 {
-    public class Transform
+    public class Transform : Component
     {
         public Vector Position { get; set; }
+        public Size Size { get; set; }
 
-        public Transform (int x, int y, int z)
+        public Transform (int x, int y, int z, int w, int h)
         {
             Position = new Vector(x, y, z);
+            Size = new Size(h, w);
         }
 
         /// <summary>

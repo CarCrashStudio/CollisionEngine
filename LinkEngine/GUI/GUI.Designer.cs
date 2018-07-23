@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("World");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Scene");
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.treComponents = new System.Windows.Forms.TreeView();
@@ -37,6 +37,9 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.treFiles = new System.Windows.Forms.TreeView();
             this.tabProperties = new System.Windows.Forms.TabPage();
+            this.lvProperties = new System.Windows.Forms.ListView();
+            this.colItem = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colValue = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.cntxtMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newItemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -60,6 +63,7 @@
             this.addToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.fileToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.newItemToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.newGameObjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stsBar = new System.Windows.Forms.StatusStrip();
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.prgBar = new System.Windows.Forms.ToolStripProgressBar();
@@ -83,10 +87,6 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.newGameObjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.lvProperties = new System.Windows.Forms.ListView();
-            this.colItem = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colValue = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabControl2.SuspendLayout();
@@ -196,6 +196,29 @@
             this.tabProperties.TabIndex = 1;
             this.tabProperties.Text = "Properties";
             this.tabProperties.UseVisualStyleBackColor = true;
+            // 
+            // lvProperties
+            // 
+            this.lvProperties.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvProperties.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.colItem,
+            this.colValue});
+            this.lvProperties.Location = new System.Drawing.Point(6, 6);
+            this.lvProperties.Name = "lvProperties";
+            this.lvProperties.Size = new System.Drawing.Size(310, 475);
+            this.lvProperties.TabIndex = 0;
+            this.lvProperties.UseCompatibleStateImageBehavior = false;
+            this.lvProperties.View = System.Windows.Forms.View.Details;
+            // 
+            // colItem
+            // 
+            this.colItem.Text = "Property";
+            // 
+            // colValue
+            // 
+            this.colValue.Text = "Value";
             // 
             // cntxtMenu
             // 
@@ -363,7 +386,7 @@
             this.newItemToolStripMenuItem1,
             this.newGameObjectToolStripMenuItem});
             this.addToolStripMenuItem1.Name = "addToolStripMenuItem1";
-            this.addToolStripMenuItem1.Size = new System.Drawing.Size(181, 26);
+            this.addToolStripMenuItem1.Size = new System.Drawing.Size(121, 26);
             this.addToolStripMenuItem1.Text = "Add...";
             // 
             // fileToolStripMenuItem1
@@ -378,6 +401,13 @@
             this.newItemToolStripMenuItem1.Name = "newItemToolStripMenuItem1";
             this.newItemToolStripMenuItem1.Size = new System.Drawing.Size(201, 26);
             this.newItemToolStripMenuItem1.Text = "New Item...";
+            // 
+            // newGameObjectToolStripMenuItem
+            // 
+            this.newGameObjectToolStripMenuItem.Name = "newGameObjectToolStripMenuItem";
+            this.newGameObjectToolStripMenuItem.Size = new System.Drawing.Size(201, 26);
+            this.newGameObjectToolStripMenuItem.Text = "New GameObject";
+            this.newGameObjectToolStripMenuItem.Click += new System.EventHandler(this.newGameObjectToolStripMenuItem_Click);
             // 
             // stsBar
             // 
@@ -502,8 +532,8 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.treScene.Location = new System.Drawing.Point(6, 6);
             this.treScene.Name = "treScene";
-            treeNode1.Name = "World";
-            treeNode1.Text = "World";
+            treeNode1.Name = "Scene";
+            treeNode1.Text = "Scene";
             this.treScene.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode1});
             this.treScene.Size = new System.Drawing.Size(225, 483);
@@ -614,36 +644,6 @@
             // columnHeader3
             // 
             this.columnHeader3.Text = "Date Modified";
-            // 
-            // newGameObjectToolStripMenuItem
-            // 
-            this.newGameObjectToolStripMenuItem.Name = "newGameObjectToolStripMenuItem";
-            this.newGameObjectToolStripMenuItem.Size = new System.Drawing.Size(201, 26);
-            this.newGameObjectToolStripMenuItem.Text = "New GameObject";
-            this.newGameObjectToolStripMenuItem.Click += new System.EventHandler(this.newGameObjectToolStripMenuItem_Click);
-            // 
-            // lvProperties
-            // 
-            this.lvProperties.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lvProperties.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.colItem,
-            this.colValue});
-            this.lvProperties.Location = new System.Drawing.Point(6, 6);
-            this.lvProperties.Name = "lvProperties";
-            this.lvProperties.Size = new System.Drawing.Size(310, 475);
-            this.lvProperties.TabIndex = 0;
-            this.lvProperties.UseCompatibleStateImageBehavior = false;
-            this.lvProperties.View = System.Windows.Forms.View.Details;
-            // 
-            // colItem
-            // 
-            this.colItem.Text = "Property";
-            // 
-            // colValue
-            // 
-            this.colValue.Text = "Value";
             // 
             // GUI
             // 

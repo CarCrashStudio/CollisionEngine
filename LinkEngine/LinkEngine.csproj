@@ -49,6 +49,7 @@
     <Compile Include="Engine\Components\Physics\Physics.cs" />
     <Compile Include="Engine\Components\Physics\Projectile.cs" />
     <Compile Include="Engine\Components\Physics\Raycast.cs" />
+    <Compile Include="Engine\Components\Physics\Size.cs" />
     <Compile Include="Engine\GameObject.cs" />
     <Compile Include="GUI\GUI.cs">
       <SubType>Form</SubType>
