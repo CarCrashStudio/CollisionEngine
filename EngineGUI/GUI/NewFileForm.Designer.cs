@@ -28,32 +28,37 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.txtName = new System.Windows.Forms.TextBox();
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
+            "C# File",
+            ".cs"}, -1);
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new string[] {
+            "Text File",
+            ".txt"}, -1);
             this.txtLocation = new System.Windows.Forms.TextBox();
             this.btnBrowse = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnEnter = new System.Windows.Forms.Button();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.lvItems = new System.Windows.Forms.ListView();
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // txtName
-            // 
-            this.txtName.Location = new System.Drawing.Point(138, 91);
-            this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(245, 22);
-            this.txtName.TabIndex = 0;
             // 
             // txtLocation
             // 
-            this.txtLocation.Location = new System.Drawing.Point(138, 120);
+            this.txtLocation.BackColor = System.Drawing.Color.Gray;
+            this.txtLocation.ForeColor = System.Drawing.Color.White;
+            this.txtLocation.Location = new System.Drawing.Point(121, 397);
             this.txtLocation.Name = "txtLocation";
             this.txtLocation.Size = new System.Drawing.Size(245, 22);
             this.txtLocation.TabIndex = 1;
             // 
             // btnBrowse
             // 
-            this.btnBrowse.Location = new System.Drawing.Point(308, 148);
+            this.btnBrowse.Location = new System.Drawing.Point(372, 397);
             this.btnBrowse.Name = "btnBrowse";
             this.btnBrowse.Size = new System.Drawing.Size(75, 23);
             this.btnBrowse.TabIndex = 2;
@@ -61,59 +66,95 @@
             this.btnBrowse.UseVisualStyleBackColor = true;
             this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
             // 
-            // button2
+            // btnEnter
             // 
-            this.button2.Location = new System.Drawing.Point(372, 425);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(57, 94);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(75, 17);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "File Name:";
+            this.btnEnter.Location = new System.Drawing.Point(372, 425);
+            this.btnEnter.Name = "btnEnter";
+            this.btnEnter.Size = new System.Drawing.Size(75, 23);
+            this.btnEnter.TabIndex = 3;
+            this.btnEnter.Text = "Enter";
+            this.btnEnter.UseVisualStyleBackColor = true;
+            this.btnEnter.Click += new System.EventHandler(this.btnEnter_Click);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(40, 123);
+            this.label2.ForeColor = System.Drawing.SystemColors.Control;
+            this.label2.Location = new System.Drawing.Point(23, 400);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(92, 17);
             this.label2.TabIndex = 5;
             this.label2.Text = "File Location:";
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.lvItems);
+            this.panel1.Location = new System.Drawing.Point(12, 12);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(435, 379);
+            this.panel1.TabIndex = 6;
+            // 
+            // lvItems
+            // 
+            this.lvItems.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.lvItems.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader3});
+            this.lvItems.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lvItems.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.lvItems.FullRowSelect = true;
+            this.lvItems.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
+            listViewItem1,
+            listViewItem2});
+            this.lvItems.Location = new System.Drawing.Point(3, 3);
+            this.lvItems.Name = "lvItems";
+            this.lvItems.Size = new System.Drawing.Size(429, 373);
+            this.lvItems.TabIndex = 0;
+            this.lvItems.UseCompatibleStateImageBehavior = false;
+            this.lvItems.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "";
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "File Type";
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "";
+            // 
             // NewFileForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.ClientSize = new System.Drawing.Size(459, 460);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.btnEnter);
             this.Controls.Add(this.btnBrowse);
             this.Controls.Add(this.txtLocation);
-            this.Controls.Add(this.txtName);
             this.Name = "NewFileForm";
             this.Text = "NewFileForm";
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox txtName;
-        private System.Windows.Forms.TextBox txtLocation;
         private System.Windows.Forms.Button btnBrowse;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnEnter;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ListView lvItems;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
+        public System.Windows.Forms.TextBox txtLocation;
     }
 }

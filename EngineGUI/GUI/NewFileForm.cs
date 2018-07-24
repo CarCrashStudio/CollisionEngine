@@ -15,6 +15,7 @@ namespace LinkEngine
         public NewFileForm()
         {
             InitializeComponent();
+            lvItems.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
         }
 
         private void btnBrowse_Click(object sender, EventArgs e)
@@ -25,6 +26,11 @@ namespace LinkEngine
             {
                 txtLocation.Text = saveFileDialog1.FileName;
             }
+        }
+
+        private void btnEnter_Click(object sender, EventArgs e)
+        {
+            Hide();
         }
     }
 }

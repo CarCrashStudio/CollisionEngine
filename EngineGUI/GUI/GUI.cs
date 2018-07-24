@@ -5,14 +5,10 @@ using Microsoft.CSharp;
 using System.CodeDom.Compiler;
 using System.IO;
 using System.Reflection;
-
 namespace LinkEngine
 {
     public partial class GUI : Form
     {
-        TabPage EditorPage;
-        RichTextBox Editor;
-
         public string menuAction = "";
 
         bool MouseDragging = false;
@@ -22,22 +18,21 @@ namespace LinkEngine
         StreamWriter writer;
         StreamReader reader;
 
-        CSharpCodeProvider compiler;
-        CompilerParameters parameters;
+        public string projectName = "";
+        public List<string> projectLibraries;
         List<string> CompiledFiles;
 
-        public string projectName = "NewProject";
-        public List<string> projectLibraries;
-        string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/LinkEngine";
+        CSharpCodeProvider compiler;
+        CompilerParameters parameters;
+        CompilerResults results;
+
+        string EnginePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\LinkEngine";
+        string path = "";
 
         public GUI()
         {
             InitializeComponent();
-            EditorPage = tabMain.TabPages[1];
-            Editor = rtbEditor;
-            EditorPage.Controls.Add(Editor);
-
-            MainMenu mm = new LinkEngine.MainMenu(this);
+            MainMenu mm = new MainMenu(this);
             mm.ShowDialog();
             Hide();
 
@@ -52,48 +47,22 @@ namespace LinkEngine
 
             PopulateComponents();
             LoadProjectFolder();
-            LoadAssests();
+            mm.Close();
         }
 
-        // Game View window functions
-        private void pbScreen_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right)
-            {
-                MouseDragging = true;
-                deltaX = Cursor.Position.X - e.X;
-                deltaY = Cursor.Position.Y - e.Y;
-            }
-        }
-        private void pbScreen_MouseMove(object sender, MouseEventArgs e)
-        {
-
-            if (e.Button == MouseButtons.Right && MouseDragging)
-            {
-                pbScreen.Location = new System.Drawing.Point(Cursor.Position.X, Cursor.Position.Y);
-            }
-        }
-        private void pbScreen_MouseUp(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right && MouseDragging)
-            {
-                MouseDragging = false;
-            }
-        }
-
-        // Misc functions
+        //
+        #region ProjectAssets
         void LoadProjectFolder ()
         {
-            CompiledFiles = new List<string>();
-            Directory.CreateDirectory(path + "/Projects/" + projectName);
-            fsWatcher.Path = path;
+            Directory.CreateDirectory(path + "\\" + projectName);
+            fsWatcher.Path = EnginePath;
 
             LoadAssests();
-            ListDirectory(treFiles, path + "/Projects/" + projectName);
+            ListDirectory(treFiles, path + "\\" + projectName);
         }
         void LoadAssests ()
         {
-            Directory.CreateDirectory(path + "/Projects/" + projectName + "/Assets");
+            Directory.CreateDirectory(path + "\\" + projectName + "\\Assets");
         }
         void PopulateTemplateComponents()
         {
@@ -101,163 +70,83 @@ namespace LinkEngine
             {
                 foreach(string library in projectLibraries)
                 {
-                    treComponents.Nodes.Add(library, library);
-                    int index = treComponents.Nodes.IndexOf(treComponents.Nodes[library]);
-
-                    var dll = Assembly.LoadFile(path + "/Libraries/LinkEngine." + library + ".dll");
-                    foreach (Type type in dll.GetExportedTypes())
+                    if (library.Contains("LinkEngine"))
                     {
-                        if (type.Namespace == ("LinkEngine." + library) && !type.Name.Contains("<>"))
+                        var dll = Assembly.LoadFile(library);
+
+                        treComponents.Nodes.Add(library, dll.GetName().Name);
+                        int index = treComponents.Nodes.IndexOf(treComponents.Nodes[library]);
+
+                        foreach (Type type in dll.GetExportedTypes())
                         {
-                            treComponents.Nodes[index].Nodes.Add(type.Name);
+                            if (!type.Name.Contains("<>"))
+                            {
+                                treComponents.Nodes[index].Nodes.Add(type.Name);
+                            }
                         }
                     }
                 }
             }
         }
-
-        void NewProject ()
+        void PopulateComponents()
         {
-            projectLibraries = new List<string>();
-            CompiledFiles = new List<string>();
+            treComponents.Nodes.Clear();
 
-            NewProjectWindow npw = new NewProjectWindow();
-            npw.ShowDialog();
+            treComponents.Nodes.Add("Components", "Components");
+            int index = treComponents.Nodes.IndexOf(treComponents.Nodes["Components"]);
+            ListComponents(treComponents, index, "LinkEngine.Components");
 
-            if (npw.txtProjName.Text != "")
-            {
-                projectName = npw.txtProjName.Text;
-                foreach (object obj in npw.lstLibraries.CheckedItems)
-                {
-                    projectLibraries.Add(obj.ToString());
-                }
+            treComponents.Nodes.Add("Entities", "Entities");
+            index = treComponents.Nodes.IndexOf(treComponents.Nodes["Entities"]);
+            ListComponents(treComponents, index, "LinkEngine.Entities");
 
-                // generate a new world file
-                writer = new StreamWriter(File.OpenWrite(path + "/Projects/" + projectName + "/Assets/World.cs"));
-                foreach (string str in projectLibraries)
-                {
-                    writer.Write("using LinkEngine." + str + "; \n");
-                }
-                writer.Write("using LinkEngine;\nnamespace " + projectName + "\n{ \n\tclass World\n\t{\n\t}\n}");
-                writer.Close();
+            treComponents.Nodes.Add("Rendering", "Rendering");
+            index = treComponents.Nodes.IndexOf(treComponents.Nodes["Rendering"]);
+            ListComponents(treComponents, index, "LinkEngine.Rendering");
 
-                CompiledFiles.Add(path + "/Projects/" + projectName + "/World.cs");
+            treComponents.Nodes.Add("WorldGen", "WorldGen");
+            index = treComponents.Nodes.IndexOf(treComponents.Nodes["WorldGen"]);
+            ListComponents(treComponents, index, "LinkEngine.WorldGen");
 
-                PrintProjectFile();
-
-                bool found = false;
-                reader = new StreamReader(File.OpenRead(path + "/temp/recents.file"));
-                while (!reader.EndOfStream)
-                {
-                    if (reader.ReadLine() == projectName)
-                    {
-                        // if this project already exists in recents
-                        found = true;
-                    }
-                }
-                reader.Close();
-                if (!found)
-                {
-                    writer = new StreamWriter(File.OpenWrite(path + "/temp/recents.file"));
-                    writer.WriteLine(projectName);
-                    writer.Close();
-                }
-
-                LoadProjectFolder();
-                LoadAssests();
-                PopulateComponents();
-            }
+            // check for template components
+            PopulateTemplateComponents();
         }
-        void LoadProject(string name)
+        #endregion
+
+        //
+        #region ProjectBuilders
+        int Compile()
         {
-            CompiledFiles = new List<string>();
-            projectLibraries = new List<string>();
+            // execute code
+            compiler = new CSharpCodeProvider(new Dictionary<string, string>() { { "CompilerVersion", "v3.5" } });
+            prgBar.PerformStep();
 
-            LoadProjectFile(name);
+            if (!Directory.Exists(EnginePath + "\\Projects\\" + projectName + "\\bin\\"))
+                Directory.CreateDirectory(EnginePath + "\\Projects\\" + projectName + "\\bin\\");
+            prgBar.PerformStep();
 
-            bool found = false;
-            reader = new StreamReader(File.OpenRead(path + "/temp/recents.file"));
-            while (!reader.EndOfStream)
-            {
-                if (reader.ReadLine() == projectName)
-                {
-                    // if this project already exists in recents
-                    found = true;
-                }
-            }
-            reader.Close();
-            if (!found)
-            {
-                writer = new StreamWriter(File.OpenWrite(path + "/temp/recents.file"));
-                writer.WriteLine(projectName);
-                writer.Close();
-            }
+            parameters = new CompilerParameters(projectLibraries.ToArray(), EnginePath + "\\Projects\\" + projectName + "\\bin\\" + projectName + ".exe", true);
+            prgBar.PerformStep();
+            parameters.GenerateExecutable = true;
+            prgBar.PerformStep();
+
+            results = compiler.CompileAssemblyFromSource(parameters, CompiledFiles.ToArray());
+            prgBar.PerformStep();
+
+            if (results.Errors.Count > 0)
+                return 1;
+
+            // code compiled with no errors, return 0 to let the code continue as normal
+            return 0;
         }
-        void CloseProject ()
-        {
-            treFiles.Nodes.Clear();
-            projectName = "";
-            PopulateComponents();
-        }
+        #endregion
 
-        void NewFile ()
-        {
-            sfdSave = new SaveFileDialog();
-            sfdSave.InitialDirectory = path + "/Projects/" + projectName + "/";
-            sfdSave.ShowDialog();
-
-            if (sfdSave.FileName.Contains(".cs"))
-            {
-                foreach (string str in projectLibraries)
-                {
-                    rtbEditor.Text += "using LinkEngine." + str + "; \n";
-                }
-
-                rtbEditor.Text = "using LinkEngine;\nnamespace " + projectName + "\n{ \n\tclass Class1\n\t{\n\t}\n}";
-                SaveFile(sfdSave.FileName);
-                rtbEditor.Clear();
-            }
-            else
-            {
-                File.Create(sfdSave.FileName);
-            }
-
-            CompiledFiles.Add(sfdSave.FileName);
-
-            PrintProjectFile();
-
-            ListDirectory(treFiles, fsWatcher.Path + "/Projects/" + projectName);
-            OpenFile(sfdSave.FileName);
-        }
-        void OpenFile (string file)
-        {
-            rtbEditor.Clear();
-            reader = new StreamReader(File.OpenRead(file));
-
-            tabMain.TabPages.Add(EditorPage);
-            tabMain.TabPages[tabMain.TabCount - 1].Text = "Editor";
-            while (!reader.EndOfStream)
-            {
-                tabMain.TabPages[tabMain.TabCount - 1].Controls[0].Text += reader.ReadLine() + "\n";
-            }
-            tabMain.TabPages[tabMain.TabCount - 1].Controls[0].Visible = true;
-            reader.Close();
-        }
-        void SaveFile (string file)
-        {
-            File.Delete(file);
-            writer = new StreamWriter(File.OpenWrite(file));
-            foreach (string str in rtbEditor.Lines)
-            {
-                writer.WriteLine(str);
-            }
-            writer.Close();
-        }
-
+        //
+        #region ProjectFileHandlers
         void PrintProjectFile()
         {
-            File.Delete(path + "/Projects/" + projectName + "/" + projectName + ".proj");
-            writer = new StreamWriter(File.OpenWrite(path + "/Projects/" + projectName + "/" + projectName + ".proj"));
+            File.Delete(EnginePath + "\\Projects\\" + projectName + "\\" + projectName + ".proj");
+            writer = new StreamWriter(File.OpenWrite(EnginePath + "\\Projects\\" + projectName + "\\" + projectName + ".proj"));
             writer.WriteLine(projectName);
             writer.WriteLine("-LIBRARIES-");
             foreach (string str in projectLibraries)
@@ -275,7 +164,7 @@ namespace LinkEngine
             writer.WriteLine("-ENDOBJECTS-");
             writer.Close();
         }
-        void LoadProjectFile (string projFile)
+        void LoadProjectFile(string projFile)
         {
             reader = new StreamReader(File.OpenRead(projFile));
             int i = 0;
@@ -302,37 +191,172 @@ namespace LinkEngine
                     do
                     {
                         str = reader.ReadLine();
-                        if (str != "-ENDCOMPILED")
+                        if (str != "-ENDCOMPILED-")
                             CompiledFiles.Add(str);
                     } while (str != "-ENDCOMPILED-");
                 }
             }
             reader.Close();
         }
+        #endregion
 
-        int Compile ()
+        //
+        #region ProjectHandlers
+        void NewProject ()
         {
-            bool DoneBuilding = false;
-            while (!DoneBuilding)
+            projectLibraries = new List<string>();
+            CompiledFiles = new List<string>();
+
+            NewProjectWindow npw = new NewProjectWindow();
+            npw.ShowDialog();
+
+            if (npw.txtProjName.Text != "")
             {
-                // execute code
-                compiler = new CSharpCodeProvider(new Dictionary<string, string>() { { "CompilerVersion", "v3.5" } });
-                string[] libs = new[] { "mscorlib.dll", "System.Core.dll" };
-                parameters = new CompilerParameters(libs, path + "/Projects/" + projectName + "/bin/" +  projectName + ".exe", true);
-                parameters.GenerateExecutable = true;
+                projectName = npw.txtProjName.Text;
 
-                CompilerResults results = compiler.CompileAssemblyFromFile(parameters, CompiledFiles.ToArray());
+                path = npw.txtFile.Text;
 
-                // increase the progress bar
-                prgBar.PerformStep();
-                if (prgBar.Value == prgBar.Maximum)
+                projectLibraries.Add("mscorlib.dll");
+                projectLibraries.Add("System.Core.dll");
+
+                foreach (object obj in npw.lstLibraries.CheckedItems)
                 {
-                    DoneBuilding = true;
+                    projectLibraries.Add(EnginePath + "\\Libraries\\LinkEngine."+ obj.ToString() + ".dll");
+                }
+                // generate a new world file
+                writer = new StreamWriter(File.OpenWrite(path + "\\" + projectName + "\\Assets\\World.cs"));
+                foreach (string str in projectLibraries)
+                {
+                    writer.Write("using LinkEngine." + str + "; \n");
+                }
+                writer.Write("using LinkEngine;\nnamespace " + projectName + "\n{ \n\tclass World\n\t{\n\t}\n}");
+                writer.Close();
+
+                CompiledFiles.Add(path + "\\" + projectName + "\\Assets\\World.cs");
+
+                PrintProjectFile();
+
+                bool found = false;
+                reader = new StreamReader(File.OpenRead(EnginePath + "\\temp\\recents.file"));
+                while (!reader.EndOfStream)
+                {
+                    if (reader.ReadLine() == projectName)
+                    {
+                        // if this project already exists in recents
+                        found = true;
+                    }
+                }
+                reader.Close();
+                if (!found)
+                {
+                    writer = new StreamWriter(File.OpenWrite(EnginePath + "\\temp\\recents.file"));
+                    writer.WriteLine(projectName);
+                    writer.Close();
+                }
+
+                LoadProjectFolder();
+                LoadAssests();
+                PopulateComponents();
+                npw.Close();
+            }
+        }
+        void LoadProject(string name)
+        {
+            CompiledFiles = new List<string>();
+            projectLibraries = new List<string>();
+
+            LoadProjectFile(name);
+
+            bool found = false;
+            reader = new StreamReader(File.OpenRead(EnginePath + "\\temp\\recents.file"));
+            while (!reader.EndOfStream)
+            {
+                if (reader.ReadLine() == projectName)
+                {
+                    // if this project already exists in recents
+                    found = true;
                 }
             }
-            // code compiled with no errors, return 0 to let the code continue as normal
-            return 0;
+            reader.Close();
+            if (!found)
+            {
+                writer = new StreamWriter(File.OpenWrite(EnginePath + "\\temp\\recents.file"));
+                writer.WriteLine(projectName);
+                writer.Close();
+            }
         }
+        void CloseProject ()
+        {
+            treFiles.Nodes.Clear();
+            projectName = "";
+            PopulateComponents();
+        }
+        #endregion
+
+        //
+        #region FileHandlers
+        void NewFile ()
+        {
+            NewFileForm nff = new NewFileForm();
+            nff.ShowDialog();
+
+            if (nff.txtLocation.Text != "")
+            {
+                if (nff.txtLocation.Text.Contains(".cs"))
+                {
+                    foreach (string str in projectLibraries)
+                    {
+                        rtbEditor.Text += "using " + str + "; \n";
+                    }
+
+                    rtbEditor.Text = "using LinkEngine;\nnamespace " + projectName + "\n{ \n\tclass Class1\n\t{\n\t}\n}";
+                    SaveFile(nff.txtLocation.Text);
+                    rtbEditor.Clear();
+                }
+                else
+                {
+                    File.Create(nff.txtLocation.Text);
+                }
+
+                CompiledFiles.Add(nff.txtLocation.Text);
+
+                PrintProjectFile();
+
+                ListDirectory(treFiles, fsWatcher.Path + "\\" + projectName);
+                OpenFile(nff.txtLocation.Text);
+            }
+            
+            nff.Close();
+        }
+        void OpenFile (string file)
+        {
+            rtbEditor.Clear();
+            reader = new StreamReader(File.OpenRead(file));
+
+            //tabMain.TabPages.Add(EditorPage);
+            //tabMain.TabPages[tabMain.TabCount - 1].Text = "Editor";
+            while (!reader.EndOfStream)
+            {
+                //tabMain.TabPages[tabMain.TabCount - 1].Controls[0].Text += reader.ReadLine() + "\n";
+                rtbEditor.Text += reader.ReadLine() + "\n";
+            }
+            //tabMain.TabPages[tabMain.TabCount - 1].Controls[0].Visible = true;
+            reader.Close();
+        }
+        void SaveFile (string file)
+        {
+            File.Delete(file);
+            writer = new StreamWriter(File.OpenWrite(file));
+            foreach (string str in rtbEditor.Lines)
+            {
+                writer.WriteLine(str);
+            }
+            writer.Close();
+        }
+        #endregion
+
+        //
+        #region TreeNodeFillers
         void ListDirectory(TreeView treeView, string path)
         {
             treeView.Nodes.Clear();
@@ -353,9 +377,6 @@ namespace LinkEngine
                     currentNode.Nodes.Add(childDirectoryNode);
                     stack.Push(childDirectoryNode);
                 }
-                foreach (var file in directoryInfo.GetFiles())
-                    currentNode.Nodes.Add(new TreeNode(file.Name));
-
             }
 
             treeView.Nodes.Add(node);
@@ -372,30 +393,21 @@ namespace LinkEngine
                 }
             }
         }
-        void PopulateComponents ()
+        #endregion
+
+        //
+        #region PropertyInfo
+        object GetPropInfo(object src, string propName)
         {
-            treComponents.Nodes.Clear();
-
-            treComponents.Nodes.Add("Components", "Components");
-            int index = treComponents.Nodes.IndexOf(treComponents.Nodes["Components"]);
-            ListComponents(treComponents, index, "LinkEngine.Components");
-
-            treComponents.Nodes.Add("Entities","Entities");
-            index = treComponents.Nodes.IndexOf(treComponents.Nodes["Entities"]);
-            ListComponents(treComponents, index, "LinkEngine.Entities");
-
-            treComponents.Nodes.Add("Rendering", "Rendering");
-            index = treComponents.Nodes.IndexOf(treComponents.Nodes["Rendering"]);
-            ListComponents(treComponents, index, "LinkEngine.Rendering");
-
-            treComponents.Nodes.Add("WorldGen", "WorldGen");
-            index = treComponents.Nodes.IndexOf(treComponents.Nodes["WorldGen"]);
-            ListComponents(treComponents, index, "LinkEngine.WorldGen");
-
-            // check for template components
-            PopulateTemplateComponents();
+            return src.GetType().GetProperty(propName).GetValue(src);
         }
+        void ShowSelectedObjectProperties ()
+        {
 
+        }
+        #endregion
+
+        //
         #region EventHandlers
         #region ToolStripMenuItems
         private void runToolStripMenuItem_Click(object sender, EventArgs e)
@@ -405,9 +417,14 @@ namespace LinkEngine
 
             // Start compiling code
             // Start progress bar
-            if (Compile() == 0)
+            int status = Compile();
+            if (status == 0)
             {
                 lblStatus.Text = "Done";
+            }
+            else if (status == 1)
+            {
+                lblStatus.Text = "Error Compiling." + results.Errors[0].ToString();
             }
         }
         private void fileToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -424,11 +441,11 @@ namespace LinkEngine
             {
                 if (treFiles.SelectedNode.Text != projectName)
                 {
-                    Directory.CreateDirectory(path + "/" + treFiles.SelectedNode.Text + "/NewDirectory");
+                    Directory.CreateDirectory(EnginePath + "\\" + treFiles.SelectedNode.Text + "\\NewDirectory");
                 }
                 else
                 {
-                    File.Create(path + "/NewDirectory");
+                    File.Create(EnginePath + "\\NewDirectory");
                 }
             }
         }
@@ -463,7 +480,15 @@ namespace LinkEngine
         }
         private void saveToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            SaveFile(path + "/Projects/" + projectName + "/Assets/class.cs");
+            SaveFile(EnginePath + "\\Projects\\" + projectName + "\\Assets\\class.cs");
+        }
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void newGameObjectToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
         #endregion
         #region treFiles
@@ -484,35 +509,107 @@ namespace LinkEngine
                 {
                     parent = node.Parent.Text;
                     node = node.Parent;
-                    file = file.Insert(0, parent + "/");
+                    file = file.Insert(0, parent + "\\");
                 } while (node.Parent != null);
 
-                OpenFile(path + "/Projects/" + file);
+                OpenFile(EnginePath + "\\Projects\\" + file);
             }
+        }
+        void treFiles_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            TreeNode newSelected = e.Node;
+            listView1.Items.Clear();
+            DirectoryInfo nodeDirInfo = (DirectoryInfo)newSelected.Tag;
+            ListViewItem.ListViewSubItem[] subItems;
+            ListViewItem item = null;
+
+            foreach (DirectoryInfo dir in nodeDirInfo.GetDirectories())
+            {
+                item = new ListViewItem(dir.Name, 0);
+                subItems = new ListViewItem.ListViewSubItem[]
+                          {new ListViewItem.ListViewSubItem(item, "Directory"),
+                   new ListViewItem.ListViewSubItem(item,
+                dir.LastAccessTime.ToShortDateString())};
+                item.SubItems.AddRange(subItems);
+                listView1.Items.Add(item);
+            }
+            foreach (FileInfo file in nodeDirInfo.GetFiles())
+            {
+                item = new ListViewItem(file.Name, 1);
+                subItems = new ListViewItem.ListViewSubItem[]
+                          { new ListViewItem.ListViewSubItem(item, "File"),
+                   new ListViewItem.ListViewSubItem(item,
+                file.LastAccessTime.ToShortDateString()),
+                              new ListViewItem.ListViewSubItem(item, file.FullName),
+                          new ListViewItem.ListViewSubItem(item, file.Extension)};
+
+                item.SubItems.AddRange(subItems);
+                listView1.Items.Add(item);
+            }
+            listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
         }
         #endregion
         #region treComponents
         private void treComponents_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            // when a node is double clicked, an object of the class should be created and added to the 
-            // the project's designer class
-            treScene.Nodes["World"].Nodes.Add((TreeNode)e.Node.Clone());
+
+        }
+        #endregion
+        #region treScene
+        private void treScene_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+
         }
         #endregion
         private void fsWatcher_Changed(object sender, FileSystemEventArgs e)
         {
-            ListDirectory(treFiles, fsWatcher.Path + "/Projects/" + projectName);
+            ListDirectory(treFiles, fsWatcher.Path + "\\Projects\\" + projectName);
         }
         private void GUI_FormClosed(object sender, FormClosedEventArgs e)
         {
             Environment.Exit(0);
         }
-        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        private void listView1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
 
         }
+        #region GameViewHandlers
+        private void pbScreen_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                MouseDragging = true;
+                deltaX = Cursor.Position.X - e.X;
+                deltaY = Cursor.Position.Y - e.Y;
+            }
+            else if (e.Button == MouseButtons.Left)
+            {
 
+            }
+        }
+        private void pbScreen_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left && MouseDragging)
+            {
 
+            }
+            if (e.Button == MouseButtons.Right && MouseDragging)
+            {
+                pbScreen.Location = new System.Drawing.Point(Cursor.Position.X, Cursor.Position.Y);
+            }
+        }
+        private void pbScreen_MouseUp(object sender, MouseEventArgs e)
+        {
+            if ((e.Button == MouseButtons.Right || e.Button == MouseButtons.Left) && MouseDragging)
+            {
+                MouseDragging = false;
+            }
+        }
+        #endregion
+        private void ddlListView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
         #endregion
     }
 }
