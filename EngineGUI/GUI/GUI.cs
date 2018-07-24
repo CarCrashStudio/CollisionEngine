@@ -387,6 +387,7 @@ namespace LinkEngine
         #endregion
 
         // These are just event handlers
+        // You expected something clever?
         #region EventHandlers
         #region ToolStripMenuItems
         private void runToolStripMenuItem_Click(object sender, EventArgs e)
