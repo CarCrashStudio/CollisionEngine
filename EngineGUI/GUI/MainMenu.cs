@@ -14,9 +14,6 @@ namespace LinkEngine
     public partial class MainMenu : Form
     {
         StreamReader reader;
-        StreamWriter writer;
-        string projectName = "";
-        string projectTemplate = "";
 
         GUI gui;
 

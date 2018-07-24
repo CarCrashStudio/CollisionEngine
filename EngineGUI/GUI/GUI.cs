@@ -1,14 +1,28 @@
-﻿using System;
+﻿/*  Project Name: LinkEngine Editor
+    Project Author: Trey Hall
+    Project Start Date: 7/16/18
+    About the project :
+    The LinkEngine Editor should provide better usability of various LinkEngine Libraries, 
+    aswell as provide an interface in which all game objects can be seen and edited before runtime.
+    The Editor should serve as a compiler for the project and not require the user to use another service to build all the source code
+    The Editor should not impact the Libraries use on its own. 
+    The LinkEngine Libraries should be usable outside as well as inside the Editor
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Microsoft.CSharp;
 using System.CodeDom.Compiler;
 using System.IO;
 using System.Reflection;
+
 namespace LinkEngine
 {
     public partial class GUI : Form
     {
+        // All variables used by the UI
+        #region Variables
         public string menuAction = "";
 
         bool MouseDragging = false;
@@ -28,7 +42,7 @@ namespace LinkEngine
 
         string EnginePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\LinkEngine";
         string path = "";
-
+        #endregion
         public GUI()
         {
             InitializeComponent();
@@ -44,18 +58,27 @@ namespace LinkEngine
             {
                 LoadProject(projectName);
             }
-
-            PopulateComponents();
             LoadProjectFolder();
             mm.Close();
         }
 
-        //
+        // All Functions in this region are used to load all components inside any LinkEngine library
+        // Libraries should be loaded and all components should be placed into a components area to be used later
+        // Libraries should be one time accessed if possible, 
+        // calling to load dlls that are already in the folder is an expensive call to make and reduces the usability of the UI
+        // Libraries should be pulled from GitHub to enusre they are always up to date
+        #region ProjectLibraries
+
+        #endregion
+
+        // All Functions in this region are used to load all Items in the Assets Folder
+        // Project assets should be saved as respective type files
+        // All information for all assets will be stored inside the file and used when adding assets to the project
         #region ProjectAssets
         void LoadProjectFolder ()
         {
             Directory.CreateDirectory(path + "\\" + projectName);
-            fsWatcher.Path = EnginePath;
+            fsWatcher.Path = path + "\\" + projectName;
 
             LoadAssests();
             ListDirectory(treFiles, path + "\\" + projectName);
@@ -64,56 +87,11 @@ namespace LinkEngine
         {
             Directory.CreateDirectory(path + "\\" + projectName + "\\Assets");
         }
-        void PopulateTemplateComponents()
-        {
-            if (projectLibraries.Count != 0)
-            {
-                foreach(string library in projectLibraries)
-                {
-                    if (library.Contains("LinkEngine"))
-                    {
-                        var dll = Assembly.LoadFile(library);
-
-                        treComponents.Nodes.Add(library, dll.GetName().Name);
-                        int index = treComponents.Nodes.IndexOf(treComponents.Nodes[library]);
-
-                        foreach (Type type in dll.GetExportedTypes())
-                        {
-                            if (!type.Name.Contains("<>"))
-                            {
-                                treComponents.Nodes[index].Nodes.Add(type.Name);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        void PopulateComponents()
-        {
-            treComponents.Nodes.Clear();
-
-            treComponents.Nodes.Add("Components", "Components");
-            int index = treComponents.Nodes.IndexOf(treComponents.Nodes["Components"]);
-            ListComponents(treComponents, index, "LinkEngine.Components");
-
-            treComponents.Nodes.Add("Entities", "Entities");
-            index = treComponents.Nodes.IndexOf(treComponents.Nodes["Entities"]);
-            ListComponents(treComponents, index, "LinkEngine.Entities");
-
-            treComponents.Nodes.Add("Rendering", "Rendering");
-            index = treComponents.Nodes.IndexOf(treComponents.Nodes["Rendering"]);
-            ListComponents(treComponents, index, "LinkEngine.Rendering");
-
-            treComponents.Nodes.Add("WorldGen", "WorldGen");
-            index = treComponents.Nodes.IndexOf(treComponents.Nodes["WorldGen"]);
-            ListComponents(treComponents, index, "LinkEngine.WorldGen");
-
-            // check for template components
-            PopulateTemplateComponents();
-        }
         #endregion
 
-        //
+        // All functions in this region are used to run the build and compile modes of the UI
+        // The compiler should always be checking for errors as the user edits code
+        // no executable should be built until the user explicitly chooses to build project
         #region ProjectBuilders
         int Compile()
         {
@@ -141,7 +119,9 @@ namespace LinkEngine
         }
         #endregion
 
-        //
+        // All Functions in this region handle saving, loading, and creating Project Files to store all the required project information
+        // Project files will store all libraries being used and all files that require being compiled
+        // 
         #region ProjectFileHandlers
         void PrintProjectFile()
         {
@@ -200,7 +180,8 @@ namespace LinkEngine
         }
         #endregion
 
-        //
+        // All Functions in this region handle saving, loading and creating Projects
+        // 
         #region ProjectHandlers
         void NewProject ()
         {
@@ -256,7 +237,6 @@ namespace LinkEngine
 
                 LoadProjectFolder();
                 LoadAssests();
-                PopulateComponents();
                 npw.Close();
             }
         }
@@ -289,11 +269,10 @@ namespace LinkEngine
         {
             treFiles.Nodes.Clear();
             projectName = "";
-            PopulateComponents();
         }
         #endregion
 
-        //
+        // All Functions in this region handle saving, loading and creating of documents to be used by the user
         #region FileHandlers
         void NewFile ()
         {
@@ -355,7 +334,7 @@ namespace LinkEngine
         }
         #endregion
 
-        //
+        // All functions in this region handle filling TreeView nodes
         #region TreeNodeFillers
         void ListDirectory(TreeView treeView, string path)
         {
@@ -395,7 +374,7 @@ namespace LinkEngine
         }
         #endregion
 
-        //
+        // All functions in this region handle getting property info of all created objects
         #region PropertyInfo
         object GetPropInfo(object src, string propName)
         {
@@ -407,7 +386,7 @@ namespace LinkEngine
         }
         #endregion
 
-        //
+        // These are just event handlers
         #region EventHandlers
         #region ToolStripMenuItems
         private void runToolStripMenuItem_Click(object sender, EventArgs e)
@@ -492,10 +471,6 @@ namespace LinkEngine
         }
         #endregion
         #region treFiles
-        private void treFiles_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-
-        }
         private void treFiles_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             string parent = "";
@@ -549,18 +524,6 @@ namespace LinkEngine
             listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
         }
         #endregion
-        #region treComponents
-        private void treComponents_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
-        {
-
-        }
-        #endregion
-        #region treScene
-        private void treScene_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
-        {
-
-        }
-        #endregion
         private void fsWatcher_Changed(object sender, FileSystemEventArgs e)
         {
             ListDirectory(treFiles, fsWatcher.Path + "\\Projects\\" + projectName);
@@ -574,37 +537,6 @@ namespace LinkEngine
 
         }
         #region GameViewHandlers
-        private void pbScreen_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right)
-            {
-                MouseDragging = true;
-                deltaX = Cursor.Position.X - e.X;
-                deltaY = Cursor.Position.Y - e.Y;
-            }
-            else if (e.Button == MouseButtons.Left)
-            {
-
-            }
-        }
-        private void pbScreen_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left && MouseDragging)
-            {
-
-            }
-            if (e.Button == MouseButtons.Right && MouseDragging)
-            {
-                pbScreen.Location = new System.Drawing.Point(Cursor.Position.X, Cursor.Position.Y);
-            }
-        }
-        private void pbScreen_MouseUp(object sender, MouseEventArgs e)
-        {
-            if ((e.Button == MouseButtons.Right || e.Button == MouseButtons.Left) && MouseDragging)
-            {
-                MouseDragging = false;
-            }
-        }
         #endregion
         private void ddlListView_SelectedIndexChanged(object sender, EventArgs e)
         {
