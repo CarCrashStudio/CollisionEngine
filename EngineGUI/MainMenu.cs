@@ -15,11 +15,11 @@ namespace LinkEngine
     {
         StreamReader reader;
 
-        GUI gui;
+        MainForm gui;
 
-        string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/LinkEngine";
+        string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\LinkEngine";
 
-        public MainMenu(GUI gui)
+        public MainMenu(MainForm gui)
         {
             InitializeComponent();
 

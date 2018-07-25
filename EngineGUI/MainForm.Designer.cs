@@ -1,6 +1,6 @@
 ﻿namespace LinkEngine
 {
-    partial class GUI
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -60,7 +60,7 @@
             this.sfdSave = new System.Windows.Forms.SaveFileDialog();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.ofdOpen = new System.Windows.Forms.OpenFileDialog();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.lstFileView = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -72,6 +72,7 @@
             this.tabEditor = new System.Windows.Forms.TabPage();
             this.rtbEditor = new System.Windows.Forms.RichTextBox();
             this.treFiles = new System.Windows.Forms.TreeView();
+            this.timCompiler = new System.Windows.Forms.Timer(this.components);
             this.cntxtMenu.SuspendLayout();
             this.mnuBar.SuspendLayout();
             this.stsBar.SuspendLayout();
@@ -152,7 +153,7 @@
             this.projectToolStripMenuItem});
             this.mnuBar.Location = new System.Drawing.Point(0, 0);
             this.mnuBar.Name = "mnuBar";
-            this.mnuBar.Size = new System.Drawing.Size(1315, 28);
+            this.mnuBar.Size = new System.Drawing.Size(573, 28);
             this.mnuBar.TabIndex = 2;
             this.mnuBar.Text = "menuStrip1";
             // 
@@ -234,7 +235,7 @@
             // runToolStripMenuItem
             // 
             this.runToolStripMenuItem.Name = "runToolStripMenuItem";
-            this.runToolStripMenuItem.Size = new System.Drawing.Size(109, 26);
+            this.runToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.runToolStripMenuItem.Text = "Run";
             this.runToolStripMenuItem.Click += new System.EventHandler(this.runToolStripMenuItem_Click);
             // 
@@ -282,9 +283,9 @@
             this.stsBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblStatus,
             this.prgBar});
-            this.stsBar.Location = new System.Drawing.Point(0, 913);
+            this.stsBar.Location = new System.Drawing.Point(0, 582);
             this.stsBar.Name = "stsBar";
-            this.stsBar.Size = new System.Drawing.Size(1315, 25);
+            this.stsBar.Size = new System.Drawing.Size(573, 25);
             this.stsBar.TabIndex = 3;
             this.stsBar.Text = "statusStrip1";
             // 
@@ -310,24 +311,24 @@
             // 
             this.ofdOpen.FileName = "openFileDialog1";
             // 
-            // listView1
+            // lstFileView
             // 
-            this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.lstFileView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.lstFileView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,
             this.columnHeader3});
-            this.listView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listView1.LabelEdit = true;
-            this.listView1.Location = new System.Drawing.Point(240, 3);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(1071, 212);
-            this.listView1.TabIndex = 7;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Tile;
-            this.listView1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listView1_MouseDoubleClick);
+            this.lstFileView.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lstFileView.LabelEdit = true;
+            this.lstFileView.Location = new System.Drawing.Point(240, 3);
+            this.lstFileView.Name = "lstFileView";
+            this.lstFileView.Size = new System.Drawing.Size(329, 129);
+            this.lstFileView.TabIndex = 7;
+            this.lstFileView.UseCompatibleStateImageBehavior = false;
+            this.lstFileView.View = System.Windows.Forms.View.Tile;
+            this.lstFileView.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lstFileView_MouseDoubleClick);
             // 
             // columnHeader1
             // 
@@ -358,9 +359,9 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.treFiles);
-            this.splitContainer2.Panel2.Controls.Add(this.listView1);
-            this.splitContainer2.Size = new System.Drawing.Size(1315, 882);
-            this.splitContainer2.SplitterDistance = 660;
+            this.splitContainer2.Panel2.Controls.Add(this.lstFileView);
+            this.splitContainer2.Size = new System.Drawing.Size(573, 551);
+            this.splitContainer2.SplitterDistance = 412;
             this.splitContainer2.TabIndex = 7;
             // 
             // tabMain
@@ -370,10 +371,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabMain.Controls.Add(this.tabPage5);
             this.tabMain.Controls.Add(this.tabEditor);
-            this.tabMain.Location = new System.Drawing.Point(0, 0);
+            this.tabMain.Location = new System.Drawing.Point(4, 3);
             this.tabMain.Name = "tabMain";
             this.tabMain.SelectedIndex = 0;
-            this.tabMain.Size = new System.Drawing.Size(1315, 661);
+            this.tabMain.Size = new System.Drawing.Size(566, 406);
             this.tabMain.TabIndex = 11;
             // 
             // tabPage5
@@ -383,7 +384,7 @@
             this.tabPage5.Location = new System.Drawing.Point(4, 25);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(1307, 632);
+            this.tabPage5.Size = new System.Drawing.Size(558, 377);
             this.tabPage5.TabIndex = 0;
             this.tabPage5.Text = "Screen";
             // 
@@ -395,7 +396,7 @@
             this.panel1.Controls.Add(this.pbScreen);
             this.panel1.Location = new System.Drawing.Point(6, 6);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1298, 620);
+            this.panel1.Size = new System.Drawing.Size(549, 365);
             this.panel1.TabIndex = 0;
             // 
             // pbScreen
@@ -406,7 +407,7 @@
             this.pbScreen.BackColor = System.Drawing.Color.Silver;
             this.pbScreen.Location = new System.Drawing.Point(3, 3);
             this.pbScreen.Name = "pbScreen";
-            this.pbScreen.Size = new System.Drawing.Size(1292, 613);
+            this.pbScreen.Size = new System.Drawing.Size(543, 358);
             this.pbScreen.TabIndex = 2;
             this.pbScreen.TabStop = false;
             // 
@@ -415,7 +416,7 @@
             this.tabEditor.Controls.Add(this.rtbEditor);
             this.tabEditor.Location = new System.Drawing.Point(4, 25);
             this.tabEditor.Name = "tabEditor";
-            this.tabEditor.Size = new System.Drawing.Size(1307, 632);
+            this.tabEditor.Size = new System.Drawing.Size(921, 632);
             this.tabEditor.TabIndex = 1;
             this.tabEditor.Text = "Editor";
             this.tabEditor.UseVisualStyleBackColor = true;
@@ -432,29 +433,37 @@
             this.rtbEditor.ForeColor = System.Drawing.Color.White;
             this.rtbEditor.Location = new System.Drawing.Point(0, 0);
             this.rtbEditor.Name = "rtbEditor";
-            this.rtbEditor.Size = new System.Drawing.Size(1304, 629);
+            this.rtbEditor.Size = new System.Drawing.Size(918, 629);
             this.rtbEditor.TabIndex = 2;
             this.rtbEditor.Text = "";
             // 
             // treFiles
             // 
+            this.treFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.treFiles.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.treFiles.Location = new System.Drawing.Point(4, 3);
             this.treFiles.Name = "treFiles";
-            this.treFiles.Size = new System.Drawing.Size(230, 212);
+            this.treFiles.Size = new System.Drawing.Size(230, 129);
             this.treFiles.TabIndex = 14;
             this.treFiles.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treFiles_NodeMouseClick);
             // 
-            // GUI
+            // timCompiler
+            // 
+            this.timCompiler.Interval = 10000;
+            this.timCompiler.Tick += new System.EventHandler(this.timCompiler_Tick);
+            // 
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1315, 938);
+            this.ClientSize = new System.Drawing.Size(573, 607);
             this.Controls.Add(this.splitContainer2);
             this.Controls.Add(this.stsBar);
             this.Controls.Add(this.mnuBar);
             this.MainMenuStrip = this.mnuBar;
-            this.Name = "GUI";
+            this.Name = "MainForm";
             this.Text = "GUI";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.GUI_FormClosed);
             this.cntxtMenu.ResumeLayout(false);
@@ -510,7 +519,7 @@
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem newGameObjectToolStripMenuItem;
         private System.Windows.Forms.SplitContainer splitContainer2;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView lstFileView;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
@@ -521,5 +530,6 @@
         private System.Windows.Forms.TabPage tabEditor;
         private System.Windows.Forms.RichTextBox rtbEditor;
         private System.Windows.Forms.TreeView treFiles;
+        private System.Windows.Forms.Timer timCompiler;
     }
 }

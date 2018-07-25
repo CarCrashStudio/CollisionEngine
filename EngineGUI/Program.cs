@@ -16,7 +16,7 @@ namespace LinkEngine
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new GUI());
+            Application.Run(new MainForm());
         }
     }
 }

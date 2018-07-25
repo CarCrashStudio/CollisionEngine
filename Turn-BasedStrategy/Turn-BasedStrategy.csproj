@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{B7B385F4-DBD2-45E5-8461-9BA69A502330}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>LinkEngine.Strategy.TurnBased</RootNamespace>
     <AssemblyName>LinkEngine.Strategy.TurnBased</AssemblyName>

@@ -19,15 +19,11 @@ using System.Reflection;
 
 namespace LinkEngine
 {
-    public partial class GUI : Form
+    public partial class MainForm : Form
     {
         // All variables used by the UI
         #region Variables
         public string menuAction = "";
-
-        bool MouseDragging = false;
-        int deltaX = 0;
-        int deltaY = 0;
 
         StreamWriter writer;
         StreamReader reader;
@@ -41,9 +37,9 @@ namespace LinkEngine
         CompilerResults results;
 
         string EnginePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\LinkEngine";
-        string path = "";
+        string ProjectPath = "";
         #endregion
-        public GUI()
+        public MainForm()
         {
             InitializeComponent();
             MainMenu mm = new MainMenu(this);
@@ -52,42 +48,28 @@ namespace LinkEngine
 
             if (menuAction == "new")
             {
+                
                 NewProject();
             }
             if (menuAction == "load")
             {
+                string[] ary = projectName.Split('\\');
+                ary[ary.Length - 1] = "";
+                foreach (string sr in ary)
+                {
+                    if (sr == ary[ary.Length - 2])
+                        ProjectPath += sr;
+                    else
+                        if (sr != ary[ary.Length - 1])
+                            ProjectPath += sr + "\\";
+                }
                 LoadProject(projectName);
+                
             }
             LoadProjectFolder();
             mm.Close();
+            timCompiler.Enabled = false;
         }
-
-        // All Functions in this region are used to load all components inside any LinkEngine library
-        // Libraries should be loaded and all components should be placed into a components area to be used later
-        // Libraries should be one time accessed if possible, 
-        // calling to load dlls that are already in the folder is an expensive call to make and reduces the usability of the UI
-        // Libraries should be pulled from GitHub to enusre they are always up to date
-        #region ProjectLibraries
-
-        #endregion
-
-        // All Functions in this region are used to load all Items in the Assets Folder
-        // Project assets should be saved as respective type files
-        // All information for all assets will be stored inside the file and used when adding assets to the project
-        #region ProjectAssets
-        void LoadProjectFolder ()
-        {
-            Directory.CreateDirectory(path + "\\" + projectName);
-            fsWatcher.Path = path + "\\" + projectName;
-
-            LoadAssests();
-            ListDirectory(treFiles, path + "\\" + projectName);
-        }
-        void LoadAssests ()
-        {
-            Directory.CreateDirectory(path + "\\" + projectName + "\\Assets");
-        }
-        #endregion
 
         // All functions in this region are used to run the build and compile modes of the UI
         // The compiler should always be checking for errors as the user edits code
@@ -119,14 +101,105 @@ namespace LinkEngine
         }
         #endregion
 
+        // All Functions in this region handle saving, loading and creating Projects
+        // 
+        #region ProjectHandlers
+        void NewProject ()
+        {
+            projectLibraries = new List<string>();
+            CompiledFiles = new List<string>();
+
+            NewProjectWindow npw = new NewProjectWindow();
+            npw.ShowDialog();
+
+            if (npw.txtProjName.Text != "")
+            {
+                projectName = npw.txtProjName.Text;
+
+                ProjectPath = npw.txtFile.Text + "\\" + projectName;
+
+                LoadProjectFolder();
+                LoadAssests();
+
+                projectLibraries.Add("mscorlib.dll");
+                projectLibraries.Add("System.Core.dll");
+
+                foreach (object obj in npw.lstLibraries.CheckedItems)
+                {
+                    projectLibraries.Add(EnginePath + "\\Libraries\\LinkEngine."+ obj.ToString() + ".dll");
+                }
+                // generate a new world file
+                writer = new StreamWriter(File.OpenWrite(ProjectPath + "\\Assets\\World.cs"));
+                foreach (string str in projectLibraries)
+                {
+                    writer.Write("using LinkEngine." + str + "; \n");
+                }
+                writer.Write("using LinkEngine;\nnamespace " + projectName + "\n{ \n\tclass World\n\t{\n\t}\n}");
+                writer.Close();
+
+                CompiledFiles.Add(ProjectPath + "\\Assets\\World.cs");
+
+                PrintProjectFile();
+
+                bool found = false;
+                reader = new StreamReader(File.OpenRead(EnginePath + "\\temp\\recents.file"));
+                while (!reader.EndOfStream)
+                {
+                    if (reader.ReadLine() == projectName)
+                    {
+                        // if this project already exists in recents
+                        found = true;
+                    }
+                }
+                reader.Close();
+                if (!found)
+                {
+                    writer = new StreamWriter(File.OpenWrite(EnginePath + "\\temp\\recents.file"));
+                    writer.WriteLine(projectName);
+                    writer.Close();
+                }
+                npw.Close();
+            }
+        }
+        void LoadProject(string name)
+        {
+            CompiledFiles = new List<string>();
+            projectLibraries = new List<string>();
+
+            LoadProjectFile(name);
+
+            bool found = false;
+            reader = new StreamReader(File.OpenRead(EnginePath + "\\temp\\recents.file"));
+            while (!reader.EndOfStream)
+            {
+                if (reader.ReadLine() == projectName)
+                {
+                    // if this project already exists in recents
+                    found = true;
+                }
+            }
+            reader.Close();
+            if (!found)
+            {
+                writer = new StreamWriter(File.OpenWrite(EnginePath + "\\temp\\recents.file"));
+                writer.WriteLine(projectName);
+                writer.Close();
+            }
+        }
+        void CloseProject ()
+        {
+            treFiles.Nodes.Clear();
+            projectName = "";
+        }
+
         // All Functions in this region handle saving, loading, and creating Project Files to store all the required project information
         // Project files will store all libraries being used and all files that require being compiled
         // 
         #region ProjectFileHandlers
         void PrintProjectFile()
         {
-            File.Delete(EnginePath + "\\Projects\\" + projectName + "\\" + projectName + ".proj");
-            writer = new StreamWriter(File.OpenWrite(EnginePath + "\\Projects\\" + projectName + "\\" + projectName + ".proj"));
+            File.Delete(ProjectPath + "\\" + projectName + ".proj");
+            writer = new StreamWriter(File.OpenWrite(ProjectPath + "\\" + projectName + ".proj"));
             writer.WriteLine(projectName);
             writer.WriteLine("-LIBRARIES-");
             foreach (string str in projectLibraries)
@@ -180,101 +253,86 @@ namespace LinkEngine
         }
         #endregion
 
-        // All Functions in this region handle saving, loading and creating Projects
-        // 
-        #region ProjectHandlers
-        void NewProject ()
+        // All Functions in this region are used to load all Items in the Assets Folder
+        // Project assets should be saved as respective type files
+        // All information for all assets will be stored inside the file and used when adding assets to the project
+        #region ProjectAssets
+        void LoadProjectFolder()
         {
-            projectLibraries = new List<string>();
-            CompiledFiles = new List<string>();
+            Directory.CreateDirectory(ProjectPath);
+            fsWatcher.Path = ProjectPath;
 
-            NewProjectWindow npw = new NewProjectWindow();
-            npw.ShowDialog();
-
-            if (npw.txtProjName.Text != "")
-            {
-                projectName = npw.txtProjName.Text;
-
-                path = npw.txtFile.Text;
-
-                projectLibraries.Add("mscorlib.dll");
-                projectLibraries.Add("System.Core.dll");
-
-                foreach (object obj in npw.lstLibraries.CheckedItems)
-                {
-                    projectLibraries.Add(EnginePath + "\\Libraries\\LinkEngine."+ obj.ToString() + ".dll");
-                }
-                // generate a new world file
-                writer = new StreamWriter(File.OpenWrite(path + "\\" + projectName + "\\Assets\\World.cs"));
-                foreach (string str in projectLibraries)
-                {
-                    writer.Write("using LinkEngine." + str + "; \n");
-                }
-                writer.Write("using LinkEngine;\nnamespace " + projectName + "\n{ \n\tclass World\n\t{\n\t}\n}");
-                writer.Close();
-
-                CompiledFiles.Add(path + "\\" + projectName + "\\Assets\\World.cs");
-
-                PrintProjectFile();
-
-                bool found = false;
-                reader = new StreamReader(File.OpenRead(EnginePath + "\\temp\\recents.file"));
-                while (!reader.EndOfStream)
-                {
-                    if (reader.ReadLine() == projectName)
-                    {
-                        // if this project already exists in recents
-                        found = true;
-                    }
-                }
-                reader.Close();
-                if (!found)
-                {
-                    writer = new StreamWriter(File.OpenWrite(EnginePath + "\\temp\\recents.file"));
-                    writer.WriteLine(projectName);
-                    writer.Close();
-                }
-
-                LoadProjectFolder();
-                LoadAssests();
-                npw.Close();
-            }
+            LoadAssests();
+            ListDirectory(treFiles, ProjectPath);
         }
-        void LoadProject(string name)
+        void LoadAssests()
         {
-            CompiledFiles = new List<string>();
-            projectLibraries = new List<string>();
+            Directory.CreateDirectory(ProjectPath + "\\Assets");
+        }
+        void ListDirectory(TreeView treeView, string path)
+        {
+            treeView.Nodes.Clear();
 
-            LoadProjectFile(name);
+            var stack = new Stack<TreeNode>();
+            var rootDirectory = new DirectoryInfo(path);
+            var node = new TreeNode(rootDirectory.Name) { Tag = rootDirectory };
+            stack.Push(node);
 
-            bool found = false;
-            reader = new StreamReader(File.OpenRead(EnginePath + "\\temp\\recents.file"));
-            while (!reader.EndOfStream)
+            while (stack.Count > 0)
             {
-                if (reader.ReadLine() == projectName)
+                var currentNode = stack.Pop();
+                var directoryInfo = (DirectoryInfo)currentNode.Tag;
+
+                foreach (var directory in directoryInfo.GetDirectories())
                 {
-                    // if this project already exists in recents
-                    found = true;
+                    var childDirectoryNode = new TreeNode(directory.Name) { Tag = directory };
+                    currentNode.Nodes.Add(childDirectoryNode);
+                    stack.Push(childDirectoryNode);
                 }
             }
-            reader.Close();
-            if (!found)
+
+            treeView.Nodes.Add(node);
+        }
+        void ListComponents(TreeView treeView, int nodeIndex, string nameSpace)
+        {
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            Type[] ary = assembly.GetTypes();
+            foreach (Type type in ary)
             {
-                writer = new StreamWriter(File.OpenWrite(EnginePath + "\\temp\\recents.file"));
-                writer.WriteLine(projectName);
-                writer.Close();
+                if (type.Namespace == nameSpace && !type.Name.Contains("<>"))
+                {
+                    treeView.Nodes[nodeIndex].Nodes.Add(type.Name);
+                }
             }
         }
-        void CloseProject ()
+
+        void ViewFiles(TreeNodeMouseClickEventArgs e)
         {
-            treFiles.Nodes.Clear();
-            projectName = "";
+            TreeNode newSelected = e.Node;
+            lstFileView.Items.Clear();
+            DirectoryInfo nodeDirInfo = (DirectoryInfo)newSelected.Tag;
+            ListViewItem.ListViewSubItem[] subItems;
+            ListViewItem item = null;
+
+            foreach (FileInfo file in nodeDirInfo.GetFiles())
+            {
+                item = new ListViewItem(file.Name, 1);
+                subItems = new ListViewItem.ListViewSubItem[]
+                          { new ListViewItem.ListViewSubItem(item, "File"),
+                   new ListViewItem.ListViewSubItem(item,
+                file.LastAccessTime.ToShortDateString()),
+                              new ListViewItem.ListViewSubItem(item, file.FullName),
+                          new ListViewItem.ListViewSubItem(item, file.Extension)};
+
+                item.SubItems.AddRange(subItems);
+                lstFileView.Items.Add(item);
+            }
+            lstFileView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
         }
-        #endregion
 
         // All Functions in this region handle saving, loading and creating of documents to be used by the user
         #region FileHandlers
-        void NewFile ()
+        void NewFile()
         {
             NewFileForm nff = new NewFileForm();
             nff.ShowDialog();
@@ -304,10 +362,10 @@ namespace LinkEngine
                 ListDirectory(treFiles, fsWatcher.Path + "\\" + projectName);
                 OpenFile(nff.txtLocation.Text);
             }
-            
+
             nff.Close();
         }
-        void OpenFile (string file)
+        void OpenFile(string file)
         {
             rtbEditor.Clear();
             reader = new StreamReader(File.OpenRead(file));
@@ -322,7 +380,7 @@ namespace LinkEngine
             //tabMain.TabPages[tabMain.TabCount - 1].Controls[0].Visible = true;
             reader.Close();
         }
-        void SaveFile (string file)
+        void SaveFile(string file)
         {
             File.Delete(file);
             writer = new StreamWriter(File.OpenWrite(file));
@@ -334,43 +392,28 @@ namespace LinkEngine
         }
         #endregion
 
-        // All functions in this region handle filling TreeView nodes
-        #region TreeNodeFillers
-        void ListDirectory(TreeView treeView, string path)
+        // All Functions in this region are used to load all components inside any LinkEngine library
+        // Libraries should be loaded and all components should be placed into a components area to be used later
+        // Libraries should be one time accessed if possible, 
+        // calling to load dlls that are already in the folder is an expensive call to make and reduces the usability of the UI
+        // Libraries should be pulled from GitHub to enusre they are always up to date
+        #region ProjectLibraries
+
+        #endregion
+        #endregion
+        #endregion
+
+        // These functions are in charge of putting the ui together at runtime
+        #region UIBuilders
+        void BuildNewFileEditor (string tabName)
         {
-            treeView.Nodes.Clear();
+            // this function should build a new file editor window and put it into the main tab control
+            RichTextBox rtb = new RichTextBox();
+            rtb = rtbEditor;
+            rtb.Name = tabName;
 
-            var stack = new Stack<TreeNode>();
-            var rootDirectory = new DirectoryInfo(path);
-            var node = new TreeNode(rootDirectory.Name) { Tag = rootDirectory };
-            stack.Push(node);
-
-            while (stack.Count > 0)
-            {
-                var currentNode = stack.Pop();
-                var directoryInfo = (DirectoryInfo)currentNode.Tag;
-
-                foreach (var directory in directoryInfo.GetDirectories())
-                {
-                    var childDirectoryNode = new TreeNode(directory.Name) { Tag = directory };
-                    currentNode.Nodes.Add(childDirectoryNode);
-                    stack.Push(childDirectoryNode);
-                }
-            }
-
-            treeView.Nodes.Add(node);
-        }
-        void ListComponents (TreeView treeView, int nodeIndex, string nameSpace)
-        {
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            Type[] ary = assembly.GetTypes();
-            foreach (Type type in ary)
-            {
-                if (type.Namespace == nameSpace && !type.Name.Contains("<>"))
-                {
-                    treeView.Nodes[nodeIndex].Nodes.Add(type.Name);
-                }
-            }
+            tabMain.TabPages.Add(new TabPage(tabName));
+            tabMain.TabPages[tabMain.TabPages.Count - 1].Controls.Add(rtb);
         }
         #endregion
 
@@ -460,7 +503,7 @@ namespace LinkEngine
         }
         private void saveToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            SaveFile(EnginePath + "\\Projects\\" + projectName + "\\Assets\\class.cs");
+            SaveFile(EnginePath + "\\Assets\\class.cs");
         }
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -493,55 +536,31 @@ namespace LinkEngine
         }
         void treFiles_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            TreeNode newSelected = e.Node;
-            listView1.Items.Clear();
-            DirectoryInfo nodeDirInfo = (DirectoryInfo)newSelected.Tag;
-            ListViewItem.ListViewSubItem[] subItems;
-            ListViewItem item = null;
-
-            foreach (DirectoryInfo dir in nodeDirInfo.GetDirectories())
-            {
-                item = new ListViewItem(dir.Name, 0);
-                subItems = new ListViewItem.ListViewSubItem[]
-                          {new ListViewItem.ListViewSubItem(item, "Directory"),
-                   new ListViewItem.ListViewSubItem(item,
-                dir.LastAccessTime.ToShortDateString())};
-                item.SubItems.AddRange(subItems);
-                listView1.Items.Add(item);
-            }
-            foreach (FileInfo file in nodeDirInfo.GetFiles())
-            {
-                item = new ListViewItem(file.Name, 1);
-                subItems = new ListViewItem.ListViewSubItem[]
-                          { new ListViewItem.ListViewSubItem(item, "File"),
-                   new ListViewItem.ListViewSubItem(item,
-                file.LastAccessTime.ToShortDateString()),
-                              new ListViewItem.ListViewSubItem(item, file.FullName),
-                          new ListViewItem.ListViewSubItem(item, file.Extension)};
-
-                item.SubItems.AddRange(subItems);
-                listView1.Items.Add(item);
-            }
-            listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+            ViewFiles(e);
         }
         #endregion
         private void fsWatcher_Changed(object sender, FileSystemEventArgs e)
         {
-            ListDirectory(treFiles, fsWatcher.Path + "\\Projects\\" + projectName);
+            ListDirectory(treFiles, fsWatcher.Path);
         }
         private void GUI_FormClosed(object sender, FormClosedEventArgs e)
         {
             Environment.Exit(0);
         }
-        private void listView1_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void lstFileView_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-
+            //BuildNewFileEditor(lstFileView.SelectedItems[0].SubItems[3].Text);
+            OpenFile(lstFileView.SelectedItems[0].SubItems[3].Text);
         }
         #region GameViewHandlers
         #endregion
         private void ddlListView_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+        private void timCompiler_Tick(object sender, EventArgs e)
+        {
+            Compile();
         }
         #endregion
     }

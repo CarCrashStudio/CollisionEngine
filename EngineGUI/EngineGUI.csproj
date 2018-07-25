@@ -45,42 +45,42 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GUI\GUI.cs">
+    <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\GUI.Designer.cs">
-      <DependentUpon>GUI.cs</DependentUpon>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\MainMenu.cs">
+    <Compile Include="MainMenu.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\MainMenu.Designer.cs">
+    <Compile Include="MainMenu.Designer.cs">
       <DependentUpon>MainMenu.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\NewFileForm.cs">
+    <Compile Include="NewFileForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\NewFileForm.Designer.cs">
+    <Compile Include="NewFileForm.Designer.cs">
       <DependentUpon>NewFileForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\NewProjectWindow.cs">
+    <Compile Include="NewProjectWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\NewProjectWindow.Designer.cs">
+    <Compile Include="NewProjectWindow.Designer.cs">
       <DependentUpon>NewProjectWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="GUI\GUI.resx">
-      <DependentUpon>GUI.cs</DependentUpon>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\MainMenu.resx">
+    <EmbeddedResource Include="MainMenu.resx">
       <DependentUpon>MainMenu.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\NewFileForm.resx">
+    <EmbeddedResource Include="NewFileForm.resx">
       <DependentUpon>NewFileForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\NewProjectWindow.resx">
+    <EmbeddedResource Include="NewProjectWindow.resx">
       <DependentUpon>NewProjectWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
