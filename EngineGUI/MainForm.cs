@@ -66,45 +66,13 @@ namespace LinkEngine
                 LoadProject(projectName);
                 
             }
-            LoadProjectFolder();
             mm.Close();
             timCompiler.Enabled = false;
         }
 
-        // All functions in this region are used to run the build and compile modes of the UI
-        // The compiler should always be checking for errors as the user edits code
-        // no executable should be built until the user explicitly chooses to build project
-        #region ProjectBuilders
-        int Compile()
-        {
-            // execute code
-            compiler = new CSharpCodeProvider(new Dictionary<string, string>() { { "CompilerVersion", "v3.5" } });
-            prgBar.PerformStep();
-
-            if (!Directory.Exists(EnginePath + "\\Projects\\" + projectName + "\\bin\\"))
-                Directory.CreateDirectory(EnginePath + "\\Projects\\" + projectName + "\\bin\\");
-            prgBar.PerformStep();
-
-            parameters = new CompilerParameters(projectLibraries.ToArray(), EnginePath + "\\Projects\\" + projectName + "\\bin\\" + projectName + ".exe", true);
-            prgBar.PerformStep();
-            parameters.GenerateExecutable = true;
-            prgBar.PerformStep();
-
-            results = compiler.CompileAssemblyFromSource(parameters, CompiledFiles.ToArray());
-            prgBar.PerformStep();
-
-            if (results.Errors.Count > 0)
-                return 1;
-
-            // code compiled with no errors, return 0 to let the code continue as normal
-            return 0;
-        }
-        #endregion
-
         // All Functions in this region handle saving, loading and creating Projects
-        // 
         #region ProjectHandlers
-        void NewProject ()
+        void NewProject()
         {
             projectLibraries = new List<string>();
             CompiledFiles = new List<string>();
@@ -126,15 +94,11 @@ namespace LinkEngine
 
                 foreach (object obj in npw.lstLibraries.CheckedItems)
                 {
-                    projectLibraries.Add(EnginePath + "\\Libraries\\LinkEngine."+ obj.ToString() + ".dll");
+                    projectLibraries.Add(EnginePath + "\\Libraries\\LinkEngine." + obj.ToString() + ".dll");
                 }
                 // generate a new world file
                 writer = new StreamWriter(File.OpenWrite(ProjectPath + "\\Assets\\World.cs"));
-                foreach (string str in projectLibraries)
-                {
-                    writer.Write("using LinkEngine." + str + "; \n");
-                }
-                writer.Write("using LinkEngine;\nnamespace " + projectName + "\n{ \n\tclass World\n\t{\n\t}\n}");
+                writer.Write("using LinkEngine;\nnamespace " + projectName + "\n{ \n\tclass World\n\t{\n\t\twhile(true) {\n\t\t\n\t\t}\n\t}\n}");
                 writer.Close();
 
                 CompiledFiles.Add(ProjectPath + "\\Assets\\World.cs");
@@ -186,7 +150,7 @@ namespace LinkEngine
                 writer.Close();
             }
         }
-        void CloseProject ()
+        void CloseProject()
         {
             treFiles.Nodes.Clear();
             projectName = "";
@@ -263,11 +227,21 @@ namespace LinkEngine
             fsWatcher.Path = ProjectPath;
 
             LoadAssests();
+            PopulateCompnents();
             ListDirectory(treFiles, ProjectPath);
         }
         void LoadAssests()
         {
             Directory.CreateDirectory(ProjectPath + "\\Assets");
+        }
+        void PopulateCompnents()
+        {
+            var dll = Assembly.LoadFile(EnginePath + "\\Libraries\\LinkEngine.dll");
+
+            foreach(Type type in dll.GetTypes())
+            {
+                treComponents.Nodes.Add(type.Name);
+            }
         }
         void ListDirectory(TreeView treeView, string path)
         {
@@ -287,7 +261,12 @@ namespace LinkEngine
                 {
                     var childDirectoryNode = new TreeNode(directory.Name) { Tag = directory };
                     currentNode.Nodes.Add(childDirectoryNode);
-                    stack.Push(childDirectoryNode);
+
+                    foreach (FileInfo file in directory.GetFiles())
+                    {
+                        var fileNode = new TreeNode(file.Name) { Tag = file };
+                        childDirectoryNode.Nodes.Add(fileNode);
+                    }
                 }
             }
 
@@ -304,30 +283,6 @@ namespace LinkEngine
                     treeView.Nodes[nodeIndex].Nodes.Add(type.Name);
                 }
             }
-        }
-
-        void ViewFiles(TreeNodeMouseClickEventArgs e)
-        {
-            TreeNode newSelected = e.Node;
-            lstFileView.Items.Clear();
-            DirectoryInfo nodeDirInfo = (DirectoryInfo)newSelected.Tag;
-            ListViewItem.ListViewSubItem[] subItems;
-            ListViewItem item = null;
-
-            foreach (FileInfo file in nodeDirInfo.GetFiles())
-            {
-                item = new ListViewItem(file.Name, 1);
-                subItems = new ListViewItem.ListViewSubItem[]
-                          { new ListViewItem.ListViewSubItem(item, "File"),
-                   new ListViewItem.ListViewSubItem(item,
-                file.LastAccessTime.ToShortDateString()),
-                              new ListViewItem.ListViewSubItem(item, file.FullName),
-                          new ListViewItem.ListViewSubItem(item, file.Extension)};
-
-                item.SubItems.AddRange(subItems);
-                lstFileView.Items.Add(item);
-            }
-            lstFileView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
         }
 
         // All Functions in this region handle saving, loading and creating of documents to be used by the user
@@ -403,6 +358,35 @@ namespace LinkEngine
         #endregion
         #endregion
 
+        // All functions in this region are used to run the build and compile modes of the UI
+        // The compiler should always be checking for errors as the user edits code
+        // no executable should be built until the user explicitly chooses to build project
+        #region ProjectBuilders
+        int Compile()
+        {
+            // execute code
+            compiler = new CSharpCodeProvider(new Dictionary<string, string>() { { "CompilerVersion", "v3.5" } });
+
+            if (!Directory.Exists(EnginePath + "\\Projects\\" + projectName + "\\bin\\"))
+                Directory.CreateDirectory(EnginePath + "\\Projects\\" + projectName + "\\bin\\");
+
+            parameters = new CompilerParameters(projectLibraries.ToArray(), EnginePath + "\\Projects\\" + projectName + "\\bin\\" + projectName + ".exe", true);
+            parameters.GenerateExecutable = true;
+
+            results = compiler.CompileAssemblyFromSource(parameters, CompiledFiles.ToArray());
+
+            if (results.Errors.Count > 0)
+                return 1;
+
+            // code compiled with no errors, return 0 to let the code continue as normal
+            return 0;
+        }
+        int Run ()
+        {
+            return 0;
+        }
+        #endregion
+
         // These functions are in charge of putting the ui together at runtime
         #region UIBuilders
         void BuildNewFileEditor (string tabName)
@@ -435,20 +419,12 @@ namespace LinkEngine
         #region ToolStripMenuItems
         private void runToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // change status message to Building...
-            lblStatus.Text = "Building...";
-
-            // Start compiling code
-            // Start progress bar
-            int status = Compile();
-            if (status == 0)
-            {
-                lblStatus.Text = "Done";
-            }
-            else if (status == 1)
-            {
-                lblStatus.Text = "Error Compiling." + results.Errors[0].ToString();
-            }
+            Compile();
+            Run();
+        }
+        private void compileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Compile();
         }
         private void fileToolStripMenuItem1_Click(object sender, EventArgs e)
         {
@@ -526,17 +502,16 @@ namespace LinkEngine
             {
                 do
                 {
-                    parent = node.Parent.Text;
-                    node = node.Parent;
-                    file = file.Insert(0, parent + "\\");
-                } while (node.Parent != null);
+                    if (node.Parent.Text != projectName)
+                    {
+                        parent = node.Parent.Text;
+                        node = node.Parent;
+                        file = file.Insert(0, parent + "\\");
+                    }
+                } while (node.Parent.Text != projectName);
 
-                OpenFile(EnginePath + "\\Projects\\" + file);
+                OpenFile(ProjectPath + "\\" + file);
             }
-        }
-        void treFiles_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
-        {
-            ViewFiles(e);
         }
         #endregion
         private void fsWatcher_Changed(object sender, FileSystemEventArgs e)
@@ -550,7 +525,7 @@ namespace LinkEngine
         private void lstFileView_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             //BuildNewFileEditor(lstFileView.SelectedItems[0].SubItems[3].Text);
-            OpenFile(lstFileView.SelectedItems[0].SubItems[3].Text);
+            //OpenFile(lstFileView.SelectedItems[0].SubItems[3].Text);
         }
         #region GameViewHandlers
         #endregion
