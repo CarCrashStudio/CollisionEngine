@@ -149,6 +149,7 @@ namespace LinkEngine
                 writer.WriteLine(projectName);
                 writer.Close();
             }
+            LoadProjectFolder();
         }
         void CloseProject()
         {
@@ -158,7 +159,6 @@ namespace LinkEngine
 
         // All Functions in this region handle saving, loading, and creating Project Files to store all the required project information
         // Project files will store all libraries being used and all files that require being compiled
-        // 
         #region ProjectFileHandlers
         void PrintProjectFile()
         {
@@ -538,5 +538,10 @@ namespace LinkEngine
             Compile();
         }
         #endregion
+
+        private void treScene_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            
+        }
     }
 }

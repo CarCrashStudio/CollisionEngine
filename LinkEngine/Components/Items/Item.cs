@@ -2,7 +2,7 @@
 
 namespace LinkEngine.Components
 {
-    public class Item
+    public class Item : GameObject
     {
         string namePlural;
         public int Cost { get; set; }
@@ -18,7 +18,6 @@ namespace LinkEngine.Components
         }
 
         public int ID { get; set; }
-        public string Name { get; set; }
         public string NamePlural { get { return namePlural; } set { namePlural = value; } }
 
         public string EquipTag { get; set; }

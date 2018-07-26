@@ -21,21 +21,17 @@ namespace LinkEngine.Components
         }
         public void Move(KeyEventArgs e)
         {
-            switch (e.KeyCode)
-            {
-                case Keys.W:
+            if(e.KeyCode.ToString() == UpKey)
                     ((Collider2D)PlayerAttached.Components[0]).Transform.Move(0, 1);
-                    break;
-                case Keys.A:
-                    ((Collider2D)PlayerAttached.Components[0]).Transform.Move(-1, 0);
-                    break;
-                case Keys.S:
-                    ((Collider2D)PlayerAttached.Components[0]).Transform.Move(0, -1);
-                    break;
-                case Keys.D:
-                    ((Collider2D)PlayerAttached.Components[0]).Transform.Move(1, 0);
-                    break;
-            }
+
+            if (e.KeyCode.ToString() == LeftKey)
+                ((Collider2D)PlayerAttached.Components[0]).Transform.Move(-1, 0);
+
+            if (e.KeyCode.ToString() == DownKey)
+                ((Collider2D)PlayerAttached.Components[0]).Transform.Move(0, -1);
+
+            if (e.KeyCode.ToString() == RightKey)
+                ((Collider2D)PlayerAttached.Components[0]).Transform.Move(1, 0);
         }
     }
 }
