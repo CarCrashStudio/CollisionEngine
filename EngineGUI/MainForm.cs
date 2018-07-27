@@ -42,31 +42,6 @@ namespace LinkEngine
         public MainForm()
         {
             InitializeComponent();
-            MainMenu mm = new MainMenu(this);
-            mm.ShowDialog();
-            Hide();
-
-            if (menuAction == "new")
-            {
-                
-                NewProject();
-            }
-            if (menuAction == "load")
-            {
-                string[] ary = projectName.Split('\\');
-                ary[ary.Length - 1] = "";
-                foreach (string sr in ary)
-                {
-                    if (sr == ary[ary.Length - 2])
-                        ProjectPath += sr;
-                    else
-                        if (sr != ary[ary.Length - 1])
-                            ProjectPath += sr + "\\";
-                }
-                LoadProject(projectName);
-                
-            }
-            mm.Close();
             timCompiler.Enabled = false;
         }
 
@@ -457,6 +432,17 @@ namespace LinkEngine
             ofdOpen.ShowDialog();
             if (ofdOpen.FileName != null)
             {
+                string[] ary = ofdOpen.FileName.Split('\\');
+                ary[ary.Length - 1] = "";
+                foreach (string sr in ary)
+                {
+                    if (sr == ary[ary.Length - 2])
+                        ProjectPath += sr;
+                    else
+                        if (sr != ary[ary.Length - 1])
+                        ProjectPath += sr + "\\";
+                }
+
                 LoadProject(ofdOpen.FileName);
                 LoadProjectFolder();
             }
@@ -537,11 +523,10 @@ namespace LinkEngine
         {
             Compile();
         }
-        #endregion
-
         private void treScene_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             
         }
+        #endregion
     }
 }

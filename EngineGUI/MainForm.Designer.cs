@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Scene");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Scene");
             this.cntxtMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newItemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -71,17 +71,17 @@
             this.treComponents = new System.Windows.Forms.TreeView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.treFiles = new System.Windows.Forms.TreeView();
+            this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.treScene = new System.Windows.Forms.TreeView();
+            this.tabControl3 = new System.Windows.Forms.TabControl();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.prpProperties = new System.Windows.Forms.PropertyGrid();
             this.tabMain = new System.Windows.Forms.TabControl();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pbScreen = new System.Windows.Forms.PictureBox();
             this.tabEditor = new System.Windows.Forms.TabPage();
             this.rtbEditor = new System.Windows.Forms.RichTextBox();
-            this.tabPage6 = new System.Windows.Forms.TabPage();
-            this.tabControl3 = new System.Windows.Forms.TabControl();
-            this.prpProperties = new System.Windows.Forms.PropertyGrid();
-            this.tabPage7 = new System.Windows.Forms.TabPage();
-            this.treScene = new System.Windows.Forms.TreeView();
             this.cntxtMenu.SuspendLayout();
             this.mnuBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fsWatcher)).BeginInit();
@@ -96,14 +96,14 @@
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.tabPage7.SuspendLayout();
+            this.tabControl3.SuspendLayout();
+            this.tabPage6.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbScreen)).BeginInit();
             this.tabEditor.SuspendLayout();
-            this.tabPage6.SuspendLayout();
-            this.tabControl3.SuspendLayout();
-            this.tabPage7.SuspendLayout();
             this.SuspendLayout();
             // 
             // cntxtMenu
@@ -350,7 +350,7 @@
             this.tabControl2.Location = new System.Drawing.Point(4, 3);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(880, 218);
+            this.tabControl2.Size = new System.Drawing.Size(876, 243);
             this.tabControl2.TabIndex = 0;
             // 
             // tabPage3
@@ -358,7 +358,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 25);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(872, 189);
+            this.tabPage3.Size = new System.Drawing.Size(868, 214);
             this.tabPage3.TabIndex = 0;
             this.tabPage3.Text = "Error List";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -368,7 +368,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 25);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(872, 189);
+            this.tabPage4.Size = new System.Drawing.Size(868, 214);
             this.tabPage4.TabIndex = 1;
             this.tabPage4.Text = "Output";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -394,21 +394,24 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tabControl3);
             this.splitContainer1.Panel2.Controls.Add(this.tabMain);
+            this.splitContainer1.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.splitContainer1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.splitContainer1.Size = new System.Drawing.Size(887, 327);
-            this.splitContainer1.SplitterDistance = 295;
+            this.splitContainer1.SplitterDistance = 342;
             this.splitContainer1.TabIndex = 19;
             // 
             // tabControl1
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage7);
             this.tabControl1.Location = new System.Drawing.Point(3, 1);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(287, 322);
+            this.tabControl1.Size = new System.Drawing.Size(334, 323);
             this.tabControl1.TabIndex = 17;
             // 
             // tabPage1
@@ -417,7 +420,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(279, 293);
+            this.tabPage1.Size = new System.Drawing.Size(326, 294);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Components";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -430,7 +433,7 @@
             this.treComponents.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.treComponents.Location = new System.Drawing.Point(3, 3);
             this.treComponents.Name = "treComponents";
-            this.treComponents.Size = new System.Drawing.Size(273, 287);
+            this.treComponents.Size = new System.Drawing.Size(320, 284);
             this.treComponents.TabIndex = 16;
             // 
             // tabPage2
@@ -438,7 +441,7 @@
             this.tabPage2.Controls.Add(this.treFiles);
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(279, 293);
+            this.tabPage2.Size = new System.Drawing.Size(326, 294);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Project Explorer";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -451,8 +454,66 @@
             this.treFiles.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.treFiles.Location = new System.Drawing.Point(6, 6);
             this.treFiles.Name = "treFiles";
-            this.treFiles.Size = new System.Drawing.Size(267, 281);
+            this.treFiles.Size = new System.Drawing.Size(314, 282);
             this.treFiles.TabIndex = 18;
+            // 
+            // tabPage7
+            // 
+            this.tabPage7.Controls.Add(this.treScene);
+            this.tabPage7.Location = new System.Drawing.Point(4, 25);
+            this.tabPage7.Name = "tabPage7";
+            this.tabPage7.Size = new System.Drawing.Size(326, 294);
+            this.tabPage7.TabIndex = 2;
+            this.tabPage7.Text = "Scene";
+            this.tabPage7.UseVisualStyleBackColor = true;
+            // 
+            // treScene
+            // 
+            this.treScene.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.treScene.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.treScene.Location = new System.Drawing.Point(3, 3);
+            this.treScene.Name = "treScene";
+            treeNode1.Name = "Scene";
+            treeNode1.Text = "Scene";
+            this.treScene.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode1});
+            this.treScene.Size = new System.Drawing.Size(320, 288);
+            this.treScene.TabIndex = 17;
+            this.treScene.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treScene_NodeMouseClick);
+            // 
+            // tabControl3
+            // 
+            this.tabControl3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl3.Controls.Add(this.tabPage6);
+            this.tabControl3.Location = new System.Drawing.Point(324, 0);
+            this.tabControl3.Name = "tabControl3";
+            this.tabControl3.SelectedIndex = 0;
+            this.tabControl3.Size = new System.Drawing.Size(255, 352);
+            this.tabControl3.TabIndex = 18;
+            // 
+            // tabPage6
+            // 
+            this.tabPage6.Controls.Add(this.prpProperties);
+            this.tabPage6.Location = new System.Drawing.Point(4, 25);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage6.Size = new System.Drawing.Size(247, 323);
+            this.tabPage6.TabIndex = 0;
+            this.tabPage6.Text = "Properties";
+            this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // prpProperties
+            // 
+            this.prpProperties.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.prpProperties.Location = new System.Drawing.Point(3, 0);
+            this.prpProperties.Name = "prpProperties";
+            this.prpProperties.Size = new System.Drawing.Size(243, 295);
+            this.prpProperties.TabIndex = 0;
             // 
             // tabMain
             // 
@@ -464,7 +525,7 @@
             this.tabMain.Location = new System.Drawing.Point(-3, 1);
             this.tabMain.Name = "tabMain";
             this.tabMain.SelectedIndex = 0;
-            this.tabMain.Size = new System.Drawing.Size(323, 326);
+            this.tabMain.Size = new System.Drawing.Size(321, 351);
             this.tabMain.TabIndex = 12;
             // 
             // tabPage5
@@ -474,7 +535,7 @@
             this.tabPage5.Location = new System.Drawing.Point(4, 25);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(315, 297);
+            this.tabPage5.Size = new System.Drawing.Size(313, 322);
             this.tabPage5.TabIndex = 0;
             this.tabPage5.Text = "Screen";
             // 
@@ -506,7 +567,7 @@
             this.tabEditor.Controls.Add(this.rtbEditor);
             this.tabEditor.Location = new System.Drawing.Point(4, 25);
             this.tabEditor.Name = "tabEditor";
-            this.tabEditor.Size = new System.Drawing.Size(580, 297);
+            this.tabEditor.Size = new System.Drawing.Size(313, 322);
             this.tabEditor.TabIndex = 1;
             this.tabEditor.Text = "Editor";
             this.tabEditor.UseVisualStyleBackColor = true;
@@ -523,67 +584,9 @@
             this.rtbEditor.ForeColor = System.Drawing.Color.White;
             this.rtbEditor.Location = new System.Drawing.Point(0, 0);
             this.rtbEditor.Name = "rtbEditor";
-            this.rtbEditor.Size = new System.Drawing.Size(267, 225);
+            this.rtbEditor.Size = new System.Drawing.Size(265, 250);
             this.rtbEditor.TabIndex = 2;
             this.rtbEditor.Text = "";
-            // 
-            // tabPage6
-            // 
-            this.tabPage6.Controls.Add(this.prpProperties);
-            this.tabPage6.Location = new System.Drawing.Point(4, 25);
-            this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(247, 298);
-            this.tabPage6.TabIndex = 0;
-            this.tabPage6.Text = "Properties";
-            this.tabPage6.UseVisualStyleBackColor = true;
-            // 
-            // tabControl3
-            // 
-            this.tabControl3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl3.Controls.Add(this.tabPage6);
-            this.tabControl3.Location = new System.Drawing.Point(326, 0);
-            this.tabControl3.Name = "tabControl3";
-            this.tabControl3.SelectedIndex = 0;
-            this.tabControl3.Size = new System.Drawing.Size(255, 327);
-            this.tabControl3.TabIndex = 18;
-            // 
-            // prpProperties
-            // 
-            this.prpProperties.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.prpProperties.Location = new System.Drawing.Point(3, 0);
-            this.prpProperties.Name = "prpProperties";
-            this.prpProperties.Size = new System.Drawing.Size(243, 295);
-            this.prpProperties.TabIndex = 0;
-            // 
-            // tabPage7
-            // 
-            this.tabPage7.Controls.Add(this.treScene);
-            this.tabPage7.Location = new System.Drawing.Point(4, 25);
-            this.tabPage7.Name = "tabPage7";
-            this.tabPage7.Size = new System.Drawing.Size(279, 293);
-            this.tabPage7.TabIndex = 2;
-            this.tabPage7.Text = "Scene";
-            this.tabPage7.UseVisualStyleBackColor = true;
-            // 
-            // treScene
-            // 
-            this.treScene.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.treScene.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.treScene.Location = new System.Drawing.Point(3, 3);
-            this.treScene.Name = "treScene";
-            treeNode6.Name = "Scene";
-            treeNode6.Text = "Scene";
-            this.treScene.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode6});
-            this.treScene.Size = new System.Drawing.Size(273, 287);
-            this.treScene.TabIndex = 17;
-            this.treScene.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treScene_NodeMouseClick);
             // 
             // MainForm
             // 
@@ -613,14 +616,14 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
+            this.tabPage7.ResumeLayout(false);
+            this.tabControl3.ResumeLayout(false);
+            this.tabPage6.ResumeLayout(false);
             this.tabMain.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbScreen)).EndInit();
             this.tabEditor.ResumeLayout(false);
-            this.tabPage6.ResumeLayout(false);
-            this.tabControl3.ResumeLayout(false);
-            this.tabPage7.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
