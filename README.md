@@ -1,6 +1,6 @@
 # LinkEngine
 A 2d PC game Engine built in C#
-- # Goals
+- ### Goals
   - The Goal of this project is to learn the skills of building IDE's, Game Dev Enviroments, and creating usable project Libraries.
   - As well as a learning project, The LinkEngine serves to also be used in any game I may wish to develop.
   - This project is open to be forked and worked on. 
