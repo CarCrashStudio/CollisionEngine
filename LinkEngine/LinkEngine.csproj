@@ -31,16 +31,34 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Drawing" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\Animation\Animator2D.cs" />
+    <Compile Include="Components\Component.cs" />
+    <Compile Include="Components\Items\Consumable.cs" />
+    <Compile Include="Components\Items\CraftingItem.cs" />
+    <Compile Include="Components\Items\InventoryItem.cs" />
+    <Compile Include="Components\Items\Item.cs" />
+    <Compile Include="Components\Items\LootItem.cs" />
+    <Compile Include="Components\Physics\Physics.cs" />
     <Compile Include="Components\Physics\Projectile.cs" />
     <Compile Include="Components\Physics\Raycast.cs" />
-    <Compile Include="Rendering\2dGraphics\Screen.cs" />
+    <Compile Include="Components\Physics\Size.cs" />
+    <Compile Include="Components\PlayerController.cs" />
+    <Compile Include="GameObject.cs" />
+    <Compile Include="Rendering\Screen.cs" />
     <Compile Include="Components\Physics\Collider2D.cs" />
     <Compile Include="Components\Physics\Transform.cs" />
     <Compile Include="Components\Physics\Vector.cs" />
@@ -60,6 +78,5 @@
     <Compile Include="WorldGen\Modules\Transition.cs" />
     <Compile Include="WorldGen\World.cs" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,4 +1,5 @@
-﻿using LinkEngine.WorldGen;
+﻿using LinkEngine.Components;
+using LinkEngine.WorldGen;
 using System.Collections.Generic;
 
 namespace LinkEngine.Entities
@@ -6,10 +7,6 @@ namespace LinkEngine.Entities
     public class Player : Entity
     {
         System.Random rand = new System.Random();
-
-        
-
-
 
         /// <summary>
         /// The current level of the Player
@@ -35,12 +32,7 @@ namespace LinkEngine.Entities
         public Location CurrentLocation { get; set; }
 
         /// <summary>
-        /// The camera object is what will be used to hold the image the player can see
-        /// </summary>
-        public Components.Camera camera { get; set; }
-
-        /// <summary>
-        /// 
+        /// Creates a new Player Object. When created it will populate the player with a PlayerController Component
         /// </summary>
         /// <param name="id"></param>
         /// <param name="name"></param>
@@ -48,7 +40,7 @@ namespace LinkEngine.Entities
         /// <param name="maxHealth"></param>
         public Player(int id, string name, int health, int maxHealth) : base (id, name, health, maxHealth)
         {
-
+            Components.Add(new PlayerController(this));
         }
 
         /// <summary>

@@ -1,20 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LinkEngine.Components
+﻿namespace LinkEngine.Components
 {
-    public class Transform
+    public class Transform : Component
     {
         public Vector Position { get; set; }
+        public Size Size { get; set; }
 
-        public Transform (int x, int y, int z)
+        public Transform (int x, int y, int z, int w, int h)
         {
-            Position.X = x;
-            Position.Y = y;
-            Position.Z = z;
+            Position = new Vector(x, y, z);
+            Size = new Size(h, w);
         }
 
         /// <summary>
@@ -26,9 +20,9 @@ namespace LinkEngine.Components
         public void Move(int x, int y, int z)
         {
             // Move the entity according to what is put in the parameters, +1,-1,0
-            Position.X = x;
-            Position.Y = y;
-            Position.Z = z;
+            Position.X += x;
+            Position.Y += y;
+            Position.Z += z;
         }
         /// <summary>
         /// Change the transforms X and Y coordinates
@@ -38,8 +32,19 @@ namespace LinkEngine.Components
         public void Move(int x, int y)
         {
             // Move the entity according to what is put in the parameters, +1,-1,0
-            Position.X = x;
-            Position.Y = y;
+            Position.X += x;
+            Position.Y += y;
+        }
+
+        /// <summary>
+        /// Moves based on a vector
+        /// </summary>
+        /// <param name="vector"></param>
+        public void Move(Vector vector)
+        {
+            // Move the entity according to what is put in the parameters, +1,-1,0
+            Position.X += vector.X;
+            Position.Y += vector.Y;
         }
 
         public void Rotate ()
