@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{070494A4-BA6F-4C72-A559-D32024ECD0EB}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>C</RootNamespace>
+    <RootNamespace>LinkEngine</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
