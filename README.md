@@ -9,6 +9,6 @@ A 2d PC game Engine built in C#
 # Changelog
  - See CHANGE_LOG for updates about the state of the engine.
 
-# Developer: Trey Hall (@ThinkLink99)
+# Developer: Trey Hall (mention:ThinkLink99)
 - Started in August 2016
 - Added to personal Git in June 2017
