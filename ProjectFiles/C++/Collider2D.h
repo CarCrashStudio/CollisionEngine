@@ -3,7 +3,8 @@
 // Author: Trey Hall
 // Date: 8/1/2018
 
-class Collider2D {
+namespace LinkEngine {
+	class Collider2D {
 	private:
 		int width;
 		int height;
@@ -19,4 +20,5 @@ class Collider2D {
 
 		// Constructors
 		Collider2D();
-};
+	};
+}
