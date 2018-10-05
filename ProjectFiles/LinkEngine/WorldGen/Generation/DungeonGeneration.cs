@@ -3,18 +3,28 @@ using System.Collections.Generic;
 
 namespace LinkEngine.WorldGen
 {
+    /// <summary>
+    /// DungeonGeneration is a WIP procedural generation currently geared towards roguelike dungeons.
+    /// </summary>
     public class DungeonGeneration
     {
         public string Name { get; set; }
         public List<Location> Rooms { get; set; }
 
         Random rand = new Random();
+        /// <summary>
+        /// BuildMap takes a number of rooms to build, the biome set of tiles to build the room with, and a location to put the player in.
+        /// </summary>
+        /// <param name="numOfRooms">The number of rooms to generate. </param>
+        /// <param name="biome"></param>
+        /// <param name="playerX"></param>
+        /// <param name="playerY"></param>
         public void BuildMap(int numOfRooms, Biome biome, int playerX, int playerY)
         {
             Rooms = new List<Location>();
             for (int i = 0; i < numOfRooms; i++)
             {
-                GenerateRoom(biome, i, "", "", rand.Next(5, 10), rand.Next(5, 10), ref playerX, ref playerY, "South");
+                GenerateRoom(biome, i, rand.Next(5, 10), rand.Next(5, 10), ref playerX, ref playerY, "South");
             }
         }
 
@@ -42,12 +52,14 @@ namespace LinkEngine.WorldGen
         /// <param name="playerY">the last y coordinate of the player</param>
         /// <param name="playerFacing">the last direction the player was facing</param>
         /// <returns>Void</returns>
-        public void GenerateRoom(Biome biome, int id, string name, string desc, int width, int length, ref int playerX, ref int playerY, string playerFacing)
+        public void GenerateRoom(Biome biome, int id, int width, int length, ref int playerX, ref int playerY, string playerFacing)
         {
             bool hasDoor = false;
+            bool containsLoot = false;
+            bool hasEnemy = false;
 
             // Generate a room based on the biome and tile size
-            Rooms.Add(new Location(id, name, desc, width, length));
+            Rooms.Add(new Location(id, "","", width, length));
 
             if (biome.availableTiles.Count != 0)
             {
@@ -57,13 +69,13 @@ namespace LinkEngine.WorldGen
                 GenerateDoors(ref hasDoor, ref playerX, ref playerY, playerFacing, width, length, biome, Rooms.Count - 1);
 
                 // Room should include some harvestable item (Treasure, Plant)
-                //GenerateLoot(ref containsLoot, width, length, biome, Rooms.Count - 1);
+                GenerateLoot(ref containsLoot, width, length, biome, Rooms.Count - 1);
             }
 
-            //if (biome.availableMonsters.Count != 0)
-            //{
-            //    SpawnMonster(ref hasMonster, length, width, biome, Rooms.Count - 1);
-            //}
+            if (biome.AvailableEnemies.Count != 0)
+            {
+                SpawnMonster(ref hasEnemy, length, width, biome, Rooms.Count - 1);
+            }
         }
 
         public void GenerateHallway(Biome biome, int width, int length, ref int playerX, ref int playerY, string Facing, int roomNumber)

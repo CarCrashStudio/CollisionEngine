@@ -78,5 +78,8 @@
     <Compile Include="WorldGen\Modules\Transition.cs" />
     <Compile Include="WorldGen\World.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Mechanics\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

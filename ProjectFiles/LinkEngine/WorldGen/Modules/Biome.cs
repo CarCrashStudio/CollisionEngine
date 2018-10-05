@@ -16,6 +16,7 @@ namespace LinkEngine.WorldGen
         /// All tiles that can be used in this Biome
         /// </summary>
         public List<Tile> availableTiles { get; set; }
+        public List<Entities.Enemy> AvailableEnemies { get; set; }
         /// <summary>
         /// All Biomes this Biome can connect to
         /// </summary>
