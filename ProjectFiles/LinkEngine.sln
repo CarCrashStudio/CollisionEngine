@@ -1,13 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2016
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkEngine", "LinkEngine\LinkEngine.csproj", "{63CF1CF9-7D8E-4B8B-825D-442F16DBFAEF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EngineGUI", "EngineGUI\EngineGUI.csproj", "{C3707B9B-1193-4EC2-988B-626480103B5B}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "C++", "C++\C++.vcxproj", "{070494A4-BA6F-4C72-A559-D32024ECD0EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,16 +41,6 @@ Global
 		{C3707B9B-1193-4EC2-988B-626480103B5B}.Release|x64.Build.0 = Release|Any CPU
 		{C3707B9B-1193-4EC2-988B-626480103B5B}.Release|x86.ActiveCfg = Release|Any CPU
 		{C3707B9B-1193-4EC2-988B-626480103B5B}.Release|x86.Build.0 = Release|Any CPU
-		{070494A4-BA6F-4C72-A559-D32024ECD0EB}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{070494A4-BA6F-4C72-A559-D32024ECD0EB}.Debug|x64.ActiveCfg = Debug|x64
-		{070494A4-BA6F-4C72-A559-D32024ECD0EB}.Debug|x64.Build.0 = Debug|x64
-		{070494A4-BA6F-4C72-A559-D32024ECD0EB}.Debug|x86.ActiveCfg = Debug|Win32
-		{070494A4-BA6F-4C72-A559-D32024ECD0EB}.Debug|x86.Build.0 = Debug|Win32
-		{070494A4-BA6F-4C72-A559-D32024ECD0EB}.Release|Any CPU.ActiveCfg = Release|Win32
-		{070494A4-BA6F-4C72-A559-D32024ECD0EB}.Release|x64.ActiveCfg = Release|x64
-		{070494A4-BA6F-4C72-A559-D32024ECD0EB}.Release|x64.Build.0 = Release|x64
-		{070494A4-BA6F-4C72-A559-D32024ECD0EB}.Release|x86.ActiveCfg = Release|Win32
-		{070494A4-BA6F-4C72-A559-D32024ECD0EB}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

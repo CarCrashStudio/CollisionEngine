@@ -9,7 +9,17 @@ namespace LinkEngine.WorldGen
         public List<Location> Rooms { get; set; }
 
         Random rand = new Random();
-        public void BuildMap(int numOfRooms, Biome biome, int playerX, int playerY)
+
+        /// <summary>
+        /// <para>BuildMap takes an integer number of rooms to create, a biome (or tileset) to pull tiles from, and the player's x and y coordinates.</para> 
+        /// <para>The functions loops for the number of rooms specified and each time runs the GenerateRoom function and creates a new room.</para>
+        /// <para>When looping, this function will attempt to place hallways between rooms using GenerateHallway.</para>
+        /// </summary>
+        /// <param name="numOfRooms"></param>
+        /// <param name="biome"></param>
+        /// <param name="playerX"></param>
+        /// <param name="playerY"></param>
+        public void BuildMap(int numOfRooms, Biome biome, ref int playerX, ref int playerY)
         {
             Rooms = new List<Location>();
             for (int i = 0; i < numOfRooms; i++)
@@ -49,12 +59,19 @@ namespace LinkEngine.WorldGen
             // Generate a room based on the biome and tile size
             Rooms.Add(new Location(id, name, desc, width, length));
 
+            // check that the biome has tiles to pull from
             if (biome.availableTiles.Count != 0)
             {
                 GenerateTiles(width, length, biome, Rooms.Count - 1);
 
                 // Room needs atleast one door
                 GenerateDoors(ref hasDoor, ref playerX, ref playerY, playerFacing, width, length, biome, Rooms.Count - 1);
+
+                // Now that we have doors we need to connect the rooms with hallways
+                foreach(Transition door in Rooms[Rooms.Count - 1].Transitions)
+                {
+                    GenerateHallway(biome, 4, 6, ref playerX, ref playerY, door.RequiredFacingDirection, Rooms.Count - 1);
+                }
 
                 // Room should include some harvestable item (Treasure, Plant)
                 //GenerateLoot(ref containsLoot, width, length, biome, Rooms.Count - 1);
@@ -66,6 +83,16 @@ namespace LinkEngine.WorldGen
             //}
         }
 
+        /// <summary>
+        /// GenerateHallway is used to build structures that can connect the rooms together.
+        /// </summary>
+        /// <param name="biome"></param>
+        /// <param name="width"></param>
+        /// <param name="length"></param>
+        /// <param name="playerX"></param>
+        /// <param name="playerY"></param>
+        /// <param name="Facing"></param>
+        /// <param name="roomNumber"></param>
         public void GenerateHallway(Biome biome, int width, int length, ref int playerX, ref int playerY, string Facing, int roomNumber)
         {
             for (int i = 0; i < length; i++)
@@ -95,6 +122,9 @@ namespace LinkEngine.WorldGen
                 }
             }
         }
+
+
+        // Private Functions
         void GenerateDoors(ref bool hasDoor, ref int playerX, ref int playerY, string playerFacing, int width, int length, Biome biome, int roomNumber)
         {
             while (!hasDoor)
