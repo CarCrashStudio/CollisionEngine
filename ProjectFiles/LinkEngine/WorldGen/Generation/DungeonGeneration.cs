@@ -11,20 +11,23 @@ namespace LinkEngine.WorldGen
         Random rand = new Random();
 
         /// <summary>
-        /// <para>BuildMap takes an integer number of rooms to create, a biome (or tileset) to pull tiles from, and the player's x and y coordinates.</para> 
-        /// <para>The functions loops for the number of rooms specified and each time runs the GenerateRoom function and creates a new room.</para>
+        /// <para>BuildMap takes an integer number of rooms to create, a <seealso cref="Biome"/> (or tileset) to pull tiles from, and the player's x and y coordinates.</para>
+        /// <para>The functions loops for the number of rooms specified and each time runs the <seealso cref="GenerateRoom(Biome, int, string, string, int, int, ref int, ref int, string)"/> function and creates a new room.</para>
         /// <para>When looping, this function will attempt to place hallways between rooms using GenerateHallway.</para>
         /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
         /// <param name="numOfRooms"></param>
         /// <param name="biome"></param>
         /// <param name="playerX"></param>
         /// <param name="playerY"></param>
-        public void BuildMap(int numOfRooms, Biome biome, ref int playerX, ref int playerY)
+        public void BuildMap(int numOfRooms, Biome biome, ref int playerX, ref int playerY, int minWidth, int maxWidth, int minLength, int maxLength)
         {
             Rooms = new List<Location>();
             for (int i = 0; i < numOfRooms; i++)
             {
-                GenerateRoom(biome, i, "", "", rand.Next(5, 10), rand.Next(5, 10), ref playerX, ref playerY, "South");
+                GenerateRoom(biome, i, "", "", rand.Next(minWidth, maxWidth), rand.Next(minLength, maxLength), ref playerX, ref playerY, "South");
             }
         }
 
@@ -51,7 +54,6 @@ namespace LinkEngine.WorldGen
         /// <param name="playerX">the last x coordinate of the player</param>
         /// <param name="playerY">the last y coordinate of the player</param>
         /// <param name="playerFacing">the last direction the player was facing</param>
-        /// <returns>Void</returns>
         public void GenerateRoom(Biome biome, int id, string name, string desc, int width, int length, ref int playerX, ref int playerY, string playerFacing)
         {
             bool hasDoor = false;
@@ -66,15 +68,6 @@ namespace LinkEngine.WorldGen
 
                 // Room needs atleast one door
                 GenerateDoors(ref hasDoor, ref playerX, ref playerY, playerFacing, width, length, biome, Rooms.Count - 1);
-
-                // Now that we have doors we need to connect the rooms with hallways
-                foreach(Transition door in Rooms[Rooms.Count - 1].Transitions)
-                {
-                    GenerateHallway(biome, 4, 6, ref playerX, ref playerY, door.RequiredFacingDirection, Rooms.Count - 1);
-                }
-
-                // Room should include some harvestable item (Treasure, Plant)
-                //GenerateLoot(ref containsLoot, width, length, biome, Rooms.Count - 1);
             }
 
             //if (biome.availableMonsters.Count != 0)
@@ -95,34 +88,47 @@ namespace LinkEngine.WorldGen
         /// <param name="roomNumber"></param>
         public void GenerateHallway(Biome biome, int width, int length, ref int playerX, ref int playerY, string Facing, int roomNumber)
         {
+            if (Facing == "North" || Facing == "South")
+            {
+                VerticalHallway(biome, width, length, roomNumber);
+            }
+            if (Facing == "East" || Facing == "West")
+            {
+                HorizontalHallway(biome, width, length, roomNumber);
+            }
+        }
+        void VerticalHallway(Biome biome, int width, int length, int roomNumber)
+        {
             for (int i = 0; i < length; i++)
             {
                 for (int j = 0; j < width; j++)
                 {
-                    if (Facing == "North" || Facing == "South")
+                    if (j == 0 || j == width)
                     {
-                        if (j == 0 || j == width)
-                        {
-                            Rooms[roomNumber].Tiles.Add(new Tile(biome.availableTiles[2].ID, biome.availableTiles[2].Name, biome.availableTiles[2].Dense, i, j, biome.availableTiles[2].Type));
-                        }
-                    }
-                    if (Facing == "East" || Facing == "West")
-                    {
-                        if (i == 0)
-                        {
-                            // make a South Facing wall tile
-                            Rooms[roomNumber].Tiles.Add(new Tile(biome.availableTiles[0].ID, biome.availableTiles[0].Name, biome.availableTiles[0].Dense, i, j, biome.availableTiles[0].Type));
-                        }
-                        else if (i == length - 1)
-                        {
-                            // make a North Facing wall tile
-                            Rooms[roomNumber].Tiles.Add(new Tile(biome.availableTiles[1].ID, biome.availableTiles[1].Name, biome.availableTiles[1].Dense, i, j, biome.availableTiles[1].Type));
-                        }
+                        Rooms[roomNumber].Tiles.Add(new Tile(biome.availableTiles[2].ID, biome.availableTiles[2].Name, biome.availableTiles[2].Dense, i, j, biome.availableTiles[2].Type));
                     }
                 }
             }
         }
-
+        void HorizontalHallway(Biome biome, int width, int length, int roomNumber)
+        {
+            for (int i = 0; i < length; i++)
+            {
+                for (int j = 0; j < width; j++)
+                {
+                    if (i == 0)
+                    {
+                        // make a South Facing wall tile
+                        Rooms[roomNumber].Tiles.Add(new Tile(biome.availableTiles[0].ID, biome.availableTiles[0].Name, biome.availableTiles[0].Dense, i, j, biome.availableTiles[0].Type));
+                    }
+                    else if (i == length - 1)
+                    {
+                        // make a North Facing wall tile
+                        Rooms[roomNumber].Tiles.Add(new Tile(biome.availableTiles[1].ID, biome.availableTiles[1].Name, biome.availableTiles[1].Dense, i, j, biome.availableTiles[1].Type));
+                    }
+                }
+            }
+        }
 
         // Private Functions
         void GenerateDoors(ref bool hasDoor, ref int playerX, ref int playerY, string playerFacing, int width, int length, Biome biome, int roomNumber)
@@ -130,40 +136,9 @@ namespace LinkEngine.WorldGen
             while (!hasDoor)
             {
                 Random rand = new Random();
-
-                // place door where player entered from
                 int x = playerX, y = playerY;
 
-                for (int i = 0; i < Rooms[roomNumber].Tiles.Count; i++)
-                {
-                    if (Rooms[roomNumber].Tiles[i].X == x && Rooms[roomNumber].Tiles[i].Y == y)
-                    {
-                        if (playerFacing == "South")
-                        {
-                            Rooms[roomNumber].Tiles[i] = new Tile(biome.availableTiles[5].ID, biome.availableTiles[5].Name, biome.availableTiles[5].Dense, x, 0, biome.availableTiles[5].Type);
-                            Rooms[roomNumber].Transitions.Add(new Transition(new Tile(biome.availableTiles[5].ID, biome.availableTiles[5].Name, biome.availableTiles[5].Dense, x, 0, biome.availableTiles[5].Type), "South", null));
-                        }
-                        else if (playerFacing == "North")
-                        {
-                            Rooms[roomNumber].Tiles[i] = new Tile(biome.availableTiles[6].ID, biome.availableTiles[6].Name, biome.availableTiles[6].Dense, x, length - 1, biome.availableTiles[6].Type);
-                            Rooms[roomNumber].Transitions.Add(new Transition(new Tile(biome.availableTiles[6].ID, biome.availableTiles[6].Name, biome.availableTiles[6].Dense, x, length, biome.availableTiles[6].Type), "North", null));
-                        }
-                        else if (playerFacing == "East")
-                        {
-                            Rooms[roomNumber].Tiles[i] = new Tile(biome.availableTiles[7].ID, biome.availableTiles[7].Name, biome.availableTiles[7].Dense, 0, y, biome.availableTiles[7].Type);
-                            Rooms[roomNumber].Transitions.Add(new Transition(new Tile(biome.availableTiles[7].ID, biome.availableTiles[7].Name, biome.availableTiles[7].Dense, 0, y, biome.availableTiles[7].Type), "East", null));
-                        }
-                        else if (playerFacing == "West")
-                        {
-                            Rooms[roomNumber].Tiles[i] = new Tile(biome.availableTiles[8].ID, biome.availableTiles[8].Name, biome.availableTiles[8].Dense, width - 1, y, biome.availableTiles[8].Type);
-                            Rooms[roomNumber].Transitions.Add(new Transition(new Tile(biome.availableTiles[8].ID, biome.availableTiles[8].Name, biome.availableTiles[8].Dense, width, y, biome.availableTiles[8].Type), "West", null));
-                        }
-                        hasDoor = true;
-                    }
-                }
-                playerX = Rooms[roomNumber].Transitions[0].X;
-                playerY = Rooms[roomNumber].Transitions[0].Y;
-
+                place_door_where_player_entered(ref hasDoor, ref playerX, ref playerY, playerFacing, width, length, biome, roomNumber);
                 // Random number of doors to generate
                 int numDoors = rand.Next(1, 3);
 
@@ -248,6 +223,42 @@ namespace LinkEngine.WorldGen
                 }
             }
         }
+        void place_door_where_player_entered(ref bool hasDoor, ref int playerX, ref int playerY, string playerFacing, int width, int length, Biome biome, int roomNumber)
+        {
+            // place door where player entered from
+            int x = playerX, y = playerY;
+
+            for (int i = 0; i < Rooms[roomNumber].Tiles.Count; i++)
+            {
+                if (Rooms[roomNumber].Tiles[i].X == x && Rooms[roomNumber].Tiles[i].Y == y)
+                {
+                    if (playerFacing == "South")
+                    {
+                        Rooms[roomNumber].Tiles[i] = new Tile(biome.availableTiles[5].ID, biome.availableTiles[5].Name, biome.availableTiles[5].Dense, x, 0, biome.availableTiles[5].Type);
+                        Rooms[roomNumber].Transitions.Add(new Transition(new Tile(biome.availableTiles[5].ID, biome.availableTiles[5].Name, biome.availableTiles[5].Dense, x, 0, biome.availableTiles[5].Type), "South", null));
+                    }
+                    else if (playerFacing == "North")
+                    {
+                        Rooms[roomNumber].Tiles[i] = new Tile(biome.availableTiles[6].ID, biome.availableTiles[6].Name, biome.availableTiles[6].Dense, x, length - 1, biome.availableTiles[6].Type);
+                        Rooms[roomNumber].Transitions.Add(new Transition(new Tile(biome.availableTiles[6].ID, biome.availableTiles[6].Name, biome.availableTiles[6].Dense, x, length, biome.availableTiles[6].Type), "North", null));
+                    }
+                    else if (playerFacing == "East")
+                    {
+                        Rooms[roomNumber].Tiles[i] = new Tile(biome.availableTiles[7].ID, biome.availableTiles[7].Name, biome.availableTiles[7].Dense, 0, y, biome.availableTiles[7].Type);
+                        Rooms[roomNumber].Transitions.Add(new Transition(new Tile(biome.availableTiles[7].ID, biome.availableTiles[7].Name, biome.availableTiles[7].Dense, 0, y, biome.availableTiles[7].Type), "East", null));
+                    }
+                    else if (playerFacing == "West")
+                    {
+                        Rooms[roomNumber].Tiles[i] = new Tile(biome.availableTiles[8].ID, biome.availableTiles[8].Name, biome.availableTiles[8].Dense, width - 1, y, biome.availableTiles[8].Type);
+                        Rooms[roomNumber].Transitions.Add(new Transition(new Tile(biome.availableTiles[8].ID, biome.availableTiles[8].Name, biome.availableTiles[8].Dense, width, y, biome.availableTiles[8].Type), "West", null));
+                    }
+                    hasDoor = true;
+                }
+            }
+            playerX = Rooms[roomNumber].Transitions[0].X;
+            playerY = Rooms[roomNumber].Transitions[0].Y;
+        }
+        
         void GenerateLoot(ref bool containsLoot, int width, int length, Biome biome, int roomNumber)
         {
             while (!containsLoot)
@@ -279,26 +290,36 @@ namespace LinkEngine.WorldGen
             {
                 for (int x = 0; x < width; x++)
                 {
+                    Tile tile = new Tile(0, null, 0, 0, 0, null);
                     if (y == 0)
                     {
                         // make a South Facing wall tile
-                        Rooms[roomNumber].Tiles.Add(new Tile(biome.availableTiles[0].ID, biome.availableTiles[0].Name, biome.availableTiles[0].Dense, x, y, biome.availableTiles[0].Type));
+                        tile = biome.availableTiles[0];
+                        tile.X = x;
+                        tile.Y = y;
                     }
                     else if (y == length - 1)
                     {
                         // make a North Facing wall tile
-                        Rooms[roomNumber].Tiles.Add(new Tile(biome.availableTiles[1].ID, biome.availableTiles[1].Name, biome.availableTiles[1].Dense, x, y, biome.availableTiles[1].Type));
+                        tile = biome.availableTiles[1];
+                        tile.X = x;
+                        tile.Y = y;
                     }
                     else if (x == 0 || x == width - 1)
                     {
                         // make a  WestEast Facing wall tile
-                        Rooms[roomNumber].Tiles.Add(new Tile(biome.availableTiles[2].ID, biome.availableTiles[2].Name, biome.availableTiles[2].Dense, x, y, biome.availableTiles[2].Type));
+                        tile = biome.availableTiles[2];
+                        tile.X = x;
+                        tile.Y = y;
                     }
                     else
                     {
                         // make a floor tile
-                        Rooms[roomNumber].Tiles.Add(new Tile(biome.availableTiles[3].ID, biome.availableTiles[3].Name, biome.availableTiles[3].Dense, x, y, biome.availableTiles[3].Type));
+                        tile = biome.availableTiles[3];
+                        tile.X = x;
+                        tile.Y = y;
                     }
+                    Rooms[roomNumber].Tiles.Add(tile);
                 }
             }
         }
