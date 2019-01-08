@@ -27,7 +27,7 @@ namespace LinkEngine.Rendering
 
             // create a new game form
             GameForm = new Form();
-            GameForm.Size = new Size(Width * 32, Height * 32);
+            GameForm.Size = new Size(Width * pWidth, Height * pHeight);
 
             // Initialize a new array
             Tiles = new PictureBox[Height, Width];
@@ -53,6 +53,7 @@ namespace LinkEngine.Rendering
             for (int y = 0; y < Height; y++)
                 for (int x = 0; x < Width; x++)
                 {
+                    Tiles[y, x] = new PictureBox();
                     // set the location of the current tile
                     Tiles[y, x].Location = new Point(x * pWidth, y * pHeight);
                     // set the size of the current tile
