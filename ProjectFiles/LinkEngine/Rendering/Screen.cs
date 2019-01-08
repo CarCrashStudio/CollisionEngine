@@ -1,87 +1,75 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
-using System.Threading;
+﻿using System.Drawing;
+using System.Windows.Forms;
 
 namespace LinkEngine.Rendering
 {
-    /// <summary>
-    /// Screen is the object in charge of game rendering. Screen will populate a list of objects to draw and draw them using a threaded infinite loop.
-    /// </summary>
     public class Screen
     {
+        public Form GameForm;
+        public int Width, Height;
+        public int pWidth, pHeight;
+
+        PictureBox[,] Tiles;
         /// <summary>
-        /// Object contains the Image and Pointers to x and y coordinates of the object to draw
+        /// 
         /// </summary>
-        public struct Object
+        /// <param name="_width"></param>
+        /// <param name="_height"></param>
+        /// <param name="_pwidth"></param>
+        /// <param name="_pheight"></param>
+        public Screen (int _width, int _height, int  _pwidth, int _pheight)
         {
-            // The image to draw
-            public Bitmap Image;
+            // set values
+            Width = _width;
+            Height = _height;
+            pWidth = _pwidth;
+            pHeight = _pheight;
 
-            // Pointers are used to keep the current version of coordinates that will most likely change 
-            // Pointer to object's X Coordinate
-            public int X;
-            // Pointer to object's Y Coordinate 
-            public int Y;
-        }
+            // create a new game form
+            GameForm = new Form();
+            GameForm.Size = new Size(Width * 32, Height * 32);
 
-        public int Width { get; set; }
-        public int Height { get; set; }
-
-        public Bitmap Image { get; set; }
-
-        ThreadStart renderStart;
-        Thread render;
-
-        /// <summary>
-        /// ObjectsOnScreen is a list of Object images and coordinates to draw on screen
-        /// </summary>
-        public List<Object> ObjectsOnScreen { get; set; }
-
-        /// <summary>
-        /// Creates a new Game Screen
-        /// </summary>
-        /// <param name="width"></param>
-        /// <param name="height"></param>
-        public Screen (int width, int height)
-        {
-            Width = width;
-            Height = height;
-
-            Image = new Bitmap(width, height);
-            ObjectsOnScreen = new List<Object>();
+            // Initialize a new array
+            Tiles = new PictureBox[Height, Width];
+            calibrate_location_and_size();
         }
 
         /// <summary>
-        /// Draw is a threaded function the runs infinetly and draws all the objects inside of ObjectsOnScreen. The coordinates to draw the images are pointer variables to the original location of the variable. This prevents the user from manually updating the list with new coordinates
+        /// Takes a given bitmap and sets it as the Image for the PictureBox at the given x and y
         /// </summary>
-        void Draw ()
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="bitmap"></param>
+        public void Draw (int x, int y, Bitmap bitmap)
         {
-            while(true)
-            {
-                foreach(Object obj in ObjectsOnScreen)
+            // set the image of the tile to the given bitmap
+            Tiles[y, x].Image = bitmap;
+            redraw();
+            //comment
+        }
+
+        void calibrate_location_and_size()
+        {
+            for (int y = 0; y < Height; y++)
+                for (int x = 0; x < Width; x++)
                 {
-                    var graphics = Graphics.FromImage(Image);
-                    graphics.DrawImage(obj.Image, new PointF(int.Parse(obj.Y.ToString()), int.Parse(obj.Y.ToString())));
+                    // set the location of the current tile
+                    Tiles[y, x].Location = new Point(x * pWidth, y * pHeight);
+                    // set the size of the current tile
+                    Tiles[y, x].Size = new Size(pWidth, pHeight);
+
+                    // add the tile to the GameForm controls
+                    GameForm.Controls.Add(Tiles[y, x]);
                 }
+        }
+        void redraw ()
+        {
+            int i = 0;
+            foreach (PictureBox pb in Tiles)
+            {
+                ((PictureBox)GameForm.Controls[i]).Image = pb.Image;
+                i++;
             }
-        }
-
-        /// <summary>
-        /// Initialize will start a new thread for the Draw function.
-        /// </summary>
-        public void Initialize()
-        {
-            renderStart = new ThreadStart(Draw);
-            render = new Thread(renderStart);
-            render.Start();
-        }
-
-        /// <summary>
-        /// StopDraw will abort the render thread
-        /// </summary>
-        public void StopDraw()
-        {
-            render.Abort();
         }
     }
 }
