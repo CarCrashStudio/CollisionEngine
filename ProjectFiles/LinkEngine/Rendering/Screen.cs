@@ -78,10 +78,11 @@ namespace LinkEngine.Rendering
             };
 
             // add the map pane to the game form
+            GameForm.Controls.Add(MapPane);
             GameForm.Controls.Add(CharacterImage);
             GameForm.Controls.Add(Health);
             GameForm.Controls.Add(EXP);
-            GameForm.Controls.Add(MapPane);
+            GameForm.Controls[0].SendToBack();
 
             // Initialize a new array
             Tiles = new PictureBox[Height, Width];
