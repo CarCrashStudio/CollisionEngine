@@ -1,6 +1,9 @@
 ﻿namespace LinkEngine.WorldGen
 {
-    public class Tile// Class to hold tile information 
+    /// <summary>
+    /// Tile represents a square world object
+    /// </summary>
+    public class Tile
     {
         /// <summary>
         /// The ID of the Tile
@@ -26,6 +29,9 @@
         /// </summary>
         public int Y { get; set; }
 
+        public int Local_X { get; set; }
+        public int Local_Y { get; set; }
+
         /// <summary>
         /// The Tile Type, categotized as Path, Ground, or void
         /// </summary>
@@ -48,6 +54,9 @@
             Type = type;
             X = x;
             Y = y;
+
+            Local_X = x;
+            Local_Y = y;
         }
 
         /// <summary>
