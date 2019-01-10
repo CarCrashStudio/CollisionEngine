@@ -45,7 +45,7 @@ namespace LinkEngine.Rendering
             GameForm = new Form
             {
                 Size = new Size(400, 400),
-                FormBorderStyle = FormBorderStyle.None
+                FormBorderStyle = FormBorderStyle.None,
             };
 
             // create new map pane
@@ -78,11 +78,10 @@ namespace LinkEngine.Rendering
             };
 
             // add the map pane to the game form
-            GameForm.Controls.Add(MapPane);
             GameForm.Controls.Add(CharacterImage);
             GameForm.Controls.Add(Health);
             GameForm.Controls.Add(EXP);
-            GameForm.Controls[0].SendToBack();
+            GameForm.Controls.Add(MapPane);
 
             // Initialize a new array
             Tiles = new PictureBox[Height, Width];
