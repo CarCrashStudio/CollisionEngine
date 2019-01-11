@@ -72,5 +72,11 @@
             X = tile.X;
             Y = tile.Y;
         }
+
+        public void UpdateLocalCoords()
+        {
+            Local_X = X;
+            Local_Y = Y;
+        }
     }
 }

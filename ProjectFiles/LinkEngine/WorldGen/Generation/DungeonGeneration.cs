@@ -255,8 +255,11 @@ namespace LinkEngine.WorldGen
                     hasDoor = true;
                 }
             }
-            playerX = Rooms[roomNumber].Transitions[0].X;
-            playerY = Rooms[roomNumber].Transitions[0].Y;
+            if (Rooms[roomNumber].Transitions.Count > 0)
+            {
+                playerX = Rooms[roomNumber].Transitions[0].X;
+                playerY = Rooms[roomNumber].Transitions[0].Y;
+            }
         }
         
         void GenerateLoot(ref bool containsLoot, int width, int length, Biome biome, int roomNumber)
