@@ -7,17 +7,9 @@ namespace LinkEngine.Rendering
     {
         public Form GameForm;
         public Panel MapPane;
-        public PictureBox
-            CharacterImage,
-            Health,
-            EXP;
 
         public int Width, Height;
         public int pWidth, pHeight;
-        public int CharacterWidth, CharacterHeight;
-        public int HealthWidth, HealthHeight, EXPWidth, EXPHeight;
-
-        public int Padding = 5;
 
         PictureBox[,] Tiles;
         /// <summary>
@@ -27,19 +19,13 @@ namespace LinkEngine.Rendering
         /// <param name="_height"></param>
         /// <param name="_pwidth"></param>
         /// <param name="_pheight"></param>
-        public Screen (int _width, int _height, int  _pwidth, int _pheight, int _cwidth, int _cheight, int _hwidth, int _hheight, int _ewidth, int _eheight)
+        public Screen (int _width, int _height, int  _pwidth, int _pheight)
         {
             // set values
             Width = _width;
             Height = _height;
             pWidth = _pwidth;
             pHeight = _pheight;
-            CharacterWidth = _cwidth;
-            CharacterHeight = _cheight;
-            HealthWidth = _hwidth;
-            HealthHeight = _hheight;
-            EXPWidth = _ewidth;
-            EXPHeight = _eheight;
 
             // create a new game form
             GameForm = new Form
@@ -51,36 +37,11 @@ namespace LinkEngine.Rendering
             // create new map pane
             MapPane = new Panel
             {
-                Size = new Size(Width * pWidth, Height * pHeight)
+                Size = new Size(Width * pWidth, Height * pHeight),
+                Name = "MapPane"
             };
             MapPane.Location = new Point((GameForm.Width / 2) - (MapPane.Width / 2), (GameForm.Height / 2) - (MapPane.Height / 2));
 
-            // create a new character image box
-            CharacterImage = new PictureBox
-            {
-                Location = new Point(10, 10),
-                BorderStyle = BorderStyle.FixedSingle,
-                Size = new Size(CharacterWidth, CharacterHeight)
-            };
-
-            // create the health and experience bars
-            Health = new PictureBox()
-            {
-                BorderStyle = BorderStyle.FixedSingle,
-                Location = new Point(CharacterImage.Location.X + CharacterImage.Width + Padding, CharacterImage.Location.Y),
-                Size = new Size(HealthWidth, HealthHeight)
-            };
-            EXP = new PictureBox()
-            {
-                BorderStyle = BorderStyle.FixedSingle,
-                Location = new Point(CharacterImage.Location.X + CharacterImage.Width + Padding, CharacterImage.Location.Y + Health.Height + Padding),
-                Size = new Size(EXPWidth, EXPHeight)
-            };
-
-            // add the map pane to the game form
-            GameForm.Controls.Add(CharacterImage);
-            GameForm.Controls.Add(Health);
-            GameForm.Controls.Add(EXP);
             GameForm.Controls.Add(MapPane);
 
             // Initialize a new array

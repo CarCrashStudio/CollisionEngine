@@ -5,16 +5,12 @@ namespace LinkEngine.Components
     public class Item : GameObject
     {
         string namePlural;
-        public int Cost { get; set; }
 
         public Item(int id, string name, string namePlur, int cost)
         {
             ID = id;
             Name = name;
             namePlural = namePlur;
-            Cost = cost;
-
-            Recipe = new List<CraftingItem>();
         }
 
         public int ID { get; set; }
@@ -23,8 +19,6 @@ namespace LinkEngine.Components
         public string EquipTag { get; set; }
         public bool Equipable { get; set; }
         public bool Consumable { get; set; }
-
-        public List<CraftingItem> Recipe;
     }
 }
 

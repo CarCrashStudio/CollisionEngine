@@ -20,8 +20,6 @@ namespace LinkEngine.Entities
             Components.Add(new Collider2D(0, 0, 0, 0, 0));
         }
 
-
-
         /// <summary>
         /// Check if the entity health is 0
         /// </summary>
