@@ -30,7 +30,8 @@ namespace LinkEngine.Rendering
             // create a new game form
             GameForm = new Form
             {
-                Size = new Size(400, 400),
+                BackColor = Color.White,
+                Size = new Size(Width * pWidth, Height * pHeight),
                 FormBorderStyle = FormBorderStyle.None,
             };
 
@@ -60,7 +61,6 @@ namespace LinkEngine.Rendering
             // set the image of the tile to the given bitmap
             Tiles[y, x].Image = bitmap;
             redraw();
-            //comment
         }
 
         void calibrate_location_and_size()
@@ -74,18 +74,21 @@ namespace LinkEngine.Rendering
                     // set the size of the current tile
                     Tiles[y, x].Size = new Size(pWidth, pHeight);
 
+
+                    //Tiles[y, x].SizeMode = PictureBoxSizeMode.StretchImage;
+
                     // add the tile to the GameForm controls
                     MapPane.Controls.Add(Tiles[y, x]);
                 }
         }
         void redraw ()
         {
-            int i = 0;
-            foreach (PictureBox pb in Tiles)
-            {
-                ((PictureBox)MapPane.Controls[i]).Image = pb.Image;
-                i++;
-            }
+            //int i = 0;
+            //foreach (PictureBox pb in Tiles)
+            //{
+            //    ((PictureBox)MapPane.Controls[i]).Image = pb.Image;
+            //    i++;
+            //}
         }
     }
 }

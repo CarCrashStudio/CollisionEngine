@@ -21,6 +21,11 @@
         public int Dense { get; set; }
 
         /// <summary>
+        /// The location / room the tile belongs to
+        /// </summary>
+        public Location Location { get; set; }
+
+        /// <summary>
         /// The X coordinate of the Tile
         /// </summary>
         public int X { get; set; }
@@ -71,6 +76,16 @@
             Type = tile.Type;
             X = tile.X;
             Y = tile.Y;
+        }
+
+        public Tile(Tile tile, int x, int y)
+        {
+            ID = tile.ID;
+            Name = tile.Name;
+            Dense = tile.Dense;
+            Type = tile.Type;
+            X = x;
+            Y = y;
         }
 
         public void UpdateLocalCoords()
