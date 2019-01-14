@@ -10,7 +10,7 @@ namespace LinkEngine.WorldGen
         public Tile[,] Tiles { get; set; }
 
         /// <summary>
-        /// The number of tile wide the Dungeon layout is
+        /// The number of tiles wide the Dungeon layout is
         /// </summary>
         public int DungeonWidth { get; set; }
         /// <summary>
@@ -32,13 +32,8 @@ namespace LinkEngine.WorldGen
         }
 
         /// <summary>
-        /// <para>BuildMap takes an integer number of rooms to create, a <seealso cref="Biome"/> (or tileset) to pull tiles from, and the player's x and y coordinates.</para>
-        /// <para>The functions loops for the number of rooms specified and each time runs the <seealso cref="GenerateRoom(Biome, int, string, string, int, int, ref int, ref int, string)"/> function and creates a new room.</para>
-        /// <para>When looping, this function will attempt to place hallways between rooms using GenerateHallway.</para>
-        /// </summary>
-        /// <remarks>
-        /// Indicies for Biome Lists
-        /// --- South Facing Wall Tile [0]
+        ///  Indicies for Biome Lists
+        ///  --- South Facing Wall Tile [0]
         /// --- North Facing Wall Tile [1]
         /// --- East Facing Wall Tile [2]
         /// --- West Facing Wall Tile [3]
@@ -47,7 +42,7 @@ namespace LinkEngine.WorldGen
         /// --- Bottom Right Corner [6]
         /// --- Top Left Corner [7]
         /// --- Top Right Corner [8]
-        /// </remarks>
+        /// </summary>
         /// <param name="numOfRooms"></param>
         /// <param name="Biome"></param>
         /// <param name="playerX"></param>
@@ -55,29 +50,127 @@ namespace LinkEngine.WorldGen
         public void BuildMap(int numOfRooms, ref int playerX, ref int playerY, int minWidth, int maxWidth, int minLength, int maxLength)
         {
             Rooms = new List<Location>();
+
+            object[] X = new object[4];
+            object[] Y = new object[4];
             for (int i = 0; i < numOfRooms; i++)
             {
-                GenerateRoom(i, rand.Next(minWidth, maxWidth), rand.Next(minLength, maxLength));
-                BuildHallways();
+                if (i > 0)
+                {
+                    for (int j = 0; j < X.Length; j++)
+                    {
+                        if (!(X[j] == null || Y[j] == null))
+                        {
+                            GenerateRoom(i, rand.Next(minWidth, maxWidth), rand.Next(minLength, maxLength), (int)X[j], (int)Y[j]);
+                            BuildHallways(ref X, ref Y);
+                            i++;
+                        }
+                    }
+                }
+                else
+                {
+                    GenerateRoom(i, rand.Next(minWidth, maxWidth), rand.Next(minLength, maxLength), 0, 0);
+                    BuildHallways(ref X, ref Y);
+                    break;
+                }
+                
             }
         }
 
-        void GenerateRoom(int id, int width, int length)
+        // Rooms
+        void GenerateRoom(int id, int width, int length, int startx, int starty)
         {
             // Generate a room based on the Biome and tile size
             Rooms.Add(new Location(id, "", "", width, length));
             
-            if (id == 0)
-            {
-                Rooms[0].TopLeft_Bound = new Components.Vector(0, 0, 0);
-                Rooms[0].TopRight_Bound = new Components.Vector(Rooms[0].Width - 1, 0, 0);
-                Rooms[0].BottomRight_Bound = new Components.Vector(Rooms[0].Width - 1, Rooms[0].Length - 1, 0);
-                Rooms[0].BottomLeft_Bound = new Components.Vector(0, Rooms[0].Length - 1, 0);
-            }
+            Rooms[0].TopLeft_Bound = new Components.Vector(startx, starty, 0);
+            Rooms[0].TopRight_Bound = new Components.Vector(Rooms[0].Width - 1, starty, 0);
+            Rooms[0].BottomRight_Bound = new Components.Vector(Rooms[0].Width - 1, Rooms[0].Length - 1, 0);
+            Rooms[0].BottomLeft_Bound = new Components.Vector(startx, Rooms[0].Length - 1, 0);
 
-            GenerateRoomTiles(width, length, Rooms.Count - 1);
+            GenerateRoomTiles(width, length, Rooms.Count - 1, startx, starty);
         }
-        void BuildHallways ()
+        void GenerateRoomTiles(int width, int length, int roomNumber, int startx, int starty)
+        {
+            Tile tile;
+            for (int y = 0; y < length + starty; y++)
+            {
+                for (int x = 0; x < width + startx; x++)
+                {
+                    tile = new Tile(0, null, 0, 0, 0, null);
+
+                    // Wall Corners
+                    if (x - startx == 0 && y - starty == 0)
+                    {
+                        tile = new Tile(Biome.availableTiles[7]);
+                        tile.X = x;
+                        tile.Y = y;
+                    }
+                    else if (x - startx == width - 1 && y - starty == 0)
+                    {
+                        tile = new Tile(Biome.availableTiles[8]);
+                        tile.X = x;
+                        tile.Y = y;
+                    }
+                    else if (x - startx == width - 1 && y - starty == length - 1)
+                    {
+                        tile = new Tile(Biome.availableTiles[6]);
+                        tile.X = x;
+                        tile.Y = y;
+                    }
+                    else if (x - startx == 0 && y - starty == length - 1)
+                    {
+                        tile = new Tile(Biome.availableTiles[5]);
+                        tile.X = x;
+                        tile.Y = y;
+                    }
+
+                    // Walls
+                    else if (y - starty == 0)
+                    {
+                        // make a South Facing wall tile
+                        tile = new Tile(Biome.availableTiles[0]);
+                        tile.X = x;
+                        tile.Y = y;
+                    }
+                    else if (y - starty == length - 1)
+                    {
+                        // make a North Facing wall tile
+                        tile = new Tile(Biome.availableTiles[1]);
+                        tile.X = x;
+                        tile.Y = y;
+                    }
+                    else if (x - startx == 0)
+                    {
+                        // make a  West Facing wall tile
+                        tile = new Tile(Biome.availableTiles[3]);
+                        tile.X = x;
+                        tile.Y = y;
+                    }
+                    else if (x - startx == width - 1)
+                    {
+                        // make a  East Facing wall tile
+                        tile = new Tile(Biome.availableTiles[2]);
+                        tile.X = x;
+                        tile.Y = y;
+                    }
+
+                    // Floor
+                    else
+                    {
+                        // make a floor tile
+                        tile = new Tile(Biome.availableTiles[4]);
+                        tile.X = x;
+                        tile.Y = y;
+                    }
+                    tile.Location = Rooms[roomNumber];
+                    Tiles[y, x] = tile;
+                }
+            }
+        }
+
+        // Hallways
+        void BuildHallways(ref object[] xs, ref object[] ys)
         {
             string[] sidesused = { "", "", "", "" };
             // randomize a number of hallways to generate
@@ -88,16 +181,17 @@ namespace LinkEngine.WorldGen
                 string hallway = "", side = "";
                 HallwayPlacement(ref x, ref y, ref hallway, ref side);
 
-                if (CanBuidHallway(x, y, hallway) && CanBuildHallwayOnThisSide(side, sidesused))
+                if (!IsHallwayOffMap(x, y, hallway) && CanBuildHallwayOnThisSide(side, sidesused))
                 {
                     MakeOpening(x, y, Rooms.Count - 1, hallway);
                     GenerateHallway(3, 3, Rooms.Count - 1, x, y, hallway);
                     sidesused[i] = side;
+
+                    xs[i] = x;
+                    ys[i] = y;
                 }
             }
         }
-
-
         void HallwayPlacement(ref int x, ref int y, ref string hallway, ref string side)
         {
             x = rand.Next(2) * (Rooms[Rooms.Count - 1].Width - 1);
@@ -123,18 +217,7 @@ namespace LinkEngine.WorldGen
                     break;
             }
         }
-
-        /// <summary>
-        /// GenerateHallway is used to build structures that can connect the rooms together.
-        /// </summary>
-        /// <param name="Biome"></param>
-        /// <param name="width"></param>
-        /// <param name="length"></param>
-        /// <param name="playerX"></param>
-        /// <param name="playerY"></param>
-        /// <param name="Facing"></param>
-        /// <param name="roomNumber"></param>
-        public void GenerateHallway(int width, int length, int roomNumber, int x, int y, string hallway)
+        void GenerateHallway(int width, int length, int roomNumber, int x, int y, string hallway)
         {
             if (hallway == "vert")
             {
@@ -146,7 +229,7 @@ namespace LinkEngine.WorldGen
             else if (hallway == "horiz")
             {
                 if (x == Rooms[roomNumber].TopLeft_Bound.X)
-                    HorizontalHallwayRight(width, length, roomNumber, x, y - 1);
+                    HorizontalHallwayLeft(width, length, roomNumber, x, y - 1);
                 else if (x == Rooms[roomNumber].TopRight_Bound.X)
                     HorizontalHallwayRight(width, length, roomNumber, x, y - 1);
             }
@@ -245,84 +328,6 @@ namespace LinkEngine.WorldGen
             }
         }
 
-        void GenerateRoomTiles(int width, int length, int roomNumber)
-        {
-            Tile tile;
-            for (int y = 0; y < length; y++)
-            {
-                for (int x = 0; x < width; x++)
-                {
-                    tile = new Tile(0, null, 0, 0, 0, null);
-
-                    // Wall Corners
-                    if (x == 0 && y == 0)
-                    {
-                        tile = new Tile(Biome.availableTiles[7]);
-                        tile.X = x;
-                        tile.Y = y;
-                    }
-                    else if (x == width - 1 && y == 0)
-                    {
-                        tile = new Tile(Biome.availableTiles[8]);
-                        tile.X = x;
-                        tile.Y = y;
-                    }
-                    else if (x == width - 1 && y == length - 1)
-                    {
-                        tile = new Tile (Biome.availableTiles[6]);
-                        tile.X = x;
-                        tile.Y = y;
-                    }
-                    else if (x == 0 && y == length - 1)
-                    {
-                        tile = new Tile (Biome.availableTiles[5]);
-                        tile.X = x;
-                        tile.Y = y;
-                    }
-
-                    // Walls
-                    else if (y == 0)
-                    {
-                        // make a South Facing wall tile
-                        tile = new Tile (Biome.availableTiles[0]);
-                        tile.X = x;
-                        tile.Y = y;
-                    }
-                    else if (y == length - 1)
-                    {
-                        // make a North Facing wall tile
-                        tile = new Tile(Biome.availableTiles[1]);
-                        tile.X = x;
-                        tile.Y = y;
-                    }
-                    else if (x == 0)
-                    {
-                        // make a  West Facing wall tile
-                        tile = new Tile(Biome.availableTiles[3]);
-                        tile.X = x;
-                        tile.Y = y;
-                    }
-                    else if (x == width - 1)
-                    {
-                        // make a  East Facing wall tile
-                        tile = new Tile(Biome.availableTiles[2]);
-                        tile.X = x;
-                        tile.Y = y;
-                    }
-
-                    // Floor
-                    else
-                    {
-                        // make a floor tile
-                        tile = new Tile(Biome.availableTiles[4]);
-                        tile.X = x;
-                        tile.Y = y;
-                    }
-                    tile.Location = Rooms[roomNumber];
-                    Tiles[y,x] = tile;
-                }
-            }
-        }
         void MakeOpening (int x, int y, int roomNumber, string hallway)
         {
             // Change the a wal tile to be a floor tile
@@ -359,34 +364,33 @@ namespace LinkEngine.WorldGen
             }
         }
 
-        bool CanBuidHallway(int x, int y, string hallway)
+        bool IsHallwayOffMap(int x, int y, string hallway)
         {
             if (hallway == "vert")
             {
                 if (y == 0)
                 {
-                    return false;
+                    return true;
                 }
                 else if (y == DungeonHeight - 1)
                 {
-                    return false;
+                    return true;
                 }
             }
             else if (hallway == "horiz")
             {
                 if (x == 0)
                 {
-                    return false;
+                    return true;
                 }
                 else if (x == DungeonWidth - 1)
                 {
-                    return false;
+                    return true;
                 }
             }
 
-            return true;
+            return false;
         }
-
         bool CanBuildHallwayOnThisSide(string side, string[] sidesused)
         {
             foreach (string used in sidesused)
@@ -401,6 +405,7 @@ namespace LinkEngine.WorldGen
         }
 
 
+        // Legacy Code
         void SpawnMonster(ref bool hasMonster, int length, int width, Biome Biome, int roomNumber)
         {
             // Room can include a monster spawn
