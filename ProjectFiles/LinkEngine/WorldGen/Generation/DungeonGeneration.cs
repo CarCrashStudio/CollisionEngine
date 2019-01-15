@@ -47,12 +47,13 @@ namespace LinkEngine.WorldGen
         /// <param name="Biome"></param>
         /// <param name="playerX"></param>
         /// <param name="playerY"></param>
-        public void BuildMap(int numOfRooms, ref int playerX, ref int playerY, int minWidth, int maxWidth, int minLength, int maxLength)
+        public void BuildMap(int numOfRooms, ref int playerX, ref int playerY, int minWidth, int maxWidth, int minHeight, int maxHeight)
         {
             Rooms = new List<Location>();
 
             object[] X = new object[4];
             object[] Y = new object[4];
+            string[] hallways = new string[4];
             for (int i = 0; i < numOfRooms; i++)
             {
                 if (i > 0)
@@ -61,7 +62,8 @@ namespace LinkEngine.WorldGen
                     {
                         if (!(X[j] == null || Y[j] == null))
                         {
-                            GenerateRoom(i, rand.Next(minWidth, maxWidth), rand.Next(minLength, maxLength), (int)X[j], (int)Y[j]);
+                            GenerateRoom(i, rand.Next(minWidth, maxWidth), rand.Next(minHeight, maxHeight), (int)X[j], (int)Y[j]);
+                            //MakeOpening((int)X[j], (int)Y[j], i, hallways[j]);
                             BuildHallways(ref X, ref Y);
                             i++;
                         }
@@ -69,7 +71,7 @@ namespace LinkEngine.WorldGen
                 }
                 else
                 {
-                    GenerateRoom(i, rand.Next(minWidth, maxWidth), rand.Next(minLength, maxLength), 0, 0);
+                    GenerateRoom(i, rand.Next(minWidth, maxWidth), rand.Next(minHeight, maxHeight), 0, 0);
                     BuildHallways(ref X, ref Y);
                     break;
                 }
@@ -85,8 +87,8 @@ namespace LinkEngine.WorldGen
             
             Rooms[0].TopLeft_Bound = new Components.Vector(startx, starty, 0);
             Rooms[0].TopRight_Bound = new Components.Vector(Rooms[0].Width - 1, starty, 0);
-            Rooms[0].BottomRight_Bound = new Components.Vector(Rooms[0].Width - 1, Rooms[0].Length - 1, 0);
-            Rooms[0].BottomLeft_Bound = new Components.Vector(startx, Rooms[0].Length - 1, 0);
+            Rooms[0].BottomRight_Bound = new Components.Vector(Rooms[0].Width - 1, Rooms[0].Height - 1, 0);
+            Rooms[0].BottomLeft_Bound = new Components.Vector(startx, Rooms[0].Height - 1, 0);
 
             GenerateRoomTiles(width, length, Rooms.Count - 1, startx, starty);
         }
@@ -195,14 +197,14 @@ namespace LinkEngine.WorldGen
         void HallwayPlacement(ref int x, ref int y, ref string hallway, ref string side)
         {
             x = rand.Next(2) * (Rooms[Rooms.Count - 1].Width - 1);
-            y = rand.Next(2) * (Rooms[Rooms.Count - 1].Length - 1);
+            y = rand.Next(2) * (Rooms[Rooms.Count - 1].Height - 1);
 
             switch (rand.Next(2))
             {
                 case 0:
                     // place a horizontal hallway
                     hallway = "horiz";
-                    y = rand.Next(1, (Rooms[Rooms.Count - 1].Length - 1));
+                    y = rand.Next(1, (Rooms[Rooms.Count - 1].Height - 1));
 
                     if (x == 0) side = "left";
                     else side = "right";

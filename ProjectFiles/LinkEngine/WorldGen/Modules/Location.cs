@@ -19,7 +19,7 @@ namespace LinkEngine.WorldGen
         public string Name { get; set; }
         public string Description { get; set; }
 
-        public int Length { get; set; }
+        public int Height { get; set; }
         public int Width { get; set; }
 
         public List<Transition> Transitions { get; set; }
@@ -40,7 +40,7 @@ namespace LinkEngine.WorldGen
             Name = _name;
             Description = _desc;
             Width = width;
-            Length = length;
+            Height = length;
 
             Transitions = new List<Transition>();
         }
