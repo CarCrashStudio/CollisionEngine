@@ -7,6 +7,7 @@ namespace LinkEngine.WorldGen
     {
         public string Name { get; set; }
         public List<Location> Rooms { get; set; }
+        public List<Location> Halls { get; set; }
         public Tile[,] Tiles { get; set; }
 
         /// <summary>
@@ -49,10 +50,11 @@ namespace LinkEngine.WorldGen
         public void BuildMap(int numOfRooms, ref int playerX, ref int playerY, int minWidth, int maxWidth, int minHeight, int maxHeight)
         {
             Rooms = new List<Location>();
+            Halls = new List<Location>();
 
             object[] X = new object[4];
             object[] Y = new object[4];
-            string[] hallways = new string[4];
+            string[] sides = new string[4];
             for (int i = 0; i < numOfRooms; i++)
             {
                 if (i > 0)
@@ -63,7 +65,26 @@ namespace LinkEngine.WorldGen
                         {
                             GenerateRoom(i, rand.Next(minWidth, maxWidth), rand.Next(minHeight, maxHeight), (int)X[j], (int)Y[j]);
                             //MakeOpening((int)X[j], (int)Y[j], i, hallways[j]);
-                            BuildHallways(ref X, ref Y);
+                            int built = BuildHallways(ref X, ref Y, ref sides);
+                            for (int k = 0; k < built; k++)
+                            {
+                                switch (sides[k])
+                                {
+                                    case "top":
+                                        Rooms[Rooms.Count - 1].LocationToNorth = Halls[Halls.Count - (k + 1)];
+                                        break;
+                                    case "bot":
+                                        Rooms[Rooms.Count - 1].LocationToSouth = Halls[Halls.Count - (k + 1)];
+                                        break;
+                                    case "left":
+                                        Rooms[Rooms.Count - 1].LocationToWest = Halls[Halls.Count - (k + 1)];
+                                        break;
+                                    case "right":
+                                        Rooms[Rooms.Count - 1].LocationToEast = Halls[Halls.Count - (k + 1)];
+                                        break;
+                                }
+                            }
+
                             i++;
                         }
                     }
@@ -71,7 +92,7 @@ namespace LinkEngine.WorldGen
                 else
                 {
                     GenerateRoom(i, rand.Next(minWidth, maxWidth), rand.Next(minHeight, maxHeight), 0, 0);
-                    BuildHallways(ref X, ref Y);
+                    BuildHallways(ref X, ref Y, ref sides);
                     break;
                 }
                 
@@ -193,15 +214,17 @@ namespace LinkEngine.WorldGen
         /// </summary>
         /// <param name="xs"></param>
         /// <param name="ys"></param>
-        void BuildHallways(ref object[] xs, ref object[] ys)
+        int BuildHallways(ref object[] xs, ref object[] ys, ref string[] sidesused)
         {
-            string[] sidesused = { "", "", "", "" };
             // randomize a number of hallways to generate
             int hallways = rand.Next(4);
+            int hallwaysBuilt = 0;
             for (int i = 0; i < hallways; i++)
             {
                 int x = 0, y = 0;
                 string hallway = "", side = "";
+
+                Halls.Add(new Location(Halls.Count + i, "Hallway", "A Hallway", 3, 3));
                 HallwayPlacement(ref x, ref y, ref hallway, ref side);
 
                 if (!IsHallwayOffMap(x, y, hallway) && CanBuildHallwayOnThisSide(side, sidesused))
@@ -212,8 +235,11 @@ namespace LinkEngine.WorldGen
 
                     xs[i] = x;
                     ys[i] = y;
+
+                    hallwaysBuilt++;
                 }
             }
+            return hallwaysBuilt;
         }
         /// <summary>
         /// HallwayPlacement randomly chooses a wall and x and y coordinates along that chosen wall to generate a hallway.
@@ -234,16 +260,32 @@ namespace LinkEngine.WorldGen
                     hallway = "horiz";
                     y = rand.Next(1, (Rooms[Rooms.Count - 1].Height - 1));
 
-                    if (x == 0) side = "left";
-                    else side = "right";
+                    if (x == 0)
+                    {
+                        side = "left";
+                        Halls[Halls.Count - 1].LocationToEast = Rooms[Rooms.Count - 1];
+                    }
+                    else
+                    {
+                        side = "right";
+                        Halls[Halls.Count - 1].LocationToWest = Rooms[Rooms.Count - 1];
+                    }
                     break;
                 case 1:
                     // place a vertical hallway
                     hallway = "vert";
                     x = rand.Next(1, (Rooms[Rooms.Count - 1].Width - 1));
 
-                    if (y == 0) side = "top";
-                    else side = "bot";
+                    if (y == 0)
+                    {
+                        side = "top";
+                        Halls[Halls.Count - 1].LocationToSouth = Rooms[Rooms.Count - 1];
+                    }
+                    else
+                    {
+                        side = "bot";
+                        Halls[Halls.Count - 1].LocationToNorth = Rooms[Rooms.Count - 1];
+                    }
                     break;
             }
         }
