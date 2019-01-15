@@ -15,11 +15,15 @@ namespace LinkEngine.WorldGen
         /// <summary>
         /// All tiles that can be used in this Biome
         /// </summary>
-        public List<Tile> availableTiles { get; set; }
+        public List<Tile> AvailableTiles { get; set; }
         /// <summary>
         /// All Biomes this Biome can connect to
         /// </summary>
         public List<Biome> RelatedBiomes { get; set; }
+        /// <summary>
+        /// All Enemies this biome can contain
+        /// </summary>
+        public List<Entities.Enemy> Enemies { get; set; }
 
         /// <summary>
         /// Creates a new world biome using the given parameters
@@ -32,11 +36,11 @@ namespace LinkEngine.WorldGen
         {
             ID = id;
             Name = name;
-            availableTiles = new List<Tile>();
+            AvailableTiles = new List<Tile>();
 
             for(int i = 0; i < tileAry.Length; i++)
             {
-                availableTiles.Add(tileAry[i]);
+                AvailableTiles.Add(tileAry[i]);
             }
             if (biomeAry != null)
             {

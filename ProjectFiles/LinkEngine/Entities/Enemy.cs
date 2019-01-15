@@ -15,5 +15,10 @@ namespace LinkEngine.Entities
             Strength = str;
             Defense = def;
         }
+        public Enemy(Enemy en) : base(en.ID, en.Name, en.Health, en.MaxHealth)
+        {
+            Strength = en.Strength;
+            Defense = en.Defense;
+        }
     }
 }

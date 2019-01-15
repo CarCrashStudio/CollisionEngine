@@ -115,7 +115,7 @@ namespace LinkEngine.WorldGen
                 for (int x = 0; x < chnk.Size; x++)
                 {
                     // create a new random tile form biome list
-                    tile = new Tile(biome.availableTiles[rand.Next(biome.availableTiles.Count)]);
+                    tile = new Tile(biome.AvailableTiles[rand.Next(biome.AvailableTiles.Count)]);
 
                     // Give the tile its X and Y coordinates
                     tile.X = x;
