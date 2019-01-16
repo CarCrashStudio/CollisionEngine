@@ -66,9 +66,9 @@ namespace LinkEngine.WorldGen
                             GenerateRoom(i, rand.Next(minWidth, maxWidth), rand.Next(minHeight, maxHeight), (int)X[j], (int)Y[j]);
                             //MakeOpening((int)X[j], (int)Y[j], i, hallways[j]);
                             int built = BuildHallways(ref X, ref Y, ref sides);
-                            for (int k = 0; k < built; k++)
+                            for (int k = built - 1; k > -1; k--)
                             {
-                                switch (sides[k])
+                                switch (sides[built - k])
                                 {
                                     case "top":
                                         Rooms[Rooms.Count - 1].LocationToNorth = Halls[Halls.Count - (k + 1)];
@@ -92,7 +92,25 @@ namespace LinkEngine.WorldGen
                 else
                 {
                     GenerateRoom(i, rand.Next(minWidth, maxWidth), rand.Next(minHeight, maxHeight), 0, 0);
-                    BuildHallways(ref X, ref Y, ref sides);
+                    int built = BuildHallways(ref X, ref Y, ref sides);
+                    for (int k = built - 1; k > -1; k--)
+                    {
+                        switch (sides[built - k])
+                        {
+                            case "top":
+                                Rooms[Rooms.Count - 1].LocationToNorth = Halls[Halls.Count - (k + 1)];
+                                break;
+                            case "bot":
+                                Rooms[Rooms.Count - 1].LocationToSouth = Halls[Halls.Count - (k + 1)];
+                                break;
+                            case "left":
+                                Rooms[Rooms.Count - 1].LocationToWest = Halls[Halls.Count - (k + 1)];
+                                break;
+                            case "right":
+                                Rooms[Rooms.Count - 1].LocationToEast = Halls[Halls.Count - (k + 1)];
+                                break;
+                        }
+                    }
                     break;
                 }
             }
@@ -227,6 +245,11 @@ namespace LinkEngine.WorldGen
                 Halls.Add(new Location(Halls.Count + i, "Hallway", "A Hallway", 3, 3));
                 HallwayPlacement(ref x, ref y, ref hallway, ref side);
 
+                Halls[Halls.Count - 1].TopLeft_Bound = new Components.Vector(x, y, 0);
+                Halls[Halls.Count - 1].TopRight_Bound = new Components.Vector(Halls[Halls.Count - 1].Width - 1, y, 0);
+                Halls[Halls.Count - 1].BottomRight_Bound = new Components.Vector(Halls[Halls.Count - 1].Width - 1, Halls[Halls.Count - 1].Height - 1, 0);
+                Halls[Halls.Count - 1].BottomLeft_Bound = new Components.Vector(x, Halls[Halls.Count - 1].Height - 1, 0);
+
                 if (!IsHallwayOffMap(x, y, hallway) && CanBuildHallwayOnThisSide(side, sidesused))
                 {
                     MakeOpening(x, y, Rooms.Count - 1, hallway);
@@ -288,6 +311,7 @@ namespace LinkEngine.WorldGen
                     }
                     break;
             }
+            
         }
         /// <summary>
         /// GenerateHallway checks which direction the hallway is going and calls the appropraite direction function.
