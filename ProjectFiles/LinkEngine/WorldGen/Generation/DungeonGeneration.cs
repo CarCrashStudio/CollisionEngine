@@ -95,8 +95,8 @@ namespace LinkEngine.WorldGen
                     BuildHallways(ref X, ref Y, ref sides);
                     break;
                 }
-                
             }
+            SpawnMonster();
         }
 
         // Rooms
@@ -113,10 +113,10 @@ namespace LinkEngine.WorldGen
             // Generate a room based on the Biome and tile size
             Rooms.Add(new Location(id, "", "", width, length));
             
-            Rooms[0].TopLeft_Bound = new Components.Vector(startx, starty, 0);
-            Rooms[0].TopRight_Bound = new Components.Vector(Rooms[0].Width - 1, starty, 0);
-            Rooms[0].BottomRight_Bound = new Components.Vector(Rooms[0].Width - 1, Rooms[0].Height - 1, 0);
-            Rooms[0].BottomLeft_Bound = new Components.Vector(startx, Rooms[0].Height - 1, 0);
+            Rooms[Rooms.Count - 1].TopLeft_Bound = new Components.Vector(startx, starty, 0);
+            Rooms[Rooms.Count - 1].TopRight_Bound = new Components.Vector(Rooms[0].Width - 1, starty, 0);
+            Rooms[Rooms.Count - 1].BottomRight_Bound = new Components.Vector(Rooms[0].Width - 1, Rooms[0].Height - 1, 0);
+            Rooms[Rooms.Count - 1].BottomLeft_Bound = new Components.Vector(startx, Rooms[0].Height - 1, 0);
 
             GenerateRoomTiles(width, length, Rooms.Count - 1, startx, starty);
         }

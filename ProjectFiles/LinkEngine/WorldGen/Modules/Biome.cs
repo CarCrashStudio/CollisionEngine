@@ -37,6 +37,7 @@ namespace LinkEngine.WorldGen
             ID = id;
             Name = name;
             AvailableTiles = new List<Tile>();
+            Enemies = new List<Entities.Enemy>();
 
             for(int i = 0; i < tileAry.Length; i++)
             {
