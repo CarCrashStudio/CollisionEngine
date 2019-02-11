@@ -113,5 +113,10 @@ namespace LinkEngine.Adventure
                 }
             }
         }
+
+        public void PlayerPartyMemberAttack (Enemy Defender, PartyMember Attacker)
+        {
+            PlayerAttack(Defender, Attacker.Details);
+        }
     }
 }

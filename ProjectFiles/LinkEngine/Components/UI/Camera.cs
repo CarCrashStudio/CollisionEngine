@@ -14,7 +14,7 @@ namespace LinkEngine.Components
 
         // public HUD UI { get; set; }
 
-        public Rendering.Screen Screen { get; set; }
+        //public Rendering.Screen Screen { get; set; }
 
         public Camera ()
         {

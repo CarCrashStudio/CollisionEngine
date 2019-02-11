@@ -70,8 +70,6 @@
     <Compile Include="Components\Physics\Size.cs" />
     <Compile Include="Components\PlayerController.cs" />
     <Compile Include="GameObject.cs" />
-    <Compile Include="Rendering\Phone.cs" />
-    <Compile Include="Rendering\Screen.cs" />
     <Compile Include="Components\Physics\Collider2D.cs" />
     <Compile Include="Components\Physics\Transform.cs" />
     <Compile Include="Components\Physics\Vector.cs" />
