@@ -40,7 +40,6 @@ namespace LinkEngine.Entities
         /// <param name="maxHealth"></param>
         public Player(int id, string name, int health, int maxHealth) : base (id, name, health, maxHealth)
         {
-            Components.Add(new PlayerController(this));
         }
 
         /// <summary>

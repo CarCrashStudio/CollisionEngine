@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 
 namespace LinkEngine.WorldGen
 {
@@ -131,10 +132,10 @@ namespace LinkEngine.WorldGen
             // Generate a room based on the Biome and tile size
             Rooms.Add(new Location(id, "", "", width, length));
             
-            Rooms[Rooms.Count - 1].TopLeft_Bound = new Components.Vector(startx, starty, 0);
-            Rooms[Rooms.Count - 1].TopRight_Bound = new Components.Vector(Rooms[0].Width - 1, starty, 0);
-            Rooms[Rooms.Count - 1].BottomRight_Bound = new Components.Vector(Rooms[0].Width - 1, Rooms[0].Height - 1, 0);
-            Rooms[Rooms.Count - 1].BottomLeft_Bound = new Components.Vector(startx, Rooms[0].Height - 1, 0);
+            Rooms[Rooms.Count - 1].TopLeft_Bound = new Point(startx, starty);
+            Rooms[Rooms.Count - 1].TopRight_Bound = new Point(Rooms[0].Width - 1, starty);
+            Rooms[Rooms.Count - 1].BottomRight_Bound = new Point(Rooms[0].Width - 1, Rooms[0].Height - 1);
+            Rooms[Rooms.Count - 1].BottomLeft_Bound = new Point(startx, Rooms[0].Height - 1);
 
             GenerateRoomTiles(width, length, Rooms.Count - 1, startx, starty);
         }
@@ -245,10 +246,10 @@ namespace LinkEngine.WorldGen
                 Halls.Add(new Location(Halls.Count + i, "Hallway", "A Hallway", 3, 3));
                 HallwayPlacement(ref x, ref y, ref hallway, ref side);
 
-                Halls[Halls.Count - 1].TopLeft_Bound = new Components.Vector(x, y, 0);
-                Halls[Halls.Count - 1].TopRight_Bound = new Components.Vector(Halls[Halls.Count - 1].Width - 1, y, 0);
-                Halls[Halls.Count - 1].BottomRight_Bound = new Components.Vector(Halls[Halls.Count - 1].Width - 1, Halls[Halls.Count - 1].Height - 1, 0);
-                Halls[Halls.Count - 1].BottomLeft_Bound = new Components.Vector(x, Halls[Halls.Count - 1].Height - 1, 0);
+                Halls[Halls.Count - 1].TopLeft_Bound = new Point(x, y);
+                Halls[Halls.Count - 1].TopRight_Bound = new Point(Halls[Halls.Count - 1].Width - 1, y);
+                Halls[Halls.Count - 1].BottomRight_Bound = new Point(Halls[Halls.Count - 1].Width - 1, Halls[Halls.Count - 1].Height - 1);
+                Halls[Halls.Count - 1].BottomLeft_Bound = new Point(x, Halls[Halls.Count - 1].Height - 1);
 
                 if (!IsHallwayOffMap(x, y, hallway) && CanBuildHallwayOnThisSide(side, sidesused))
                 {

@@ -57,28 +57,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Components\Animation\Animator2D.cs" />
-    <Compile Include="Components\Component.cs" />
-    <Compile Include="Components\Items\Consumable.cs" />
-    <Compile Include="Components\Items\CraftingItem.cs" />
-    <Compile Include="Components\Items\InventoryItem.cs" />
-    <Compile Include="Components\Items\Item.cs" />
-    <Compile Include="Components\Items\LootItem.cs" />
-    <Compile Include="Components\Physics\Physics.cs" />
-    <Compile Include="Components\Physics\Projectile.cs" />
-    <Compile Include="Components\Physics\Raycast.cs" />
-    <Compile Include="Components\Physics\Size.cs" />
-    <Compile Include="Components\PlayerController.cs" />
-    <Compile Include="GameObject.cs" />
-    <Compile Include="Components\Physics\Collider2D.cs" />
-    <Compile Include="Components\Physics\Transform.cs" />
-    <Compile Include="Components\Physics\Vector.cs" />
-    <Compile Include="Components\UI\Camera.cs" />
+    <Compile Include="Items\Consumable.cs" />
+    <Compile Include="Items\CraftingItem.cs" />
+    <Compile Include="Items\InventoryItem.cs" />
+    <Compile Include="Items\Item.cs" />
+    <Compile Include="Items\LootItem.cs" />
     <Compile Include="Entities\Enemy.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Components\UI\HUDObject.cs" />
     <Compile Include="WorldGen\Modules\Biome.cs" />
     <Compile Include="WorldGen\Modules\Location.cs" />
     <Compile Include="WorldGen\Modules\Chunk.cs" />

@@ -18,8 +18,6 @@ namespace LinkEngine.Adventure
         /// <param name="y">Starting Y coordinate, most likely defaults to 0</param>
         public NPC(int _id, string _name, int x, int y, Shop _shopavailablehere) : base(_id, _name, 1, 1)
         {
-            ((Collider2D)Components[0]).Transform.Position.X = x;
-            ((Collider2D)Components[0]).Transform.Position.Y = y;
             Shop = _shopavailablehere;
         }
         /// <summary>
@@ -28,8 +26,6 @@ namespace LinkEngine.Adventure
         /// <param name="npc">The npc to copy</param>
         public NPC(NPC npc) : base (npc.ID, npc.Name, 1,1)
         {
-            ((Collider2D)Components[0]).Transform.Position.X = ((Collider2D)npc.Components[0]).Transform.Position.X;
-            ((Collider2D)Components[0]).Transform.Position.Y = ((Collider2D)npc.Components[0]).Transform.Position.Y;
             Shop = npc.Shop;
         }
     }
