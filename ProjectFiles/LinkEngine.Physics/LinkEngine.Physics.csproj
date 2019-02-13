@@ -43,7 +43,6 @@
   <ItemGroup>
     <Compile Include="Collider2D.cs" />
     <Compile Include="Projectile.cs" />
-    <Compile Include="Raycast.cs" />
     <Compile Include="Size.cs" />
     <Compile Include="Transform.cs" />
     <Compile Include="Vector.cs" />

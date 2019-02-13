@@ -12,7 +12,7 @@
         }
 
         /// <summary>
-        /// Change the transforms X and Y coordinates
+        /// Change the transforms X, Y, and Z coordinates
         /// </summary>
         /// <param name="x">The value to change the X coordinate</param>
         /// <param name="y">The Value to change the Y coordinate</param>

@@ -19,38 +19,29 @@ namespace LinkEngine.Components
             Z = z;
         }
 
-        /// <summary>
-        /// Subtracts a target variable from this variable
-        /// </summary>
-        /// <param name="vectorToSubtract"></param>
-        /// <returns>Returns a new subtracted vector2D</returns>
-        public Vector Subtract(Vector vectorToSubtract)
+        #region Vector Operators
+        public static Vector operator -(Vector A, Vector B)
         {
 
-            if (Y != 0)
+            if (A.Y != 0)
             {
-                Y -= vectorToSubtract.Y;
+                A.Y -= B.Y;
             }
-            if (X != 0)
+            if (A.X != 0)
             {
-                X -= vectorToSubtract.X;
+                A.X -= B.X;
             }
-            return new Vector (X, Y, Z);
-        }
 
-        /// <summary>
-        /// Adds a target vector to this vector
-        /// </summary>
-        /// <param name="vectorToAdd"></param>
-        /// <returns>Returns a new added vector2D</returns>
-        public Vector Add(Vector vectorToAdd)
-        {
-            return new Vector (this.X + vectorToAdd.X, this.Y + vectorToAdd.Y, 0);
+            return new Vector (A.X, A.Y, A.Z);
         }
-
-        public Vector Mulitply (Vector vectorToMultiply)
+        public static Vector operator +(Vector A, Vector B)
         {
-            return new Vector(this.X * vectorToMultiply.X, this.Y * vectorToMultiply.Y, this.Z * vectorToMultiply.Z);
+            return new Vector (A.X + B.X, A.Y + B.Y, 0);
         }
+        public static Vector operator *(Vector A, Vector B)
+        {
+            return new Vector(A.X * B.X, A.Y * B.Y, A.Z * B.Z);
+        }
+        #endregion
     }
 }
