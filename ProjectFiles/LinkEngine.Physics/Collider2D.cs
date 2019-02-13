@@ -67,18 +67,30 @@ namespace LinkEngine.Components
             }
             return false;
         }
+        public Collider2D GetColliding(Collider2D[] allColliders)
+        {
+            foreach (Collider2D collider in allColliders)
+            {
+                if ((collider.Transform.Position.X > Transform.Position.X - (Transform.Size.Width / 2) && collider.Transform.Position.X + Transform.Size.Width < Transform.Position.X + (Transform.Size.Width / 2)) && (collider.Transform.Position.Y > Transform.Position.Y - (Transform.Size.Height / 2) && collider.Transform.Position.Y + Transform.Size.Height > Transform.Position.Y + (Transform.Size.Height / 2)))
+                {
+                    return collider;
+                }
+            }
+            return null;
+        }
 
         /// <summary>
         /// Push will exert a force on a collider2D object. This force will cause a change in the X or Y coordinates depending on which direction the force comes from.
-        /// <paramref name="force">
+        /// Without a Collider2D to  touch, Push will assume this collider is in the air and check for gravity.
+        /// <param name="force">
         /// force is the amount of force to use on the object
         /// </paramref>
-        /// <paramref name="x">
+        /// <param name="x">
         /// x is the postive(1), negative(-1), or null(0) direction to push the object
-        /// </paramref>
-        /// <paramref name="y">
+        /// </param>
+        /// <param name="y">
         /// y is the postive(1), negative(-1), or null(0) direction to pull the object
-        /// </paramref>
+        /// </param>
         /// </summary>
         public void Push(int force, int x, int y)
         {
@@ -89,16 +101,27 @@ namespace LinkEngine.Components
 
         }
         /// <summary>
+        /// Push will exert a force on a collider2D object. This force will cause a change in the X or Y coordinates depending on which direction the force comes from.
+        /// </summary>
+        /// <param name="force"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="touching"></param>
+        public void Push(int force, int x, int y, Collider2D touching)
+        {
+
+        }
+        /// <summary>
         /// Pull will exert a force on a collider2D object. This force will cause a change in the X or Y coordinates depending on which direction the force comes from.
-        /// <paramref name="force">
+        /// <param name="force">
         /// force is the amount of force to use on the object
-        /// </paramref>
-        /// <paramref name="x">
+        /// </param>
+        /// <param name="x">
         /// x is the postive(1), negative(-1), or null(0) direction to pull the object
-        /// </paramref>
-        /// <paramref name="y">
+        /// </param>
+        /// <param name="y">
         /// y is the postive(1), negative(-1), or null(0) direction to pull the object
-        /// </paramref>
+        /// </param>
         /// </summary>
         public void Pull(int force, int x, int y)
         {

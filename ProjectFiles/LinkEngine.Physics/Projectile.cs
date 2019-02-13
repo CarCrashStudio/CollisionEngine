@@ -23,19 +23,27 @@ namespace LinkEngine.Components
 
         }
 
-        public bool Fire (Vector ray, Collider2D[] allColliders)
+        /// <summary>
+        /// Fire() will cast a ray until the projectile hits a collider2D object. 
+        /// </summary>
+        /// <param name="ray">a vector telling the raycast which direction to go. Ex (1, -1, 0) will move the ray right and up</param>
+        /// <param name="allColliders"></param>
+        /// <returns></returns>
+        public Collider2D Fire (Vector ray, Collider2D[] allColliders)
         {
             return Raycast(ray, allColliders);
         }
-        bool Raycast(Vector ray, Collider2D[] allColliders)
+        Collider2D Raycast(Vector ray, Collider2D[] allColliders)
         {
             Vector pos = Transform.Position;
             while (!isColliding(allColliders))
             {
                 pos += ray;
+                // pull the projectile down towards the ground
+                Pull(2, 0, -1);
             }
 
-            return isColliding(allColliders);
+            return GetColliding(allColliders);
         }
     }
 }
