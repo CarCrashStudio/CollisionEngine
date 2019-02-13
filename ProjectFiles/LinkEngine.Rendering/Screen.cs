@@ -11,7 +11,7 @@ namespace LinkEngine.Rendering
         public int Width, Height;
         public int pWidth, pHeight;
 
-        PictureBox[,] Tiles;
+        Bitmap[,] Tiles;
         /// <summary>
         /// 
         /// </summary>
@@ -46,8 +46,7 @@ namespace LinkEngine.Rendering
             GameForm.Controls.Add(MapPane);
 
             // Initialize a new array
-            Tiles = new PictureBox[Height, Width];
-            calibrate_location_and_size();
+            Tiles = new Bitmap[Height, Width];
         }
 
         /// <summary>
@@ -59,28 +58,10 @@ namespace LinkEngine.Rendering
         public void Draw (int x, int y, Bitmap bitmap)
         {
             // set the image of the tile to the given bitmap
-            Tiles[y, x].Image = bitmap;
+            Tiles[y, x] = bitmap;
             redraw();
         }
 
-        void calibrate_location_and_size()
-        {
-            for (int y = 0; y < Height; y++)
-                for (int x = 0; x < Width; x++)
-                {
-                    Tiles[y, x] = new PictureBox();
-                    // set the location of the current tile
-                    Tiles[y, x].Location = new Point(x * pWidth, y * pHeight);
-                    // set the size of the current tile
-                    Tiles[y, x].Size = new Size(pWidth, pHeight);
-
-
-                    //Tiles[y, x].SizeMode = PictureBoxSizeMode.StretchImage;
-
-                    // add the tile to the GameForm controls
-                    MapPane.Controls.Add(Tiles[y, x]);
-                }
-        }
         void redraw ()
         {
             //int i = 0;
