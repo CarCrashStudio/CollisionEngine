@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LinkEngine.Components
+﻿namespace LinkEngine.Components
 {
     /// <summary>
     /// As a delegate of the Collider2D class Projectile2D can have forces exerted upon it

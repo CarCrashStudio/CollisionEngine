@@ -94,11 +94,16 @@ namespace LinkEngine.Components
         /// </summary>
         public void Push(int force, int x, int y)
         {
-            // this object is not moving against another object therefore
-            // we won't worry about whether it has surface friction or not.
+            if(force != 0)
+            {
+                // this object is not moving against another object therefore
+                // we won't worry about whether it has surface friction or not.
 
-            // we will set a new position for x and y based on the force * mass * x or y
-
+                // we will set a new position for x and y based on the force * mass * x or y
+                Transform.Position += new Vector(x * force, y * force, 0);
+                Thread.Sleep(100);
+                Push(force - 1, x, y);
+            }
         }
         /// <summary>
         /// Push will exert a force on a collider2D object. This force will cause a change in the X or Y coordinates depending on which direction the force comes from.
@@ -109,7 +114,23 @@ namespace LinkEngine.Components
         /// <param name="touching"></param>
         public void Push(int force, int x, int y, Collider2D touching)
         {
+            int forceCoefficient = 0;
+            if (force != 0)
+            {
+                if (touching.IsSlippery)
+                {
+                    forceCoefficient += 1;
+                }
+                if (this.IsSlippery)
+                {
+                    forceCoefficient += 1;
+                }
 
+                // we will set a new position for x and y based on the force * mass * x or y
+                Transform.Position += new Vector(x * force, y * force, 0);
+                Thread.Sleep(100);
+                Push(force - 1, x, y);
+            }
         }
         /// <summary>
         /// Pull will exert a force on a collider2D object. This force will cause a change in the X or Y coordinates depending on which direction the force comes from.
