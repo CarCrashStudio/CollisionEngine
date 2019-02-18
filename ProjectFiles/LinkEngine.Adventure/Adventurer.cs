@@ -10,6 +10,7 @@ namespace LinkEngine.Adventure
     public class Adventurer : Player
     {
         short equip_size = 6;
+        Class player_class;
 
         /// <summary>
         /// EQUIP_SIZE is the max equipment the player can equip.
@@ -37,7 +38,7 @@ namespace LinkEngine.Adventure
 
         public int Mana { get; set; }
         public int MaxMana { get; set; }
-        public Class Class { get; set; }
+        public Class Class { get { return player_class; } }
         public List<Entity> Party { get; set; }
         public List<Entity> PartyDead { get; set; }
 
@@ -105,7 +106,7 @@ namespace LinkEngine.Adventure
         public Adventurer(int _id, string _name, Class _clss, int _level, int _exp, int _maxExp, int _gold, string slug) :
             base(_id, _name, _clss.HP, _clss.HP)
         {
-            Class = _clss;
+            player_class = _clss;
 
             Health = Class.HP;
             MaxHealth = Class.HP;
