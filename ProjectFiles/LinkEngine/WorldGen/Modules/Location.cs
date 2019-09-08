@@ -27,10 +27,10 @@ namespace LinkEngine
         public Location LocationToSouth { get; set; }
         public Location LocationToWest { get; set; }
 
-        public Vector TopLeft_Bound { get; set; }
-        public Vector TopRight_Bound { get; set; }
-        public Vector BottomLeft_Bound { get; set; }
-        public Vector BottomRight_Bound { get; set; }
+        public Point TopLeft_Bound { get; set; }
+        public Point TopRight_Bound { get; set; }
+        public Point BottomLeft_Bound { get; set; }
+        public Point BottomRight_Bound { get; set; }
 
         public Location(int _id, string _name, string _desc, int width, int length)
         {

@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 
-namespace LinkEngine
+namespace LinkEngine.WorldGen
 {
     public class DungeonGeneration
     {
@@ -42,10 +43,6 @@ namespace LinkEngine
         /// --- Bottom Right Corner [6]
         /// --- Top Left Corner [7]
         /// --- Top Right Corner [8]
-        /// --- Hallway EastNorth Corner [9]
-        /// --- Hallway WestNorth Corner [10]
-        /// --- Hallway EastSouth Corner [11]
-        /// --- Hallway WestSouth Corner [12]
         /// </summary>
         /// <param name="numOfRooms"></param>
         /// <param name="Biome"></param>
@@ -59,51 +56,65 @@ namespace LinkEngine
             object[] X = new object[4];
             object[] Y = new object[4];
             string[] sides = new string[4];
-
-            X[0] = 0;
-            Y[0] = 0;
-
-            for (int i = 0; i < numOfRooms + 1; i++)
+            for (int i = 0; i < numOfRooms; i++)
             {
-                for (int j = 0; j < X.Length; j++)
+                if (i > 0)
                 {
-                    if (!(X[j] == null || Y[j] == null))
+                    for (int j = 0; j < X.Length; j++)
                     {
-                        GenerateRoom(i, rand.Next(minWidth, maxWidth), rand.Next(minHeight, maxHeight), (int)X[j], (int)Y[j]);
-                        //MakeOpening((int)X[j], (int)Y[j], i, hallways[j]);
-                        //i++;
+                        if (!(X[j] == null || Y[j] == null))
+                        {
+                            GenerateRoom(i, rand.Next(minWidth, maxWidth), rand.Next(minHeight, maxHeight), (int)X[j], (int)Y[j]);
+                            //MakeOpening((int)X[j], (int)Y[j], i, hallways[j]);
+                            int built = BuildHallways(ref X, ref Y, ref sides);
+                            for (int k = built - 1; k > -1; k--)
+                            {
+                                switch (sides[built - k])
+                                {
+                                    case "top":
+                                        Rooms[Rooms.Count - 1].LocationToNorth = Halls[Halls.Count - (k + 1)];
+                                        break;
+                                    case "bot":
+                                        Rooms[Rooms.Count - 1].LocationToSouth = Halls[Halls.Count - (k + 1)];
+                                        break;
+                                    case "left":
+                                        Rooms[Rooms.Count - 1].LocationToWest = Halls[Halls.Count - (k + 1)];
+                                        break;
+                                    case "right":
+                                        Rooms[Rooms.Count - 1].LocationToEast = Halls[Halls.Count - (k + 1)];
+                                        break;
+                                }
+                            }
 
-                        //int built = 0;
-
-                        //while (built == 0 && i < numOfRooms + 1)
-                        //    built = BuildHallways(ref X, ref Y, ref sides);
-
-                        //while (built >= numOfRooms)
-                        //    built--;
-
-
-                        //for (int k = built - 1; k > -1; k--)
-                        //{
-                        //    switch (sides[k])
-                        //    {
-                        //        case "top":
-                        //            Rooms[Rooms.Count - 1].LocationToNorth = Halls[(Halls.Count - 1) - k];
-                        //            break;
-                        //        case "bot":
-                        //            Rooms[Rooms.Count - 1].LocationToSouth = Halls[(Halls.Count - 1 ) - k];
-                        //            break;
-                        //        case "left":
-                        //            Rooms[Rooms.Count - 1].LocationToWest = Halls[(Halls.Count - 1) - k];
-                        //            break;
-                        //        case "right":
-                        //            Rooms[Rooms.Count - 1].LocationToEast = Halls[(Halls.Count - 1) - k];
-                        //            break;
-                        //    }
-                        //}
+                            i++;
+                        }
                     }
                 }
+                else
+                {
+                    GenerateRoom(i, rand.Next(minWidth, maxWidth), rand.Next(minHeight, maxHeight), 0, 0);
+                    int built = BuildHallways(ref X, ref Y, ref sides);
+                    for (int k = built - 1; k > -1; k--)
+                    {
+                        switch (sides[built - k])
+                        {
+                            case "top":
+                                Rooms[Rooms.Count - 1].LocationToNorth = Halls[Halls.Count - (k + 1)];
+                                break;
+                            case "bot":
+                                Rooms[Rooms.Count - 1].LocationToSouth = Halls[Halls.Count - (k + 1)];
+                                break;
+                            case "left":
+                                Rooms[Rooms.Count - 1].LocationToWest = Halls[Halls.Count - (k + 1)];
+                                break;
+                            case "right":
+                                Rooms[Rooms.Count - 1].LocationToEast = Halls[Halls.Count - (k + 1)];
+                                break;
+                        }
+                    }
+                    break;
+                }
             }
-            
             SpawnMonster();
         }
 
@@ -121,10 +132,10 @@ namespace LinkEngine
             // Generate a room based on the Biome and tile size
             Rooms.Add(new Location(id, "", "", width, length));
             
-            Rooms[Rooms.Count - 1].TopLeft_Bound = new Vector(startx, starty, 0);
-            Rooms[Rooms.Count - 1].TopRight_Bound = new Vector(Rooms[Rooms.Count - 1].Width - 1, starty, 0);
-            Rooms[Rooms.Count - 1].BottomRight_Bound = new Vector(Rooms[Rooms.Count - 1].Width - 1, Rooms[Rooms.Count - 1].Height - 1, 0);
-            Rooms[Rooms.Count - 1].BottomLeft_Bound = new Vector(startx, Rooms[Rooms.Count - 1].Height - 1, 0);
+            Rooms[Rooms.Count - 1].TopLeft_Bound = new Point(startx, starty);
+            Rooms[Rooms.Count - 1].TopRight_Bound = new Point(Rooms[0].Width - 1, starty);
+            Rooms[Rooms.Count - 1].BottomRight_Bound = new Point(Rooms[0].Width - 1, Rooms[0].Height - 1);
+            Rooms[Rooms.Count - 1].BottomLeft_Bound = new Point(startx, Rooms[0].Height - 1);
 
             GenerateRoomTiles(width, length, Rooms.Count - 1, startx, starty);
         }
@@ -209,7 +220,6 @@ namespace LinkEngine
                         tile.X = x;
                         tile.Y = y;
                     }
-
                     tile.Location = Rooms[roomNumber];
                     Tiles[y, x] = tile;
                 }
@@ -236,10 +246,10 @@ namespace LinkEngine
                 Halls.Add(new Location(Halls.Count + i, "Hallway", "A Hallway", 3, 3));
                 HallwayPlacement(ref x, ref y, ref hallway, ref side);
 
-                Halls[Halls.Count - 1].TopLeft_Bound = new Vector(x, y, 0);
-                Halls[Halls.Count - 1].TopRight_Bound = new Vector(Halls[Halls.Count - 1].Width - 1, y, 0);
-                Halls[Halls.Count - 1].BottomRight_Bound = new Vector(Halls[Halls.Count - 1].Width - 1, Halls[Halls.Count - 1].Height - 1, 0);
-                Halls[Halls.Count - 1].BottomLeft_Bound = new Vector(x, Halls[Halls.Count - 1].Height - 1, 0);
+                Halls[Halls.Count - 1].TopLeft_Bound = new Point(x, y);
+                Halls[Halls.Count - 1].TopRight_Bound = new Point(Halls[Halls.Count - 1].Width - 1, y);
+                Halls[Halls.Count - 1].BottomRight_Bound = new Point(Halls[Halls.Count - 1].Width - 1, Halls[Halls.Count - 1].Height - 1);
+                Halls[Halls.Count - 1].BottomLeft_Bound = new Point(x, Halls[Halls.Count - 1].Height - 1);
 
                 if (!IsHallwayOffMap(x, y, hallway) && CanBuildHallwayOnThisSide(side, sidesused))
                 {
@@ -467,96 +477,25 @@ namespace LinkEngine
                 case "vert":
                     if (y == Rooms[roomNumber].TopLeft_Bound.Y)
                     {
-                        if (x - 1 == 0)
-                        {
-                            // EastFacing Wall
-                            Tiles[y, x - 1] = new Tile(Biome.AvailableTiles[2], x - 1, y);
-                        }
-                        else
-                        {
-                            // WestNorth
-                            Tiles[y, x - 1] = new Tile(Biome.AvailableTiles[10], x - 1, y);
-                        }
-                        if (x + 1 == Rooms[roomNumber].Width - 1)
-                        {
-                            // WestFacing Wall
-                            Tiles[y, x - 1] = new Tile(Biome.AvailableTiles[3], x - 1, y);
-                        }
-                        else
-                        {
-                            // EastNorth
-                            Tiles[y, x + 1] = new Tile(Biome.AvailableTiles[9], x + 1, y);
-                        }
+                        Tiles[y, x - 1] = new Tile(Biome.AvailableTiles[6], x - 1, y); // left corner
+                        Tiles[y, x + 1] = new Tile(Biome.AvailableTiles[5], x + 1,y); // right corner
                     }
                     else if (y == Rooms[roomNumber].BottomLeft_Bound.Y)
                     {
-                        if (x - 1 == 0)
-                        {
-                            // EastFacing Wall
-                            Tiles[y, x - 1] = new Tile(Biome.AvailableTiles[3], x - 1, y);
-                        }
-                        else
-                        {
-                            // WestSouth
-                            Tiles[y, x - 1] = new Tile(Biome.AvailableTiles[12], x - 1, y);
-                        }
-                        if (x + 1 == Rooms[roomNumber].Width - 1)
-                        {
-                            // WestFacing Wall
-                            Tiles[y, x - 1] = new Tile(Biome.AvailableTiles[2], x - 1, y);
-                        }
-                        else
-                        {
-                            // EastSouth
-                            Tiles[y, x + 1] = new Tile(Biome.AvailableTiles[11], x + 1, y);
-                        }
+                        Tiles[y, x - 1] = new Tile(Biome.AvailableTiles[8], x - 1, y); // left corner
+                        Tiles[y, x + 1] = new Tile(Biome.AvailableTiles[7], x + 1, y); // right corner
                     }
                     break;
                 case "horiz":
                     if (x == Rooms[roomNumber].TopLeft_Bound.X)
                     {
-                        if (y - 1 == 0)
-                        {
-                            Tiles[y - 1, x] = new Tile(Biome.AvailableTiles[0], x, y - 1);
-                        }
-                        else
-                        {
-                            // WestNorth
-                            Tiles[y - 1, x] = new Tile(Biome.AvailableTiles[10], x, y - 1);
-                        }
-                        
-                        if (y + 1 == Rooms[roomNumber].Height - 1)
-                        {
-                            Tiles[y + 1, x] = new Tile(Biome.AvailableTiles[1], x, y + 1);
-                        }
-                        else
-                        {
-                            // WestSouth
-                            Tiles[y + 1, x] = new Tile(Biome.AvailableTiles[12], x, y + 1);
-                        }
-                        
+                        Tiles[y - 1, x] = new Tile(Biome.AvailableTiles[6], x, y - 1); // left corner
+                        Tiles[y + 1, x] = new Tile(Biome.AvailableTiles[8], x, y + 1); // right corner
                     }
                     else if (x == Rooms[roomNumber].TopRight_Bound.X)
                     {
-                        if (y - 1 == 0)
-                        {
-                            Tiles[y - 1, x] = new Tile(Biome.AvailableTiles[0], x, y - 1);
-                        }
-                        else
-                        {
-                            // WestNorth
-                            Tiles[y - 1, x] = new Tile(Biome.AvailableTiles[9], x, y - 1);
-                        }
-
-                        if (y + 1 == Rooms[roomNumber].Height - 1)
-                        {
-                            Tiles[y + 1, x] = new Tile(Biome.AvailableTiles[1], x, y + 1);
-                        }
-                        else
-                        {
-                            // WestSouth
-                            Tiles[y + 1, x] = new Tile(Biome.AvailableTiles[11], x, y + 1);
-                        }
+                        Tiles[y - 1, x] = new Tile(Biome.AvailableTiles[5], x, y - 1); // left corner
+                        Tiles[y + 1, x] = new Tile(Biome.AvailableTiles[7], x, y + 1); // right corner
                     }
                     
                     break;
@@ -610,8 +549,7 @@ namespace LinkEngine
         {
             for (int i = 0; i < Rooms.Count; i++)
             {
-                if (Biome.Enemies.Count > 0)
-                Rooms[i].MonsterLivingHere = new Enemy(Biome.Enemies[rand.Next(Biome.Enemies.Count)]);
+                Rooms[i].MonsterLivingHere = new Entities.Enemy(Biome.Enemies[rand.Next(Biome.Enemies.Count)]);
             }
         }
     }

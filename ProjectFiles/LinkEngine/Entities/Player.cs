@@ -41,42 +41,23 @@ namespace LinkEngine
             
         }
 
-        /// <summary>
-        /// ShiftMap moves the map in any direction
-        /// Used when keeping the player center screen
-        /// </summary>
-        /// <param name="x">the amount to shift the map on the X axis</param>
-        /// <param name="y">the amount to shift the map on the Y axis</param>
-        public void ShiftMap(int x, int y)
-        {
-            // MapLoc = new Point(MapLoc.X + x, MapLoc.Y + y);
-        }
-
-        /// <summary>
-        /// CalibrateMap will adjust the map location so that the player can be centered on the screen
-        /// </summary>
-        /// <param name="centerX"></param>
-        /// <param name="centerY"></param>
-        void CalibrateMap(int centerX, int centerY)
-        {
-            //MapLoc = new Point(
-            //        // X Coordinate
-            //        centerX - camera.X,
-
-            //        // Y Coordinate
-            //        centerY - camera.Y
-            //    );
-        }
-
         public void giveExperience(int exp)
         {
             Exp += exp;
         }
+
+        /// <summary>
+        /// LevelUp() will check for the player's current Exp and if it is higher than the MaxExp it will increase Level by 1. This function will then increase the MaxExp by a random amount.
+        /// </summary>
         public void LevelUp()
         {
+            // check if the exp is high enough to level up
             if (Exp >= MaxExp)
             {
+                // increase the level
                 Level++;
+
+                // increase the maximum amount of exp needed to level up.
                 MaxExp += rand.Next(100, MaxExp);
             }
         }

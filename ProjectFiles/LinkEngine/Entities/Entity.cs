@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using LinkEngine.Components;
+using System.Collections.Generic;
 
-namespace LinkEngine
+namespace LinkEngine.Entities
 {
-    public class Entity : GameObject
+    public class Entity
     {
         public int ID { get; set; }
+        public string Name { get; set; }
         public string Facing { get; set; }
         public int Health { get; set; }
         public int MaxHealth { get; set; }
@@ -13,13 +15,6 @@ namespace LinkEngine
         {
             ID = id;
             Name = name;
-            health = Health;
-            MaxHealth = maxHealth;
-        }
-        public Entity(int id, string name, int health, int maxHealth, int w, int h) : 
-            base (name, new Transform(0, 0, 0, w, h))
-        {
-            ID = id;
             health = Health;
             MaxHealth = maxHealth;
         }
