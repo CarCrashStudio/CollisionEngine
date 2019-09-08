@@ -1,7 +1,6 @@
-﻿using LinkEngine.Components;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace LinkEngine.Entities
+namespace LinkEngine
 {
     public class Entity : GameObject
     {
@@ -16,8 +15,13 @@ namespace LinkEngine.Entities
             Name = name;
             health = Health;
             MaxHealth = maxHealth;
-            Components = new List<Component>();
-            Components.Add(new Collider2D(0, 0, 0, 0, 0));
+        }
+        public Entity(int id, string name, int health, int maxHealth, int w, int h) : 
+            base (name, new Transform(0, 0, 0, w, h))
+        {
+            ID = id;
+            health = Health;
+            MaxHealth = maxHealth;
         }
 
         /// <summary>

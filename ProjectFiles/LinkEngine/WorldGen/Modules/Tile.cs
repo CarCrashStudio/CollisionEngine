@@ -1,4 +1,4 @@
-﻿namespace LinkEngine.WorldGen
+﻿namespace LinkEngine
 {
     /// <summary>
     /// Tile represents a square world object

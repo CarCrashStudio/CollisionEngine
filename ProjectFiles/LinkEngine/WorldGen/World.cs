@@ -1,9 +1,9 @@
-﻿using LinkEngine.Entities;
+﻿
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 
-namespace LinkEngine.WorldGen
+namespace LinkEngine
 {
     public class World
     {
@@ -113,7 +113,7 @@ namespace LinkEngine.WorldGen
                 int Enemy3 = int.Parse(reader.ReadLine());
 
                 Tile[] tileAry = new Tile[] { TileBy(tile1), TileBy(tile2), TileBy(tile3), TileBy(tile4), TileBy(tile5), TileBy(tile6), TileBy(tile7), TileBy(tile8), TileBy(tile9) };
-                Biome[] biomeAry = new WorldGen.Biome[] { };
+                Biome[] biomeAry = new Biome[] { };
 
                 Biomes.Add(new Biome(id, name, tileAry, biomeAry));
 

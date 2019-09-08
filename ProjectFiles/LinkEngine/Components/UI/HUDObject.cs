@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 
-namespace LinkEngine.Components
+namespace LinkEngine
 {
     public class HUDObject
     {

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace LinkEngine.Components
+namespace LinkEngine
 {
-    public class Item : GameObject
+    public class Item :GameObject
     {
         string namePlural;
 

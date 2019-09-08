@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace LinkEngine.WorldGen
+namespace LinkEngine
 {
     public class Biome
     {
@@ -23,7 +23,7 @@ namespace LinkEngine.WorldGen
         /// <summary>
         /// All Enemies this biome can contain
         /// </summary>
-        public List<Entities.Enemy> Enemies { get; set; }
+        public List<Enemy> Enemies { get; set; }
 
         /// <summary>
         /// Creates a new world biome using the given parameters
@@ -37,7 +37,7 @@ namespace LinkEngine.WorldGen
             ID = id;
             Name = name;
             AvailableTiles = new List<Tile>();
-            Enemies = new List<Entities.Enemy>();
+            Enemies = new List<Enemy>();
 
             for(int i = 0; i < tileAry.Length; i++)
             {

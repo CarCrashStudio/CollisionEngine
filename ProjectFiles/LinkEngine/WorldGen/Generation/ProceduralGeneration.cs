@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace LinkEngine.WorldGen
+namespace LinkEngine
 {
     public class ProceduralGeneration
     {

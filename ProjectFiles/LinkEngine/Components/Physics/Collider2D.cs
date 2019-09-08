@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 
-namespace LinkEngine.Components
+namespace LinkEngine
 {
     public class Collider2D : Component
     {
@@ -128,7 +128,7 @@ namespace LinkEngine.Components
 
         public Collider2D (int x, int y, int z, int h, int w)
         {
-            Transform = new Components.Transform(x, y, z, h, w);
+            Transform = new Transform(x, y, z, h, w);
         }
     }
 }

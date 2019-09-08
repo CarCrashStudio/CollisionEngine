@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LinkEngine.Components
+namespace LinkEngine
 {
     /// <summary>
     /// The Projectile class holds all information for any projectile object. The projectile class contains a Raycast object that will store the data of the object hit.

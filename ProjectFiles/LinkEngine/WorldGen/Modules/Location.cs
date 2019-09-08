@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using LinkEngine.Components;
-using LinkEngine.Entities;
-namespace LinkEngine.WorldGen
+namespace LinkEngine
 {
     public class Location
     {

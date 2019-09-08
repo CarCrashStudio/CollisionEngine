@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using LinkEngine.Components;
 
 namespace LinkEngine
 {
@@ -22,7 +21,9 @@ namespace LinkEngine
         /// </summary>
         public string Name { get; set; }
 
-        public Vector ScreenPosition { get; set; } 
+        public Vector ScreenPosition { get; set; }
+        
+        public string ImageURL { get; set; }
 
         /// <summary>
         /// Creates a new blank GameObject
@@ -31,7 +32,6 @@ namespace LinkEngine
         {
             Name = "Untitled GameObject";
             Components = new List<Component>();
-            Components.Add(new Transform(0, 0, 0, 0, 0));
         }
         /// <summary>
         /// Creates a new GameObject with the given name
@@ -41,21 +41,17 @@ namespace LinkEngine
         {
             Name = name;
             Components = new List<Component>();
-            Components.Add(new Transform(0, 0, 0, 0, 0));
         }
         /// <summary>
         /// Creates a named GameObject with components already on it
         /// </summary>
         /// <param name="name">The name to reference the GameObject by</param>
         /// <param name="components">The components to start out with as an array</param>
-        public GameObject (string name, Component[] components)
+        public GameObject (string name, params Component[] components)
         {
             Name = name;
             Components = new List<Component>();
-            foreach (Component com in components)
-            {
-                Components.Add(com);
-            }
+            Components.AddRange(components);
         }
     }
 }

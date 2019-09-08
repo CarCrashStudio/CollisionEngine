@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace LinkEngine.Entities
+namespace LinkEngine
 {
     public class Enemy : Entity
     {

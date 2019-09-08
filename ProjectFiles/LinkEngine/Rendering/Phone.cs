@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace LinkEngine.Rendering
+namespace LinkEngine
 {
     public class Phone
     {

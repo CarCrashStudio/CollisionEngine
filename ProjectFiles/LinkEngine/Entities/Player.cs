@@ -1,8 +1,6 @@
-﻿using LinkEngine.Components;
-using LinkEngine.WorldGen;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace LinkEngine.Entities
+namespace LinkEngine
 {
     public class Player : Entity
     {
@@ -40,7 +38,7 @@ namespace LinkEngine.Entities
         /// <param name="maxHealth"></param>
         public Player(int id, string name, int health, int maxHealth) : base (id, name, health, maxHealth)
         {
-            Components.Add(new PlayerController(this));
+            
         }
 
         /// <summary>

@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using LinkEngine.Rendering;
+using LinkEngine;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
 
-namespace LinkEngine.WorldGen
+namespace LinkEngine
 {
     class SetGeneration
     {

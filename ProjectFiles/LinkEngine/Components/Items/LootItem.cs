@@ -1,4 +1,4 @@
-﻿namespace LinkEngine.Components
+﻿namespace LinkEngine
 {
     public class LootItem
     {
