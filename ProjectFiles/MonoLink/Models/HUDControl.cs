@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MonoLink.Models
+namespace MonoLink2D.Models
 {
     public class HUDControl : Sprite
     {

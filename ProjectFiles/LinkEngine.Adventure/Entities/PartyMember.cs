@@ -1,4 +1,4 @@
-﻿namespace LinkEngine.Adventure
+﻿namespace LinkEngine.RPG2D.Entities
 {
     /// <summary>
     /// PartyMember is a class that inherits the Adventurer class. PartyMember can be used in combat.

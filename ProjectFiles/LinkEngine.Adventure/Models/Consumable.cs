@@ -1,5 +1,6 @@
-﻿using System.Reflection;
-namespace LinkEngine.Adventure
+﻿using MonoLink2D.Entities;
+using System.Reflection;
+namespace LinkEngine.RPG2D.Models
 {
     public class Consumable
     {
@@ -15,7 +16,7 @@ namespace LinkEngine.Adventure
             amountToHeal = _amountToHeal;
         }
 
-        public void Use (Entities.Entity Target)
+        public void Use (Entity Target)
         {
             int temp = (int)(Target.GetType().GetProperty(VariableToBuff).GetValue(Target));
             Target.GetType().GetProperty(VariableToBuff).SetValue(Target, temp + amountToHeal, null);

@@ -1,15 +1,23 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Xna.Framework.Graphics;
+using MonoLink2D.Models;
+using System.Collections.Generic;
 
-namespace LinkEngine.Adventure
+namespace LinkEngine.RPG2D.Models
 {
-    public class Item : LinkEngine.Components.Item
+    public class Item : Sprite
     {
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public string NamePlural { get; set; }
         public int Cost { get; set; }
         public List<CraftingItem> Recipe { get; set; }
 
-        public Item(int id, string name, string namePlur, int cost) :
-            base (id,name,namePlur,cost)
+        public Item(int id, string name, string namePlur, int cost, Texture2D texture) :
+            base(texture)
         {
+            ID = id;
+            Name = name;
+            NamePlural = namePlur;
             Cost = cost;
 
             Recipe = new List<CraftingItem>();

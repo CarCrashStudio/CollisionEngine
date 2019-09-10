@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace LinkEngine.Adventure
+namespace LinkEngine.RPG2D.Models
 {
     /// <summary>
     /// Class defines an rpg class type. Class contans base values for the 7 skill traits. 
@@ -40,14 +40,6 @@ namespace LinkEngine.Adventure
         /// Luck is used to calculate Critical Hit chance and Blocking ability
         /// </summary>
         public short Luck { get; set; }
-
-        public List<Modifier> StrengthModifiers { get; set; }
-        public List<Modifier> PerceptionModifiers { get; set; }
-        public List<Modifier> EnduranceModifiers { get; set; }
-        public List<Modifier> CharismaModifiers { get; set; }
-        public List<Modifier> IntelligenceModifiers { get; set; }
-        public List<Modifier> AgilityModifiers { get; set; }
-        public List<Modifier> LuckModifiers { get; set; }
 
         public int HP { get; set; }
         public int Mana { get; set; }

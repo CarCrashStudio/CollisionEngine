@@ -43,11 +43,5 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\LinkEngine.Platformer\LinkEngine.Platformer.csproj">
-      <Project>{051c7789-5d60-4eea-8116-833fb628346f}</Project>
-      <Name>LinkEngine.Platformer</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

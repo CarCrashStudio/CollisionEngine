@@ -1,4 +1,6 @@
-﻿namespace LinkEngine.Adventure
+﻿using MonoLink2D.Models;
+
+namespace LinkEngine.RPG2D.Models
 {
     public class Equipment
     {
@@ -9,7 +11,7 @@
         /// <summary>
         /// Mod will be used to boost a player's skill only while it is equipped
         /// </summary>
-        public Modifier Mod { get; set; }
+        public Attributes Mod { get; set; }
 
         /// <summary>
         /// The index of where this item should go in the player's Equipment list
@@ -27,7 +29,7 @@
         /// <param name="_name"></param>
         /// <param name="_namePlural"></param>
         /// <param name="_cost"></param>
-        public Equipment(Item details, int slot, Modifier mod)
+        public Equipment(Item details, int slot, Attributes mod)
         {
             Details = details;
             Slot = slot;

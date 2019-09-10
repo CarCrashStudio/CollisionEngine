@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MonoLink.Models
+namespace MonoLink2D.Models
 {
     public class Attributes
     {
@@ -17,14 +17,7 @@ namespace MonoLink.Models
         public float CurrentAttackSpeed { get; set; }
 
         public float Speed { get; set; }
-
-        // RPG Modifiers
-        public float Strength { get; set; }
-        public float Dexterity { get; set; }
-        public float Intelligence { get; set; }
-        public float Wisdom { get; set; }
-        public float Constitution { get; set; }
-        public float Charisma { get; set; }
+        public float Reach { get; set; }
 
         public static Attributes operator +(Attributes a, Attributes b)
         {
@@ -36,13 +29,6 @@ namespace MonoLink.Models
                 CurrentExp = a.CurrentExp + b.CurrentExp,
 
                 Speed = a.Speed + b.Speed,
-
-                Strength = a.Strength + b.Strength,
-                Dexterity = a.Dexterity + b.Dexterity,
-                Intelligence = a.Intelligence + b.Intelligence,
-                Wisdom = a.Wisdom + b.Wisdom,
-                Constitution = a.Constitution + b.Constitution,
-                Charisma = a.Charisma + b.Charisma,
             };
         }
         public static Attributes operator -(Attributes a, Attributes b)
@@ -55,13 +41,6 @@ namespace MonoLink.Models
                 CurrentExp = a.CurrentExp - b.CurrentExp,
 
                 Speed = a.Speed - b.Speed,
-
-                Strength = a.Strength - b.Strength,
-                Dexterity = a.Dexterity - b.Dexterity,
-                Intelligence = a.Intelligence - b.Intelligence,
-                Wisdom = a.Wisdom - b.Wisdom,
-                Constitution = a.Constitution - b.Constitution,
-                Charisma = a.Charisma - b.Charisma,
             };
         }
     }

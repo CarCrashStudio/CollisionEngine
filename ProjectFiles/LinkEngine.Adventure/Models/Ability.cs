@@ -1,4 +1,4 @@
-﻿namespace LinkEngine.Adventure
+﻿namespace LinkEngine.RPG2D.Models
 {
     public class Ability
     {

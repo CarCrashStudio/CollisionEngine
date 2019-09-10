@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MonoLink.Models
+namespace MonoLink2D.Models
 {
     /// <summary>
     /// A set of inputs that can be used by the player. This class allows the controls to be rebound.
@@ -17,5 +17,10 @@ namespace MonoLink.Models
         public Keys Down { get; set; }
         public Keys Left { get; set; }
         public Keys Right { get; set; }
+
+        public Keys FaceUp { get; set; }
+        public Keys FaceDown { get; set; }
+        public Keys FaceLeft { get; set; }
+        public Keys FaceRight { get; set; }
     }
 }

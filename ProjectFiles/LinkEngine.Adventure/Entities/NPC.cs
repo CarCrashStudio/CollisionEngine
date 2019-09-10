@@ -1,8 +1,10 @@
-﻿using LinkEngine.Components;
-using LinkEngine.Entities;
+﻿using LinkEngine.RPG2D.Models;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using MonoLink2D.Entities;
 using System.Collections.Generic;
 
-namespace LinkEngine.Adventure
+namespace LinkEngine.RPG2D.Entities
 {
     public class NPC : Entity
     {
@@ -16,16 +18,24 @@ namespace LinkEngine.Adventure
         /// <param name="_name">The Name of the npc</param>
         /// <param name="x">Starting X coordinate, most likely defaults to 0</param>
         /// <param name="y">Starting Y coordinate, most likely defaults to 0</param>
-        public NPC(int _id, string _name, int x, int y, Shop _shopavailablehere) : base(_id, _name, 1, 1)
+        public NPC(int _id, string _name, int x, int y, Shop _shopavailablehere, Texture2D texture, Vector2 pos)
         {
+            Sprite = new MonoLink2D.Models.Sprite(texture)
+            {
+                Position = pos
+            };
             Shop = _shopavailablehere;
         }
         /// <summary>
         /// Creates a copy of an NPC
         /// </summary>
         /// <param name="npc">The npc to copy</param>
-        public NPC(NPC npc) : base (npc.ID, npc.Name, 1,1)
+        public NPC(NPC npc)
         {
+            Sprite = new MonoLink2D.Models.Sprite(npc.Sprite.Texture)
+            {
+                Position = npc.Sprite.Position
+            };
             Shop = npc.Shop;
         }
     }

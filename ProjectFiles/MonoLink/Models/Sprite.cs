@@ -1,14 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MonoLink.Entities;
-using MonoLink.World;
+using MonoLink2D.Entities;
+using MonoLink2D.World;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MonoLink.Models
+namespace MonoLink2D.Models
 {
     public class Sprite : Component
     {
@@ -70,10 +70,7 @@ namespace MonoLink.Models
 
         public override void Update(GameTime gameTime)
         {
-            if (this is Entity)
-            {
-                
-            }
+
         }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {

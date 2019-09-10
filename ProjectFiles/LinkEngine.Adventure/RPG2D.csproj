@@ -7,8 +7,8 @@
     <ProjectGuid>{02A45DF2-0278-4C15-9CA9-888FFA004579}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LinkEngine.Adventure</RootNamespace>
-    <AssemblyName>LinkEngine.Adventure</AssemblyName>
+    <RootNamespace>RPG2D</RootNamespace>
+    <AssemblyName>RPG2D</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -31,6 +31,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MonoGame.Framework, Version=3.8.0.821, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,24 +42,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Ability.cs" />
-    <Compile Include="Adventurer.cs" />
-    <Compile Include="Class.cs" />
-    <Compile Include="Combat.cs" />
-    <Compile Include="Consumable.cs" />
-    <Compile Include="Equipment.cs" />
-    <Compile Include="Item.cs" />
-    <Compile Include="Modifier.cs" />
-    <Compile Include="Monster.cs" />
-    <Compile Include="NPC.cs" />
-    <Compile Include="PartyMember.cs" />
+    <Compile Include="Models\Ability.cs" />
+    <Compile Include="Entities\Adventurer.cs" />
+    <Compile Include="Models\Attributes.cs" />
+    <Compile Include="Models\Class.cs" />
+    <Compile Include="Models\Consumable.cs" />
+    <Compile Include="Helpers.cs" />
+    <Compile Include="Models\Equipment.cs" />
+    <Compile Include="Models\Item.cs" />
+    <Compile Include="Models\Input.cs" />
+    <Compile Include="Entities\Monster.cs" />
+    <Compile Include="Entities\NPC.cs" />
+    <Compile Include="Entities\PartyMember.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Quest.cs" />
+    <Compile Include="Models\Quest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LinkEngine\LinkEngine.csproj">
-      <Project>{63cf1cf9-7d8e-4b8b-825d-442f16dbfaef}</Project>
-      <Name>LinkEngine</Name>
+    <ProjectReference Include="..\MonoLink\MonoLink2D.csproj">
+      <Project>{5ce21f41-9bdf-440f-a7e2-10254e1174bf}</Project>
+      <Name>MonoLink2D</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

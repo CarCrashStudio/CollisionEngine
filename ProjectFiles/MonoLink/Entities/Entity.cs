@@ -1,17 +1,18 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MonoLink.Models;
-using MonoLink.World;
+using MonoLink2D.Models;
+using MonoLink2D.World;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MonoLink.Entities
+namespace MonoLink2D.Entities
 {
-    public class Entity : Sprite
+    public partial class Entity : Component
     {
+        public Sprite Sprite { get; protected set; }
         bool has_attacked = false;
         /// <summary>
         /// These are the types of attributes to only change on level-up
@@ -23,7 +24,7 @@ namespace MonoLink.Entities
         /// </summary>
         public List<Attributes> AttributeModifiers { get; set; }
 
-        public Attributes TotalAttributes
+        public virtual Attributes TotalAttributes
         {
             get
             {
@@ -38,105 +39,118 @@ namespace MonoLink.Entities
         public bool HasAttacked { get { return has_attacked; } set { has_attacked = value; } }
         public bool IsDead { get { return (TotalAttributes.CurrentHP <= 0);  } }
 
-        public Entity(Texture2D texture)
-          : base(texture)
+        public Entity()
         {
+            
         }
 
         protected void check_world_collision(Tile tile)
         {
             if (!tile.Passable)
             {
-                if ((Velocity.X > 0 && IsTouchingLeft(tile)) ||
-                (Velocity.X < 0 && IsTouchingRight(tile)))
-                    Velocity.X = 0;
+                if ((Sprite.Velocity.X > 0 && IsTouchingLeft(tile)) ||
+                (Sprite.Velocity.X < 0 && IsTouchingRight(tile)))
+                    Sprite.Velocity.X = 0;
 
-                if ((Velocity.Y > 0 && IsTouchingTop(tile)) ||
-                    (Velocity.Y < 0 && IsTouchingBottom(tile)))
-                    Velocity.Y = 0;
+                if ((Sprite.Velocity.Y > 0 && IsTouchingTop(tile)) ||
+                    (Sprite.Velocity.Y < 0 && IsTouchingBottom(tile)))
+                    Sprite.Velocity.Y = 0;
             }
 
         }
         protected void check_entity_collision(Entity entity)
         {
             bool coll = false;
-            if ((Velocity.X > 0 && IsTouchingLeft(entity)) ||
-                (Velocity.X < 0 && IsTouchingRight(entity)))
+            if ((Sprite.Velocity.X > 0 && IsTouchingLeft(entity.Sprite)) ||
+                (Sprite.Velocity.X < 0 && IsTouchingRight(entity.Sprite)))
             {
-                Velocity.X = 0;
+                Sprite.Velocity.X = 0;
                 coll = true;
             }
 
-            if ((Velocity.Y > 0 && IsTouchingTop(entity)) ||
-                (Velocity.Y < 0 && IsTouchingBottom(entity)))
+            if ((Sprite.Velocity.Y > 0 && IsTouchingTop(entity.Sprite)) ||
+                (Sprite.Velocity.Y < 0 && IsTouchingBottom(entity.Sprite)))
             {
-                Velocity.Y = 0;
+                Sprite.Velocity.Y = 0;
                 coll = true;
             }
+        }
+        protected void check_entity_collision(Entity entity, ref bool isColliding)
+        {
+            if ((Sprite.Velocity.X > 0 && IsTouchingLeft(entity.Sprite)) ||
+                (Sprite.Velocity.X < 0 && IsTouchingRight(entity.Sprite)))
+            {
+                Sprite.Velocity.X = 0;
+                isColliding = true;
+            }
 
-            if (coll && (GetType() != entity.GetType()))
-                Attack(ref entity);
+            if ((Sprite.Velocity.Y > 0 && IsTouchingTop(entity.Sprite)) ||
+                (Sprite.Velocity.Y < 0 && IsTouchingBottom(entity.Sprite)))
+            {
+                Sprite.Velocity.Y = 0;
+                isColliding = true;
+            }
+        }
+
+        protected bool IsNearLeft(Entity sprite)
+        {
+            return this.Sprite.Hitbox.Right + this.TotalAttributes.Reach > sprite.Sprite.Hitbox.Left &&
+              this.Sprite.Hitbox.Left < sprite.Sprite.Hitbox.Left &&
+              this.Sprite.Hitbox.Bottom > sprite.Sprite.Hitbox.Top &&
+              this.Sprite.Hitbox.Top < sprite.Sprite.Hitbox.Bottom;
+        }
+        protected bool IsNearRight(Entity sprite)
+        {
+            return this.Sprite.Hitbox.Left + this.TotalAttributes.Reach < sprite.Sprite.Hitbox.Right &&
+              this.Sprite.Hitbox.Right > sprite.Sprite.Hitbox.Right &&
+              this.Sprite.Hitbox.Bottom > sprite.Sprite.Hitbox.Top &&
+              this.Sprite.Hitbox.Top < sprite.Sprite.Hitbox.Bottom;
+        }
+        protected bool IsNearTop(Entity sprite)
+        {
+            return this.Sprite.Hitbox.Bottom + this.Sprite.Velocity.Y > sprite.Sprite.Hitbox.Top &&
+              this.Sprite.Hitbox.Top < sprite.Sprite.Hitbox.Top &&
+              this.Sprite.Hitbox.Right > sprite.Sprite.Hitbox.Left &&
+              this.Sprite.Hitbox.Left < sprite.Sprite.Hitbox.Right;
+        }
+        protected bool IsNearBottom(Entity sprite)
+        {
+            return this.Sprite.Hitbox.Top + this.Sprite.Velocity.Y < sprite.Sprite.Hitbox.Bottom &&
+              this.Sprite.Hitbox.Bottom > sprite.Sprite.Hitbox.Bottom &&
+              this.Sprite.Hitbox.Right > sprite.Sprite.Hitbox.Left &&
+              this.Sprite.Hitbox.Left < sprite.Sprite.Hitbox.Right;
         }
 
         protected bool IsTouchingLeft(Sprite sprite)
         {
-            return this.Hitbox.Right + this.Velocity.X > sprite.Hitbox.Left &&
-              this.Hitbox.Left < sprite.Hitbox.Left &&
-              this.Hitbox.Bottom > sprite.Hitbox.Top &&
-              this.Hitbox.Top < sprite.Hitbox.Bottom;
+            return this.Sprite.Hitbox.Right + this.Sprite.Velocity.X > sprite.Hitbox.Left &&
+              this.Sprite.Hitbox.Left < sprite.Hitbox.Left &&
+              this.Sprite.Hitbox.Bottom > sprite.Hitbox.Top &&
+              this.Sprite.Hitbox.Top < sprite.Hitbox.Bottom;
         }
         protected bool IsTouchingRight(Sprite sprite)
         {
-            return this.Hitbox.Left + this.Velocity.X < sprite.Hitbox.Right &&
-              this.Hitbox.Right > sprite.Hitbox.Right &&
-              this.Hitbox.Bottom > sprite.Hitbox.Top &&
-              this.Hitbox.Top < sprite.Hitbox.Bottom;
+            return this.Sprite.Hitbox.Left + this.Sprite.Velocity.X < sprite.Hitbox.Right &&
+              this.Sprite.Hitbox.Right > sprite.Hitbox.Right &&
+              this.Sprite.Hitbox.Bottom > sprite.Hitbox.Top &&
+              this.Sprite.Hitbox.Top < sprite.Hitbox.Bottom;
         }
         protected bool IsTouchingTop(Sprite sprite)
         {
-            return this.Hitbox.Bottom + this.Velocity.Y > sprite.Hitbox.Top &&
-              this.Hitbox.Top < sprite.Hitbox.Top &&
-              this.Hitbox.Right > sprite.Hitbox.Left &&
-              this.Hitbox.Left < sprite.Hitbox.Right;
+            return this.Sprite.Hitbox.Bottom + this.Sprite.Velocity.Y > sprite.Hitbox.Top &&
+              this.Sprite.Hitbox.Top < sprite.Hitbox.Top &&
+              this.Sprite.Hitbox.Right > sprite.Hitbox.Left &&
+              this.Sprite.Hitbox.Left < sprite.Hitbox.Right;
         }
         protected bool IsTouchingBottom(Sprite sprite)
         {
-            return this.Hitbox.Top + this.Velocity.Y < sprite.Hitbox.Bottom &&
-              this.Hitbox.Bottom > sprite.Hitbox.Bottom &&
-              this.Hitbox.Right > sprite.Hitbox.Left &&
-              this.Hitbox.Left < sprite.Hitbox.Right;
+            return this.Sprite.Hitbox.Top + this.Sprite.Velocity.Y < sprite.Hitbox.Bottom &&
+              this.Sprite.Hitbox.Bottom > sprite.Hitbox.Bottom &&
+              this.Sprite.Hitbox.Right > sprite.Hitbox.Left &&
+              this.Sprite.Hitbox.Left < sprite.Hitbox.Right;
         }
 
-        public void Attack(ref Entity entity)
-        {
-            if (!has_attacked)
-            {
-                int min = ((int)TotalAttributes.Strength) - (int)((5 * Math.Round(TotalAttributes.Strength / 100, 2, MidpointRounding.AwayFromZero)) * 100);
-                int max = ((int)TotalAttributes.Strength) + (int)((2 * Math.Round(TotalAttributes.Strength / 100, 2, MidpointRounding.AwayFromZero)) * 100);
-                if (min < 0)
-                    min = 0;
-                int damage = Helpers.Random.Next(min, max);
-                if (damage > 0)
-                {
-                    // add an attribute modifier for the damage taken
-                    // first we want to see if there is already a modifier named 'dmg'
-                    var dmg = (from a in entity.AttributeModifiers where a.Name == "dmg" select a).FirstOrDefault();
-                    if (dmg != null)
-                    {
-                        // we need to remove this damage modifier from the list
-                        entity.AttributeModifiers.Remove(dmg);
-                        // increase the damage of the copy that we created by the value we just calculated
-                        dmg.CurrentHP -= damage;
-                        // add the copy with the new damage back into the attributes
-                        entity.AttributeModifiers.Add(dmg);
-                    }
-                    else entity.AttributeModifiers.Add(new Attributes() { CurrentHP = -damage, Name = "dmg" });
-
-                    // remove the atkspd countdown modifier
-                    has_attacked = true;
-                }
-            }
-        }
+        
         /// <summary>
         /// Changes the position of the player
         /// </summary>
@@ -152,8 +166,42 @@ namespace MonoLink.Entities
                 if (entity != this)
                     check_entity_collision(entity);
 
-            Position += Velocity;
-            Velocity = Vector2.Zero;
+            Sprite.Position += Sprite.Velocity;
+            Sprite.Velocity = Vector2.Zero;
+        }
+        public void Move(IEnumerable<Tile> world, IEnumerable<Entity> entities, ref bool isColliding)
+        {
+            foreach (var tile in world)
+                check_world_collision(tile);
+
+            foreach (var entity in entities)
+                if (entity != this)
+                    check_entity_collision(entity, ref isColliding);
+
+            Sprite.Position += Sprite.Velocity;
+            Sprite.Velocity = Vector2.Zero;
+        }
+
+        public bool IsNear(Entity entity)
+        {
+            if (Sprite.Direction.X > 0)
+                return IsNearLeft(entity);
+            else if (Sprite.Direction.X < 0)
+                return IsNearRight(entity);
+            else if (Sprite.Direction.Y > 0)
+                return IsNearBottom(entity);
+            else if (Sprite.Direction.Y < 0)
+                return IsNearTop(entity);
+            else return false;
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+
+        }
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+
         }
     }
 }

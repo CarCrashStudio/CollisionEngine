@@ -49,10 +49,6 @@
       <Project>{97b856d1-2021-4b34-a308-b46b0bcd8544}</Project>
       <Name>LinkEngine.Physics</Name>
     </ProjectReference>
-    <ProjectReference Include="..\LinkEngine\LinkEngine.csproj">
-      <Project>{63cf1cf9-7d8e-4b8b-825d-442f16dbfaef}</Project>
-      <Name>LinkEngine</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

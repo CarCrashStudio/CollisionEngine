@@ -1,12 +1,12 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
-using MonoLink.Models;
+using MonoLink2D.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MonoLink.World
+namespace MonoLink2D.World
 {
     public class Tile : Sprite
     {

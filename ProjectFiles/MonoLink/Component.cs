@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MonoLink
+namespace MonoLink2D
 {
     public abstract class Component
     {
