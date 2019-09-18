@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace LinkEngine.RPG2D.Entities
 {
-    public class Monster : Enemy
+    public class Monster : Entity
     {
         public short SpawnChance { get; set; }
         public new Attributes BaseAttributes { get; set; }
@@ -29,13 +29,7 @@ namespace LinkEngine.RPG2D.Entities
 
         public override void Update (GameTime gameTime)
         {
-            bool coll = false;
-
-            Follow(gameTime, map, entities, ref coll);
-            if (coll && (GetType() != Target.GetType()))
-                this.Attack(Target);
-
-            base.Update(gameTime);
+            
         }
     }
 }

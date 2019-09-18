@@ -7,8 +7,8 @@
     <ProjectGuid>{02A45DF2-0278-4C15-9CA9-888FFA004579}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RPG2D</RootNamespace>
-    <AssemblyName>RPG2D</AssemblyName>
+    <RootNamespace>LinkEngine.RPG2D</RootNamespace>
+    <AssemblyName>LinkEngine.RPG2D</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Entity.cs" />
     <Compile Include="Models\Ability.cs" />
     <Compile Include="Entities\Adventurer.cs" />
     <Compile Include="Models\Attributes.cs" />

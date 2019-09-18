@@ -1,15 +1,22 @@
-﻿namespace LinkEngine.RPG2D.Entities
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using MonoLink2D.World;
+using System.Collections.Generic;
+
+namespace LinkEngine.RPG2D.Entities
 {
-    /// <summary>
-    /// PartyMember is a class that inherits the Adventurer class. PartyMember can be used in combat.
-    /// </summary>
-    public class PartyMember
+    public class PartyMember : Entity
     {
-        public Adventurer Details { get; set; }
-        
-        public PartyMember(Adventurer details)
+        public PartyMember(Texture2D texture, Vector2 pos, Entity target, float follow_distance) :
+            base(texture,pos)
         {
-            Details = details;
+            FollowTarget = target;
+            FollowDistance = follow_distance;
+        }
+        public override void Update(GameTime gameTime)
+        {
+            Follow();
+            base.Update(gameTime);
         }
     }
 }

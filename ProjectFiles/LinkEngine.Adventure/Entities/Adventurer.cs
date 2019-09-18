@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework.Graphics;
 using MonoLink2D;
-using MonoLink2D.Entities;
 using LinkEngine.RPG2D.Models;
 using Microsoft.Xna.Framework;
 
@@ -12,7 +11,7 @@ namespace LinkEngine.RPG2D.Entities
     /// <summary>
     /// Character is the class that holds all the needed data for the player to use.
     /// </summary>
-    public class Adventurer : Player
+    public class Adventurer : Entity
     {
         /// <summary>
         /// Invenotry is a list of all items the player has collected this game
@@ -29,17 +28,7 @@ namespace LinkEngine.RPG2D.Entities
 
         public new Input Input { get; set; }
 
-        public new Attributes BaseAttributes { get; set; }
-        public new IEnumerable<Attributes> AttributeModifiers { get; set; }
-        public new Attributes TotalAttributes
-        {
-            get
-            {
-                return BaseAttributes + AttributeModifiers.Sum();
-            }
-        }
-
-        public new bool IsDead { get { return TotalAttributes.CurrentHP <= 0; } }
+        
         public int Gold { get; set; }
 
         /// <summary>

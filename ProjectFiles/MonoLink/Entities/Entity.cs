@@ -92,35 +92,6 @@ namespace MonoLink2D.Entities
             }
         }
 
-        protected bool IsNearLeft(Entity sprite)
-        {
-            return this.Sprite.Hitbox.Right + this.TotalAttributes.Reach > sprite.Sprite.Hitbox.Left &&
-              this.Sprite.Hitbox.Left < sprite.Sprite.Hitbox.Left &&
-              this.Sprite.Hitbox.Bottom > sprite.Sprite.Hitbox.Top &&
-              this.Sprite.Hitbox.Top < sprite.Sprite.Hitbox.Bottom;
-        }
-        protected bool IsNearRight(Entity sprite)
-        {
-            return this.Sprite.Hitbox.Left + this.TotalAttributes.Reach < sprite.Sprite.Hitbox.Right &&
-              this.Sprite.Hitbox.Right > sprite.Sprite.Hitbox.Right &&
-              this.Sprite.Hitbox.Bottom > sprite.Sprite.Hitbox.Top &&
-              this.Sprite.Hitbox.Top < sprite.Sprite.Hitbox.Bottom;
-        }
-        protected bool IsNearTop(Entity sprite)
-        {
-            return this.Sprite.Hitbox.Bottom + this.Sprite.Velocity.Y > sprite.Sprite.Hitbox.Top &&
-              this.Sprite.Hitbox.Top < sprite.Sprite.Hitbox.Top &&
-              this.Sprite.Hitbox.Right > sprite.Sprite.Hitbox.Left &&
-              this.Sprite.Hitbox.Left < sprite.Sprite.Hitbox.Right;
-        }
-        protected bool IsNearBottom(Entity sprite)
-        {
-            return this.Sprite.Hitbox.Top + this.Sprite.Velocity.Y < sprite.Sprite.Hitbox.Bottom &&
-              this.Sprite.Hitbox.Bottom > sprite.Sprite.Hitbox.Bottom &&
-              this.Sprite.Hitbox.Right > sprite.Sprite.Hitbox.Left &&
-              this.Sprite.Hitbox.Left < sprite.Sprite.Hitbox.Right;
-        }
-
         protected bool IsTouchingLeft(Sprite sprite)
         {
             return this.Sprite.Hitbox.Right + this.Sprite.Velocity.X > sprite.Hitbox.Left &&
@@ -149,7 +120,6 @@ namespace MonoLink2D.Entities
               this.Sprite.Hitbox.Right > sprite.Hitbox.Left &&
               this.Sprite.Hitbox.Left < sprite.Hitbox.Right;
         }
-
         
         /// <summary>
         /// Changes the position of the player
@@ -182,18 +152,7 @@ namespace MonoLink2D.Entities
             Sprite.Velocity = Vector2.Zero;
         }
 
-        public bool IsNear(Entity entity)
-        {
-            if (Sprite.Direction.X > 0)
-                return IsNearLeft(entity);
-            else if (Sprite.Direction.X < 0)
-                return IsNearRight(entity);
-            else if (Sprite.Direction.Y > 0)
-                return IsNearBottom(entity);
-            else if (Sprite.Direction.Y < 0)
-                return IsNearTop(entity);
-            else return false;
-        }
+        
 
         public override void Update(GameTime gameTime)
         {
