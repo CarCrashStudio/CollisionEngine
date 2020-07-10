@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Collision2D.WorldGeneration</id>
+    <version>1.0.2</version>
+    <authors>ThinkLink99</authors>
+    <owners>Car Krash Studios</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A collection of tools that can be used to build a world map</description>
+    <releaseNotes>Fixed Dungeon generation breaking when no instance of a Door is found</releaseNotes>
+    <copyright>Copyright 2019</copyright>
+    <dependencies>
+      <dependency id="MonoGame.Framework.DesktopGL" version="1.0" />
+      <dependency id="Collision2D.Utils" version="1.1.1" />
+    </dependencies>
+  </metadata>
+</package>
