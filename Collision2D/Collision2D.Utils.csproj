@@ -68,6 +68,7 @@
     <Compile Include="Models\Attributes.cs" />
     <Compile Include="Models\Input.cs" />
     <Compile Include="Models\Writable.cs" />
+    <Compile Include="Physics\Collider2D.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\State.cs" />
     <Compile Include="World\Tile.cs" />
