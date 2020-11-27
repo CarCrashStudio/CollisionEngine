@@ -35,9 +35,11 @@
     </Reference>
     <Reference Include="UnityEditor">
       <HintPath>..\..\..\..\..\..\Program Files\Unity\Hub\Editor\2020.1.9f1\Editor\Data\Managed\UnityEngine\UnityEditor.dll</HintPath>
+      <Private>true</Private>
     </Reference>
     <Reference Include="UnityEngine">
       <HintPath>..\..\..\..\..\..\Program Files\Unity\Hub\Editor\2020.1.9f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
+      <Private>true</Private>
     </Reference>
     <Reference Include="UnityEngine.AccessibilityModule">
       <HintPath>..\..\..\..\..\..\Program Files\Unity\Hub\Editor\2020.1.9f1\Editor\Data\Managed\UnityEngine\UnityEngine.AccessibilityModule.dll</HintPath>

@@ -1,14 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using CarKrash.Collision.Unity2D.ScriptableObjects;
+using CarKrash.Collision.Utils;
 
 namespace CarKrash.Collision.Unity2D
 {
     public class Enemy : Entity
     {
         public string enemyName;
-        public LootTable lootTable;
+        public ScriptableObjects.LootTable lootTable;
 
         // the radius in which the player needs to be within for the enemy to "wake up"
         [SerializeField] private float awakeRadius = 2f;
@@ -31,9 +31,9 @@ namespace CarKrash.Collision.Unity2D
         private void Awake()
         {
             inventory = GetComponent<Inventory>();
-            GameEvents.onPlayerPositionChange += GameEvents_onPlayerPositionChange;
+            //GameEvents.onPlayerPositionChange += GameEvents_onPlayerPositionChange;
             animator.SetBool("sleeping", true);
-            inventory.AddEquipment(GameManager.Items.Db[0] as Weapon);
+            //inventory.AddEquipment(GameManager.Items.Db[0] as Weapon);
         }
 
         private void GameEvents_onPlayerPositionChange(float x, float y)
@@ -87,7 +87,7 @@ namespace CarKrash.Collision.Unity2D
             {
                 if (inventory.equipment[(int)EquipmentSlotType.MAINHAND] != null)
                 {
-                    ((Weapon)inventory.equipment[(int)EquipmentSlotType.MAINHAND]).Attack(this, animator, meleePoint, meleePointDistanceFromPlayer, playerLayer);
+                    //((Weapon)inventory.equipment[(int)EquipmentSlotType.MAINHAND]).Attack(this, animator, meleePoint, meleePointDistanceFromPlayer, playerLayer);
                 }
             }
 

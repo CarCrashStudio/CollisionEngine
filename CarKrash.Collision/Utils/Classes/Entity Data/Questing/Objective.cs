@@ -35,7 +35,7 @@ namespace CarKrash.Collision.Utils
         {
             isCompleted = true;
 
-            GameEvents.ObjectiveCompleted(this);
+            //GameEvents.ObjectiveCompleted(this);
         }
     }
 }

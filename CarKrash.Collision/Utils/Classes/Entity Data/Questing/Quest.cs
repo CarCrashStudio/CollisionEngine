@@ -25,7 +25,7 @@ namespace CarKrash.Collision.Utils
             this.rewardTable = rewardTable;
             this.rewardExp = rewardExp;
 
-            GameEvents.onObjectiveCompleted += onObjectiveCompleted;
+            //GameEvents.onObjectiveCompleted += onObjectiveCompleted;
 
             if (rewardTable == null) { return; }
             rewardItem = rewardTable.GetLoot();
@@ -40,7 +40,7 @@ namespace CarKrash.Collision.Utils
 
             this.objectives = objectives;
 
-            GameEvents.onObjectiveCompleted += onObjectiveCompleted;
+            //GameEvents.onObjectiveCompleted += onObjectiveCompleted;
 
             if (rewardTable == null) { return; }
             rewardItem = rewardTable.GetLoot();
@@ -69,7 +69,7 @@ namespace CarKrash.Collision.Utils
         private void Complete()
         {
             completed = true;
-            GameEvents.QuestCompleted(this);
+            //GameEvents.QuestCompleted(this);
         }
     }
 }

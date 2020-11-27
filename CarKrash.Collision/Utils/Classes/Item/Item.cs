@@ -41,7 +41,7 @@ namespace CarKrash.Collision.Utils
             this.name = name;
             this.description = description;
             this.isDiscovered = isDiscovered;
-            this.rarity = GameManager.Rarities.Db.Where(r => r.Name == rarityName).FirstOrDefault();
+            //this.rarity = GameManager.Rarities.Db.Where(r => r.Name == rarityName).FirstOrDefault();
         }
 
         public virtual void Use()

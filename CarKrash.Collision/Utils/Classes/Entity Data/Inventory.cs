@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using CarKrash.Collision.Utils;
 namespace CarKrash.Collision.Unity2D
 {
     public class Inventory : MonoBehaviour
@@ -24,7 +25,7 @@ namespace CarKrash.Collision.Unity2D
             equipment = new Equipment[equipmentSize];
 
 
-            AddEquipment(GameManager.Items.Db[0] as Weapon);
+            //AddEquipment(GameManager.Items.Db[0] as Weapon);
             //AddInventoryItem(GameManager.Items.Db[1], 1, 1);
             //AddInventoryItem(GameManager.Items.Db[2], 1, 2);
         }
@@ -55,21 +56,21 @@ namespace CarKrash.Collision.Unity2D
             }
 
             //Debug.Log(totalAdditionalModifiers.ToString());
-            entity.attributes.equipmentModifiers = totalAdditionalModifiers;
+            entity.Attributes.equipmentModifiers = totalAdditionalModifiers;
 
             // Update the attributes of this entity
-            entity.attributes.Update();
+            entity.Attributes.Update();
         }
 
         public void AddEquipment(Equipment equipment)
         {
             this.equipment[(int)equipment.Slot] = equipment;
-            GameEvents.ChangesMade();
+            //GameEvents.ChangesMade();
         }
         public void RemoveEquipment(Equipment equipment)
         {
             this.equipment[(int)equipment.Slot] = null;
-            GameEvents.ChangesMade();
+            //GameEvents.ChangesMade();
         }
 
         public void AddInventoryItem(Item item, int quantity = 1, int slotIndex = 0)
@@ -85,7 +86,7 @@ namespace CarKrash.Collision.Unity2D
             {
                 inventory[slotIndex] = new InventoryItem(item, quantity, slotIndex, canvas);
             }
-            GameEvents.ChangesMade();
+            //GameEvents.ChangesMade();
         }
         public void AddInventoryItem(InventoryItem inventoryItem, int slotIndex = 0)
         {
@@ -100,7 +101,7 @@ namespace CarKrash.Collision.Unity2D
             {
                 inventory[slotIndex] = inventoryItem;
             }
-            GameEvents.ChangesMade();
+            //GameEvents.ChangesMade();
         }
         public void AddInventoryItem(InventoryItem inventoryItem)
         {
@@ -120,7 +121,7 @@ namespace CarKrash.Collision.Unity2D
                     break;
                 }
             }
-            GameEvents.ChangesMade();
+            //GameEvents.ChangesMade();
         }
 
         public void RemoveInventoryItem(Item item, int quantity, int slotIndex)
@@ -129,7 +130,7 @@ namespace CarKrash.Collision.Unity2D
             {
                 inventory[slotIndex] = null;
             }
-            GameEvents.ChangesMade();
+            //GameEvents.ChangesMade();
         }
     }
 }

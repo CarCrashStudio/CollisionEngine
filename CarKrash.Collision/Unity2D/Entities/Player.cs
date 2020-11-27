@@ -44,7 +44,7 @@ namespace CarKrash.Collision.Unity2D
             velocity.y = Input.GetAxisRaw("Vertical");
 
             moveEntity(velocity);
-            if (velocity != Vector2.zero) { GameEvents.PlayerPositionChange(transform.position.x, transform.position.y); }
+            //if (velocity != Vector2.zero) { GameEvents.PlayerPositionChange(transform.position.x, transform.position.y); }
 
             #endregion
             base.Update();

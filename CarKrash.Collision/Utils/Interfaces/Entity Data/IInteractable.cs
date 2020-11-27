@@ -8,8 +8,8 @@ namespace CarKrash.Collision.Utils
     {
         bool Entered { get; }
         bool Active { get; }
-        void OnInteractableEnter(IInteracter interacter);
-        void OnInteractableExit(IInteracter interacter);
+        void OnInteractableEnter(IInteracter<T> interacter);
+        void OnInteractableExit(IInteracter<T> interacter);
 
         void Interact(T interacter);
     }

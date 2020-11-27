@@ -53,8 +53,8 @@ namespace CarKrash.Collision.Utils
 
             if (isDrinkable)
             {
-                ApplyBuff(
-                    GameObject.FindObjectOfType<Entity>());
+                //ApplyBuff(
+                    //GameObject.FindObjectOfType<Utils.Entity>());
             }
 
             //cooldownManager.PutOnCooldown(this);

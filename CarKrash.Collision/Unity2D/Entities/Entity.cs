@@ -15,7 +15,7 @@ namespace CarKrash.Collision.Unity2D
         [SerializeField] protected byte level = 1;
         [SerializeField] protected private float meleePointDistanceFromPlayer = 10f;
 
-        private float speed = 4f;
+        protected float speed = 4f;
         private EntityState currentState;
         private Attributes attributes;
         private int defense = 0;

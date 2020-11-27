@@ -7,7 +7,7 @@ namespace CarKrash.Collision.Unity2D.ScriptableObjects
     [System.Serializable]
     public class Loot
     {
-        public InventoryItem item;
+        public Utils.InventoryItem item;
         [Range(0, 1)]
         public float lootChance;
     }
@@ -17,7 +17,7 @@ namespace CarKrash.Collision.Unity2D.ScriptableObjects
     {
         public Loot[] loots;
 
-        public InventoryItem GetLoot()
+        public Utils.InventoryItem GetLoot()
         {
             float currentChance = Random.Range(0, 1), lootChance = 0;
             for (int i = 0; i < loots.Length; i++)
