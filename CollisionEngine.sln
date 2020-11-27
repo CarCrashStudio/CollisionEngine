@@ -3,16 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29409.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Collision2D.Utils", "Collision2D\Collision2D.Utils.csproj", "{5CE21F41-9BDF-440F-A7E2-10254E1174BF}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Collision2D.RPG", "Collision2D.RPG\Collision2D.RPG.csproj", "{02A45DF2-0278-4C15-9CA9-888FFA004579}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Collision2D.WorldGeneration", "Collision2D.ProceduralGeneration\Collision2D.WorldGeneration.csproj", "{4A1B6B8C-B2CA-4B04-8A2C-7822A5E1E762}"
-	ProjectSection(ProjectDependencies) = postProject
-		{5CE21F41-9BDF-440F-A7E2-10254E1174BF} = {5CE21F41-9BDF-440F-A7E2-10254E1174BF}
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EditorApplication", "EditorApplication\EditorApplication.csproj", "{F81C2E58-EEEB-4EF7-AE6E-DF522F02EBC0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarKrash.Collision", "CarKrash.Collision\CarKrash.Collision.csproj", "{EC8DC3E8-968C-430A-A618-A6AC04D45F02}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,22 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5CE21F41-9BDF-440F-A7E2-10254E1174BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5CE21F41-9BDF-440F-A7E2-10254E1174BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5CE21F41-9BDF-440F-A7E2-10254E1174BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5CE21F41-9BDF-440F-A7E2-10254E1174BF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{02A45DF2-0278-4C15-9CA9-888FFA004579}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{02A45DF2-0278-4C15-9CA9-888FFA004579}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{02A45DF2-0278-4C15-9CA9-888FFA004579}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{02A45DF2-0278-4C15-9CA9-888FFA004579}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4A1B6B8C-B2CA-4B04-8A2C-7822A5E1E762}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4A1B6B8C-B2CA-4B04-8A2C-7822A5E1E762}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4A1B6B8C-B2CA-4B04-8A2C-7822A5E1E762}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4A1B6B8C-B2CA-4B04-8A2C-7822A5E1E762}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F81C2E58-EEEB-4EF7-AE6E-DF522F02EBC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F81C2E58-EEEB-4EF7-AE6E-DF522F02EBC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F81C2E58-EEEB-4EF7-AE6E-DF522F02EBC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F81C2E58-EEEB-4EF7-AE6E-DF522F02EBC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC8DC3E8-968C-430A-A618-A6AC04D45F02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC8DC3E8-968C-430A-A618-A6AC04D45F02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC8DC3E8-968C-430A-A618-A6AC04D45F02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC8DC3E8-968C-430A-A618-A6AC04D45F02}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,21 +23,12 @@ Global
 		SolutionGuid = {ED959F1B-EDBF-471D-B3E8-012B464611FC}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 5
+		SccNumberOfProjects = 2
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://dev.azure.com/carkrashstudios
 		SccLocalPath0 = .
-		SccProjectUniqueName1 = Collision2D.ProceduralGeneration\\Collision2D.WorldGeneration.csproj
-		SccProjectName1 = Collision2D.ProceduralGeneration
-		SccLocalPath1 = Collision2D.ProceduralGeneration
-		SccProjectUniqueName2 = Collision2D.RPG\\Collision2D.RPG.csproj
-		SccProjectName2 = Collision2D.RPG
-		SccLocalPath2 = Collision2D.RPG
-		SccProjectUniqueName3 = Collision2D\\Collision2D.Utils.csproj
-		SccProjectName3 = Collision2D
-		SccLocalPath3 = Collision2D
-		SccProjectUniqueName4 = EditorApplication\\EditorApplication.csproj
-		SccProjectName4 = EditorApplication
-		SccLocalPath4 = EditorApplication
+		SccProjectUniqueName1 = CarKrash.Collision\\CarKrash.Collision.csproj
+		SccProjectName1 = CarKrash.Collision
+		SccLocalPath1 = CarKrash.Collision
 	EndGlobalSection
 EndGlobal
